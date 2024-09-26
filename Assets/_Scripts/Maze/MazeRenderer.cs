@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using Unity.AI.Navigation;
 
 public class MazeRenderer : MonoBehaviour
 {
@@ -33,13 +34,13 @@ public class MazeRenderer : MonoBehaviour
             print("Current Children: " + transform.childCount);
 
         }
-        
+        GetComponent<NavMeshSurface>().BuildNavMesh();
         instantiatedRooms.Clear(); // remove all rooms from dictionary
     }
 
     public void GenerateMaze()
     {
-        if (transform.childCount > 0) return;
+        if (transform.childCount > 0) DestroyChildren();
         
         while (transform.childCount > 0)
         {
@@ -99,6 +100,8 @@ public class MazeRenderer : MonoBehaviour
                 mazeCell.Init(top, bottom, right, left, roomTile, maze[x, y].roomType);
             }
         }
+        
+        GetComponent<NavMeshSurface>().BuildNavMesh();
     }
 
 }
