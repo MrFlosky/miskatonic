@@ -12,6 +12,8 @@ public class MazeGenerator : MonoBehaviour {
     [Range(0, 10)] public int roomCount = 1;
     [Range(2,20)] public int roomXSizeMin, roomXSizeMax, roomYSizeMin, roomYSizeMax = 5;
     Vector2Int currentCell;                             // The maze cell we are currently looking at.
+
+    private List<string> _roomTypes;                     // all the room types
     
     public MazeCell[,] GetMaze() 
     {
@@ -28,6 +30,25 @@ public class MazeGenerator : MonoBehaviour {
 
         // Start carving our maze path.
         CarvePath(startX, startY);
+        
+        // create all roomtypes
+        _roomTypes = new List<string> {
+            "Dining Hall",
+            "Library",
+            "Ballroom",
+            "Study",
+            "Lounge",
+            "Kitchen",
+            "Conservatory",
+            "Billiard Room",
+            "Hall",
+            "Observatory",
+            "Cellar",
+            "Music Room",
+            "Trophy Room",
+            "Garden",
+            "Parlor"
+        };
         
         for (int i = 0; i < roomCount; i++)
         {
@@ -76,7 +97,7 @@ public class MazeGenerator : MonoBehaviour {
     bool IsRoomValid (int x, int y) {
     
             // If the cell is outside of the map or has already been visited, we consider it not valid.
-            if (x < 0 || y < 0 || x > mazeWidth - 1 || y > mazeHeight - 1 || maze[x, y].roomTile) return false;
+            if (x < 0 || y < 0 || x > mazeWidth - 1 || y > mazeHeight - 1 || maze[x, y].roomTile || maze[x, y].outsideTile) return false;
             else return true;
     
         }
@@ -207,12 +228,12 @@ public class MazeGenerator : MonoBehaviour {
 
         int farBottomY = startY - Mathf.RoundToInt(yLength / 2);
         int farTopY = startY + Mathf.RoundToInt(yLength / 2) - 1;
-        
-        
+
+        bool success = true;
         int tries = 0;
         while (tries < 10)
         {
-            bool success = true;
+            success = true;
             for (int x = farLeftX; x < farRightX + 1; x++)
             {
                 for (int y = farBottomY; y < farTopY + 1; y++)
@@ -240,17 +261,26 @@ public class MazeGenerator : MonoBehaviour {
             
             tries++;
         }
+        if (!success) return;
         
+        // set all tiles within random range and 1 out as outsideTiles
+        // loop through x,y in random range
         for (int x = farLeftX - 1; x < farRightX + 2; x++)
         {
             for (int y = farBottomY - 1; y < farTopY + 2; y++)
             {
+                // if this cant become a new room, move onto next
                 if (!IsRoomValid(x, y)) continue;
+                // set this tile as an outside tile
                 maze[x,y].outsideTile = true;
             }
             
         }
         
+        
+        var rnd = Random.Range(0, _roomTypes.Count);       // Get random room type index in list.
+        
+        // loop through x,y in random range
         for (int x = farLeftX; x < farRightX + 1; x++)
         {
             for (int y = farBottomY; y < farTopY + 1; y++)
@@ -283,8 +313,12 @@ public class MazeGenerator : MonoBehaviour {
                     //print(y + " is the far bottom");
                 }
                 maze[x,y].roomTile = true;
+                
+                maze[x, y].roomType = _roomTypes[rnd];             // Add the room title
             }
         }
+        
+        _roomTypes.RemoveAt(rnd);   // after setting all the tiles, destroy 
     }
     
 }
@@ -304,6 +338,8 @@ public class MazeCell {
     public bool roomTile;
     public bool outsideTile;
     public int x, y;
+
+    public string roomType = "Hallway"; // default roomtype
 
     public bool topWall;
     public bool bottomWall;

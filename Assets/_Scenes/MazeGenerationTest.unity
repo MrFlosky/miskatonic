@@ -302,7 +302,7 @@ Transform:
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 10, y: 20, z: 10}
+  m_LocalPosition: {x: 15, y: 30, z: 15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -339,8 +339,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mazeGenerator: {fileID: 1864427691}
-  MazeCellPrefab: {fileID: 7997579413770395666, guid: 62b0f520e25efe3499a00d06ad4e93bc, type: 3}
-  CellSize: 1
+  MazeCellPrefab: {fileID: 7997579413770395666, guid: 6b97e9eff3e7578419ce4161490f99df, type: 3}
+  CellSize: 4
 --- !u!114 &1864427691
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -353,15 +353,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c89c400da72d9f941b2dfa5fa06c7007, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mazeWidth: 30
-  mazeHeight: 30
+  mazeWidth: 20
+  mazeHeight: 20
   startX: 0
   startY: 0
   roomCount: 6
-  roomXSizeMin: 3
+  roomXSizeMin: 5
   roomXSizeMax: 5
-  roomYSizeMin: 3
-  roomYSizeMax: 7
+  roomYSizeMin: 5
+  roomYSizeMax: 5
 --- !u!4 &1864427692
 Transform:
   m_ObjectHideFlags: 0
