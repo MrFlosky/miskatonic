@@ -315,13 +315,42 @@ public class MazeGenerator : MonoBehaviour {
                 maze[x,y].roomTile = true;
                 
                 maze[x, y].roomType = _roomTypes[rnd];             // Add the room title
+
+                
             }
+        }
+        
+        // Check and create entrances on each wall if it's not on the maze edge
+        if (farLeftX > 0) // Ensure it's not on the left edge of the maze
+        {
+            int entranceY = (farBottomY + farTopY) / 2; // Find middle of the left wall
+            maze[farLeftX, entranceY].leftWall = false; // Remove the wall for entrance
+        }
+
+        if (farRightX < mazeWidth - 1) // Ensure it's not on the right edge of the maze
+        {
+            int entranceY = (farBottomY + farTopY) / 2; // Find middle of the right wall
+            maze[farRightX, entranceY].rightWall = false; // Remove the wall for entrance
+        }
+
+        if (farBottomY > 0) // Ensure it's not on the bottom edge of the maze
+        {
+            int entranceX = (farLeftX + farRightX) / 2; // Find middle of the bottom wall
+            maze[entranceX, farBottomY].bottomWall = false; // Remove the wall for entrance
+        }
+
+        if (farTopY < mazeHeight - 1) // Ensure it's not on the top edge of the maze
+        {
+            int entranceX = (farLeftX + farRightX) / 2; // Find middle of the top wall
+            maze[entranceX, farTopY].topWall = false; // Remove the wall for entrance
         }
         
         _roomTypes.RemoveAt(rnd);   // after setting all the tiles, destroy 
     }
     
 }
+
+
 
 public enum Direction {
 

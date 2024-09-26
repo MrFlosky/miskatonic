@@ -32,6 +32,5 @@ public class MazeCellObject : MonoBehaviour
         bottomWall.GetComponent<MeshRenderer>().material = roomWallMaterial;
         rightWall.GetComponent<MeshRenderer>().material = roomWallMaterial;
         leftWall.GetComponent<MeshRenderer>().material = roomWallMaterial;
-
     }
 }
