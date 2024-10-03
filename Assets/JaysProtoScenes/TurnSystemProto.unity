@@ -127,7 +127,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2875423007499563510, guid: 54bc7d1ace99aae42abb9b4958ee5d03, type: 3}
   m_PrefabInstance: {fileID: 2573095778818894095}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2573095778818894096}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe9c141415abfbf4e8a46404e37dff1d, type: 3}
@@ -7022,92 +7022,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5116353369935650754, guid: 54bc7d1ace99aae42abb9b4958ee5d03, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2573095778818894097}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 54bc7d1ace99aae42abb9b4958ee5d03, type: 3}
---- !u!1 &2573095778818894096 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5116353369935650754, guid: 54bc7d1ace99aae42abb9b4958ee5d03, type: 3}
-  m_PrefabInstance: {fileID: 2573095778818894095}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2573095778818894097
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2573095778818894096}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f917d4dc2deea8a47a14a291d1e3524e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  turnEvents:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1746943188}
-        m_TargetAssemblyTypeName: UnityEngine.ParticleSystem, UnityEngine
-        m_MethodName: Play
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 481290793}
-        m_TargetAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
-        m_MethodName: set_text
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: AI TURN!
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1632087216}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: ENEMY TURN!
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1891209463}
-        m_TargetAssemblyTypeName: SkillsCollection, Assembly-CSharp
-        m_MethodName: HIDE_SKILLS
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: ENEMY TURN!
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1891209466}
-        m_TargetAssemblyTypeName: SkillSystem, Assembly-CSharp
-        m_MethodName: HIDE_PTS
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: ENEMY TURN!
-          m_BoolArgument: 0
-        m_CallState: 2
-  delayUntilNext: 5
 --- !u!1001 &6623241735859457695
 PrefabInstance:
   m_ObjectHideFlags: 0
