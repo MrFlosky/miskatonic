@@ -38,11 +38,20 @@ public class Skill : MonoBehaviour
         
     }
 
+
+    /// <summary>
+    /// Every skill can only be activated if the player has enough points.
+    /// Upon activation, deduct its cost and invoke any event associated with
+    /// this class. i.e. calls that should happen with all skills.
+    /// </summary>
     public virtual void ActivateSkill()
     {
+        if(SkillSystem.GET_PTS() >= ptDeduction)
+        {
         SkillSystem.DEDUCT_PT(ptDeduction);
         skillEvent.Invoke();
         //Stuff that happens when skill is activated!
+        }
     }
 
 

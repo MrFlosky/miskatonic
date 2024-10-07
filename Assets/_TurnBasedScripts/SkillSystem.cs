@@ -75,5 +75,10 @@ public class SkillSystem : MonoBehaviour
         return S.mainCam;
     }
 
+    static public int GET_PTS()
+    {
+        return S.availiblePts;
+    }
+
 
 }
