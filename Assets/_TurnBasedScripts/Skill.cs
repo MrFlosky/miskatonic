@@ -38,7 +38,7 @@ public class Skill : MonoBehaviour
         
     }
 
-    public void ActivateSkill()
+    public virtual void ActivateSkill()
     {
         SkillSystem.DEDUCT_PT(ptDeduction);
         skillEvent.Invoke();
