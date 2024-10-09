@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-using Unity.AI.Navigation;
 
 public class MazeRenderer : MonoBehaviour
 {
@@ -16,10 +15,20 @@ public class MazeRenderer : MonoBehaviour
     // This the physical size of our maze cells. Getting this wrong will result in overlapping
     // or visible gaps between each cell.
     public float CellSize = 1f;
+    
+    private MazeCell[,] maze;
+    
+    // Event to notify maze completion
+    public event System.Action OnMazeGenerated;
 
     private void Start()
     {
         GenerateMaze();
+    }
+
+    public MazeCell[,] GetMaze()
+    {
+        return maze;
     }
 
     public void DestroyChildren()
@@ -34,7 +43,6 @@ public class MazeRenderer : MonoBehaviour
             print("Current Children: " + transform.childCount);
 
         }
-        GetComponent<NavMeshSurface>().BuildNavMesh();
         instantiatedRooms.Clear(); // remove all rooms from dictionary
     }
 
@@ -53,8 +61,10 @@ public class MazeRenderer : MonoBehaviour
 
         }
         // Get our MazeGenerator script to make us a maze.
-        MazeCell[,] maze = mazeGenerator.GetMaze();
+        maze = mazeGenerator.GetMaze();
 
+        
+        
         // Loop through every cell in the maze.
         for (int x = 0; x < mazeGenerator.mazeWidth; x++)
         {
@@ -100,8 +110,7 @@ public class MazeRenderer : MonoBehaviour
                 mazeCell.Init(top, bottom, right, left, roomTile, maze[x, y].roomType);
             }
         }
-        
-        GetComponent<NavMeshSurface>().BuildNavMesh();
+        OnMazeGenerated?.Invoke();
     }
 
 }
