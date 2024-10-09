@@ -88,7 +88,7 @@ public class MazeRenderer : MonoBehaviour
                     new Vector3((float)x * CellSize, 0f, (float)y * CellSize), Quaternion.identity, instantiatedRooms[roomType]);
                 
                 newCell.name = roomType + "[" + x + ", " + y + "]";
-                
+                                                                                    // NAME SET HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 // Get a reference to the cell's MazeCellPrefab script.
                 MazeCellObject mazeCell = newCell.GetComponent<MazeCellObject>();
 

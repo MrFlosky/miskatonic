@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 
 public class MazeCellObject : MonoBehaviour
@@ -10,8 +11,8 @@ public class MazeCellObject : MonoBehaviour
     [SerializeField] GameObject leftWall;
     [SerializeField] GameObject floor;
     
-    [SerializeField] Material roomFloorMaterial;
-    [SerializeField] Material roomWallMaterial;
+    [SerializeField] public Material roomFloorMaterial; // I set these to public to be accessed by room swap
+    [SerializeField] public Material roomWallMaterial;
 
     public string roomType = "Hallway";
     public void Init(bool top, bool bottom, bool right, bool left, bool roomTile, string roomType)
@@ -27,6 +28,20 @@ public class MazeCellObject : MonoBehaviour
         
         this.roomType = roomType;
         
+        floor.GetComponent<MeshRenderer>().material = roomFloorMaterial;
+        topWall.GetComponent<MeshRenderer>().material = roomWallMaterial;
+        bottomWall.GetComponent<MeshRenderer>().material = roomWallMaterial;
+        rightWall.GetComponent<MeshRenderer>().material = roomWallMaterial;
+        leftWall.GetComponent<MeshRenderer>().material = roomWallMaterial;
+
+    }
+
+    /// <summary>
+    /// Resets this cell objects material to any new set by other scripts.
+    /// Used by swap rooms.
+    /// </summary>
+    public void RefreshMaterial()
+    {
         floor.GetComponent<MeshRenderer>().material = roomFloorMaterial;
         topWall.GetComponent<MeshRenderer>().material = roomWallMaterial;
         bottomWall.GetComponent<MeshRenderer>().material = roomWallMaterial;

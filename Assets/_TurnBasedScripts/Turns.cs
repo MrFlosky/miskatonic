@@ -46,6 +46,7 @@ public class Turns : MonoBehaviour
 
     /// <summary>
     /// Initiates given next turn, to be used in each turn type.
+    /// Note: this may be better suited in collection class.
     /// </summary>
     /// <param name="tt">
     /// Type of turn to initiate.

@@ -19,6 +19,9 @@ public class SkillSystem : MonoBehaviour
     /// The text that holds current points
     public TextMeshProUGUI txt;
 
+    /// Camera used for detecting clicks. Defaults to main in scene.
+    public Camera mainCam;
+
     /// The number of availible points the player has. Public for proto
     [Header("Number of availible points the player has")]
     public int availiblePts = 3;
@@ -27,6 +30,11 @@ public class SkillSystem : MonoBehaviour
     {
         S = this;
         DISPLAY_PTS(); ///*** DEBUG
+
+        if (mainCam == null)
+        {
+            mainCam = Camera.main; // Use main camera if none specified
+        }
     }
 
     static public void DEDUCT_PT(int deduction)
@@ -62,6 +70,15 @@ public class SkillSystem : MonoBehaviour
         S.txt.gameObject.SetActive(false);
     }
 
+    static public Camera GET_CAM()
+    {
+        return S.mainCam;
+    }
+
+    static public int GET_PTS()
+    {
+        return S.availiblePts;
+    }
 
 
 }
