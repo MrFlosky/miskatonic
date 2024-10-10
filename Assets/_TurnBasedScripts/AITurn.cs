@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class AITurn : Turns
 {
-
-
     // Start is called before the first frame update
     void Start()
     {
@@ -30,8 +28,6 @@ public class AITurn : Turns
 
     public override void InitiateTurn()
     {
-
-
         timeElapsed = 0;
         this.enabled = true;
 

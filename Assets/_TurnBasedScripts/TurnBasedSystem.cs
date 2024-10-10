@@ -15,6 +15,8 @@ public enum TurnType{Player, AI, Event, NeverSet};
 public class TurnBasedSystem : MonoBehaviour
 {
     static private TurnBasedSystem S;
+    
+    static public TurnType currentTurn;
 
     ///***DEBUG
     public TextMeshProUGUI txt;
@@ -39,12 +41,21 @@ public class TurnBasedSystem : MonoBehaviour
     {
         S = this;
         S.txt.text = "Total Turns: " + S.totalTurnCount + "\n" + "Player Turns: " + S.playerTurnCount + "\n" + "AI Turns: " + S.aiTurnCount; ///***DEBUG
+        currentTurn = TurnType.Player;
     }
 
     // Update is called once per frame
     void Update()
     {
-      
+      Debug.Log(IsAITurn());
+    }
+    
+    static public bool IsAITurn() {
+        return currentTurn == TurnType.AI;
+    }
+    
+    static public bool IsPlayerTurn() {
+        return currentTurn == TurnType.Player;
     }
 
     /// <summary>
@@ -60,13 +71,17 @@ public class TurnBasedSystem : MonoBehaviour
     static public int GET_TURN_COUNT(TurnType tt = TurnType.NeverSet) // must be set to static to be used as singleton function in other classes.
     {
 
-            switch(tt)
+        switch(tt)
         {
             case TurnType.Player:
-            return S.playerTurnCount;
+            {
+                return S.playerTurnCount;
+            }
 
             case TurnType.AI:
-            return S.aiTurnCount;
+            {
+                return S.aiTurnCount;
+            }
 
             case TurnType.Event:
             return S.eventTurnCount;
@@ -91,11 +106,13 @@ public class TurnBasedSystem : MonoBehaviour
         switch(tt)
         {
             case TurnType.Player:
+            currentTurn = TurnType.Player;
             S.playerTurnCount ++;
             Debug.Log("LETS GO");
             break;
 
             case TurnType.AI:
+            currentTurn = TurnType.AI;
             S.aiTurnCount ++;
             break;
 

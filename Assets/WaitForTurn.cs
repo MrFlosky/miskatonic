@@ -15,7 +15,7 @@ public class WaitForTurn : ActionNode
 
     protected override State OnUpdate() {
         // Check if it's the player's turn (assuming you have a GameManager managing turns)
-        if (GameManager.Instance.IsPlayerTurn()) {
+        if (TurnBasedSystem.IsPlayerTurn()) {
             return State.Running; // Keep waiting while it's the player's turn
         } else {
             return State.Success; // Proceed when it's the agent's turn

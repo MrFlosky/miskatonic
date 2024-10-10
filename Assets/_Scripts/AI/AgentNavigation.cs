@@ -583,6 +583,6 @@ public class AgentNavigation : MonoBehaviour
     }
     
     public bool IsAITurn() {
-        return GameManager.Instance.IsAITurn();  // Assumes there's a turn manager handling this
+        return TurnBasedSystem.IsAITurn();  // Assumes there's a turn manager handling this
     }
 }
