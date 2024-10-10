@@ -21748,6 +21748,7 @@ GameObject:
   - component: {fileID: 189492974}
   - component: {fileID: 189492973}
   - component: {fileID: 189492972}
+  - component: {fileID: 189492978}
   m_Layer: 0
   m_Name: Agent
   m_TagString: AI
@@ -21876,6 +21877,20 @@ Transform:
   - {fileID: 39461726}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &189492978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 189492971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db457baa3aec82a408ee7c7299b920d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentFear: 10
+  fearThreshold: 20
 --- !u!1 &189619438
 GameObject:
   m_ObjectHideFlags: 0
@@ -43801,17 +43816,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentIDCounter: 14
-  json: "{\"Options\":[{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":8}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":393.3,\"yPos\":111},\"ID\":5,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"*Intensify
+  json: "{\"Options\":[{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":8}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":393.299957,\"yPos\":111},\"ID\":5,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"*Intensify
     the lights around him*\",\"parentUIDs\":[0],\"SpeechUID\":-1},{\"Connections\":[{\"__type\":\"EditableSpeechConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":7}],\"EditorInfo\":{\"isRoot\":false,\"xPos\":-109.700012,\"yPos\":148},\"ID\":6,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Your
     glasses are on the floor to the right\",\"parentUIDs\":[0],\"SpeechUID\":-1},{\"Connections\":[],\"EditorInfo\":{\"isRoot\":false,\"xPos\":-105.200012,\"yPos\":98},\"ID\":12,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"*Say
     nothing, let him figure it out*\",\"parentUIDs\":[0],\"SpeechUID\":-1},{\"Connections\":[],\"EditorInfo\":{\"isRoot\":false,\"xPos\":-108.200012,\"yPos\":198},\"ID\":13,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Where
     are you? What is this place?\",\"parentUIDs\":[0],\"SpeechUID\":-1}],\"Parameters\":[],\"SpeechNodes\":[{\"Connections\":[{\"__type\":\"EditableOptionConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":5},{\"__type\":\"EditableOptionConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":6},{\"__type\":\"EditableOptionConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":12},{\"__type\":\"EditableOptionConnection:#DialogueEditor\",\"Conditions\":[],\"NodeUID\":13}],\"EditorInfo\":{\"isRoot\":true,\"xPos\":137.299988,\"yPos\":22},\"ID\":0,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"\u201CGod
     damn\u2026 My head.\u201D He puts his fingers to his temples before looking up
     from the ground. \u201CI can\u2019t see anything.\u201D\",\"parentUIDs\":[],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Harold
-    Auden\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[],\"EditorInfo\":{\"isRoot\":false,\"xPos\":-10.7000122,\"yPos\":280},\"ID\":7,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Harold
+    Auden\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[],\"EditorInfo\":{\"isRoot\":false,\"xPos\":-10.7000122,\"yPos\":280.000183},\"ID\":7,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"Harold
     feels around on the floor. After a couple of minutes, he finds his glasses and
     wipes them on his shirt before putting them on. \",\"parentUIDs\":[6],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Harold
-    Auden \",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[],\"EditorInfo\":{\"isRoot\":false,\"xPos\":325.3,\"yPos\":239},\"ID\":8,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"The
+    Auden \",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0},{\"Connections\":[],\"EditorInfo\":{\"isRoot\":false,\"xPos\":325.3,\"yPos\":239.0001},\"ID\":8,\"ParamActions\":[],\"TMPFontGUID\":null,\"Text\":\"The
     lights are dim before bursting like white flame into the room. Dr. Auden groans
     in pain and sits there covering his eyes until he can feel the sting go away.\",\"parentUIDs\":[5],\"AdvanceDialogueAutomatically\":false,\"AudioGUID\":null,\"AutoAdvanceShouldDisplayOption\":false,\"IconGUID\":null,\"Name\":\"Harold
     Auden\",\"OptionUIDs\":null,\"SpeechUID\":0,\"TimeUntilAdvance\":0,\"Volume\":0}]}"
@@ -43836,26 +43851,14 @@ MonoBehaviour:
   Event:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1782567278}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: EndTurn
-        m_Mode: 1
+      - m_Target: {fileID: 189492978}
+        m_TargetAssemblyTypeName: Fear, Assembly-CSharp
+        m_MethodName: ReduceFear
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
+          m_IntArgument: 10
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -60647,6 +60650,18 @@ PrefabInstance:
       value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 3058111679451380818, guid: 258613a3680e6444fad35e0b8f6f428d, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.7778
+      objectReference: {fileID: 0}
+    - target: {fileID: 3058111679451380818, guid: 258613a3680e6444fad35e0b8f6f428d, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.7778
+      objectReference: {fileID: 0}
+    - target: {fileID: 3058111679451380818, guid: 258613a3680e6444fad35e0b8f6f428d, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.7778
+      objectReference: {fileID: 0}
+    - target: {fileID: 3058111679451380818, guid: 258613a3680e6444fad35e0b8f6f428d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -60680,7 +60695,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3058111679451380818, guid: 258613a3680e6444fad35e0b8f6f428d, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -197
+      value: -445
       objectReference: {fileID: 0}
     - target: {fileID: 3058111679451380818, guid: 258613a3680e6444fad35e0b8f6f428d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -162150,7 +162165,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Event:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 189492978}
+        m_TargetAssemblyTypeName: Fear, Assembly-CSharp
+        m_MethodName: ReduceFear
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 10
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   NodeID: 6
   TMPFont: {fileID: 0}
   Icon: {fileID: 0}
@@ -162169,7 +162196,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Event:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 189492978}
+        m_TargetAssemblyTypeName: Fear, Assembly-CSharp
+        m_MethodName: AddFear
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 10
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   NodeID: 5
   TMPFont: {fileID: 0}
   Icon: {fileID: 0}

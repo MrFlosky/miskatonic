@@ -26,7 +26,7 @@ public class FearMeter : MonoBehaviour
         timeElapsed += Time.deltaTime;
         slid.value = Mathf.Lerp(slid.value, totalFear, timeElapsed * sliderSpeed);
 
-        if(slid.value >= totalFear)
+        if(slid.value == totalFear)
         {
             this.enabled = false;
         }
