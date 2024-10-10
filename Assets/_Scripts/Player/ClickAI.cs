@@ -51,15 +51,6 @@ public class ClickAI : MonoBehaviour
                 }
             }
         }
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            playerCam.enabled = true;
-            ConversationManager.Instance.EndConversation();
-            activeCamera.gameObject.SetActive(false); // Enable the GameObject if it's disabled
-            activeCamera.enabled = false; // Enable the CinemachineVirtualCamera component
-            
-            activeCamera = playerCam;
-        }
     }
 
     public void EndConversation()
