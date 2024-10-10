@@ -7,6 +7,8 @@ using UnityEngine.InputSystem.HID;
 
 public class ClickAI : MonoBehaviour
 {
+    public static ClickAI Instance;
+    
     public Camera mainCamera; // Reference to the camera, if null defaults to main camera
     public CinemachineVirtualCamera playerCam;
     public CinemachineVirtualCamera activeCamera;
@@ -19,6 +21,10 @@ public class ClickAI : MonoBehaviour
         }
 
         activeCamera = playerCam;
+    }
+    
+    private void Awake() {
+        Instance = this;
     }
 
     private void Update()
@@ -54,6 +60,16 @@ public class ClickAI : MonoBehaviour
             
             activeCamera = playerCam;
         }
+    }
+
+    public void EndConversation()
+    {
+        playerCam.enabled = true;
+        ConversationManager.Instance.EndConversation();
+        activeCamera.gameObject.SetActive(false); // Enable the GameObject if it's disabled
+        activeCamera.enabled = false; // Enable the CinemachineVirtualCamera component
+            
+        activeCamera = playerCam;
     }
     
 }

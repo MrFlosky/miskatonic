@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour {
     public void EndTurn() {
         if (currentTurn == Turn.Player) {
             currentTurn = Turn.AI;
+            ClickAI.Instance.EndConversation();
         } else {
             currentTurn = Turn.Player;
         }
