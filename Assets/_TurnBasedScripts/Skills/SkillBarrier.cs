@@ -27,9 +27,6 @@ public class SkillBarrier : Skill
                     Transform cellHit = hit.transform.parent; // The single cell
                     Debug.Log(cellHit.name);
                     GetPossibleBarrierWalls(cellHit);
-                    
-
-                    
                 }
             }
         }
@@ -47,7 +44,7 @@ public class SkillBarrier : Skill
                 inactiveWalls[i] = child.gameObject;
                 //Debug.Log(child.name);
             }
-           i++;
+            i++;
         }
 
         return inactiveWalls;
