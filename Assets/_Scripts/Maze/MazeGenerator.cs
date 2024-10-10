@@ -1,9 +1,15 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class MazeGenerator : MonoBehaviour {
 
+    
+    public static MazeGenerator Instance;
+    
     [Range(5, 500)]
     public int mazeWidth = 5, mazeHeight = 5;           // The dimensions of the maze.
     public int startX, startY;                          // The position our algorithm will start from.
@@ -15,6 +21,14 @@ public class MazeGenerator : MonoBehaviour {
 
     private List<string> _roomTypes;                     // all the room types
     
+    
+    public List<Room> rooms = new List<Room>();
+
+    private void Start()
+    {
+        Instance = this;
+    }
+
     public MazeCell[,] GetMaze() 
     {
         
@@ -59,19 +73,19 @@ public class MazeGenerator : MonoBehaviour {
 
     }
 
-    List<Direction> directions = new List<Direction> {
+    List<Directions> directions = new List<Directions> {
  
-        Direction.Up, Direction.Down, Direction.Left, Direction.Right,
+        Directions.Up, Directions.Down, Directions.Left, Directions.Right,
     
     };
 
-    List<Direction> GetRandomDirections() {
+    List<Directions> GetRandomDirections() {
 
         // Make a copy of our directions list that we can mess around with.
-        List<Direction> dir = new List<Direction>(directions);
+        List<Directions> dir = new List<Directions>(directions);
 
         // Make a directions list to put our randomised directions into.
-        List<Direction> rndDir = new List<Direction>();
+        List<Directions> rndDir = new List<Directions>();
 
         while (dir.Count > 0) {                         // Loop until our rndDir list is empty.
 
@@ -104,7 +118,7 @@ public class MazeGenerator : MonoBehaviour {
 
     Vector2Int CheckNeighbours() {
 
-        List<Direction> rndDir = GetRandomDirections();
+        List<Directions> rndDir = GetRandomDirections();
 
         for (int i = 0; i < rndDir.Count; i++) {
 
@@ -114,16 +128,16 @@ public class MazeGenerator : MonoBehaviour {
             // Modify neighbour coordinates based on the random directions we're currently trying.
             switch (rndDir[i]) {
 
-                case Direction.Up:
+                case Directions.Up:
                     neighbour.y++;
                     break;
-                case Direction.Down:
+                case Directions.Down:
                     neighbour.y--;
                     break;
-                case Direction.Right:
+                case Directions.Right:
                     neighbour.x++;
                     break;
-                case Direction.Left:
+                case Directions.Left:
                     neighbour.x--;
                     break;
             }
@@ -224,10 +238,10 @@ public class MazeGenerator : MonoBehaviour {
         int startY = Random.Range(Mathf.RoundToInt(yLength / 2), mazeHeight - Mathf.RoundToInt(yLength / 2));
 
         int farLeftX = startX - Mathf.RoundToInt(xLength / 2);
-        int farRightX = startX + Mathf.RoundToInt(xLength / 2) - 1;
+        int farRightX = startX + Mathf.CeilToInt(xLength / 2);
 
         int farBottomY = startY - Mathf.RoundToInt(yLength / 2);
-        int farTopY = startY + Mathf.RoundToInt(yLength / 2) - 1;
+        int farTopY = startY + Mathf.CeilToInt(yLength / 2);
 
         bool success = true;
         int tries = 0;
@@ -254,14 +268,18 @@ public class MazeGenerator : MonoBehaviour {
             startY = Random.Range(Mathf.RoundToInt(yLength / 2), mazeHeight - Mathf.RoundToInt(yLength / 2));
 
             farLeftX = startX - Mathf.RoundToInt(xLength / 2);
-            farRightX = startX + Mathf.RoundToInt(xLength / 2) - 1;
+            farRightX = startX + Mathf.CeilToInt(xLength / 2);
 
             farBottomY = startY - Mathf.RoundToInt(yLength / 2);
-            farTopY = startY + Mathf.RoundToInt(yLength / 2) - 1;
+            farTopY = startY + Mathf.CeilToInt(yLength / 2);
             
             tries++;
         }
         if (!success) return;
+
+        var rnd = Random.Range(0, _roomTypes.Count);       // Get random room type index in list.
+        
+        Room newRoom = new Room(_roomTypes[rnd]);
         
         // set all tiles within random range and 1 out as outsideTiles
         // loop through x,y in random range
@@ -277,8 +295,6 @@ public class MazeGenerator : MonoBehaviour {
             
         }
         
-        
-        var rnd = Random.Range(0, _roomTypes.Count);       // Get random room type index in list.
         
         // loop through x,y in random range
         for (int x = farLeftX; x < farRightX + 1; x++)
@@ -314,8 +330,11 @@ public class MazeGenerator : MonoBehaviour {
                 }
                 maze[x,y].roomTile = true;
                 
+                newRoom.AddTile(maze[x,y].position);
+                
+                maze[x,y].room = newRoom;
+                
                 maze[x, y].roomType = _roomTypes[rnd];             // Add the room title
-
                 
             }
         }
@@ -325,34 +344,40 @@ public class MazeGenerator : MonoBehaviour {
         {
             int entranceY = (farBottomY + farTopY) / 2; // Find middle of the left wall
             maze[farLeftX, entranceY].leftWall = false; // Remove the wall for entrance
+            maze[farLeftX-1, entranceY].rightWall = false; // Remove the wall for entrance
         }
 
         if (farRightX < mazeWidth - 1) // Ensure it's not on the right edge of the maze
         {
             int entranceY = (farBottomY + farTopY) / 2; // Find middle of the right wall
             maze[farRightX, entranceY].rightWall = false; // Remove the wall for entrance
+            maze[farRightX+1, entranceY].leftWall = false; // Remove the wall for entrance
         }
 
         if (farBottomY > 0) // Ensure it's not on the bottom edge of the maze
         {
             int entranceX = (farLeftX + farRightX) / 2; // Find middle of the bottom wall
             maze[entranceX, farBottomY].bottomWall = false; // Remove the wall for entrance
+            maze[entranceX, farBottomY-1].topWall = false; // Remove the wall for entrance
         }
 
         if (farTopY < mazeHeight - 1) // Ensure it's not on the top edge of the maze
         {
             int entranceX = (farLeftX + farRightX) / 2; // Find middle of the top wall
             maze[entranceX, farTopY].topWall = false; // Remove the wall for entrance
+            maze[entranceX, farTopY+1].bottomWall = false; // Remove the wall for entrance
         }
         
         _roomTypes.RemoveAt(rnd);   // after setting all the tiles, destroy 
+        
+        rooms.Add(newRoom);
     }
     
 }
 
 
 
-public enum Direction {
+public enum Directions {
 
     Up,
     Down,
@@ -367,6 +392,8 @@ public class MazeCell {
     public bool roomTile;
     public bool outsideTile;
     public int x, y;
+
+    public Room room;
 
     public string roomType = "Hallway"; // default roomtype
 
@@ -401,5 +428,20 @@ public class MazeCell {
         
         bottomWall = rightWall = false;
 
+    }
+}
+
+
+public class Room {
+    public List<Vector2Int> tilesInRoom;
+    public string roomType;
+
+    public Room(string roomType) {
+        this.roomType = roomType;
+        tilesInRoom = new List<Vector2Int>();
+    }
+
+    public void AddTile(Vector2Int tilePosition) {
+        tilesInRoom.Add(tilePosition);
     }
 }
