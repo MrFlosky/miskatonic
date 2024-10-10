@@ -1,12 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class ClickToMove : MonoBehaviour
 {
     public Camera mainCamera; // Reference to the camera, if null defaults to main camera
-    public MazeRenderer mazeRenderer; // Reference to the GridAgentNavigation script
+    public MazeRenderer mazeRenderer; // Reference to the MazeRenderer script
     public AgentNavigation agent; // Reference to the AgentNavigation script
     private float CellSize = 1.0f; // Size of the grid cells (e.g., 1 for 1x1, 2 for 2x2)
 
@@ -38,19 +37,20 @@ public class ClickToMove : MonoBehaviour
             Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
-            // Perform a raycast to find the clicked position on the NavMesh
+            // Perform a raycast to find the clicked position on the ground
             if (Physics.Raycast(ray, out hit))
             {
                 // Get the center of the grid cell closest to the hit point
                 Vector3 targetPosition = GetGridCenter(hit.point);
 
-                // Set the destination of the grid agent
-                agent.SetDestination(new Vector3(targetPosition.x, 0.5f, targetPosition.z));
+                // Convert the target position to grid coordinates
+                Vector2Int gridCoordinates = WorldToGridPosition(targetPosition);
+
+                // Stop the agent's movement and set the new destination
+                agent.SetDestination(gridCoordinates);
             }
         }
     }
-    
-    
 
     // Calculate the center of the grid cell
     private Vector3 GetGridCenter(Vector3 position)
@@ -58,6 +58,16 @@ public class ClickToMove : MonoBehaviour
         float gridX = Mathf.Round(position.x / CellSize) * CellSize;
         float gridZ = Mathf.Round(position.z / CellSize) * CellSize;
 
-        return new Vector3(gridX, position.y, gridZ);
+        // Use the agent's mazeHeight to set the y-position
+        return new Vector3(gridX, agent.mazeHeight, gridZ);
+    }
+
+    // Convert a world position to grid coordinates (Vector2Int)
+    private Vector2Int WorldToGridPosition(Vector3 worldPosition)
+    {
+        int gridX = Mathf.RoundToInt(worldPosition.x / CellSize);
+        int gridZ = Mathf.RoundToInt(worldPosition.z / CellSize);
+
+        return new Vector2Int(gridX, gridZ);
     }
 }

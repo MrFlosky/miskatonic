@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-using Unity.AI.Navigation;
 
 public class MazeRenderer : MonoBehaviour
 {
-
+    public static MazeRenderer Instance;
+    
     [SerializeField] MazeGenerator mazeGenerator;
     [SerializeField] GameObject MazeCellPrefab;
     
@@ -16,25 +16,35 @@ public class MazeRenderer : MonoBehaviour
     // This the physical size of our maze cells. Getting this wrong will result in overlapping
     // or visible gaps between each cell.
     public float CellSize = 1f;
+    
+    private MazeCell[,] maze;
+    
+    // Event to notify maze completion
+    public event System.Action OnMazeGenerated;
 
     private void Start()
     {
+        Instance = this;
         GenerateMaze();
+    }
+
+    public MazeCell[,] GetMaze()
+    {
+        return maze;
     }
 
     public void DestroyChildren()
     {
         while (transform.childCount > 0)
         {
-            print("Current Children: " + transform.childCount);
+            //print("Current Children: " + transform.childCount);
             foreach (Transform child in transform)
             {
                 DestroyImmediate(child.gameObject);
             }
-            print("Current Children: " + transform.childCount);
+            //print("Current Children: " + transform.childCount);
 
         }
-        GetComponent<NavMeshSurface>().BuildNavMesh();
         instantiatedRooms.Clear(); // remove all rooms from dictionary
     }
 
@@ -53,8 +63,10 @@ public class MazeRenderer : MonoBehaviour
 
         }
         // Get our MazeGenerator script to make us a maze.
-        MazeCell[,] maze = mazeGenerator.GetMaze();
+        maze = mazeGenerator.GetMaze();
 
+        
+        
         // Loop through every cell in the maze.
         for (int x = 0; x < mazeGenerator.mazeWidth; x++)
         {
@@ -78,7 +90,7 @@ public class MazeRenderer : MonoBehaviour
                     new Vector3((float)x * CellSize, 0f, (float)y * CellSize), Quaternion.identity, instantiatedRooms[roomType]);
                 
                 newCell.name = roomType + "[" + x + ", " + y + "]";
-                
+                                                                                    // NAME SET HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 // Get a reference to the cell's MazeCellPrefab script.
                 MazeCellObject mazeCell = newCell.GetComponent<MazeCellObject>();
 
@@ -100,8 +112,7 @@ public class MazeRenderer : MonoBehaviour
                 mazeCell.Init(top, bottom, right, left, roomTile, maze[x, y].roomType);
             }
         }
-        
-        GetComponent<NavMeshSurface>().BuildNavMesh();
+        OnMazeGenerated?.Invoke();
     }
 
 }
