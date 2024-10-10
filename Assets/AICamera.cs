@@ -3,40 +3,39 @@ using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
 using DialogueEditor;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class AICamera : MonoBehaviour
 {
-    private CinemachineBrain brain;
-
+    [SerializeField] private CinemachineBrain brain;
     [SerializeField] private NPCConversation _conversation;
+    [SerializeField] private GameObject _canvas;
+
+    private bool isWaitingForBlend = false;
+
     private void Awake()
     {
-        brain = Camera.main.GetComponent<CinemachineBrain>();
+        if (Camera.main != null) brain = Camera.main.GetComponent<CinemachineBrain>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        if (brain.IsBlending)
+        // Start checking for blend completion only if the blend is in progress
+        if (!isWaitingForBlend && brain.IsBlending)
         {
-            foreach (Transform child in transform)
-            {
-                child.gameObject.SetActive(false); // Disable each child GameObject
-            }
+            isWaitingForBlend = true; // Start tracking the blend
         }
-        else
+
+        // After blending is done, enable the canvas and start the dialogue
+        if (isWaitingForBlend && !brain.IsBlending)
         {
-            foreach (Transform child in transform)
-            {
-                child.gameObject.SetActive(true); // enable each child GameObject
-            }
-            if (ConversationManager.Instance == null) return;
-                
-            if (ConversationManager.Instance.IsConversationActive == false)
-            {
-                ConversationManager.Instance.StartConversation(_conversation);
-            }
+            ConversationManager.Instance.StartConversation(_conversation);
+
+            // Reset the flag to ensure it only triggers once per blend
+            isWaitingForBlend = false;
         }
+        
     }
+    
 }

@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class MazeRenderer : MonoBehaviour
 {
-
+    public static MazeRenderer Instance;
+    
     [SerializeField] MazeGenerator mazeGenerator;
     [SerializeField] GameObject MazeCellPrefab;
     
@@ -23,6 +24,7 @@ public class MazeRenderer : MonoBehaviour
 
     private void Start()
     {
+        Instance = this;
         GenerateMaze();
     }
 
@@ -35,12 +37,12 @@ public class MazeRenderer : MonoBehaviour
     {
         while (transform.childCount > 0)
         {
-            print("Current Children: " + transform.childCount);
+            //print("Current Children: " + transform.childCount);
             foreach (Transform child in transform)
             {
                 DestroyImmediate(child.gameObject);
             }
-            print("Current Children: " + transform.childCount);
+            //print("Current Children: " + transform.childCount);
 
         }
         instantiatedRooms.Clear(); // remove all rooms from dictionary
