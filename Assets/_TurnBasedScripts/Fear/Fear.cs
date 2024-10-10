@@ -5,7 +5,7 @@ using UnityEngine;
 public class Fear : MonoBehaviour
 {
 
-    public int currentFear = 5;
+    public int currentFear = 10;
     public int fearThreshold = 20;
     string weakness;
     // Start is called before the first frame update

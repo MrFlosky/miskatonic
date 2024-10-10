@@ -31,6 +31,9 @@ public class TurnBasedSystem : MonoBehaviour
     [Header("Number of rounds until player defeat.")]
     public int roundsUntilDefeat = 10;
 
+    /// List of items to destroy after x turns
+    List<DestroyAfterRounds> destroyablesList = new List<DestroyAfterRounds>();
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -109,6 +112,12 @@ public class TurnBasedSystem : MonoBehaviour
 
         S.txt.text = "Total Turns: " + S.totalTurnCount + "\n" + "Player Turns: " + S.playerTurnCount + "\n" + "AI Turns: " + S.aiTurnCount;
 
+        // Each round added, check if any destroyable need be destroyed.
+        foreach(DestroyAfterRounds destroyable in S.destroyablesList)
+        {
+            destroyable.CheckDestroy();
+        }
+
     }
 
     /// <summary>
@@ -122,5 +131,30 @@ public class TurnBasedSystem : MonoBehaviour
             Destroy(S.gameObject); ///*** DEBUG
         }
     }
+
+
+    // This is super cool! Right now it destroys, but can make it so it deactivates.
+    public class DestroyAfterRounds
+    {
+        int destroyOnRound;
+        GameObject obToDestroy;
+        public DestroyAfterRounds(int rounds, GameObject obj)
+        {
+            this.destroyOnRound = rounds + S.playerTurnCount;
+            this.obToDestroy = obj;
+            Debug.Log(obj.name);
+            S.destroyablesList.Add(this);
+        }
+
+        public void CheckDestroy()
+        {
+            if(destroyOnRound == S.playerTurnCount)
+            {
+                Destroy(obToDestroy);
+
+            }
+        }
+    }
+
 
 }
