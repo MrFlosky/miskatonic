@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
 using UnityEngine;
+using UnityEngine.InputSystem.HID;
 
 public class ClickAI : MonoBehaviour
 {
@@ -35,6 +36,7 @@ public class ClickAI : MonoBehaviour
                     var virtualCam = hit.collider.GetComponentInChildren<CinemachineVirtualCamera>(true); // Pass 'true' to include inactive objects
                     if (virtualCam != null)
                     {
+                        hit.collider.GetComponentInChildren<AICamera>().enabled = true;
                         virtualCam.gameObject.SetActive(true); // Enable the GameObject if it's disabled
                         virtualCam.enabled = true; // Enable the CinemachineVirtualCamera component
                     }
@@ -46,7 +48,7 @@ public class ClickAI : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             playerCam.enabled = true;
-            
+            activeCamera.GetComponent<AICamera>().enabled = false;
             activeCamera.GetComponentInChildren<Canvas>().gameObject.SetActive(false);
             
             activeCamera.gameObject.SetActive(false); // Enable the GameObject if it's disabled

@@ -8,6 +8,8 @@ using UnityEngine;
 public class AICamera : MonoBehaviour
 {
     private CinemachineBrain brain;
+
+    [SerializeField] private NPCConversation _conversation;
     private void Awake()
     {
         brain = Camera.main.GetComponent<CinemachineBrain>();
@@ -28,10 +30,12 @@ public class AICamera : MonoBehaviour
             foreach (Transform child in transform)
             {
                 child.gameObject.SetActive(true); // enable each child GameObject
-                if (ConversationManager.Instance.IsConversationActive == false)
-                {
-                    ConversationManager.Instance.StartConversation();
-                }
+            }
+            if (ConversationManager.Instance == null) return;
+                
+            if (ConversationManager.Instance.IsConversationActive == false)
+            {
+                ConversationManager.Instance.StartConversation(_conversation);
             }
         }
     }
