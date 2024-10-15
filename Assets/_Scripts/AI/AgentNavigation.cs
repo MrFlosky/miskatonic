@@ -11,21 +11,26 @@ public class AgentNavigation : MonoBehaviour
     private float CellSize;
     
     public float speed = 3.5f; // Movement speed
-    public Vector3 destination;
     
     public float mazeHeight = 0.5f; // Y offset to maintain height on the maze
 
-    private List<MazeCell> path = new List<MazeCell>();
+    public List<MazeCell> path = new List<MazeCell>();
+    private List<MazeCell> storedPath = new List<MazeCell>(); // Store the cleared path
+    
     private bool isMoving = false;
+
+    public bool hasStop = false;
+    public bool hasDestination = false;
     
     private Stack<Vector2Int> pathHistory = new Stack<Vector2Int>();
 
-    [SerializeField] private int distance = 10;
+    [SerializeField] private int distance = 40;
     
     private List<Room> visitedRooms = new List<Room>();
     
     private Dictionary<Vector2Int, int> visitCount = new Dictionary<Vector2Int, int>();
-
+    
+    public Vector3 destination;
     
     private void Start()
     {
@@ -46,7 +51,6 @@ public class AgentNavigation : MonoBehaviour
         FollowPath();
         
         if (visitedRooms.Count == 0) {
-            Debug.Log("No rooms visited yet.");
             return;
         }
 
@@ -65,23 +69,50 @@ public class AgentNavigation : MonoBehaviour
         Debug.Log("Visited Rooms: " + roomInfo);
     }
 
-    public void SetDestination(Vector2Int target)
-    {
+    public void SetDestination(Vector2Int target) {
+        hasDestination = true;
+
+        // Check if there is a stored path to restore
+        if (storedPath.Count > 0) {
+            Debug.Log("Restoring previous path.");
+            RestorePath(); // Restore the previously stored path
+            return; // Exit the method since we're following the restored path
+        }
+
         // Stop any current movement
         StopMovement();
 
         // Recalculate the agent's grid position
         Vector2Int currentPosition = WorldToGridPosition(transform.position);
         pathHistory.Push(currentPosition);
-        
-        // Find path from the current position to the target
+
+        // Find a path from the current position to the target
         Vector2Int start = currentPosition;
         path = FindPath(start, target);
 
-        if (path.Count > 0)
-        {
-            isMoving = true;
-            destination = GetWorldPosition(path[0].position);
+        if (path.Count > 0) {
+            isMoving = true;  // Start moving toward the target
+            destination = GetWorldPosition(path[0].position);  // Set the first destination in the path
+        }
+    }
+    
+    public void SetRoomDestination(Vector2Int target) {
+        hasStop = true;
+
+        // Stop any current movement
+        StopMovement();
+
+        // Recalculate the agent's grid position
+        Vector2Int currentPosition = WorldToGridPosition(transform.position);
+        pathHistory.Push(currentPosition);
+
+        // Find a path from the current position to the target
+        Vector2Int start = currentPosition;
+        path = FindPath(start, target);
+
+        if (path.Count > 0) {
+            isMoving = true;  // Start moving toward the target
+            destination = GetWorldPosition(path[0].position);  // Set the first destination in the path
         }
     }
 
@@ -105,6 +136,11 @@ public class AgentNavigation : MonoBehaviour
             // Convert the current world position to grid coordinates
             Vector2Int gridPosition = WorldToGridPosition(transform.position);
 
+            
+            // Update visit count for this tile
+            visitCount.TryAdd(gridPosition, 0);
+            visitCount[gridPosition]++;  // Increment the visit count
+            
             // Check if the AI is standing over a new room tile (not a hallway)
             MazeCell currentCell = maze[gridPosition.x, gridPosition.y];
             if (!IsRoomVisited(gridPosition) && currentCell.roomTile) {
@@ -123,11 +159,65 @@ public class AgentNavigation : MonoBehaviour
         }
     }
 
+    // Move towards the destination incrementally
+    public void MoveTowardsDestination(float maxMoveDistance) {
+        if (destination == Vector3.zero || !isMoving) return; // No movement if no destination is set or not moving
+
+        Vector3 currentPosition = transform.position;
+        Vector3 direction = (destination - currentPosition).normalized;
+
+        // Calculate the distance to move
+        float distanceToMove = Mathf.Min(maxMoveDistance, Vector3.Distance(currentPosition, destination));
+
+        // Move the agent toward the destination
+        transform.position += direction * distanceToMove * Time.deltaTime * speed;
+
+        // Maintain the Y position (assuming you're on a flat maze)
+        transform.position = new Vector3(transform.position.x, mazeHeight, transform.position.z);
+
+        // Check if the AI has reached its destination (within a small tolerance)
+        if (Vector3.Distance(currentPosition, destination) <= 0.1f) {
+            // AI has reached its destination
+            isMoving = false;
+            Debug.Log("AI has reached the destination.");
+        }
+    }
+
+    // Call this function when the AI is ready to move
+    public void StartMovingToDestination(Vector3 targetPosition) {
+        destination = targetPosition;
+        isMoving = true;
+        Debug.Log("AI is moving toward destination: " + destination);
+    }
+    
     // Stops the agent's movement by clearing the path
     public void StopMovement()
     {
         path.Clear();
         isMoving = false;
+    }
+
+    public void PauseMovement()
+    {
+        // Store the current path in case we need it later
+        storedPath = new List<MazeCell>(path);  // Creates a copy of the current path
+        
+        // Clear the current path
+        path.Clear();
+
+        // Stop movement
+        isMoving = false;
+
+        Debug.Log("Movement stopped. Path cleared and stored. Has a current destination");
+    }
+    
+    
+    public void RestorePath() {
+        path = new List<MazeCell>(storedPath);  // Restore the stored path
+        storedPath.Clear();  // Clear the stored path to prevent reusing it
+        isMoving = true;  // Resume movement
+
+        Debug.Log("Path restored and movement resumed.");
     }
 
     // Converts a world position to grid coordinates (Vector2Int)
@@ -280,43 +370,45 @@ public class AgentNavigation : MonoBehaviour
     }
     
     public Vector2Int GetRandomWalkableTile() {
-        // Get the current grid position of the agent
         Vector2Int currentPosition = WorldToGridPosition(transform.position);
 
-        // Use a breadth-first search (BFS) to explore walkable tiles within maxSteps
         Queue<(Vector2Int position, int steps)> frontier = new Queue<(Vector2Int, int)>();
         HashSet<Vector2Int> visited = new HashSet<Vector2Int>();
-        List<Vector2Int> reachableTiles = new List<Vector2Int>();
+        List<(Vector2Int position, float score)> scoredTiles = new List<(Vector2Int, float)>();
 
-        // Start the search from the current position
         frontier.Enqueue((currentPosition, 0));
         visited.Add(currentPosition);
 
         while (frontier.Count > 0) {
             var (currentPos, steps) = frontier.Dequeue();
 
-            // If we've reached max steps, stop adding new neighbors
-            if (steps < distance) {
-                // Get all walkable neighbors from the current position
+            if (steps < 4000) {
                 List<MazeCell> neighbors = GetNeighbors(maze[currentPos.x, currentPos.y]);
 
                 foreach (MazeCell neighbor in neighbors) {
                     Vector2Int neighborPos = neighbor.position;
+
                     if (!visited.Contains(neighborPos)) {
                         visited.Add(neighborPos);
                         frontier.Enqueue((neighborPos, steps + 1));
-                        reachableTiles.Add(neighborPos); // Store the reachable tile
+
+                        // Calculate the score based on distance and visit frequency
+                        float distanceScore = steps;  // Prefer further tiles
+                        float visitScore = visitCount.ContainsKey(neighborPos) ? visitCount[neighborPos] : 0;  // Prefer less visited tiles
+                        float score = distanceScore - visitScore;  // Higher score = better tile
+
+                        scoredTiles.Add((neighborPos, score));
                     }
                 }
             }
         }
 
-        // If we have reachable tiles within the step limit, pick one at random
-        if (reachableTiles.Count > 0) {
-            return reachableTiles[Random.Range(0, reachableTiles.Count)];
+        if (scoredTiles.Count > 0) {
+            // Sort tiles by score and select the highest score
+            scoredTiles.Sort((a, b) => b.score.CompareTo(a.score));
+            return scoredTiles[0].position;
         }
 
-        // If no reachable tiles are found within the step limit, return the current position (agent stays in place)
         return currentPosition;
     }
     
@@ -497,7 +589,7 @@ public class AgentNavigation : MonoBehaviour
         // If the agent is near a wall or a corner, prioritize exploring underexplored areas
         if (nearWall || nearCorner) {
             Debug.Log("Near a wall or corner, prioritizing underexplored areas.");
-            return ExploreUnderexploredAreas(currentPosition);
+            return ExploreUnexploredAreas(currentPosition);
         }
 
         // If not near a wall or corner, proceed with normal exploration
@@ -521,8 +613,42 @@ public class AgentNavigation : MonoBehaviour
         return GetRandomWalkableTile();
     }
 
+    
+    public Vector2Int CheckForRoom() {
+        // Get the AI's current grid position
+        Vector2Int currentPosition = WorldToGridPosition(transform.position);
 
-    private Vector2Int ExploreUnderexploredAreas(Vector2Int currentPosition) {
+        // Get the current cell the AI is in
+        MazeCell currentCell = maze[currentPosition.x, currentPosition.y];
+
+        // Get neighbors of the current cell
+        List<MazeCell> neighbors = GetNeighbors(currentCell);
+
+        // First, check direct neighbors
+        foreach (MazeCell neighbor in neighbors) {
+            if (neighbor.roomTile && !IsRoomVisited(neighbor.position)) {
+                // If the neighbor is an unvisited room, return its position
+                Debug.Log("Unvisited room found at: " + neighbor.position);
+                return neighbor.position;
+            }
+
+            // Now, get neighbors of this neighbor (2nd layer of neighbors)
+            List<MazeCell> secondLayerNeighbors = GetNeighbors(neighbor);
+            foreach (MazeCell secondNeighbor in secondLayerNeighbors) {
+                if (secondNeighbor.roomTile && !IsRoomVisited(secondNeighbor.position)) {
+                    // If the second-layer neighbor is an unvisited room, return its position
+                    Debug.Log("Unvisited room found in second layer at: " + secondNeighbor.position);
+                    return secondNeighbor.position;
+                }
+            }
+        }
+
+        // If no visible unvisited room is found, return the current position (no movement)
+        Debug.Log("No visible unvisited rooms.");
+        return currentPosition;
+    }
+
+    private Vector2Int ExploreUnexploredAreas(Vector2Int currentPosition) {
         List<MazeCell> neighbors = GetNeighbors(maze[currentPosition.x, currentPosition.y]);
 
         // Create a list to store possible destinations and their respective scores
@@ -557,7 +683,6 @@ public class AgentNavigation : MonoBehaviour
         foreach (Room room in MazeGenerator.Instance.rooms)
         {
             if (!room.tilesInRoom.Contains(tilePosition) || visitedRooms.Contains(room)) continue;
-            Debug.Log("Added " + room);
             visitedRooms.Add(room);  // Mark all tiles in the room as visited
 
             // Update the visit count
@@ -567,6 +692,8 @@ public class AgentNavigation : MonoBehaviour
             visitCount[tilePosition]++;
             break;
         }
+
+        hasStop = false;
     }
     
     public bool IsRoomVisited(Vector2Int roomPosition)
@@ -585,4 +712,23 @@ public class AgentNavigation : MonoBehaviour
     public bool IsAITurn() {
         return TurnBasedSystem.IsAITurn();  // Assumes there's a turn manager handling this
     }
+    
+    // Method to clear the random position
+    public void ClearRandomPosition() {
+        // Reset the random position to zero and unset the flag
+        hasDestination = false;
+    }
+    
+
+    // Method to check if a random position is set
+    public bool IsDestinationSet() {
+        return hasDestination;
+    }
+
+    public Vector2Int GetPosition()
+    {
+        Vector2Int currentPosition = WorldToGridPosition(transform.position);
+        return currentPosition;
+    }
+    
 }

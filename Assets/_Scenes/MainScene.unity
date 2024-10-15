@@ -21768,7 +21768,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58c6f9b140a52a14881ec09eaebb66eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tree: {fileID: 11400000, guid: 45b47885ca74a6e47ab317dd1114b706, type: 2}
+  tree: {fileID: 11400000, guid: 11fb7bfc9beb61c4382f1eb6828a976f, type: 2}
 --- !u!114 &189492973
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21784,9 +21784,9 @@ MonoBehaviour:
   mazeGenerator: {fileID: 686919836}
   mazeRenderer: {fileID: 686919835}
   speed: 3.5
-  destination: {x: 0, y: 0, z: 0}
   mazeHeight: 0.5
   distance: 10
+  destination: {x: 0, y: 0, z: 0}
 --- !u!136 &189492974
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -62779,6 +62779,10 @@ PrefabInstance:
     - target: {fileID: 5116353369935650754, guid: 54bc7d1ace99aae42abb9b4958ee5d03, type: 3}
       propertyPath: m_Name
       value: Turn Manager
+      objectReference: {fileID: 0}
+    - target: {fileID: 7462511889029895204, guid: 54bc7d1ace99aae42abb9b4958ee5d03, type: 3}
+      propertyPath: delayUntilNext
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7462511889029895204, guid: 54bc7d1ace99aae42abb9b4958ee5d03, type: 3}
       propertyPath: turnEvents.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -162092,7 +162096,7 @@ MonoBehaviour:
   Event:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1782567278}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: EndTurn
         m_Mode: 1
@@ -162135,7 +162139,7 @@ MonoBehaviour:
   Event:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1782567278}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: EndTurn
         m_Mode: 1
@@ -195429,50 +195433,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1782451413}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1782567277
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1782567279}
-  - component: {fileID: 1782567278}
-  m_Layer: 0
-  m_Name: GameManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1782567278
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1782567277}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f0a00695143e7b4cb7ca5255f809ba0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &1782567279
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1782567277}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 17.612846, y: 5.2138386, z: 7.7719474}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1782625855
 GameObject:
   m_ObjectHideFlags: 0
@@ -237337,7 +237297,6 @@ SceneRoots:
   m_Roots:
   - {fileID: 1171471877}
   - {fileID: 686919837}
-  - {fileID: 1782567279}
   - {fileID: 1122778775}
   - {fileID: 1223117102}
   - {fileID: 189492977}
