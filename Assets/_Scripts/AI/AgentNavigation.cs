@@ -335,6 +335,62 @@ public class AgentNavigation : MonoBehaviour
 
         return neighbors;
     }
+    
+    private List<MazeCell> GetVisibleNeighbors(MazeCell cell)
+    {
+        List<MazeCell> neighbors = new List<MazeCell>();
+
+        foreach (Directions direction in (Directions[])System.Enum.GetValues(typeof(Directions)))
+        {
+            Vector2Int neighborPosition = cell.position;
+            switch (direction)
+            {
+                case Directions.Up:
+                    neighborPosition.y++;
+                    break;
+                case Directions.Down:
+                    neighborPosition.y--;
+                    break;
+                case Directions.Left:
+                    neighborPosition.x--;
+                    break;
+                case Directions.Right:
+                    neighborPosition.x++;
+                    break;
+            }
+
+            // Ensure the neighbor is within bounds
+            if (neighborPosition.x >= 0 && neighborPosition.x < mazeGenerator.mazeWidth &&
+                neighborPosition.y >= 0 && neighborPosition.y < mazeGenerator.mazeHeight)
+            {
+                MazeCell neighborCell = maze[neighborPosition.x, neighborPosition.y];
+            
+                // Check line-of-sight (no walls between current cell and neighbor)
+                if (HasLineOfSight(cell, neighborCell, direction)) {
+                    neighbors.Add(neighborCell);
+                }
+            }
+        }
+
+        return neighbors;
+    }
+    
+    private bool HasLineOfSight(MazeCell fromCell, MazeCell toCell, Directions direction)
+    {
+        switch (direction)
+        {
+            case Directions.Up:
+                return !fromCell.topWall && !toCell.bottomWall;
+            case Directions.Down:
+                return !fromCell.bottomWall && !toCell.topWall;
+            case Directions.Left:
+                return !fromCell.leftWall && !toCell.rightWall;
+            case Directions.Right:
+                return !fromCell.rightWall && !toCell.leftWall;
+            default:
+                return false;
+        }
+    }
 
     private bool IsWalkable(MazeCell fromCell, MazeCell toCell)
     {
@@ -382,34 +438,71 @@ public class AgentNavigation : MonoBehaviour
         while (frontier.Count > 0) {
             var (currentPos, steps) = frontier.Dequeue();
 
-            if (steps < 4000) {
-                List<MazeCell> neighbors = GetNeighbors(maze[currentPos.x, currentPos.y]);
+            // Removed arbitrary distance limit
+            List<MazeCell> neighbors = GetNeighbors(maze[currentPos.x, currentPos.y]);
 
-                foreach (MazeCell neighbor in neighbors) {
-                    Vector2Int neighborPos = neighbor.position;
+            foreach (MazeCell neighbor in neighbors) {
+                Vector2Int neighborPos = neighbor.position;
 
-                    if (!visited.Contains(neighborPos)) {
-                        visited.Add(neighborPos);
-                        frontier.Enqueue((neighborPos, steps + 1));
+                if (!visited.Contains(neighborPos)) {
+                    visited.Add(neighborPos);
+                    frontier.Enqueue((neighborPos, steps + 1));
 
-                        // Calculate the score based on distance and visit frequency
-                        float distanceScore = steps;  // Prefer further tiles
-                        float visitScore = visitCount.ContainsKey(neighborPos) ? visitCount[neighborPos] : 0;  // Prefer less visited tiles
-                        float score = distanceScore - visitScore;  // Higher score = better tile
+                    // Dynamic scoring based on distance, visit frequency, and region
+                    float distanceScore = steps;  // Favor tiles that are farther away
+                    float visitScore = visitCount.ContainsKey(neighborPos) ? visitCount[neighborPos] : 0;  // Penalize frequently visited tiles
 
-                        scoredTiles.Add((neighborPos, score));
-                    }
+                    // Prioritize regions with fewer rooms
+                    float regionPenalty = GetRegionRoomDensity(neighborPos);  // Lower score for areas with more rooms
+                    float score = distanceScore - visitScore - regionPenalty;  // Adjust score based on all factors
+
+                    scoredTiles.Add((neighborPos, score));
                 }
             }
         }
 
         if (scoredTiles.Count > 0) {
-            // Sort tiles by score and select the highest score
+            // Sort by score, highest score first
             scoredTiles.Sort((a, b) => b.score.CompareTo(a.score));
             return scoredTiles[0].position;
         }
 
-        return currentPosition;
+        return currentPosition;  // Stay in place if no walkable tiles found
+    }
+    
+    private float GetRegionRoomDensity(Vector2Int position) {
+        // Divide maze into regions (e.g., left, right, center) or sectors
+        // Example: use grid coordinates to classify the region
+        int regionX = position.x / (mazeGenerator.mazeWidth / 3);  // Divide width into 3 regions
+        int regionY = position.y / (mazeGenerator.mazeHeight / 3); // Divide height into 3 regions
+    
+        // Get the number of rooms found in this region
+        int roomsInRegion = CountRoomsInRegion(regionX, regionY);
+
+        // Higher penalty for regions with more rooms found
+        return roomsInRegion * 0.5f;  // Adjust weight based on room density
+    }
+
+    private int CountRoomsInRegion(int regionX, int regionY) {
+        // Iterate through visited rooms and count how many are in the region
+        int roomCount = 0;
+        foreach (Room room in visitedRooms) {
+            if (IsRoomInRegion(room, regionX, regionY)) {
+                roomCount++;
+            }
+        }
+        return roomCount;
+    }
+
+    private bool IsRoomInRegion(Room room, int regionX, int regionY) {
+        foreach (Vector2Int tile in room.tilesInRoom) {
+            int tileRegionX = tile.x / (mazeGenerator.mazeWidth / 3);
+            int tileRegionY = tile.y / (mazeGenerator.mazeHeight / 3);
+            if (tileRegionX == regionX && tileRegionY == regionY) {
+                return true;
+            }
+        }
+        return false;
     }
     
     public Vector2Int GetFarWalkableTile() {
@@ -614,28 +707,33 @@ public class AgentNavigation : MonoBehaviour
     }
 
     
-    public Vector2Int CheckForRoom() {
+    public Vector2Int CheckForRoom()
+    {
         // Get the AI's current grid position
         Vector2Int currentPosition = WorldToGridPosition(transform.position);
 
         // Get the current cell the AI is in
         MazeCell currentCell = maze[currentPosition.x, currentPosition.y];
 
-        // Get neighbors of the current cell
-        List<MazeCell> neighbors = GetNeighbors(currentCell);
+        // Get neighbors that are in line of sight
+        List<MazeCell> neighbors = GetVisibleNeighbors(currentCell);
 
         // First, check direct neighbors
-        foreach (MazeCell neighbor in neighbors) {
-            if (neighbor.roomTile && !IsRoomVisited(neighbor.position)) {
+        foreach (MazeCell neighbor in neighbors)
+        {
+            if (neighbor.roomTile && !IsRoomVisited(neighbor.position))
+            {
                 // If the neighbor is an unvisited room, return its position
                 Debug.Log("Unvisited room found at: " + neighbor.position);
                 return neighbor.position;
             }
 
             // Now, get neighbors of this neighbor (2nd layer of neighbors)
-            List<MazeCell> secondLayerNeighbors = GetNeighbors(neighbor);
-            foreach (MazeCell secondNeighbor in secondLayerNeighbors) {
-                if (secondNeighbor.roomTile && !IsRoomVisited(secondNeighbor.position)) {
+            List<MazeCell> secondLayerNeighbors = GetVisibleNeighbors(neighbor);
+            foreach (MazeCell secondNeighbor in secondLayerNeighbors)
+            {
+                if (secondNeighbor.roomTile && !IsRoomVisited(secondNeighbor.position))
+                {
                     // If the second-layer neighbor is an unvisited room, return its position
                     Debug.Log("Unvisited room found in second layer at: " + secondNeighbor.position);
                     return secondNeighbor.position;
