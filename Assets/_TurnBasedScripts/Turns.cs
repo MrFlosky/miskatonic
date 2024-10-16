@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 public class Turns : MonoBehaviour
 {
-    public static Turns s;
+    private static Turns s;
 
     [Header("Event associated with this turn type.")]
     public UnityEvent turnEvents;
@@ -14,7 +14,7 @@ public class Turns : MonoBehaviour
     protected TurnType turnType = TurnType.NeverSet; // Every turn has a turnType associated with it. Protected allows to be seen by subclass but not shown in inspector (not visible to any class)
 
     /// References to each derived class (type of turn).
-    public PlayerTurn playerTurn;
+    private PlayerTurn playerTurn;
     private AITurn aiTurn;
 
     // Start is called before the first frame update

@@ -14,8 +14,6 @@ public class EndAgentTurn : ActionNode
     }
 
     protected override State OnUpdate() {
-        // Notify the GameManager to switch the turn back to the player
-        Turns.NextTurn(TurnType.Player);
         // Always return success since this node is meant to just trigger the turn end
         return State.Success;
     }
