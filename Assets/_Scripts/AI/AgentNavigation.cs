@@ -16,10 +16,10 @@ public class AgentNavigation : MonoBehaviour
 
     public List<MazeCell> path = new List<MazeCell>();
     private List<MazeCell> storedPath = new List<MazeCell>(); // Store the cleared path
-    
+
     private bool isMoving = false;
-    
     public bool hasDestination = false;
+    public bool turnFinished = false;
     
     private Stack<Vector2Int> pathHistory = new Stack<Vector2Int>();
 
