@@ -35,7 +35,7 @@ public class TurnBasedSystem : MonoBehaviour
 
     /// List of items to destroy after x turns
     List<DestroyAfterRounds> destroyablesList = new List<DestroyAfterRounds>();
-    List<DestroyAfterRounds> readyToDestroy = new List<DestroyAfterRounds>(); // NEED THIS FOR PROPER DELETION CANT LOOP WHILE DELETING!
+    List<DestroyAfterRounds> readyToDestroy = new List<DestroyAfterRounds>(); // NEED THIS FOR PROPER DELETION CANT LOOP THRU LIST DELETING FROM!
     
     // Start is called before the first frame update
     void Start()
@@ -176,7 +176,6 @@ public class TurnBasedSystem : MonoBehaviour
                 MazeGenerator.Instance.SetWallInternalState(cell.GetXCoord(), cell.GetYCoord(), wallType, false); // Deactivate this wall internally in the maze array
                 obToDestroy.SetActive(false); // need set active so can be reselected letter
                 S.readyToDestroy.Add(this);
-                //Destroy(obToDestroy);
                 
             }
         }
