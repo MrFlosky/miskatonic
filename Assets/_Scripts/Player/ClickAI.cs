@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Cinemachine;
 using DialogueEditor;
 using UnityEngine;
-using UnityEngine.InputSystem.HID;
 
 public class ClickAI : MonoBehaviour
 {
@@ -21,6 +20,8 @@ public class ClickAI : MonoBehaviour
         }
 
         activeCamera = playerCam;
+        
+        ConversationManager.OnConversationEnded += EndConversation;
     }
     
     private void Awake() {
@@ -56,7 +57,6 @@ public class ClickAI : MonoBehaviour
     public void EndConversation()
     {
         playerCam.enabled = true;
-        ConversationManager.Instance.EndConversation();
         activeCamera.gameObject.SetActive(false); // Enable the GameObject if it's disabled
         activeCamera.enabled = false; // Enable the CinemachineVirtualCamera component
         activeCamera = playerCam;

@@ -31,9 +31,16 @@ public class AgentNavigation : MonoBehaviour
     
     public Vector3 destination;
     
-    private void Start()
+    private void Awake()
     {
-        mazeRenderer.OnMazeGenerated += OnMazeGenerated;
+        if (mazeRenderer != null)
+        {
+            mazeRenderer.OnMazeGenerated += OnMazeGenerated;
+        }
+        else
+        {
+            Debug.LogError("MazeRenderer instance is null.");
+        }
     }
 
     private void OnMazeGenerated()

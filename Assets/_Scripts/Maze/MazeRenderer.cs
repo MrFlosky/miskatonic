@@ -27,6 +27,16 @@ public class MazeRenderer : MonoBehaviour
         Instance = this;
         GenerateMaze();
     }
+    
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+    }
 
     public MazeCell[,] GetMaze()
     {
