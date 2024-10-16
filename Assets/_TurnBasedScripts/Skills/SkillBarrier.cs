@@ -13,7 +13,7 @@ public class SkillBarrier : Skill
 
     public int roundsLast = 3;
 
-    // Dont mind these...prob need refactoring
+    /// List holding the inactive walls i.e. those that can be cycled through
     List<Transform> mInactiveWalls = new List<Transform>();
     /// Index of last wall cycled to by player.
     int lastWallIndex; 
