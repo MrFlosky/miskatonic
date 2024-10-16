@@ -19,8 +19,8 @@ public class HasReachedDestination : DecoratorNode
             // Now run the child node's logic
             return child.Update();
         } else {
-            // If the agent hasn't reached its destination, keep the behavior tree running
-            return State.Running;
+            // If the agent hasn't reached its destination
+            return State.Success;
         }
     }
 }

@@ -43,12 +43,6 @@ public class TurnBasedSystem : MonoBehaviour
         S.txt.text = "Total Turns: " + S.totalTurnCount + "\n" + "Player Turns: " + S.playerTurnCount + "\n" + "AI Turns: " + S.aiTurnCount; ///***DEBUG
         currentTurn = TurnType.Player;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-      Debug.Log(IsAITurn());
-    }
     
     static public bool IsAITurn() {
         return currentTurn == TurnType.AI;

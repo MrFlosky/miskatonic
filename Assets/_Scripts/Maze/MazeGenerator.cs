@@ -254,7 +254,6 @@ public class MazeGenerator : MonoBehaviour {
                 {
                     if (maze[x, y].roomTile || maze[x, y].outsideTile)
                     {
-                        print("womp womp");
                         success = false;
                     }
                 }
