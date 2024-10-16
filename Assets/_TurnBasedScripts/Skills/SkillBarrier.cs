@@ -22,6 +22,8 @@ public class SkillBarrier : Skill
     /// Number of wall cycles player has gone through. 
     int cycleCount = 0;
 
+    bool cellWasPressed = false; //fix bug that can confirm not existent wall
+
     /// Cell hit by raycast
     Transform cellHit;
 
@@ -68,8 +70,8 @@ public class SkillBarrier : Skill
         // Confirm selection ending this skill. Reset vals
         if(Input.GetKey(KeyCode.Return) && canCycle)
         {
+            Debug.Log("YOOO");
             this.enabled = false;
-
             // Set the walls internal state within the maze array and have it destroy after given number of rounds.
             Transform confirmedWall = mInactiveWalls[lastWallIndex];
             MazeCellObject confirmedWallMz = cellHit.GetComponent<MazeCellObject>();
@@ -84,11 +86,13 @@ public class SkillBarrier : Skill
             TurnBasedSystem.DestroyAfterRounds destroyInstance = new TurnBasedSystem.DestroyAfterRounds(roundsLast, confirmedWall.gameObject, wT); // will need to make it so the wall is later disabled with funct in mazegen
             cycleCount = 0;
             canCycle = false;
+            cellHit = null;
         }
 
         // Change cell selection. Set all walls back to false and allow reselect.
         if(Input.GetKeyDown(KeyCode.Escape) && canCycle)
         {
+   
             foreach(Transform wall in mInactiveWalls)
             {
                 wall.gameObject.SetActive(false);
@@ -96,6 +100,7 @@ public class SkillBarrier : Skill
 
             canCycle = false;
             cycleCount = 0;
+            
         }
     }
     

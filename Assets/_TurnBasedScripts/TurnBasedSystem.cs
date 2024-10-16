@@ -100,13 +100,13 @@ public class TurnBasedSystem : MonoBehaviour
         switch(tt)
         {
             case TurnType.Player:
-            currentTurn = TurnType.Player;
+            //currentTurn = TurnType.Player; possible bug fix. now being handled by the turns themselves
             S.playerTurnCount ++;
             Debug.Log("LETS GO");
             break;
 
             case TurnType.AI:
-            currentTurn = TurnType.AI;
+            //currentTurn = TurnType.AI;
             S.aiTurnCount ++;
             break;
 

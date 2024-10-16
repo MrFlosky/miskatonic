@@ -56,10 +56,12 @@ public class Turns : MonoBehaviour
         switch(tt)
         {
             case TurnType.Player:
+            TurnBasedSystem.currentTurn = TurnType.Player;
             s.playerTurn.InitiateTurn();
             break;
 
             case TurnType.AI:
+            TurnBasedSystem.currentTurn = TurnType.AI;
             s.aiTurn.InitiateTurn();
             break;
 
