@@ -212,12 +212,50 @@ public class AgentNavigation : MonoBehaviour
     }
     
     
-    public void RestorePath() {
-        path = new List<MazeCell>(storedPath);  // Restore the stored path
-        storedPath.Clear();  // Clear the stored path to prevent reusing it
-        isMoving = true;  // Resume movement
+    // Modified RestorePath method to validate the path before restoring it
+    public void RestorePath()
+    {
+        ValidateStoredPath();  // Validate the stored path
 
-        Debug.Log("Path restored and movement resumed.");
+        if (storedPath.Count > 0)
+        {
+            path = new List<MazeCell>(storedPath);  // Restore the validated path
+            storedPath.Clear();  // Clear the stored path to prevent reusing it
+            isMoving = true;  // Resume movement
+            destination = GetWorldPosition(path[0].position);  // Set the next destination
+
+            Debug.Log("Path restored and movement resumed.");
+        }
+        else
+        {
+            Debug.Log("No valid path to restore.");
+            isMoving = false;  // Stop movement if no valid path remains
+        }
+    }
+    
+    // Method to validate the stored path and remove steps if a wall is active
+    private void ValidateStoredPath()
+    {
+        // Start with the cell the agent is currently on
+        MazeCell currentCell = maze[WorldToGridPosition(transform.position).x, WorldToGridPosition(transform.position).y];
+    
+        // Iterate through the stored path, starting with the next cell
+        for (int i = 0; i < storedPath.Count; i++)
+        {
+            MazeCell nextCell = storedPath[i];
+
+            // Check if there's a wall blocking the path between currentCell and nextCell
+            if (!IsWalkable(currentCell, nextCell))
+            {
+                // Truncate the path at the current index (including the blocked cell)
+                storedPath.RemoveRange(i, storedPath.Count - i);
+                Debug.Log("Path blocked by wall. Truncated path starting at: " + nextCell.position);
+                break; // Exit the loop as the path is no longer valid beyond this point
+            }
+
+            // Move to the next cell
+            currentCell = nextCell;
+        }
     }
 
     // Converts a world position to grid coordinates (Vector2Int)
