@@ -100,13 +100,13 @@ public class TurnBasedSystem : MonoBehaviour
         switch(tt)
         {
             case TurnType.Player:
-            //currentTurn = TurnType.Player; possible bug fix. now being handled by the turns themselves
+            currentTurn = TurnType.Player; 
             S.playerTurnCount ++;
             Debug.Log("LETS GO");
             break;
 
             case TurnType.AI:
-            //currentTurn = TurnType.AI;
+            currentTurn = TurnType.AI;
             S.aiTurnCount ++;
             break;
 
@@ -155,19 +155,19 @@ public class TurnBasedSystem : MonoBehaviour
             destroyOnRound = rounds + S.playerTurnCount;
             obToDestroy = obj;
             wallType = wT;
-            Debug.Log(obj.name);
+            Debug.Log(obj.name + "TO DESTROY");
             S.destroyablesList.Add(this);
         }
 
         public void CheckDestroy()
         {
-            if(destroyOnRound == S.playerTurnCount)
+            if(obToDestroy != null && destroyOnRound == S.playerTurnCount)
             {
                 MazeCellObject cell = obToDestroy.GetComponentInParent<MazeCellObject>();
                 
                 MazeGenerator.Instance.SetWallInternalState(cell.GetXCoord(), cell.GetYCoord(), wallType, false); // Deactivate this wall internally in the maze array
                 Destroy(obToDestroy);
-
+                //S.destroyablesList.Remove(this); // this would stop a giant list but idk why it isnt working
             }
         }
     }
