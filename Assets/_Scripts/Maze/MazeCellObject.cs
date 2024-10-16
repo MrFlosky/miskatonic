@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class MazeCellObject : MonoBehaviour
 {
+    private int xCoord;
+    private int yCoord;
+
     [SerializeField] GameObject topWall;
     [SerializeField] GameObject bottomWall;
     [SerializeField] GameObject rightWall;
@@ -48,4 +51,26 @@ public class MazeCellObject : MonoBehaviour
         rightWall.GetComponent<MeshRenderer>().material = roomWallMaterial;
         leftWall.GetComponent<MeshRenderer>().material = roomWallMaterial;
     }
+
+    /// <summary>
+    /// Getters and setters for the x,y coord associated with this cell.
+    /// Used by skills and set ONLY upon initialization.
+    /// </summary>
+    public int GetXCoord()
+    {
+        return xCoord;
+    }
+    public int GetYCoord()
+    {
+        return yCoord;
+    }
+    public void SetXCoord(int x)
+    {
+        xCoord = x;
+    }
+    public void SetYCoord(int y)
+    {
+        yCoord = y;
+    }
+
 }

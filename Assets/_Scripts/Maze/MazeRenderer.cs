@@ -90,9 +90,13 @@ public class MazeRenderer : MonoBehaviour
                     new Vector3((float)x * CellSize, 0f, (float)y * CellSize), Quaternion.identity, instantiatedRooms[roomType]);
                 
                 newCell.name = roomType + "[" + x + ", " + y + "]";
-                                                                                    // NAME SET HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
                 // Get a reference to the cell's MazeCellPrefab script.
                 MazeCellObject mazeCell = newCell.GetComponent<MazeCellObject>();
+
+                // Have it hold its x,y coords
+                mazeCell.SetXCoord(x);
+                mazeCell.SetYCoord(y);
 
                 // Determine which walls need to be active.
                 bool top = maze[x, y].topWall;

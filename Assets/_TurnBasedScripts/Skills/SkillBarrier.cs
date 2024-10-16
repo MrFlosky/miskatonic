@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum WallType
+{
+    Top, Bottom, Left, Right
+}
 public class SkillBarrier : Skill
 {
     [Header("Material of a possible barrier wall")]
@@ -11,9 +15,15 @@ public class SkillBarrier : Skill
 
     // Dont mind these...prob need refactoring
     List<Transform> mInactiveWalls = new List<Transform>();
-    Transform lastWall; // last wall set
+    /// Index of last wall cycled to by player.
+    int lastWallIndex; 
+    /// Whether or not player is able to cycle through wall options.
     bool canCycle = false;
+    /// Number of wall cycles player has gone through. 
     int cycleCount = 0;
+
+    /// Cell hit by raycast
+    Transform cellHit;
 
     void Update()
     {
@@ -27,7 +37,7 @@ public class SkillBarrier : Skill
             {
                 if(hit.transform.GetComponentInParent<MazeCellObject>() != null)
                 {
-                    Transform cellHit = hit.transform.parent; // The single cell
+                    cellHit = hit.transform.parent; // The single cell
                     Debug.Log(cellHit.name);
                     GetPossibleBarrierWalls(cellHit);
                     canCycle = true;
@@ -44,6 +54,7 @@ public class SkillBarrier : Skill
                 wall.gameObject.SetActive(false);
             }
             mInactiveWalls[cycleCount].gameObject.SetActive(true);
+            lastWallIndex = cycleCount;
 
             if(cycleCount < mInactiveWalls.Count - 1)
             {
@@ -54,19 +65,23 @@ public class SkillBarrier : Skill
             }
         }
 
-        // Confirm selection ending this skill.Reset vals
+        // Confirm selection ending this skill. Reset vals
         if(Input.GetKey(KeyCode.Return) && canCycle)
         {
             this.enabled = false;
-            //                                          Testing this next line for destroy after lifetime. should be last wall set. Might be easier to set new var above after mactivate[]/.gam
-            if(cycleCount == 0)
-            {
-                TurnBasedSystem.DestroyAfterRounds destroyInstance = new TurnBasedSystem.DestroyAfterRounds(roundsLast, mInactiveWalls[cycleCount].gameObject );
-            } else 
-            {
-                TurnBasedSystem.DestroyAfterRounds destroyInstance = new TurnBasedSystem.DestroyAfterRounds(roundsLast, mInactiveWalls[cycleCount - 1].gameObject );
-            }
 
+            // Set the walls internal state within the maze array and have it destroy after given number of rounds.
+            Transform confirmedWall = mInactiveWalls[lastWallIndex];
+            MazeCellObject confirmedWallMz = cellHit.GetComponent<MazeCellObject>();
+            int x = confirmedWallMz.GetXCoord();
+            int y = confirmedWallMz.GetYCoord();
+            WallType wT = GetWallType(cellHit, confirmedWall);
+
+            MazeGenerator.Instance.SetWallInternalState(x, y, wT, true);
+
+
+            // Create new instance of obj that will destroy this wall for us.
+            TurnBasedSystem.DestroyAfterRounds destroyInstance = new TurnBasedSystem.DestroyAfterRounds(roundsLast, confirmedWall.gameObject, wT); // will need to make it so the wall is later disabled with funct in mazegen
             cycleCount = 0;
             canCycle = false;
         }
@@ -84,18 +99,18 @@ public class SkillBarrier : Skill
         }
     }
     
-
+  
     /// <summary>
     /// Get the inactive walls apart of the selected cell.
     /// </summary>
     /// <param name="cell"></param>
     /// <returns></returns>
+    /// 
     void GetPossibleBarrierWalls(Transform cell)
     {
         // This is important for subsequent calls so walls dont stay in the array
         mInactiveWalls.Clear();
 
-        int wallCount = 4;
         int i = 0;
         foreach(Transform child in cell)
         {
@@ -118,5 +133,43 @@ public class SkillBarrier : Skill
         
     }
 
+    
+    /// <summary>
+    /// Go through all walls/ceil/floor apart of the cell, and identify where a given
+    /// wall is located within it. Dependent on consistent hierarchy index placement within cell.
+    /// </summary>
+    /// <param name="cell"></param>
+    /// <param name="WallToIdentify"></param>
+    WallType GetWallType(Transform cell, Transform WallToIdentify)
+    {
+        int i = 0;
+        foreach(Transform child in cell)
+        {
+            if (child == WallToIdentify)
+            {
+                break;
+            }
+            i++;
+        }
+
+        switch(i)
+        {
+            case 1:
+            return WallType.Bottom;
+
+            case 2:
+            return WallType.Top;
+
+            case 3:
+            return WallType.Right;
+
+            case 4:
+            return WallType.Left;
+
+            default:
+            Debug.Log("that wasnt supposed to happen");
+            return 0; // is this best to return if shouldnt occur?
+        }
+    }
 
 }

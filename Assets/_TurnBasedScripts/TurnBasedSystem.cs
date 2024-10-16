@@ -149,10 +149,12 @@ public class TurnBasedSystem : MonoBehaviour
     {
         int destroyOnRound;
         GameObject obToDestroy;
-        public DestroyAfterRounds(int rounds, GameObject obj)
+        WallType wallType;
+        public DestroyAfterRounds(int rounds, GameObject obj, WallType wT)
         {
-            this.destroyOnRound = rounds + S.playerTurnCount;
-            this.obToDestroy = obj;
+            destroyOnRound = rounds + S.playerTurnCount;
+            obToDestroy = obj;
+            wallType = wT;
             Debug.Log(obj.name);
             S.destroyablesList.Add(this);
         }
@@ -161,6 +163,9 @@ public class TurnBasedSystem : MonoBehaviour
         {
             if(destroyOnRound == S.playerTurnCount)
             {
+                MazeCellObject cell = obToDestroy.GetComponentInParent<MazeCellObject>();
+                
+                MazeGenerator.Instance.SetWallInternalState(cell.GetXCoord(), cell.GetYCoord(), wallType, false); // Deactivate this wall internally in the maze array
                 Destroy(obToDestroy);
 
             }

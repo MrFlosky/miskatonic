@@ -174,6 +174,40 @@ public class MazeGenerator : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Used by SkillBarrier to set the internal state of a given cells wall within the maze array.
+    /// Needed so AI identifies the newly placed walls.
+    /// </summary>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
+    /// <param name="wallType"></param>
+    /// <param name="wantActivated">
+    /// This param determines if we want the AI to see this wall or not. In the case of it being destroyed no.
+    /// Case of being activated, yes.
+    /// </param>
+    public void SetWallInternalState(int x, int y, WallType wallType, bool wantActivated)
+    {
+        switch(wallType)
+        {
+            case WallType.Top:
+            maze[x,y].topWall = wantActivated;
+            break;
+
+            case WallType.Bottom:
+            maze[x,y].bottomWall = wantActivated;
+            break;
+
+            case WallType.Left:
+            maze[x,y].leftWall = wantActivated;
+            break;
+
+            case WallType.Right:
+            maze[x,y].rightWall = wantActivated;
+            break;
+
+        }
+    }
+
     // Starting at the x, y passed in, carves a path through the maze until it encounters a "dead end"
     // (a dead end is a cell with no valid neighbours).   
     void CarvePath (int x, int y) {

@@ -14,6 +14,7 @@ public class PlayerTurn : Turns
         this.enabled = false;
     }
 
+    // I can probably remove this...
     float timeElapsed = 0f;
     void Update()
     {

@@ -38,7 +38,6 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589246, b: 0.2978263, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -61824,6 +61823,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1407802747}
     m_Modifications:
     - target: {fileID: 2875423007499563510, guid: 54bc7d1ace99aae42abb9b4958ee5d03, type: 3}
+      propertyPath: delayUntilNext
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2875423007499563510, guid: 54bc7d1ace99aae42abb9b4958ee5d03, type: 3}
       propertyPath: turnEvents.m_PersistentCalls.m_Calls.Array.size
       value: 7
       objectReference: {fileID: 0}
@@ -61891,6 +61894,10 @@ PrefabInstance:
       propertyPath: txt
       value: 
       objectReference: {fileID: 622636773}
+    - target: {fileID: 2933510938474081148, guid: 54bc7d1ace99aae42abb9b4958ee5d03, type: 3}
+      propertyPath: roundsUntilDefeat
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 4618947864993190721, guid: 54bc7d1ace99aae42abb9b4958ee5d03, type: 3}
       propertyPath: m_LocalPosition.x
       value: -16.7
@@ -61961,7 +61968,7 @@ PrefabInstance:
       objectReference: {fileID: 1808556134}
     - target: {fileID: 8541962640374668680, guid: 54bc7d1ace99aae42abb9b4958ee5d03, type: 3}
       propertyPath: delayUntilNext
-      value: 12
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
