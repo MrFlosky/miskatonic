@@ -11,6 +11,7 @@ using UnityEngine.UI;
 /// </summary>
 public class SkillsCollection : MonoBehaviour
 {
+    static private SkillsCollection S;
     /// Collection of Skill objects.
     List<Skill> skillList;
     
@@ -18,7 +19,8 @@ public class SkillsCollection : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        skillList = new List<Skill>(); // HAVE TO DO THIS!!!!!!!!!!!!!!!!! IDK WHY BUT IT TOOK ME LIKE 30+ MINS TO DEBUG WHY THIS WASNT WORKING. NOW WORKING 
+        S = this;
+        S.skillList = new List<Skill>(); // HAVE TO DO THIS!!!!!!!!!!!!!!!!! IDK WHY BUT IT TOOK ME LIKE 30+ MINS TO DEBUG WHY THIS WASNT WORKING. NOW WORKING 
         //The new keyword is necessary to instantiate the list, allocating memory for it and initializing it so you can start adding elements
 
          foreach(Skill skill in transform.GetComponentsInChildren<Skill>())
@@ -27,7 +29,7 @@ public class SkillsCollection : MonoBehaviour
             // Checks to make sure there is a button added to this skill. Omit base class.
             if(skill.skillButton != null)
             {
-                skillList.Add(skill);
+                S.skillList.Add(skill);
                 
             }
         }
@@ -35,7 +37,7 @@ public class SkillsCollection : MonoBehaviour
 
     public void DISPLAY_SKILLS()
     {
-        foreach(Skill skill in skillList)
+        foreach(Skill skill in S.skillList)
         {
             skill.skillButton.gameObject.SetActive(true);
         }
@@ -43,9 +45,33 @@ public class SkillsCollection : MonoBehaviour
 
     public void HIDE_SKILLS()
     {
-        foreach(Skill skill in skillList)
+        foreach(Skill skill in S.skillList)
         {
             skill.skillButton.gameObject.SetActive(false);
+        }
+    }
+
+    static public void ENABLE_BUTTONS()
+    {
+        foreach(Skill skill in S.skillList)
+        {
+            skill.skillButton.interactable = true;
+        }
+    }
+
+    static public void DISABLE_BUTTONS()
+    {
+        foreach(Skill skill in S.skillList)
+        {
+            skill.skillButton.interactable = false;
+        }
+    }
+
+    static public void DEACTIVATE_SKILLS()
+    {
+        foreach(Skill skill in S.skillList)
+        {
+            skill.EndSkill();
         }
     }
 

@@ -103,6 +103,24 @@ public class SkillBarrier : Skill
             
         }
     }
+
+        // how this skill ends itself on end turn
+    public override void EndSkill()
+    {
+        SkillsCollection.ENABLE_BUTTONS();
+        
+        base.EndSkill();
+        this.enabled = false;
+
+        // meaning player never confirmed their selection
+        if(canCycle)
+        {
+        mInactiveWalls[lastWallIndex].gameObject.SetActive(false);
+        }
+        cycleCount = 0;
+        canCycle = false;
+        cellHit = null;
+    }
     
   
     /// <summary>
