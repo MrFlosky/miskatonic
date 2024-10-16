@@ -59,7 +59,6 @@ public class ClickAI : MonoBehaviour
         ConversationManager.Instance.EndConversation();
         activeCamera.gameObject.SetActive(false); // Enable the GameObject if it's disabled
         activeCamera.enabled = false; // Enable the CinemachineVirtualCamera component
-            
         activeCamera = playerCam;
     }
     
