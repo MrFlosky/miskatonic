@@ -61,6 +61,7 @@ public class Turns : MonoBehaviour
             break;
 
             case TurnType.AI:
+            Debug.Log("AI TURN");
             TurnBasedSystem.currentTurn = TurnType.AI;
             s.aiTurn.InitiateTurn();
             break;
