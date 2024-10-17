@@ -14,6 +14,7 @@ public class SkillFear : Skill
 
     void Update()
     {
+        base.ExitInput();
         // Determines the rooms being selected for a switch.
         if(Input.GetMouseButtonDown(0))
         {

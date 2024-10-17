@@ -61,7 +61,7 @@ public class FearMeter : MonoBehaviour
     {
         if(totalFear >= winFear)
         {
-            //ps.Play();
+            ps.Play();
             SkillsCollection.DISABLE_BUTTONS();
             Destroy(endTurnButton);
         }
