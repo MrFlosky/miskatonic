@@ -157,7 +157,17 @@ public class SkillSwapRooms : Skill
         if (agents.Length != 0)
         {
             foreach (var agent in agents)
+            {
                 agent.UpdateSwappedRooms(room1Ob, rm2Type, room2Ob, rm1Type);
+                // In your existing code, call SwapRoomProps only once
+                if (!agent.hasSwappedProps && agents.Length != 0)
+                {
+                    agents[0].SwapRoomProps(room1Ob, rm1Type, room2Ob, rm2Type);
+                }
+            }
+            
+            foreach (var agent in agents)
+                agent.hasSwappedProps = false;
         }
 
         // Debug information

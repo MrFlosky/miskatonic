@@ -22,9 +22,9 @@ public class SkillSystem : MonoBehaviour
     /// Camera used for detecting clicks. Defaults to main in scene.
     public Camera mainCam;
 
-    /// The number of availible points the player has. Public for proto
+    /// The number of available points the player has. Public for proto
     [Header("Number of availible points the player has")]
-    public int availiblePts = 3;
+    public int availablePts = 3;
     
     void Start()
     {
@@ -39,27 +39,27 @@ public class SkillSystem : MonoBehaviour
 
     static public void DEDUCT_PT(int deduction)
     {
-        if(S.availiblePts != 0)
+        if(S.availablePts != 0)
         {
-            S.availiblePts -= deduction;
+            S.availablePts -= deduction;
             DISPLAY_PTS(); // Update text each deduction
         }
     }
 
     static public void ADD_PT(int addition)
     {
-        S.availiblePts+=addition;
+        S.availablePts+=addition;
         DISPLAY_PTS();
     }
     
     static public void SET_PT(int num)
     {
-        S.availiblePts = num;
+        S.availablePts = num;
     }
 
     static public void DISPLAY_PTS()
     {
-        S.txt.text = "Availible Points: " + S.availiblePts;
+        S.txt.text = "Available Points: " + S.availablePts;
         if(S.txt.IsActive() == false)
         {
             S.txt.gameObject.SetActive(true);
@@ -78,7 +78,7 @@ public class SkillSystem : MonoBehaviour
 
     static public int GET_PTS()
     {
-        return S.availiblePts;
+        return S.availablePts;
     }
 
 

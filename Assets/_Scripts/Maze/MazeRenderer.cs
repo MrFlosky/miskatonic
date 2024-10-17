@@ -14,7 +14,7 @@ public class MazeRenderer : MonoBehaviour
     [SerializeField] private List<RoomPrefabPair> roomPrefabPairs;
     
     // A dictionary to keep track of instantiated room objects
-    private Dictionary<string, Transform> instantiatedRooms = new Dictionary<string, Transform>();
+    public Dictionary<string, Transform> instantiatedRooms = new Dictionary<string, Transform>();
 
     // This the physical size of our maze cells. Getting this wrong will result in overlapping
     // or visible gaps between each cell.

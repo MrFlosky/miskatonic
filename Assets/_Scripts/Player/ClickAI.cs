@@ -10,6 +10,11 @@ public class ClickAI : MonoBehaviour
     public CinemachineVirtualCamera playerCam;
     public CinemachineVirtualCamera activeCamera;
     private bool _inConversation;
+    
+    public CinemachineTrackedDolly track;
+    public float scrollSpeed = 1f; // Speed factor for scrolling
+
+    private bool _clickedAI = false;
 
     private void Start()
     {
@@ -22,6 +27,8 @@ public class ClickAI : MonoBehaviour
         
         ConversationManager.OnConversationStarted += StartConversation;
         ConversationManager.OnConversationEnded += EndConversation;
+        
+        track = playerCam.GetCinemachineComponent<CinemachineTrackedDolly>();
     }
 
     private void Update()
@@ -37,6 +44,7 @@ public class ClickAI : MonoBehaviour
             {
                 if (hit.collider.CompareTag("AI") && TurnBasedSystem.IsPlayerTurn() && !_inConversation)
                 {
+                    _clickedAI = true;
                     var DialogueManager = hit.collider.GetComponentInChildren<DialogueManager>();
                     var virtualCam = DialogueManager.GetCurrentDialogue().GetComponentInChildren<CinemachineVirtualCamera>(true); // Pass 'true' to include inactive objects
                     if (virtualCam)
@@ -50,10 +58,19 @@ public class ClickAI : MonoBehaviour
                 }
             }
         }
+
+        if (_clickedAI) return;
+        
+        // Get the scroll wheel input (Mouse ScrollWheel returns values based on scrolling direction)
+        float scrollInput = Input.GetAxis("Mouse ScrollWheel");
+
+        // Update the tracked dolly's path position based on the scroll input and speed factor
+        track.m_PathPosition += scrollInput * scrollSpeed;
     }
 
     private void StartConversation()
     {
+        _clickedAI = false;
         _inConversation = true;
     }
     
