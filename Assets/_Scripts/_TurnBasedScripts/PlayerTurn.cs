@@ -8,11 +8,16 @@ using UnityEngine.Events;
 public class PlayerTurn : Turns
 {
 
+    public bool inConversation = false;
+    
     // Start off as disabled, only enable on button press.
     void Start()
     {
         turnType = TurnType.Player; // Every turn script must set it's turn type.
         this.enabled = false;
+        
+        ConversationManager.OnConversationStarted += () => inConversation = true;
+        ConversationManager.OnConversationEnded += () => inConversation = false;
     }
 
     // I can probably remove this...
@@ -37,7 +42,9 @@ public class PlayerTurn : Turns
         //base.InitiateTurn(); // Upcall DEBUG
         //InitiateTurn();
         
-        ConversationManager.Instance.EndConversation();
+        
+        if (inConversation)
+            ConversationManager.Instance.EndConversation();
     }
 
     /*
