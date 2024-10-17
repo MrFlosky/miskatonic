@@ -240162,11 +240162,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2260269105096341001, guid: d8e7dd22689a52341ba00150239f3964, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -16.7
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2260269105096341001, guid: d8e7dd22689a52341ba00150239f3964, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -36.3
+      value: -22
       objectReference: {fileID: 0}
     - target: {fileID: 2260269105096341001, guid: d8e7dd22689a52341ba00150239f3964, type: 3}
       propertyPath: m_LocalPosition.z
@@ -240199,6 +240199,14 @@ PrefabInstance:
     - target: {fileID: 2260269105096341001, guid: d8e7dd22689a52341ba00150239f3964, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6396519839863179753, guid: d8e7dd22689a52341ba00150239f3964, type: 3}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 6396519839863179753, guid: d8e7dd22689a52341ba00150239f3964, type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 250
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -240236,7 +240244,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08c6c1ed3f05ffe41b09100d8eb52c2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  winFear: 100
   sliderSpeed: 0.2
+  ps: {fileID: 0}
+  endTurnButton: {fileID: 770457876}
 --- !u!1001 &7586558744976745790
 PrefabInstance:
   m_ObjectHideFlags: 0
