@@ -6,8 +6,6 @@ using UnityEngine;
 
 public class ClickAI : MonoBehaviour
 {
-    public static ClickAI Instance;
-    
     public Camera mainCamera; // Reference to the camera, if null defaults to main camera
     public CinemachineVirtualCamera playerCam;
     public CinemachineVirtualCamera activeCamera;
@@ -23,10 +21,6 @@ public class ClickAI : MonoBehaviour
         
         ConversationManager.OnConversationEnded += EndConversation;
     }
-    
-    private void Awake() {
-        Instance = this;
-    }
 
     private void Update()
     {
@@ -39,7 +33,7 @@ public class ClickAI : MonoBehaviour
             // Perform a raycast to find the clicked position on the ground
             if (Physics.Raycast(ray, out hit))
             {
-                if (hit.collider.CompareTag("AI"))
+                if (hit.collider.CompareTag("AI") && TurnBasedSystem.IsPlayerTurn())
                 {
                     var virtualCam = hit.collider.GetComponentInChildren<CinemachineVirtualCamera>(true); // Pass 'true' to include inactive objects
                     if (virtualCam)
@@ -54,7 +48,7 @@ public class ClickAI : MonoBehaviour
         }
     }
 
-    public void EndConversation()
+    private void EndConversation()
     {
         playerCam.enabled = true;
         activeCamera.gameObject.SetActive(false); // Enable the GameObject if it's disabled

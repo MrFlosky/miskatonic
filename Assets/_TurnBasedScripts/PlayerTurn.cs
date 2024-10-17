@@ -2,6 +2,7 @@ using System.Buffers.Text;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DialogueEditor;
 using UnityEngine.Events;
 
 public class PlayerTurn : Turns
@@ -35,6 +36,8 @@ public class PlayerTurn : Turns
         this.enabled = true;
         //base.InitiateTurn(); // Upcall DEBUG
         //InitiateTurn();
+        
+        ConversationManager.Instance.EndConversation();
     }
 
     /*
