@@ -43,11 +43,11 @@ public class Skill : MonoBehaviour
     /// </summary>
     public virtual void ActivateSkill()
     {
-        if(SkillSystem.GET_PTS() >= ptDeduction)
+        if(SkillSystem.GET_PTS() >= ptDeduction) // we may need to do check in each skill only
         {
         SkillSystem.DEDUCT_PT(ptDeduction);
         SkillsCollection.DISABLE_BUTTONS();
-        skillEvent.Invoke();
+        skillEvent.Invoke(); // not using this lol
         //Stuff that happens when skill is activated!
         }
     }

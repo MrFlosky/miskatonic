@@ -89,10 +89,13 @@ public class SkillAoeFear : Skill
 
     public override void ActivateSkill()
     {
+        if(SkillSystem.GET_PTS() >= ptDeduction)
+        {
         base.ActivateSkill();
         this.enabled = true; // Enable the script allowing this skill to happen once.
         AOEOb.SetActive(true);
         canPlace = true;
+        }
 
     }
 
