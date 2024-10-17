@@ -23,14 +23,12 @@ public class Skill : MonoBehaviour
     public UnityEvent skillEvent;
 
     /// SkillType associated with this skill. Default to NeverSet for debugging.
-    protected SkillType st = SkillType.NeverSet; ///*** SET BACK TO PROTECTED LATER
+    protected SkillType st = SkillType.NeverSet; 
 
+    /// Holding all skillButtons
+    [Header("Dont assign here")]
+    static public Button[] buttonList = new Button[4];
 
-
-    void Start()
-    {
-
-    }
 
     // Update is called once per frame
     void Update()
@@ -49,9 +47,17 @@ public class Skill : MonoBehaviour
         if(SkillSystem.GET_PTS() >= ptDeduction)
         {
         SkillSystem.DEDUCT_PT(ptDeduction);
+        SkillsCollection.DISABLE_BUTTONS();
         skillEvent.Invoke();
         //Stuff that happens when skill is activated!
         }
+    }
+
+
+    // Each skill must perform different functions to end itself. Called on end turn!
+    public virtual void EndSkill()
+    {
+        SkillsCollection.ENABLE_BUTTONS();
     }
 
 

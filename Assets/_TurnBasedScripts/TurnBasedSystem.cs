@@ -35,6 +35,7 @@ public class TurnBasedSystem : MonoBehaviour
 
     /// List of items to destroy after x turns
     List<DestroyAfterRounds> destroyablesList = new List<DestroyAfterRounds>();
+    List<DestroyAfterRounds> readyToDestroy = new List<DestroyAfterRounds>(); // NEED THIS FOR PROPER DELETION CANT LOOP THRU LIST DELETING FROM!
     
     // Start is called before the first frame update
     void Start()
@@ -128,9 +129,15 @@ public class TurnBasedSystem : MonoBehaviour
         {
             destroyable.CheckDestroy();
         }
+        // Once added to destroyable list, destroy them. must be done this way. 
+        foreach(DestroyAfterRounds destroy in S.readyToDestroy)
+        {
+            S.destroyablesList.Remove(destroy);
+        }
 
     }
 
+    
     /// <summary>
     /// Check if player has reached the ending round.
     /// </summary>
@@ -159,15 +166,17 @@ public class TurnBasedSystem : MonoBehaviour
             S.destroyablesList.Add(this);
         }
 
+    
         public void CheckDestroy()
         {
-            if(obToDestroy != null && destroyOnRound == S.playerTurnCount)
+            if(destroyOnRound == S.playerTurnCount)
             {
                 MazeCellObject cell = obToDestroy.GetComponentInParent<MazeCellObject>();
                 
                 MazeGenerator.Instance.SetWallInternalState(cell.GetXCoord(), cell.GetYCoord(), wallType, false); // Deactivate this wall internally in the maze array
-                Destroy(obToDestroy);
-                //S.destroyablesList.Remove(this); // this would stop a giant list but idk why it isnt working
+                obToDestroy.SetActive(false); // need set active so can be reselected letter
+                S.readyToDestroy.Add(this);
+                
             }
         }
     }

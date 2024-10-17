@@ -87,6 +87,7 @@ public class SkillBarrier : Skill
             cycleCount = 0;
             canCycle = false;
             cellHit = null;
+            SkillsCollection.ENABLE_BUTTONS();
         }
 
         // Change cell selection. Set all walls back to false and allow reselect.
@@ -102,6 +103,24 @@ public class SkillBarrier : Skill
             cycleCount = 0;
             
         }
+    }
+
+        // how this skill ends itself on end turn
+    public override void EndSkill()
+    {
+        //SkillsCollection.ENABLE_BUTTONS();
+
+        base.EndSkill();
+        this.enabled = false;
+
+        // meaning player never confirmed their selection
+        if(canCycle)
+        {
+        mInactiveWalls[lastWallIndex].gameObject.SetActive(false);
+        }
+        cycleCount = 0;
+        canCycle = false;
+        cellHit = null;
     }
     
   
