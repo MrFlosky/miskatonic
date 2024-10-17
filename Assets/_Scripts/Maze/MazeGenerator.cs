@@ -690,7 +690,7 @@ public class MazeCell {
     }
 }
 
-
+[System.Serializable]
 public class Room {
     public List<Vector2Int> tilesInRoom;
     public string roomType;

@@ -21528,8 +21528,10 @@ MonoBehaviour:
   mazeHeight: 0.5
   hasDestination: 0
   turnFinished: 0
-  distance: 40
   destination: {x: 0, y: 0, z: 0}
+  FearRoom: 1
+  GoalRoom: 0
+  agentFear: {fileID: 189492978}
 --- !u!136 &189492974
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -80659,6 +80661,7 @@ MonoBehaviour:
   roomXSizeMax: 5
   roomYSizeMin: 5
   roomYSizeMax: 5
+  rooms: []
 --- !u!4 &686919837
 Transform:
   m_ObjectHideFlags: 0
@@ -199902,8 +199905,10 @@ MonoBehaviour:
   mazeHeight: 0.5
   hasDestination: 0
   turnFinished: 0
-  distance: 40
   destination: {x: 0, y: 0, z: 0}
+  FearRoom: 1
+  GoalRoom: 2
+  agentFear: {fileID: 1786683543}
 --- !u!136 &1786683546
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -202607,8 +202612,10 @@ MonoBehaviour:
   mazeHeight: 0.5
   hasDestination: 0
   turnFinished: 0
-  distance: 40
   destination: {x: 0, y: 0, z: 0}
+  FearRoom: 3
+  GoalRoom: 4
+  agentFear: {fileID: 1803466005}
 --- !u!136 &1803466008
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -206951,8 +206958,10 @@ MonoBehaviour:
   mazeHeight: 0.5
   hasDestination: 0
   turnFinished: 0
-  distance: 40
   destination: {x: 0, y: 0, z: 0}
+  FearRoom: 3
+  GoalRoom: 5
+  agentFear: {fileID: 1839169909}
 --- !u!136 &1839169912
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -241848,7 +241857,7 @@ MonoBehaviour:
   winFear: 100
   sliderSpeed: 0.2
   ps: {fileID: 0}
-  endTurnButton: {fileID: 770457876}
+  endTurnButton: {fileID: 0}
 --- !u!1001 &7586558744976745790
 PrefabInstance:
   m_ObjectHideFlags: 0
