@@ -1,7 +1,4 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -31,46 +28,51 @@ public class MazeGenerator : MonoBehaviour {
 
     public MazeCell[,] GetMaze() 
     {
-        
-        maze = new MazeCell[mazeWidth, mazeHeight];
+        int maxAttempts = 100; // Limit the number of retries to avoid infinite loops
+        int attempts = 0;
 
-        for (int x = 0; x < mazeWidth; x++) {
-            for (int y = 0; y < mazeHeight; y++) {
-
-                maze[x, y] = new MazeCell(x, y);
-
-            }
-        }
-
-        // Start carving our maze path.
-        CarvePath(startX, startY);
-        
-        // create all roomtypes
-        _roomTypes = new List<string> {
-            "Dining Hall",
-            "Library",
-            "Ballroom",
-            "Study",
-            "Lounge",
-            "Kitchen",
-            "Conservatory",
-            "Billiard Room",
-            "Hall",
-            "Observatory",
-            "Cellar",
-            "Music Room",
-            "Trophy Room",
-            "Garden",
-            "Parlor"
-        };
-        
-        for (int i = 0; i < roomCount; i++)
+        while (attempts < maxAttempts)
         {
-            CreateRoom(maze);
-        }
-        
-        return maze;
+            // Initialize the maze
+            maze = new MazeCell[mazeWidth, mazeHeight];
+            for (int x = 0; x < mazeWidth; x++) {
+                for (int y = 0; y < mazeHeight; y++) {
+                    maze[x, y] = new MazeCell(x, y);
+                }
+            }
 
+            // Start carving the maze path
+            CarvePath(startX, startY);
+        
+            // Create all room types
+            _roomTypes = new List<string> {
+                "Dining Hall", "Library", "Ballroom", "Study", "Lounge", "Kitchen", "Conservatory",
+                "Billiard Room", "Hall", "Observatory", "Cellar", "Music Room", "Trophy Room", "Garden", "Parlor"
+            };
+        
+            // Try to create the specified number of rooms
+            int createdRoomCount = 0;
+            for (int i = 0; i < roomCount; i++)
+            {
+                if (CreateRoom(maze))
+                {
+                    createdRoomCount++;
+                }
+            }
+
+            // If we successfully created the required number of rooms, return the maze
+            if (createdRoomCount == roomCount)
+            {
+                return maze;
+            }
+        
+            // Increment the attempt counter and retry
+            attempts++;
+        }
+
+        // If we reached the maximum number of attempts and still failed, log an error
+        Debug.LogError($"Failed to generate a maze with {roomCount} rooms after {maxAttempts} attempts.");
+        return maze; // Return the last attempted maze (could be incomplete)
     }
 
     List<Directions> directions = new List<Directions> {
@@ -107,14 +109,6 @@ public class MazeGenerator : MonoBehaviour {
         else return true;
 
     }
-    
-    bool IsRoomValid (int x, int y) {
-    
-            // If the cell is outside of the map or has already been visited, we consider it not valid.
-            if (x < 0 || y < 0 || x > mazeWidth - 1 || y > mazeHeight - 1 || maze[x, y].roomTile || maze[x, y].outsideTile) return false;
-            else return true;
-    
-        }
 
     Vector2Int CheckNeighbours() {
 
@@ -263,7 +257,7 @@ public class MazeGenerator : MonoBehaviour {
         }
     }
     
-    public void CreateRoom(MazeCell[,] maze)
+    public bool CreateRoom(MazeCell[,] maze)
     {
         int xLength = Random.Range(roomXSizeMin, roomXSizeMax); // get random x size of room
         int yLength = Random.Range(roomYSizeMin, roomYSizeMax); // get random y size of room
@@ -279,131 +273,364 @@ public class MazeGenerator : MonoBehaviour {
 
         bool success = true;
         int tries = 0;
-        while (tries < 10)
+        while (tries < 100)
         {
             success = true;
             for (int x = farLeftX; x < farRightX + 1; x++)
             {
                 for (int y = farBottomY; y < farTopY + 1; y++)
                 {
-                    if (maze[x, y].roomTile || maze[x, y].outsideTile)
+                    if (x < 0 || y < 0 || x >= mazeWidth || y >= mazeHeight || maze[x, y].roomTile || maze[x, y].outsideTile)
                     {
                         success = false;
+                        break;
                     }
                 }
+                if (!success) break;
             }
             if (success) break;
             
-            xLength = Random.Range(roomXSizeMin, roomXSizeMax); // get random x size of room
-            yLength = Random.Range(roomYSizeMin, roomYSizeMax); // get random y size of room
-
+            // Try new dimensions and starting position
+            xLength = Random.Range(roomXSizeMin, roomXSizeMax);
+            yLength = Random.Range(roomYSizeMin, roomYSizeMax);
             startX = Random.Range(Mathf.RoundToInt(xLength / 2), mazeWidth - Mathf.RoundToInt(xLength / 2));
             startY = Random.Range(Mathf.RoundToInt(yLength / 2), mazeHeight - Mathf.RoundToInt(yLength / 2));
-
             farLeftX = startX - Mathf.RoundToInt(xLength / 2);
             farRightX = startX + Mathf.CeilToInt(xLength / 2);
-
             farBottomY = startY - Mathf.RoundToInt(yLength / 2);
             farTopY = startY + Mathf.CeilToInt(yLength / 2);
             
             tries++;
         }
-        if (!success) return;
 
-        var rnd = Random.Range(0, _roomTypes.Count);       // Get random room type index in list.
-        
+        if (!success) return false; // Failed to place the room
+
+        // Create the room
+        var rnd = Random.Range(0, _roomTypes.Count);
         Room newRoom = new Room(_roomTypes[rnd]);
         
-        // set all tiles within random range and 1 out as outsideTiles
-        // loop through x,y in random range
         for (int x = farLeftX - 1; x < farRightX + 2; x++)
         {
             for (int y = farBottomY - 1; y < farTopY + 2; y++)
             {
-                // if this cant become a new room, move onto next
-                if (!IsRoomValid(x, y)) continue;
-                // set this tile as an outside tile
-                maze[x,y].outsideTile = true;
+                if (x >= 0 && y >= 0 && x < mazeWidth && y < mazeHeight)
+                {
+                    maze[x, y].outsideTile = true;
+                }
             }
-            
         }
         
-        
-        // loop through x,y in random range
         for (int x = farLeftX; x < farRightX + 1; x++)
         {
             for (int y = farBottomY; y < farTopY + 1; y++)
             {
-                var selectedCell = maze[x, y];
-                // Clear all walls first
-                //if (!IsCellValid(x, y)) continue;
-
+                MazeCell selectedCell = maze[x, y];
                 selectedCell.rightWall = selectedCell.leftWall = selectedCell.topWall = selectedCell.bottomWall = false;
-                
-                // Corrected conditions for determining far edges:
-                if (x == farLeftX) // if far left
-                {
-                    selectedCell.leftWall = true;
-                    //print(x + " is the far left");
-                }
-                if (x == farRightX) // if far right
-                {
-                    selectedCell.rightWall = true;
-                    //print(x + " is the far right");
-                }
-                if (y == farTopY) // if top
-                {
-                    selectedCell.topWall = true;
-                    //print(y + " is the far top");
-                }
-                if (y == farBottomY) // if bottom
-                {
-                    selectedCell.bottomWall = true;
-                    //print(y + " is the far bottom");
-                }
-                maze[x,y].roomTile = true;
-                
-                newRoom.AddTile(maze[x,y].position);
-                
-                maze[x,y].room = newRoom;
-                
-                maze[x, y].roomType = _roomTypes[rnd];             // Add the room title
-                
+                if (x == farLeftX) selectedCell.leftWall = true;
+                if (x == farRightX) selectedCell.rightWall = true;
+                if (y == farTopY) selectedCell.topWall = true;
+                if (y == farBottomY) selectedCell.bottomWall = true;
+                selectedCell.roomTile = true;
+                selectedCell.room = newRoom;
+                selectedCell.roomType = _roomTypes[rnd];
+                newRoom.AddTile(selectedCell.position);
             }
         }
-        
-        // Check and create entrances on each wall if it's not on the maze edge
-        if (farLeftX > 0) // Ensure it's not on the left edge of the maze
+
+        // Create entrances
+        if (farLeftX > 0)
         {
-            int entranceY = (farBottomY + farTopY) / 2; // Find middle of the left wall
-            maze[farLeftX, entranceY].leftWall = false; // Remove the wall for entrance
-            maze[farLeftX-1, entranceY].rightWall = false; // Remove the wall for entrance
+            int entranceY = (farBottomY + farTopY) / 2;
+            maze[farLeftX, entranceY].leftWall = false;
+            maze[farLeftX - 1, entranceY].rightWall = false;
+        }
+        if (farRightX < mazeWidth - 1)
+        {
+            int entranceY = (farBottomY + farTopY) / 2;
+            maze[farRightX, entranceY].rightWall = false;
+            maze[farRightX + 1, entranceY].leftWall = false;
+        }
+        if (farBottomY > 0)
+        {
+            int entranceX = (farLeftX + farRightX) / 2;
+            maze[entranceX, farBottomY].bottomWall = false;
+            maze[entranceX, farBottomY - 1].topWall = false;
+        }
+        if (farTopY < mazeHeight - 1)
+        {
+            int entranceX = (farLeftX + farRightX) / 2;
+            maze[entranceX, farTopY].topWall = false;
+            maze[entranceX, farTopY + 1].bottomWall = false;
         }
 
-        if (farRightX < mazeWidth - 1) // Ensure it's not on the right edge of the maze
-        {
-            int entranceY = (farBottomY + farTopY) / 2; // Find middle of the right wall
-            maze[farRightX, entranceY].rightWall = false; // Remove the wall for entrance
-            maze[farRightX+1, entranceY].leftWall = false; // Remove the wall for entrance
-        }
-
-        if (farBottomY > 0) // Ensure it's not on the bottom edge of the maze
-        {
-            int entranceX = (farLeftX + farRightX) / 2; // Find middle of the bottom wall
-            maze[entranceX, farBottomY].bottomWall = false; // Remove the wall for entrance
-            maze[entranceX, farBottomY-1].topWall = false; // Remove the wall for entrance
-        }
-
-        if (farTopY < mazeHeight - 1) // Ensure it's not on the top edge of the maze
-        {
-            int entranceX = (farLeftX + farRightX) / 2; // Find middle of the top wall
-            maze[entranceX, farTopY].topWall = false; // Remove the wall for entrance
-            maze[entranceX, farTopY+1].bottomWall = false; // Remove the wall for entrance
-        }
-        
-        _roomTypes.RemoveAt(rnd);   // after setting all the tiles, destroy 
-        
+        // Remove room type from list and add to rooms
+        _roomTypes.RemoveAt(rnd);
         rooms.Add(newRoom);
+
+        return true; // Room successfully created
+    }
+    
+    public MazeCell[,] GenerateValidMaze()
+    {
+        int maxFixAttempts = 1000; // Maximum number of wall-breaking attempts to avoid infinite loops
+        int fixAttempts = 0;
+
+        // Generate the initial maze
+        MazeCell[,] generatedMaze = GetMaze();
+    
+        // Loop until the maze is fully traversable or max attempts are reached
+        while (!IsMazeFullyTraversable() && fixAttempts < maxFixAttempts)
+        {
+            // Assign reachability values to tiles
+            int[,] tileValues = AssignTileValues();
+
+            // Attempt to connect unreachable clusters to reachable areas
+            ConnectClusters(tileValues);
+
+            // Increment the fix attempt counter
+            fixAttempts++;
+        }
+
+        return generatedMaze;
+    }
+
+    // Assigns values to each tile based on reachability
+    private int[,] AssignTileValues()
+    {
+        int[,] tileValues = new int[mazeWidth, mazeHeight];
+
+        // Use BFS or flood fill to mark reachable tiles starting from (startX, startY)
+        Queue<MazeCell> queue = new Queue<MazeCell>();
+        HashSet<MazeCell> visited = new HashSet<MazeCell>();
+        
+        // Start from the initial position
+        queue.Enqueue(maze[startX, startY]);
+        visited.Add(maze[startX, startY]);
+        tileValues[startX, startY] = 1; // Mark as reachable
+
+        // Perform BFS to mark reachable tiles
+        while (queue.Count > 0)
+        {
+            MazeCell current = queue.Dequeue();
+            foreach (MazeCell neighbor in GetNeighbors(current))
+            {
+                if (!visited.Contains(neighbor) && !neighbor.outsideTile)
+                {
+                    visited.Add(neighbor);
+                    queue.Enqueue(neighbor);
+                    tileValues[neighbor.x, neighbor.y] = 1; // Mark as reachable
+                }
+            }
+        }
+
+        return tileValues;
+    }
+
+    // Connects clusters of unreachable tiles to reachable areas
+    private void ConnectClusters(int[,] tileValues)
+    {
+        // Find clusters of tiles with value 0 (unreachable)
+        List<HashSet<MazeCell>> clusters = FindClusters(tileValues, 0);
+
+        // Try to connect each cluster to a reachable tile
+        foreach (var cluster in clusters)
+        {
+            foreach (MazeCell cell in cluster)
+            {
+                // Get reachable neighbors
+                List<MazeCell> reachableNeighbors = GetReachableNeighbors(cell, tileValues);
+                if (reachableNeighbors.Count > 0)
+                {
+                    // Connect to the first reachable neighbor
+                    BreakWallBetween(cell, reachableNeighbors[0]);
+                    tileValues[cell.x, cell.y] = 1; // Mark this tile as reachable
+
+                    // Update all tiles in the cluster to 1, as they should now be reachable
+                    foreach (MazeCell clusterCell in cluster)
+                    {
+                        tileValues[clusterCell.x, clusterCell.y] = 1;
+                    }
+                    break;
+                }
+            }
+        }
+    }
+
+    // Finds clusters of tiles with a specified value (e.g., value 0 for unreachable)
+    private List<HashSet<MazeCell>> FindClusters(int[,] tileValues, int targetValue)
+    {
+        List<HashSet<MazeCell>> clusters = new List<HashSet<MazeCell>>();
+        HashSet<MazeCell> visited = new HashSet<MazeCell>();
+
+        // Loop through all tiles
+        for (int x = 0; x < mazeWidth; x++)
+        {
+            for (int y = 0; y < mazeHeight; y++)
+            {
+                if (tileValues[x, y] != targetValue || visited.Contains(maze[x, y]))
+                {
+                    continue; // Skip tiles that are already visited or do not match the target value
+                }
+
+                // Find a cluster of tiles with the target value
+                HashSet<MazeCell> cluster = new HashSet<MazeCell>();
+                Queue<MazeCell> queue = new Queue<MazeCell>();
+                queue.Enqueue(maze[x, y]);
+                visited.Add(maze[x, y]);
+
+                while (queue.Count > 0)
+                {
+                    MazeCell current = queue.Dequeue();
+                    cluster.Add(current);
+
+                    // Check neighbors and add to the cluster if they match the target value
+                    foreach (MazeCell neighbor in GetNeighbors(current))
+                    {
+                        if (!visited.Contains(neighbor) && tileValues[neighbor.x, neighbor.y] == targetValue)
+                        {
+                            visited.Add(neighbor);
+                            queue.Enqueue(neighbor);
+                        }
+                    }
+                }
+
+                clusters.Add(cluster);
+            }
+        }
+
+        return clusters;
+    }
+
+    // Gets the reachable neighbors of a cell
+    private List<MazeCell> GetReachableNeighbors(MazeCell cell, int[,] tileValues)
+    {
+        List<MazeCell> neighbors = new List<MazeCell>();
+
+        int x = cell.x;
+        int y = cell.y;
+
+        // Check each direction for neighbors with a value of 1 (reachable)
+        if (x > 0 && tileValues[x - 1, y] == 1) neighbors.Add(maze[x - 1, y]); // Left
+        if (x < mazeWidth - 1 && tileValues[x + 1, y] == 1) neighbors.Add(maze[x + 1, y]); // Right
+        if (y > 0 && tileValues[x, y - 1] == 1) neighbors.Add(maze[x, y - 1]); // Down
+        if (y < mazeHeight - 1 && tileValues[x, y + 1] == 1) neighbors.Add(maze[x, y + 1]); // Up
+
+        return neighbors;
+    }
+    
+    private bool IsMazeFullyTraversable()
+    {
+        // Perform flood fill from the starting position to count the number of accessible cells
+        int accessibleCount = CountAccessibleSpaces(new Vector2Int(startX, startY));
+
+        // Compare with the total number of traversable cells (excluding outside tiles)
+        int totalTraversableCells = mazeWidth * mazeHeight - GetNumberOfOutsideTiles();
+        // Log the results for debugging
+        // If all traversable cells are accessible, return true
+        return accessibleCount == totalTraversableCells;
+    }
+
+    private int CountAccessibleSpaces(Vector2Int start)
+    {
+        // Use a queue for BFS
+        Queue<MazeCell> openSet = new Queue<MazeCell>();
+        HashSet<MazeCell> visited = new HashSet<MazeCell>();
+
+        // Add the start cell to the open set
+        MazeCell startCell = maze[start.x, start.y];
+        openSet.Enqueue(startCell);
+        visited.Add(startCell);
+
+        int accessibleCount = 0;
+
+        // Perform BFS to count accessible spaces
+        while (openSet.Count > 0)
+        {
+            MazeCell current = openSet.Dequeue();
+            accessibleCount++;
+
+            // Check each neighbor
+            foreach (MazeCell neighbor in GetNeighbors(current))
+            {
+                // Skip if already visited or if it is an outside tile
+                if (visited.Contains(neighbor) || neighbor.outsideTile) continue;
+
+                // Mark the neighbor as visited
+                visited.Add(neighbor);
+                openSet.Enqueue(neighbor);
+            }
+        }
+
+        return accessibleCount;
+    }
+
+    private List<MazeCell> GetNeighbors(MazeCell cell)
+    {
+        List<MazeCell> neighbors = new List<MazeCell>();
+
+        int x = cell.x;
+        int y = cell.y;
+
+        // Check each direction and add if no walls block the path
+        if (x > 0 && !maze[x, y].leftWall && !maze[x - 1, y].rightWall) neighbors.Add(maze[x - 1, y]); // Left
+        if (x < mazeWidth - 1 && !maze[x, y].rightWall && !maze[x + 1, y].leftWall) neighbors.Add(maze[x + 1, y]); // Right
+        if (y > 0 && !maze[x, y].bottomWall && !maze[x, y - 1].topWall) neighbors.Add(maze[x, y - 1]); // Down
+        if (y < mazeHeight - 1 && !maze[x, y].topWall && !maze[x, y + 1].bottomWall) neighbors.Add(maze[x, y + 1]); // Up
+
+        return neighbors;
+    }
+
+    private int GetNumberOfOutsideTiles()
+    {
+        int count = 0;
+        for (int x = 0; x < mazeWidth; x++)
+        {
+            for (int y = 0; y < mazeHeight; y++)
+            {
+                if (maze[x, y].outsideTile)
+                {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+    
+    private void BreakWallBetween(MazeCell cellA, MazeCell cellB)
+    {
+        // Determine which wall to break based on the relative position of cellA and cellB
+        if (cellA.x == cellB.x)
+        {
+            // Same column, check rows
+            if (cellA.y < cellB.y)
+            {
+                // cellA is below cellB
+                cellA.topWall = false;
+                cellB.bottomWall = false;
+            }
+            else
+            {
+                // cellA is above cellB
+                cellA.bottomWall = false;
+                cellB.topWall = false;
+            }
+        }
+        else if (cellA.y == cellB.y)
+        {
+            // Same row, check columns
+            if (cellA.x < cellB.x)
+            {
+                // cellA is to the left of cellB
+                cellA.rightWall = false;
+                cellB.leftWall = false;
+            }
+            else
+            {
+                // cellA is to the right of cellB
+                cellA.leftWall = false;
+                cellB.rightWall = false;
+            }
+        }
     }
     
 }

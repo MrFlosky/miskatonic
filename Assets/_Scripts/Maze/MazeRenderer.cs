@@ -60,32 +60,28 @@ public class MazeRenderer : MonoBehaviour
 
     public void GenerateMaze()
     {
+        // Clear existing maze if any
         if (transform.childCount > 0) DestroyChildren();
-        
-        while (transform.childCount > 0)
+
+        // Generate a fully traversable maze using GenerateValidMaze
+        maze = mazeGenerator.GenerateValidMaze();
+
+        // If the maze generation fails, stop the execution
+        if (maze == null)
         {
-            print("Current Children: " + transform.childCount);
-            foreach (Transform child in transform)
-            {
-                DestroyImmediate(child.gameObject);
-            }
-            print("Current Children: " + transform.childCount);
-
+            Debug.LogError("Failed to generate a fully traversable maze.");
+            return;
         }
-        // Get our MazeGenerator script to make us a maze.
-        maze = mazeGenerator.GetMaze();
 
-        
-        
-        // Loop through every cell in the maze.
+        // Loop through every cell in the maze
         for (int x = 0; x < mazeGenerator.mazeWidth; x++)
         {
             for (int y = 0; y < mazeGenerator.mazeHeight; y++)
             {
                 var roomType = maze[x, y].roomType;
-                
+
                 // Check if a parent for this room type already exists
-                if (!instantiatedRooms.ContainsKey(maze[x, y].roomType))
+                if (!instantiatedRooms.ContainsKey(roomType))
                 {
                     // Create a new parent GameObject for this room type
                     var roomParentObject = new GameObject(roomType);
@@ -94,39 +90,39 @@ public class MazeRenderer : MonoBehaviour
                     // Store the parent in the dictionary
                     instantiatedRooms.Add(roomType, roomParentObject.transform);
                 }
-                
-                // Instantiate a new maze cell prefab as a child of the MazeRenderer object.
+
+                // Instantiate a new maze cell prefab as a child of the MazeRenderer object
                 GameObject newCell = Instantiate(MazeCellPrefab,
                     new Vector3((float)x * CellSize, 0f, (float)y * CellSize), Quaternion.identity, instantiatedRooms[roomType]);
-                
+
                 newCell.name = roomType + "[" + x + ", " + y + "]";
 
-                // Get a reference to the cell's MazeCellPrefab script.
+                // Get a reference to the cell's MazeCellObject script
                 MazeCellObject mazeCell = newCell.GetComponent<MazeCellObject>();
 
-                // Have it hold its x,y coords
+                // Have it hold its x,y coordinates
                 mazeCell.SetXCoord(x);
                 mazeCell.SetYCoord(y);
 
-                // Determine which walls need to be active.
+                // Determine which walls need to be active
                 bool top = maze[x, y].topWall;
                 bool left = maze[x, y].leftWall;
 
-                // Bottom and right walls are deactivated by default unless we are at the bottom or right
-                // edge of the maze.
+                // Bottom and right walls are deactivated by default unless we are at the bottom or right edge of the maze
                 bool right = maze[x, y].rightWall;
                 bool bottom = maze[x, y].bottomWall;
                 if (x == mazeGenerator.mazeWidth - 1) right = true;
                 if (y == 0) bottom = true;
-                
-                // checks if it is a room tile
+
+                // Check if it is a room tile
                 bool roomTile = maze[x, y].roomTile;
-                
-                // create object
+
+                // Initialize the cell with wall and room information
                 mazeCell.Init(top, bottom, right, left, roomTile, maze[x, y].roomType);
             }
         }
+
+        // Invoke the maze generation completion event
         OnMazeGenerated?.Invoke();
     }
-
 }
