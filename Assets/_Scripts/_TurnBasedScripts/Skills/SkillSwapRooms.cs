@@ -40,6 +40,7 @@ public class SkillSwapRooms : Skill
     // Checks the rooms clicked.
     void Update()
     {
+        base.ExitInput();
         // Determines the rooms being selected for a switch.
         if(Input.GetMouseButtonDown(0))
         {
@@ -48,7 +49,7 @@ public class SkillSwapRooms : Skill
             // Note this is hitting the floor.
             if(Physics.Raycast(ray, out hit))
             {
-                if(hit.transform.GetComponentInParent<MazeCellObject>() != null)
+                if(hit.transform.GetComponentInParent<MazeCellObject>() != null && hit.transform.GetComponentInParent<MazeCellObject>().roomType != "Hallway") //refac later
                 {
                     MazeCellObject cellHit = hit.transform.GetComponentInParent<MazeCellObject>(); // The single cell
                     GameObject roomHit = cellHit.transform.parent.gameObject; // The entire room holding all the cells
@@ -75,12 +76,31 @@ public class SkillSwapRooms : Skill
             }
         }
 
-        // With two rooms selected, initiate the switch upon pressing enter.
+        // With two rooms selected, initiate the switch upon pressing enter.    
         if(switchCanOccur && Input.GetKeyDown(KeyCode.Return))
         {
             SwitchRooms(rm1Obj, rm2Obj, mRoomType1, mRoomType2);
             this.enabled = false; // Disable this skill after it has been used once.
+            SkillsCollection.ENABLE_BUTTONS();
         }
+
+    }
+
+    // Called when AI turn beings. reset
+    public override void EndSkill()
+    {
+        base.EndSkill();
+        this.enabled = false;
+
+        // Reset the room types being held for switch
+        mRoomType2 = "None";
+        if(rm2Obj != null){SetRoomColor(rm2Obj, beforeSelectMatFloor, beforeSelectMatWall);}
+
+        mRoomType1 = "None";
+        if(rm1Obj != null){SetRoomColor(rm1Obj, beforeSelectMatFloor, beforeSelectMatWall);}
+
+
+        switchCanOccur = false;
 
     }
 
