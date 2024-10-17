@@ -29,6 +29,7 @@ public class SkillBarrier : Skill
 
     void Update()
     {
+        base.ExitInput();
         // Determines the rooms being selected for a switch.
         if(Input.GetMouseButtonDown(0) && !canCycle)
         {
@@ -195,5 +196,7 @@ public class SkillBarrier : Skill
             return 0; // is this best to return if shouldnt occur?
         }
     }
+
+
 
 }

@@ -30,12 +30,11 @@ public class Skill : MonoBehaviour
     static public Button[] buttonList = new Button[4];
 
 
-    // Update is called once per frame
+
     void Update()
     {
-        
-    }
 
+    }
 
     /// <summary>
     /// Every skill can only be activated if the player has enough points.
@@ -58,6 +57,19 @@ public class Skill : MonoBehaviour
     public virtual void EndSkill()
     {
         SkillsCollection.ENABLE_BUTTONS();
+    }
+
+    /// <summary>
+    /// Exit any skill on right click only if they are in middle of a skill. i.e. the buttons are
+    /// not interactable. Give them their spent points back
+    /// </summary>
+    protected virtual void ExitInput()
+    {
+        if(Input.GetMouseButton(1) && skillButton.interactable == false) 
+        {
+            SkillSystem.ADD_PT(ptDeduction);
+            EndSkill();
+        }
     }
 
 
