@@ -49,6 +49,7 @@ public class SkillSystem : MonoBehaviour
     static public void ADD_PT(int addition)
     {
         S.availiblePts+=addition;
+        DISPLAY_PTS();
     }
     
     static public void SET_PT(int num)

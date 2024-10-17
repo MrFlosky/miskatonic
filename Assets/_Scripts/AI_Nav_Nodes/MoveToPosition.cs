@@ -25,8 +25,6 @@ public class MoveToPosition : ActionNode
             
             return State.Success;
         }
-        
-        Debug.Log(context.agentNavigation.path.Count);
         return State.Running;
     }
 }

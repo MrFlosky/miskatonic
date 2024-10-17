@@ -9,6 +9,7 @@ public class ClickAI : MonoBehaviour
     public Camera mainCamera; // Reference to the camera, if null defaults to main camera
     public CinemachineVirtualCamera playerCam;
     public CinemachineVirtualCamera activeCamera;
+    private bool _inConversation;
 
     private void Start()
     {
@@ -19,6 +20,7 @@ public class ClickAI : MonoBehaviour
 
         activeCamera = playerCam;
         
+        ConversationManager.OnConversationStarted += StartConversation;
         ConversationManager.OnConversationEnded += EndConversation;
     }
 
@@ -33,9 +35,10 @@ public class ClickAI : MonoBehaviour
             // Perform a raycast to find the clicked position on the ground
             if (Physics.Raycast(ray, out hit))
             {
-                if (hit.collider.CompareTag("AI") && TurnBasedSystem.IsPlayerTurn())
+                if (hit.collider.CompareTag("AI") && TurnBasedSystem.IsPlayerTurn() && !_inConversation)
                 {
-                    var virtualCam = hit.collider.GetComponentInChildren<CinemachineVirtualCamera>(true); // Pass 'true' to include inactive objects
+                    var DialogueManager = hit.collider.GetComponentInChildren<DialogueManager>();
+                    var virtualCam = DialogueManager.GetCurrentDialogue().GetComponentInChildren<CinemachineVirtualCamera>(true); // Pass 'true' to include inactive objects
                     if (virtualCam)
                     {
                         virtualCam.gameObject.SetActive(true); // Enable the GameObject if it's disabled
@@ -43,17 +46,27 @@ public class ClickAI : MonoBehaviour
                     }
                     activeCamera = virtualCam;
                     playerCam.enabled = false;
+                    DialogueManager.Increment();
                 }
             }
         }
     }
 
+    private void StartConversation()
+    {
+        _inConversation = true;
+    }
+    
     private void EndConversation()
     {
+        _inConversation = false;
+        
         playerCam.enabled = true;
         activeCamera.gameObject.SetActive(false); // Enable the GameObject if it's disabled
         activeCamera.enabled = false; // Enable the CinemachineVirtualCamera component
         activeCamera = playerCam;
+        
+        //ConversationManager.Instance.EndConversation();
     }
     
 }

@@ -8,11 +8,14 @@ public class FearMeter : MonoBehaviour
 {
     private static FearMeter S;
     int totalFear = 0;
-    int maxFear = 100;
+    
+    [Header("The amount of culminated fear needed to win game")]
+    public int winFear = 100;
 
     Slider slid;
     float timeElapsed = 0;
     public float sliderSpeed = 0.2f;
+    public ParticleSystem ps;
 
     void Awake()
     {
@@ -37,6 +40,7 @@ public class FearMeter : MonoBehaviour
 
         S.timeElapsed = 0; // setting to 0 here makes so slider animates smoothly with multiple increase calls
         S.totalFear += increase;
+        S.CHECK_FEAR_WIN();
         S.enabled = true;
     }
 
@@ -50,6 +54,17 @@ public class FearMeter : MonoBehaviour
     static public int GET_METER_TOTAL()
     {
         return S.totalFear;
+    }
+
+    public GameObject endTurnButton;
+    void CHECK_FEAR_WIN()
+    {
+        if(totalFear >= winFear)
+        {
+            ps.Play();
+            SkillsCollection.DISABLE_BUTTONS();
+            Destroy(endTurnButton);
+        }
     }
 
 

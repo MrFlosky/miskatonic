@@ -9,9 +9,8 @@ public class AgentNavigation : MonoBehaviour
     public MazeRenderer mazeRenderer;
     private MazeCell[,] maze;
     private float CellSize;
-    
+
     public float speed = 3.5f; // Movement speed
-    
     public float mazeHeight = 0.5f; // Y offset to maintain height on the maze
 
     public List<MazeCell> path = new List<MazeCell>();
@@ -20,16 +19,30 @@ public class AgentNavigation : MonoBehaviour
     private bool isMoving = false;
     public bool hasDestination = false;
     public bool turnFinished = false;
-    
-    private Stack<Vector2Int> pathHistory = new Stack<Vector2Int>();
 
-    [SerializeField] private int distance = 40;
-    
+    private Stack<Vector2Int> pathHistory = new Stack<Vector2Int>();
     private List<Room> visitedRooms = new List<Room>();
-    
     private Dictionary<Vector2Int, int> visitCount = new Dictionary<Vector2Int, int>();
-    
+
     public Vector3 destination;
+
+    [SerializeField] private RoomName FearRoom;
+    [SerializeField] private RoomName GoalRoom;
+
+    private Room currentRoom; // Track the current room the agent is in
+    private Dictionary<string, System.Action> roomFearEffects;
+
+    [SerializeField] private Fear agentFear;
+    
+    private void Start()
+    {
+        // Initialize the dictionary with room reactions for this agent
+        roomFearEffects = new Dictionary<string, System.Action>();
+        
+        roomFearEffects[GetRoomName(FearRoom)] = IncreaseFear;
+        
+        roomFearEffects[GetRoomName(GoalRoom)] = DecreaseFear;
+    }
     
     private void Awake()
     {
@@ -72,7 +85,7 @@ public class AgentNavigation : MonoBehaviour
         if (roomInfo.Length > 0)
             roomInfo.Length -= 2;
 
-        Debug.Log("Visited Rooms: " + roomInfo);
+        Debug.Log(gameObject.name + "'s Visited Rooms: " + roomInfo);
     }
 
     public void SetDestination(Vector2Int target) {
@@ -146,6 +159,15 @@ public class AgentNavigation : MonoBehaviour
             
             // Check if the AI is standing over a new room tile (not a hallway)
             MazeCell currentCell = maze[gridPosition.x, gridPosition.y];
+
+            Room room = MazeGenerator.Instance.rooms.FirstOrDefault(r => r.tilesInRoom.Contains(gridPosition));
+            
+            if (currentCell.roomTile && currentRoom != room)
+            {
+                currentRoom = room;
+                EnterRoom(room);
+            }
+            
             if (!IsRoomVisited(gridPosition) && currentCell.roomTile) {
                 // Only stop movement and mark as visited if it's a room tile
                 MarkRoomAsVisited(gridPosition); // Mark the room as visited
@@ -588,4 +610,88 @@ public class AgentNavigation : MonoBehaviour
         return hasDestination;
     }
     
+    
+    public void UpdateSwappedRooms(GameObject room1Ob, string newRoom1Type, GameObject room2Ob, string newRoom2Type)
+    {
+        // Get the positions of all cells in room1Ob
+        var room1Positions = room1Ob.GetComponentsInChildren<MazeCellObject>()
+            .Select(cell => new Vector2Int(cell.GetXCoord(), cell.GetYCoord())).ToList();
+
+        // Get the positions of all cells in room2Ob
+        var room2Positions = room2Ob.GetComponentsInChildren<MazeCellObject>()
+            .Select(cell => new Vector2Int(cell.GetXCoord(), cell.GetYCoord())).ToList();
+
+        // Find the corresponding rooms in the MazeGenerator
+        Room room1 = MazeGenerator.Instance.rooms.FirstOrDefault(r => r.roomType == newRoom1Type);
+        Room room2 = MazeGenerator.Instance.rooms.FirstOrDefault(r => r.roomType == newRoom2Type);
+
+        // Swap room types in the visitedRooms list
+        if (room1 != null && room2 != null)
+        {
+            // If room1 is visited, update room2's type and vice versa
+            bool room1Visited = visitedRooms.Contains(room1);
+            bool room2Visited = visitedRooms.Contains(room2);
+
+            if (room1Visited && !room2Visited)
+            {
+                visitedRooms.Remove(room1);
+                visitedRooms.Add(room2);
+            }
+            else if (room2Visited && !room1Visited)
+            {
+                visitedRooms.Remove(room2);
+                visitedRooms.Add(room1);
+            }
+            // If both rooms are visited, ensure no duplicate entries
+            else if (room1Visited && room2Visited)
+            {
+                visitedRooms.Remove(room1); // Remove the duplicate entry
+            }
+        }
+    }
+    // This method is called when the agent enters a room
+    public void EnterRoom(Room room)
+    {
+        if (roomFearEffects.ContainsKey(room.roomType))
+        {
+            // Apply the effect defined for this room type
+            roomFearEffects[room.roomType]?.Invoke();
+        }
+    }
+    
+    private void IncreaseFear()
+    {
+        agentFear.AddFear(10);
+        Debug.Log("Increased " + gameObject.name + "'s fear");
+    }
+
+    private void DecreaseFear()
+    {
+        agentFear.ReduceFear(5);
+        Debug.Log("Decreased " + gameObject.name + "'s fear");
+    }
+
+    private enum RoomName
+    {
+        Study,
+        DungeonRoom,
+        Armory,
+        GhostRoom,
+        RitualRoom,
+        HiddenTreasureRoom
+    }
+    
+    private string GetRoomName(RoomName roomName)
+    {
+        return roomName switch
+        {
+            RoomName.Study => "Study",
+            RoomName.DungeonRoom => "Dungeon Room",
+            RoomName.Armory => "Armory",
+            RoomName.GhostRoom => "Ghost Room",
+            RoomName.RitualRoom => "Ritual Room",
+            RoomName.HiddenTreasureRoom => "Hidden Treasure Room",
+            _ => roomName.ToString()
+        };
+    }
 }

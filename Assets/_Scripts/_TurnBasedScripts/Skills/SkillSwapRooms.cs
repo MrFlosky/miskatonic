@@ -17,7 +17,7 @@ public class SkillSwapRooms : Skill
     public Material selectedMat;
 
     /// The material of the cell before change
-    private Material beforeSelectMat;
+    private Material beforeSelectMatFloor, beforeSelectMatWall;
 
     /// Type of first room selected and its object.
     string mRoomType1 = "None";
@@ -40,6 +40,7 @@ public class SkillSwapRooms : Skill
     // Checks the rooms clicked.
     void Update()
     {
+        base.ExitInput();
         // Determines the rooms being selected for a switch.
         if(Input.GetMouseButtonDown(0))
         {
@@ -48,7 +49,7 @@ public class SkillSwapRooms : Skill
             // Note this is hitting the floor.
             if(Physics.Raycast(ray, out hit))
             {
-                if(hit.transform.GetComponentInParent<MazeCellObject>() != null)
+                if(hit.transform.GetComponentInParent<MazeCellObject>() != null && hit.transform.GetComponentInParent<MazeCellObject>().roomType != "Hallway") //refac later
                 {
                     MazeCellObject cellHit = hit.transform.GetComponentInParent<MazeCellObject>(); // The single cell
                     GameObject roomHit = cellHit.transform.parent.gameObject; // The entire room holding all the cells
@@ -66,21 +67,40 @@ public class SkillSwapRooms : Skill
             if(mRoomType2 != "None")
             {
                 mRoomType2 = "None";
-                SetRoomColor(rm2Obj, beforeSelectMat);
+                SetRoomColor(rm2Obj, beforeSelectMatFloor, beforeSelectMatWall);
 
             } else if(mRoomType1 != "None")
             {
                 mRoomType1 = "None";
-                SetRoomColor(rm1Obj, beforeSelectMat);
+                SetRoomColor(rm1Obj, beforeSelectMatFloor, beforeSelectMatWall);
             }
         }
 
-        // With two rooms selected, initiate the switch upon pressing enter.
+        // With two rooms selected, initiate the switch upon pressing enter.    
         if(switchCanOccur && Input.GetKeyDown(KeyCode.Return))
         {
             SwitchRooms(rm1Obj, rm2Obj, mRoomType1, mRoomType2);
             this.enabled = false; // Disable this skill after it has been used once.
+            SkillsCollection.ENABLE_BUTTONS();
         }
+
+    }
+
+    // Called when AI turn beings. reset
+    public override void EndSkill()
+    {
+        base.EndSkill();
+        this.enabled = false;
+
+        // Reset the room types being held for switch
+        mRoomType2 = "None";
+        if(rm2Obj != null){SetRoomColor(rm2Obj, beforeSelectMatFloor, beforeSelectMatWall);}
+
+        mRoomType1 = "None";
+        if(rm1Obj != null){SetRoomColor(rm1Obj, beforeSelectMatFloor, beforeSelectMatWall);}
+
+
+        switchCanOccur = false;
 
     }
 
@@ -95,16 +115,17 @@ public class SkillSwapRooms : Skill
     {
         if(mRoomType1 == "None")
         {
-            beforeSelectMat = cellHit.roomFloorMaterial;
+            beforeSelectMatFloor = cellHit.roomFloorMaterial;
+            beforeSelectMatWall = cellHit.roomWallMaterial;
             rm1Obj = roomHit;
             mRoomType1 = selectedType;
-            SetRoomColor(rm1Obj, selectedMat);
+            SetRoomColor(rm1Obj, selectedMat, selectedMat);
                         
         } else if(mRoomType2 == "None")
         {
             rm2Obj = roomHit;
             mRoomType2 = selectedType;
-            SetRoomColor(rm2Obj, selectedMat);
+            SetRoomColor(rm2Obj,  selectedMat, selectedMat);
             switchCanOccur = true;
         }
     }
@@ -120,35 +141,44 @@ public class SkillSwapRooms : Skill
     /// <param name="rm2Type"></param>
     private void SwitchRooms(GameObject room1Ob, GameObject room2Ob, string rm1Type, string rm2Type)
     {
-            foreach(MazeCellObject cell in room1Ob.GetComponentsInChildren<MazeCellObject>())
-            {
-                cell.roomType = rm2Type;
-            }
+        // Swap room types for the cells in the rooms
+        foreach (MazeCellObject cell in room1Ob.GetComponentsInChildren<MazeCellObject>())
+        {
+            cell.roomType = rm2Type;
+        }
 
-            foreach(MazeCellObject cell in room2Ob.GetComponentsInChildren<MazeCellObject>())
-            {
-                cell.roomType = rm1Type;
-            }
+        foreach (MazeCellObject cell in room2Ob.GetComponentsInChildren<MazeCellObject>())
+        {
+            cell.roomType = rm1Type;
+        }
 
-            ///***DEBUG
-            txt.text = "SWAP BETWEEN " + "\n" + rm1Type + " AND " + rm2Type + "\n SUCCESSFUL"; 
+        // Notify AgentNavigation to update room tracking
+        AgentNavigation[] agents = FindObjectsOfType<AgentNavigation>();
+        if (agents.Length != 0)
+        {
+            foreach (var agent in agents)
+                agent.UpdateSwappedRooms(room1Ob, rm2Type, room2Ob, rm1Type);
+        }
 
-            // Reset the room types being held for switch
-            mRoomType1 = "None";
-            mRoomType2 = "None";
-            switchCanOccur = false;
+        // Debug information
+        txt.text = "SWAP BETWEEN " + "\n" + rm1Type + " AND " + rm2Type + "\n SUCCESSFUL";
 
-            // Set the rooms back to the original material
-            SetRoomColor(rm1Obj, beforeSelectMat);
-            SetRoomColor(rm2Obj, beforeSelectMat);
+        // Reset the room types being held for switch
+        mRoomType1 = "None";
+        mRoomType2 = "None";
+        switchCanOccur = false;
+
+        // Set the rooms back to the original material
+        SetRoomColor(room1Ob, beforeSelectMatFloor, beforeSelectMatWall);
+        SetRoomColor(room2Ob, beforeSelectMatFloor, beforeSelectMatWall);
     }
 
-    private void SetRoomColor(GameObject room, Material roomMaterial)
+    private void SetRoomColor(GameObject room, Material floorMaterial, Material wallMaterial)
     {
         foreach(MazeCellObject cell in room.GetComponentsInChildren<MazeCellObject>())
         {
-            cell.roomFloorMaterial = roomMaterial;
-            cell.roomWallMaterial = roomMaterial;
+            cell.roomFloorMaterial = floorMaterial;
+            cell.roomWallMaterial = wallMaterial;
             cell.RefreshMaterial();
         }
     }
