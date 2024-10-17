@@ -10,6 +10,9 @@ public class MazeRenderer : MonoBehaviour
     [SerializeField] MazeGenerator mazeGenerator;
     [SerializeField] GameObject MazeCellPrefab;
     
+    // List to store the pairing of room types and their prefabs
+    [SerializeField] private List<RoomPrefabPair> roomPrefabPairs;
+    
     // A dictionary to keep track of instantiated room objects
     private Dictionary<string, Transform> instantiatedRooms = new Dictionary<string, Transform>();
 
@@ -119,10 +122,53 @@ public class MazeRenderer : MonoBehaviour
 
                 // Initialize the cell with wall and room information
                 mazeCell.Init(top, bottom, right, left, roomTile, maze[x, y].roomType);
+                
+                // If the current cell is a room tile, check if it is the top-left corner of a room
+                if (roomTile && IsTopLeftCorner(x, y))
+                {
+                    // Find the prefab for the current room type
+                    GameObject cornerPrefab = GetPrefabForRoomType(roomType);
+                    if (cornerPrefab != null)
+                    {
+                        // Instantiate the corner prefab at this location
+                        Instantiate(cornerPrefab, new Vector3(x * CellSize, 0f, y * CellSize), Quaternion.identity, instantiatedRooms[roomType]);
+                    }
+                }
             }
         }
 
         // Invoke the maze generation completion event
         OnMazeGenerated?.Invoke();
+    }
+    
+    // Check if a tile is the top-left corner of a room
+    private bool IsTopLeftCorner(int x, int y)
+    {
+        // Check if the current cell is a room tile and the top-left neighboring cells are not
+        bool isRoomTile = maze[x, y].roomTile;
+        bool leftTileNotRoom = (x == 0 || !maze[x - 1, y].roomTile);
+        bool topTileNotRoom = (y == mazeGenerator.mazeHeight - 1 || !maze[x, y + 1].roomTile);
+
+        return isRoomTile && leftTileNotRoom && topTileNotRoom;
+    }
+    
+    // Get the prefab for a specific room type from the list of RoomPrefabPairs
+    private GameObject GetPrefabForRoomType(string roomType)
+    {
+        foreach (RoomPrefabPair pair in roomPrefabPairs)
+        {
+            if (pair.roomType == roomType)
+            {
+                return pair.prefab;
+            }
+        }
+        return null; // Return null if no prefab is found for the room type
+    }
+    
+    [System.Serializable]
+    public class RoomPrefabPair
+    {
+        public string roomType;
+        public GameObject prefab;
     }
 }
