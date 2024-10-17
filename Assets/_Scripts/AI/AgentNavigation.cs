@@ -833,7 +833,7 @@ public class AgentNavigation : MonoBehaviour
     
     private void IncreaseFear()
     {
-        agentFear.AddFear(100);
+        agentFear.AddFear(5);
         Debug.Log("Increased " + gameObject.name + "'s fear");
     }
 
