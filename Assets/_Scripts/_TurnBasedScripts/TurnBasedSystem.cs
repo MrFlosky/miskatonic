@@ -36,6 +36,9 @@ public class TurnBasedSystem : MonoBehaviour
     /// List of items to destroy after x turns
     List<DestroyAfterRounds> destroyablesList = new List<DestroyAfterRounds>();
     List<DestroyAfterRounds> readyToDestroy = new List<DestroyAfterRounds>(); // NEED THIS FOR PROPER DELETION CANT LOOP THRU LIST DELETING FROM!
+
+        List<DestroyAfterRounds> destroyablesListOb = new List<DestroyAfterRounds>();
+    List<DestroyAfterRounds> readyToDestroyOb = new List<DestroyAfterRounds>(); 
     
     // Start is called before the first frame update
     void Start()
@@ -101,12 +104,14 @@ public class TurnBasedSystem : MonoBehaviour
         switch(tt)
         {
             case TurnType.Player:
+            S.ResetAOEFear();
             currentTurn = TurnType.Player; 
             S.playerTurnCount ++;
             Debug.Log("LETS GO");
             break;
 
             case TurnType.AI:
+            S.TriggerAOEFear();
             currentTurn = TurnType.AI;
             S.aiTurnCount ++;
             break;
@@ -129,10 +134,20 @@ public class TurnBasedSystem : MonoBehaviour
         {
             destroyable.CheckDestroy();
         }
-        // Once added to destroyable list, destroy them. must be done this way. 
+        // Once added to destroyable list, destroy them to clean list. must be done this way. 
         foreach(DestroyAfterRounds destroy in S.readyToDestroy)
         {
             S.destroyablesList.Remove(destroy);
+        }
+
+        foreach(DestroyAfterRounds destroyable in S.destroyablesListOb)
+        {
+            destroyable.CheckObDestroy();
+        }
+        
+        foreach(DestroyAfterRounds destroy in S.readyToDestroyOb)
+        {
+            S.destroyablesListOb.Remove(destroy);
         }
 
     }
@@ -147,6 +162,27 @@ public class TurnBasedSystem : MonoBehaviour
         {
             // Gameover
             Destroy(S.gameObject); ///*** DEBUG
+        }
+    }
+
+    /// <summary>
+    /// For aoe fear obs to activate their fear increase once per turn. called only here
+    /// </summary>
+    void TriggerAOEFear()
+    {
+        foreach(DestroyAfterRounds ob in S.destroyablesListOb)
+        {
+            
+            ob.GetObToDestroy().GetComponent<AOEEffect>().boxColl.enabled = true;
+        }
+    }
+
+    void ResetAOEFear()
+    {
+        foreach(DestroyAfterRounds ob in S.destroyablesListOb)
+        {
+            
+            ob.GetObToDestroy().GetComponent<AOEEffect>().boxColl.enabled = false;
         }
     }
 
@@ -166,6 +202,18 @@ public class TurnBasedSystem : MonoBehaviour
             S.destroyablesList.Add(this);
         }
 
+        /// <summary>
+        /// constructor for destroying aoe obs
+        /// </summary>
+        /// <param name="rounds"></param>
+        /// <param name="obj"></param>
+        public DestroyAfterRounds(int rounds, GameObject obj)
+        {
+            destroyOnRound = rounds + S.playerTurnCount;
+            obToDestroy = obj;
+            S.destroyablesListOb.Add(this);
+        }
+
     
         public void CheckDestroy()
         {
@@ -178,6 +226,24 @@ public class TurnBasedSystem : MonoBehaviour
                 S.readyToDestroy.Add(this);
                 
             }
+        }
+
+        /// <summary>
+        /// for destroying aoe ob
+        /// </summary>
+        public void CheckObDestroy()
+        {
+            if(destroyOnRound == S.playerTurnCount)
+            {
+                S.readyToDestroyOb.Add(this);
+                Destroy(obToDestroy);
+            }
+        }
+
+    // used for aoe
+        public GameObject GetObToDestroy()
+        {
+            return obToDestroy;
         }
     }
 
