@@ -1,38 +1,51 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class SkillFear : Skill
 {
     public int fearIncrease = 5;
+    private PlayerInputActions inputActions;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        
+        inputActions = new PlayerInputActions();
     }
 
-    void Update()
+    private void OnEnable()
+    {
+        inputActions.Player.Click.performed += OnClick; // Subscribe to the Click action
+        inputActions.Enable();
+    }
+
+    private void OnDisable()
+    {
+        inputActions.Player.Click.performed -= OnClick; // Unsubscribe to prevent memory leaks
+        inputActions.Disable();
+    }
+
+    private void Update()
     {
         base.ExitInput();
-        // Determines the rooms being selected for a switch.
-        if(Input.GetMouseButtonDown(0))
+    }
+
+    public void OnClick(InputAction.CallbackContext context)
+    {
+        // Perform the raycast to detect the object under the mouse
+        Ray ray = SkillSystem.GET_CAM().ScreenPointToRay(Mouse.current.position.ReadValue());
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit))
         {
-            Ray ray = SkillSystem.GET_CAM().ScreenPointToRay(Input.mousePosition); 
-            RaycastHit hit;
-            // Note this is hitting the floor.
-            if(Physics.Raycast(ray, out hit))
+            if (hit.transform.GetComponentInParent<Fear>() != null)
             {
-                if(hit.transform.GetComponentInParent<Fear>() != null)
-                {
-                    Fear thisAIFear = hit.transform.GetComponent<Fear>();
-                    HandleIncrease(thisAIFear);
-                }
+                Fear thisAIFear = hit.transform.GetComponent<Fear>();
+                HandleIncrease(thisAIFear);
             }
         }
     }
 
-    void HandleIncrease(Fear fear)
+    private void HandleIncrease(Fear fear)
     {
         fear.AddFear(fearIncrease);
         this.enabled = false; // Disable after single use
@@ -41,9 +54,6 @@ public class SkillFear : Skill
     public override void ActivateSkill()
     {
         base.ActivateSkill();
-        this.enabled = true; // Enable the script allowing this skill to happen once.
-
+        this.enabled = true; // Enable the script allowing this skill to happen once
     }
-
-
 }

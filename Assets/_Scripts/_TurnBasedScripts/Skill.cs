@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Numerics;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 /// <summary>
@@ -29,11 +29,17 @@ public class Skill : MonoBehaviour
     [Header("Dont assign here")]
     static public Button[] buttonList = new Button[4];
 
+    private PlayerInputActions inputActions;
 
+    private void Awake()
+    {
+        inputActions = new PlayerInputActions();
+    }
+    
 
     void Update()
     {
-
+        // You can put other update logic here if needed
     }
 
     /// <summary>
@@ -43,15 +49,15 @@ public class Skill : MonoBehaviour
     /// </summary>
     public virtual void ActivateSkill()
     {
-        if(SkillSystem.GET_PTS() >= ptDeduction) // we may need to do check in each skill only
+        if (SkillSystem.GET_PTS() >= ptDeduction) // Check if the player has enough points
         {
-        SkillSystem.DEDUCT_PT(ptDeduction);
-        SkillsCollection.DISABLE_BUTTONS();
-        skillEvent.Invoke(); // not using this lol
-        //Stuff that happens when skill is activated!
+            PlayerController.Instance.SetActiveSkill(this);
+            SkillSystem.DEDUCT_PT(ptDeduction);
+            SkillsCollection.DISABLE_BUTTONS();
+            skillEvent.Invoke(); // Not using this for now
+            // Stuff that happens when skill is activated!
         }
     }
-
 
     // Each skill must perform different functions to end itself. Called on end turn!
     public virtual void EndSkill()
@@ -60,17 +66,15 @@ public class Skill : MonoBehaviour
     }
 
     /// <summary>
-    /// Exit any skill on right click only if they are in middle of a skill. i.e. the buttons are
-    /// not interactable. Give them their spent points back
+    /// Exit any skill on right click only if they are in middle of a skill.
+    /// i.e., the buttons are not interactable. Give them their spent points back.
     /// </summary>
     protected virtual void ExitInput()
     {
-        if(Input.GetMouseButton(1) && skillButton.interactable == false) 
+        if (!skillButton.interactable) // Check if the button is not interactable
         {
             SkillSystem.ADD_PT(ptDeduction);
             EndSkill();
         }
     }
-
-
 }
