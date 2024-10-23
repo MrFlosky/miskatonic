@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public enum WallType
 {
     Top, Bottom, Left, Right
 }
+
 public class SkillBarrier : Skill
 {
     [Header("Material of a possible barrier wall")]
@@ -13,67 +15,65 @@ public class SkillBarrier : Skill
 
     public int roundsLast = 3;
 
-    /// List holding the inactive walls i.e. those that can be cycled through
-    List<Transform> mInactiveWalls = new List<Transform>();
-    /// Index of last wall cycled to by player.
-    int lastWallIndex; 
-    /// Whether or not player is able to cycle through wall options.
-    bool canCycle = false;
-    /// Number of wall cycles player has gone through. 
-    int cycleCount = 0;
+    private List<Transform> mInactiveWalls = new List<Transform>();
+    private int lastWallIndex;
+    private bool canCycle = false;
+    private int cycleCount = 0;
 
-    bool cellWasPressed = false; //fix bug that can confirm not existent wall
+    private Transform cellHit;
 
-    /// Cell hit by raycast
-    Transform cellHit;
+    private PlayerInputActions inputActions;
 
-    void Update()
+    private void Awake()
     {
-        base.ExitInput();
-        // Determines the rooms being selected for a switch.
-        if(Input.GetMouseButtonDown(0) && !canCycle)
+        inputActions = new PlayerInputActions();
+    }
+
+    private void OnEnable()
+    {
+        inputActions.Player.Click.performed += OnClick;
+        inputActions.Player.Confirm.performed += OnConfirm;
+        inputActions.Player.RightClick.performed += OnRightClick; // Right-click for canceling
+        inputActions.Enable();
+    }
+
+    private void OnDisable()
+    {
+        inputActions.Player.Click.performed -= OnClick;
+        inputActions.Player.Confirm.performed -= OnConfirm;
+        inputActions.Player.RightClick.performed -= OnRightClick;
+        inputActions.Disable();
+    }
+
+    private void OnClick(InputAction.CallbackContext context)
+    {
+        if (!canCycle)
         {
-            Ray ray = SkillSystem.GET_CAM().ScreenPointToRay(Input.mousePosition); 
+            Ray ray = SkillSystem.GET_CAM().ScreenPointToRay(Mouse.current.position.ReadValue());
             RaycastHit hit;
-            // Note this is hitting the floor.
-            if(Physics.Raycast(ray, out hit))
+            if (Physics.Raycast(ray, out hit))
             {
-                if(hit.transform.GetComponentInParent<MazeCellObject>() != null)
+                if (hit.transform.GetComponentInParent<MazeCellObject>() != null)
                 {
-                    cellHit = hit.transform.parent; // The single cell
+                    cellHit = hit.transform.parent;
                     Debug.Log(cellHit.name);
                     GetPossibleBarrierWalls(cellHit);
                     canCycle = true;
                 }
             }
         }
-
-        //Cycle between barriers that can be placed
-        if(Input.GetMouseButtonDown(0) && canCycle)
+        else
         {
-            Debug.Log("hi");
-            foreach(Transform wall in mInactiveWalls)
-            {
-                wall.gameObject.SetActive(false);
-            }
-            mInactiveWalls[cycleCount].gameObject.SetActive(true);
-            lastWallIndex = cycleCount;
-
-            if(cycleCount < mInactiveWalls.Count - 1)
-            {
-                cycleCount ++;
-            } else
-            {
-                cycleCount = 0;
-            }
+            CycleWall();
         }
+    }
 
-        // Confirm selection ending this skill. Reset vals
-        if(Input.GetKey(KeyCode.Return) && canCycle)
+    private void OnConfirm(InputAction.CallbackContext context)
+    {
+        if (canCycle)
         {
-            Debug.Log("YOOO");
+            Debug.Log("Confirming wall placement");
             this.enabled = false;
-            // Set the walls internal state within the maze array and have it destroy after given number of rounds.
             Transform confirmedWall = mInactiveWalls[lastWallIndex];
             MazeCellObject confirmedWallMz = cellHit.GetComponent<MazeCellObject>();
             int x = confirmedWallMz.GetXCoord();
@@ -81,61 +81,48 @@ public class SkillBarrier : Skill
             WallType wT = GetWallType(cellHit, confirmedWall);
 
             MazeGenerator.Instance.SetWallInternalState(x, y, wT, true);
-
-
-            // Create new instance of obj that will destroy this wall for us.
-            TurnBasedSystem.DestroyAfterRounds destroyInstance = new TurnBasedSystem.DestroyAfterRounds(roundsLast, confirmedWall.gameObject, wT); // will need to make it so the wall is later disabled with funct in mazegen
-            cycleCount = 0;
-            canCycle = false;
-            cellHit = null;
-            SkillsCollection.ENABLE_BUTTONS();
+            TurnBasedSystem.DestroyAfterRounds destroyInstance = new TurnBasedSystem.DestroyAfterRounds(roundsLast, confirmedWall.gameObject, wT);
+            ResetValues();
         }
+    }
 
-        // Change cell selection. Set all walls back to false and allow reselect.
-        if(Input.GetKeyDown(KeyCode.Escape) && canCycle)
+    private void OnRightClick(InputAction.CallbackContext context)
+    {
+        // If a cell is selected, cancel the selection
+        if (canCycle)
         {
-   
-            foreach(Transform wall in mInactiveWalls)
+            Debug.Log("Cancelling wall selection");
+            foreach (Transform wall in mInactiveWalls)
             {
                 wall.gameObject.SetActive(false);
             }
-
-            canCycle = false;
-            cycleCount = 0;
-            
+            ResetValues(); // Reset values for the current selection
+        }
+        else
+        {
+            // If no cell is selected, end the skill
+            Debug.Log("No cell selected, ending skill");
+            EndSkill();
         }
     }
 
-        // how this skill ends itself on end turn
     public override void EndSkill()
     {
-        //SkillsCollection.ENABLE_BUTTONS();
-
         base.EndSkill();
         this.enabled = false;
 
-        // meaning player never confirmed their selection
-        if(canCycle)
+        if (canCycle)
         {
-        mInactiveWalls[lastWallIndex].gameObject.SetActive(false);
+            mInactiveWalls[lastWallIndex].gameObject.SetActive(false);
         }
-        cycleCount = 0;
-        canCycle = false;
-        cellHit = null;
+        ResetValues();
+        ExitInput();
     }
-    
-  
-    /// <summary>
-    /// Get the inactive walls apart of the selected cell.
-    /// </summary>
-    /// <param name="cell"></param>
-    /// <returns></returns>
-    /// 
-    void GetPossibleBarrierWalls(Transform cell)
-    {
-        // This is important for subsequent calls so walls dont stay in the array
-        mInactiveWalls.Clear();
 
+    private void GetPossibleBarrierWalls(Transform cell)
+    {
+        mInactiveWalls.Clear();
+    
         int i = 0;
         foreach(Transform child in cell)
         {
@@ -151,54 +138,57 @@ public class SkillBarrier : Skill
         }
     }
 
-    public override void ActivateSkill()
+
+
+    private void CycleWall()
     {
-        if(SkillSystem.GET_PTS() >= ptDeduction)
+        Debug.Log("Cycling through walls");
+        foreach (Transform wall in mInactiveWalls)
         {
-        base.ActivateSkill();
-        this.enabled = true; // Enable the script allowing this skill to happen once.
+            wall.gameObject.SetActive(false);
         }
+        mInactiveWalls[cycleCount].gameObject.SetActive(true);
+        lastWallIndex = cycleCount;
+
+        cycleCount = (cycleCount + 1) % mInactiveWalls.Count;
     }
 
-    
-    /// <summary>
-    /// Go through all walls/ceil/floor apart of the cell, and identify where a given
-    /// wall is located within it. Dependent on consistent hierarchy index placement within cell.
-    /// </summary>
-    /// <param name="cell"></param>
-    /// <param name="WallToIdentify"></param>
-    WallType GetWallType(Transform cell, Transform WallToIdentify)
+    private void ResetValues()
+    {
+        canCycle = false;
+        cycleCount = 0;
+        cellHit = null;
+        mInactiveWalls.Clear(); // Clear the list to avoid retaining any references
+    }
+
+    private WallType GetWallType(Transform cell, Transform wallToIdentify)
     {
         int i = 0;
-        foreach(Transform child in cell)
+        foreach (Transform child in cell)
         {
-            if (child == WallToIdentify)
+            if (child == wallToIdentify)
             {
                 break;
             }
             i++;
         }
 
-        switch(i)
+        return i switch
         {
-            case 1:
-            return WallType.Bottom;
-
-            case 2:
-            return WallType.Top;
-
-            case 3:
-            return WallType.Right;
-
-            case 4:
-            return WallType.Left;
-
-            default:
-            Debug.Log("that wasnt supposed to happen");
-            return 0; // is this best to return if shouldnt occur?
-        }
+            1 => WallType.Bottom,
+            2 => WallType.Top,
+            3 => WallType.Right,
+            4 => WallType.Left,
+            _ => WallType.Top // Default case, should not happen
+        };
     }
 
-
-
+    public override void ActivateSkill()
+    {
+        if (SkillSystem.GET_PTS() >= ptDeduction)
+        {
+            base.ActivateSkill();
+            this.enabled = true;
+        }
+    }
 }

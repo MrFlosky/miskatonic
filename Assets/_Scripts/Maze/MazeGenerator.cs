@@ -62,6 +62,7 @@ public class MazeGenerator : MonoBehaviour {
             // If we successfully created the required number of rooms, return the maze
             if (createdRoomCount == roomCount)
             {
+                UpdateAllOpposingWalls();
                 return maze;
             }
         
@@ -71,6 +72,7 @@ public class MazeGenerator : MonoBehaviour {
 
         // If we reached the maximum number of attempts and still failed, log an error
         Debug.LogError($"Failed to generate a maze with {roomCount} rooms after {maxAttempts} attempts.");
+        UpdateAllOpposingWalls();
         return maze; // Return the last attempted maze (could be incomplete)
     }
 
@@ -628,6 +630,33 @@ public class MazeGenerator : MonoBehaviour {
                 // cellA is to the right of cellB
                 cellA.leftWall = false;
                 cellB.rightWall = false;
+            }
+        }
+    }
+    
+    public void UpdateAllOpposingWalls()
+    {
+        for (int x = 0; x < mazeWidth; x++)
+        {
+            for (int y = 0; y < mazeHeight; y++)
+            {
+                // Update the neighboring walls based on the current cell's walls
+                if (maze[x, y].topWall && y < mazeHeight - 1)
+                {
+                    maze[x, y + 1].bottomWall = true;
+                }
+                if (maze[x, y].bottomWall && y > 0)
+                {
+                    maze[x, y - 1].topWall = true;
+                }
+                if (maze[x, y].leftWall && x > 0)
+                {
+                    maze[x - 1, y].rightWall = true;
+                }
+                if (maze[x, y].rightWall && x < mazeWidth - 1)
+                {
+                    maze[x + 1, y].leftWall = true;
+                }
             }
         }
     }

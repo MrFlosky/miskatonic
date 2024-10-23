@@ -72,5 +72,4 @@ public class MazeCellObject : MonoBehaviour
     {
         yCoord = y;
     }
-
 }

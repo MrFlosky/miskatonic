@@ -33,7 +33,11 @@ public class SkillAoeFear : Skill
                 if (hit.transform.GetComponentInParent<MazeCellObject>() != null)
                 {
 
-                    obTrans.position = hit.transform.position;
+                    Vector3 newPosition = hit.transform.position;
+                    newPosition.x += 1f;
+                    newPosition.y = 0.5f;
+                    newPosition.z += 1f;
+                    obTrans.position = newPosition;
 
                 }
             }
