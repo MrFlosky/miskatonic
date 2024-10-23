@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     private PlayerInputActions inputActions;
     private ClickAI clickAI;
     public Skill activeSkill; // Reference to the currently active skill
+    public bool clickedAI = false;
 
     private void Awake()
     {

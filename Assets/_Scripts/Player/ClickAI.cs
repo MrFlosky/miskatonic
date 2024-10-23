@@ -41,6 +41,7 @@ public class ClickAI : MonoBehaviour
             if (hit.collider.CompareTag("AI"))
             {
                 _clickedAI = true;
+                PlayerController.Instance.clickedAI = _clickedAI;
                 var DialogueManager = hit.collider.GetComponentInChildren<DialogueManager>();
                 var virtualCam = DialogueManager.GetCurrentDialogue().GetComponentInChildren<CinemachineVirtualCamera>(true);
                 if (virtualCam)
@@ -78,6 +79,7 @@ public class ClickAI : MonoBehaviour
 
     private void EndConversation()
     {
+        PlayerController.Instance.clickedAI = false;
         _inConversation = false;
         playerCam.enabled = true;
         activeCamera.gameObject.SetActive(false);

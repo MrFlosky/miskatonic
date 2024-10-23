@@ -102,6 +102,7 @@ public class SkillBarrier : Skill
         {
             // If no cell is selected, end the skill
             Debug.Log("No cell selected, ending skill");
+            base.ExitInput();
             EndSkill();
         }
     }
