@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Cinemachine;
 using DialogueEditor;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class ClickAI : MonoBehaviour
 {
@@ -10,11 +11,11 @@ public class ClickAI : MonoBehaviour
     public CinemachineVirtualCamera playerCam;
     public CinemachineVirtualCamera activeCamera;
     private bool _inConversation;
-    
+
     public CinemachineTrackedDolly track;
     public float scrollSpeed = 1f; // Speed factor for scrolling
 
-    private bool _clickedAI = false;
+    public bool _clickedAI = false;
 
     private void Start()
     {
@@ -24,66 +25,63 @@ public class ClickAI : MonoBehaviour
         }
 
         activeCamera = playerCam;
-        
+        track = playerCam.GetCinemachineComponent<CinemachineTrackedDolly>();
+
         ConversationManager.OnConversationStarted += StartConversation;
         ConversationManager.OnConversationEnded += EndConversation;
-        
-        track = playerCam.GetCinemachineComponent<CinemachineTrackedDolly>();
     }
 
-    private void Update()
+    public void OnClick(InputAction.CallbackContext context)
     {
-        // Check for mouse click
-        if (Input.GetMouseButtonDown(0))
-        {
-            Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
+        if (_clickedAI || !TurnBasedSystem.IsPlayerTurn() || _inConversation) return;
 
-            // Perform a raycast to find the clicked position on the ground
-            if (Physics.Raycast(ray, out hit))
+        Ray ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
+        if (Physics.Raycast(ray, out RaycastHit hit))
+        {
+            if (hit.collider.CompareTag("AI"))
             {
-                if (hit.collider.CompareTag("AI") && TurnBasedSystem.IsPlayerTurn() && !_inConversation)
+                _clickedAI = true;
+                var DialogueManager = hit.collider.GetComponentInChildren<DialogueManager>();
+                var virtualCam = DialogueManager.GetCurrentDialogue().GetComponentInChildren<CinemachineVirtualCamera>(true);
+                if (virtualCam)
                 {
-                    _clickedAI = true;
-                    var DialogueManager = hit.collider.GetComponentInChildren<DialogueManager>();
-                    var virtualCam = DialogueManager.GetCurrentDialogue().GetComponentInChildren<CinemachineVirtualCamera>(true); // Pass 'true' to include inactive objects
-                    if (virtualCam)
-                    {
-                        virtualCam.gameObject.SetActive(true); // Enable the GameObject if it's disabled
-                        virtualCam.enabled = true; // Enable the CinemachineVirtualCamera component
-                    }
-                    activeCamera = virtualCam;
-                    playerCam.enabled = false;
-                    DialogueManager.Increment();
+                    virtualCam.gameObject.SetActive(true);
+                    virtualCam.enabled = true;
                 }
+                activeCamera = virtualCam;
+                playerCam.enabled = false;
+                DialogueManager.Increment();
             }
         }
-
-        if (_clickedAI) return;
-        
-        // Get the scroll wheel input (Mouse ScrollWheel returns values based on scrolling direction)
-        float scrollInput = Input.GetAxis("Mouse ScrollWheel");
-
-        // Update the tracked dolly's path position based on the scroll input and speed factor
-        track.m_PathPosition += scrollInput * scrollSpeed;
     }
+
+    public void OnScroll(InputAction.CallbackContext context)
+    {
+        if (_clickedAI) return;
+
+        // Get the scroll wheel input value as a Vector2
+        Vector2 scrollInput = context.ReadValue<Vector2>().normalized;
+
+        // Use the Y component for vertical scrolling
+        float scrollAmount = scrollInput.y;
+
+        // Update the tracked dolly's path position based on the scroll amount and speed factor
+        track.m_PathPosition += scrollAmount/120 * scrollSpeed;
+    }
+
 
     private void StartConversation()
     {
         _clickedAI = false;
         _inConversation = true;
     }
-    
+
     private void EndConversation()
     {
         _inConversation = false;
-        
         playerCam.enabled = true;
-        activeCamera.gameObject.SetActive(false); // Enable the GameObject if it's disabled
-        activeCamera.enabled = false; // Enable the CinemachineVirtualCamera component
+        activeCamera.gameObject.SetActive(false);
+        activeCamera.enabled = false;
         activeCamera = playerCam;
-        
-        //ConversationManager.Instance.EndConversation();
     }
-    
 }

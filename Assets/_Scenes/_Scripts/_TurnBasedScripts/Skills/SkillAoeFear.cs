@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class SkillAoeFear : Skill
 {
     public int roundsLast = 3;
-
+    public Camera mainCamera; // Reference to the camera, if null defaults to main camera
     public GameObject AOEOb;
     Transform obTrans;
     bool canPlace = true;
@@ -14,29 +15,46 @@ public class SkillAoeFear : Skill
     // Start is called before the first frame update
     void Start()
     {
+        if (mainCamera == null)
+        {
+            mainCamera = Camera.main; // Use main camera if none specified
+        }
         obTrans = AOEOb.GetComponent<Transform>();
     }
 
     void Update()
     {
-            base.ExitInput();
             // Bound object to being placed in maze
-            Ray ray = SkillSystem.GET_CAM().ScreenPointToRay(Input.mousePosition); 
+            Ray ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
             RaycastHit hit;
             // Note this is hitting the floor.
-            if(Physics.Raycast(ray, out hit))
+            if (Physics.Raycast(ray, out hit))
             {
-                if(hit.transform.GetComponentInParent<MazeCellObject>() != null)
+                if (hit.transform.GetComponentInParent<MazeCellObject>() != null)
                 {
-                    
+
                     obTrans.position = hit.transform.position;
-                    
+
                 }
             }
-
-            if(Input.GetMouseButtonDown(0) && canPlace)
+            else
             {
-                
+                obTrans.position = new Vector3(0, -1000, 0);
+            }
+
+    }
+
+    public void OnClick(InputAction.CallbackContext context)
+    {
+        
+        Ray ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
+        RaycastHit hit;
+        // Note this is hitting the floor.
+        if (Physics.Raycast(ray, out hit))
+        {
+            if (canPlace && hit.transform.GetComponentInParent<MazeCellObject>() != null)
+            {
+            
                 Vector3 newPos = obTrans.position;
                 GameObject newAOE = Instantiate(AOEOb);
                 newAOE.transform.position = newPos;
@@ -46,6 +64,7 @@ public class SkillAoeFear : Skill
                 this.enabled = false;
                 SkillsCollection.ENABLE_BUTTONS();
             }
+        }
         
     }
 
@@ -97,6 +116,14 @@ public class SkillAoeFear : Skill
         canPlace = true;
         }
 
+    }
+    
+    /// <summary>
+    /// Handles the right-click action to exit the skill if conditions are met.
+    /// </summary>
+    public void OnRightClick(InputAction.CallbackContext context)
+    {
+        ExitInput();
     }
 
 
