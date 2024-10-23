@@ -15,7 +15,7 @@ public class MainMenuUI : MonoBehaviour
     {
         if(Input.anyKeyDown)
         {
-            SceneController.Instance.LoadScene("MainScene");
+            SceneController.Instance.LoadScene("Tutorial");
         }
     }
 }

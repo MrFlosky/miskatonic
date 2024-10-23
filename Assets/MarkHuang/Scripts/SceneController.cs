@@ -18,7 +18,7 @@ public class SceneController : MonoBehaviour
         }
 
         _instance = this;
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
     }
 
     // Load a scene
