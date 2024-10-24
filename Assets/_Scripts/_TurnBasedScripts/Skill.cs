@@ -62,6 +62,7 @@ public class Skill : MonoBehaviour
     // Each skill must perform different functions to end itself. Called on end turn!
     public virtual void EndSkill()
     {
+        PlayerController.Instance.SetActiveSkill(null);
         SkillsCollection.ENABLE_BUTTONS();
     }
 
@@ -71,6 +72,7 @@ public class Skill : MonoBehaviour
     /// </summary>
     protected virtual void ExitInput()
     {
+        PlayerController.Instance.SetActiveSkill(null);
         if (!skillButton.interactable) // Check if the button is not interactable
         {
             SkillSystem.ADD_PT(ptDeduction);

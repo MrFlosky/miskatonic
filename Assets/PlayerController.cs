@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour
     {
         // Enable the selected skill
         activeSkill = newSkill;
-        activeSkill.enabled = true;
+        if (newSkill) activeSkill.enabled = true;
     }
 
     private void OnClick(InputAction.CallbackContext context)
@@ -55,17 +55,17 @@ public class PlayerController : MonoBehaviour
         // Use the currently active skill
         if (activeSkill != null && activeSkill.enabled)
         {
-            if (activeSkill is SkillFear skillFear)
+            switch (activeSkill)
             {
-                skillFear.OnClick(context);
-            }
-            else if (activeSkill is SkillAoeFear skillAoeFear)
-            {
-                skillAoeFear.OnClick(context);
-            }
-            else if (activeSkill is SkillSwapRooms skillSwapRooms)
-            {
-                skillSwapRooms.OnClick(context);
+                case SkillFear skillFear:
+                    skillFear.OnClick(context);
+                    break;
+                case SkillAoeFear skillAoeFear:
+                    skillAoeFear.OnClick(context);
+                    break;
+                case SkillSwapRooms skillSwapRooms:
+                    skillSwapRooms.OnClick(context);
+                    break;
             }
         }
 
@@ -90,13 +90,17 @@ public class PlayerController : MonoBehaviour
         // Use the currently active skill
         if (activeSkill != null && activeSkill.enabled)
         {
-            if (activeSkill is SkillAoeFear skillAoeFear)
+            switch (activeSkill)
             {
-                skillAoeFear.OnRightClick(context);
-            }
-            else if (activeSkill is SkillSwapRooms skillSwapRooms)
-            {
-                skillSwapRooms.OnRightClick(context);
+                case SkillAoeFear skillAoeFear:
+                    skillAoeFear.OnRightClick(context);
+                    break;
+                case SkillSwapRooms skillSwapRooms:
+                    skillSwapRooms.OnRightClick(context);
+                    break;
+                case SkillBarrier skillBarrier:
+                    skillBarrier.OnRightClick(context);
+                    break;
             }
             // Add more checks if there are other skill types
         }
@@ -107,12 +111,15 @@ public class PlayerController : MonoBehaviour
         // Use the currently active skill for confirm action
         if (activeSkill != null && activeSkill.enabled)
         {
-            if (activeSkill is SkillSwapRooms skillSwapRooms)
+            switch (activeSkill)
             {
-                skillSwapRooms.OnConfirm(context);
-                activeSkill = null;
+                case SkillSwapRooms skillSwapRooms:
+                    skillSwapRooms.OnConfirm(context);
+                    break;
+                case SkillBarrier skillBarrier:
+                    skillBarrier.OnConfirm(context);
+                    break;
             }
-            // Add more checks if there are other skill types
         }
     }
 }

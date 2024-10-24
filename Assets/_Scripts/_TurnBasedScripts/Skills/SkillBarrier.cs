@@ -70,7 +70,7 @@ public class SkillBarrier : Skill
         }
     }
 
-    private void OnConfirm(InputAction.CallbackContext context)
+    public void OnConfirm(InputAction.CallbackContext context)
     {
         if (canCycle)
         {
@@ -89,7 +89,7 @@ public class SkillBarrier : Skill
         }
     }
 
-    private void OnRightClick(InputAction.CallbackContext context)
+    public void OnRightClick(InputAction.CallbackContext context)
     {
         // If a cell is selected, cancel the selection
         if (canCycle)

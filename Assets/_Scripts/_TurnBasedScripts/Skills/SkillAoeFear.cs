@@ -69,6 +69,7 @@ public class SkillAoeFear : Skill
                 canPlace = false;
                 this.enabled = false;
                 SkillsCollection.ENABLE_BUTTONS();
+                EndSkill();
             }
         }
         
