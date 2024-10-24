@@ -24,27 +24,29 @@ public class SkillAoeFear : Skill
 
     void Update()
     {
-            // Bound object to being placed in maze
-            Ray ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
-            RaycastHit hit;
-            // Note this is hitting the floor.
-            if (Physics.Raycast(ray, out hit))
+        Vector2 mousePos = Vector2.zero;
+        mousePos = GameInput.Instance.GetActiveGameDevice() == GameInput.GameDevice.KeyboardMouse ? Mouse.current.position.ReadValue() : VirtualMouseUI.Instance.GetVirtualMousePosition();
+        // Bound object to being placed in maze
+        Ray ray = mainCamera.ScreenPointToRay(mousePos);
+        RaycastHit hit;
+        // Note this is hitting the floor.
+        if (Physics.Raycast(ray, out hit))
+        {
+            if (hit.transform.GetComponentInParent<MazeCellObject>() != null)
             {
-                if (hit.transform.GetComponentInParent<MazeCellObject>() != null)
-                {
 
-                    Vector3 newPosition = hit.transform.position;
-                    newPosition.x += 1f;
-                    newPosition.y = 0.5f;
-                    newPosition.z += 1f;
-                    obTrans.position = newPosition;
+                Vector3 newPosition = hit.transform.position;
+                newPosition.x += 1f;
+                newPosition.y = 0.5f;
+                newPosition.z += 1f;
+                obTrans.position = newPosition;
 
-                }
             }
-            else
-            {
-                obTrans.position = new Vector3(0, -1000, 0);
-            }
+        }
+        else
+        {
+            obTrans.position = new Vector3(0, -1000, 0);
+        }
 
     }
 

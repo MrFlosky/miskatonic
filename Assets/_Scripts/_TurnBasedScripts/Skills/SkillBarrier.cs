@@ -49,7 +49,9 @@ public class SkillBarrier : Skill
     {
         if (!canCycle)
         {
-            Ray ray = SkillSystem.GET_CAM().ScreenPointToRay(Mouse.current.position.ReadValue());
+            Vector2 mousePos = Vector2.zero;
+            mousePos = GameInput.Instance.GetActiveGameDevice() == GameInput.GameDevice.KeyboardMouse ? Mouse.current.position.ReadValue() : VirtualMouseUI.Instance.GetVirtualMousePosition();
+            Ray ray = SkillSystem.GET_CAM().ScreenPointToRay(mousePos);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit))
             {

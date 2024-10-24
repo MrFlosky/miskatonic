@@ -23,6 +23,7 @@ public class VirtualMouseUI : MonoBehaviour
     private void Start()
     {
         GameInput.Instance.OnGameDeviceChanged += GameInput_OnGameDeviceChanged;
+        Hide();
     }
 
     private void GameInput_OnGameDeviceChanged(object sender, EventArgs e)

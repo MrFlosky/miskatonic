@@ -20,6 +20,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
@@ -38,6 +39,9 @@ public class OutlineHighlight : MonoBehaviour
     [SerializeField]
     private Color outlineColor = Color.black;
 
+    [SerializeField]
+    private TMP_Text highlightedText;
+    
     private void Awake()
     {
         // Get the InputAction for pointer position
@@ -46,6 +50,7 @@ public class OutlineHighlight : MonoBehaviour
 
     private void OnEnable()
     {
+        highlightedText.text = "";
         // Enable the InputAction
         pointerPositionAction.Enable();
     }
@@ -83,11 +88,11 @@ public class OutlineHighlight : MonoBehaviour
             highlight = raycastHit.transform;
             if (highlight.tag is "Selectable" or "AI")
             {
+                highlightedText.text = highlight.tag is "AI" ? highlight.gameObject.name : highlight.transform.parent.parent.name;
                 // Enable outline component or add one if it doesn't exist
                 Outline outline = highlight.gameObject.GetComponent<Outline>();
                 if (outline == null)
                 {
-                    Debug.Log("Added Outline to " + highlight.name);
                     outline = highlight.gameObject.AddComponent<Outline>();
                     outline.OutlineColor = Color.black;
                     outline.OutlineWidth = outlineWidth;
@@ -98,6 +103,10 @@ public class OutlineHighlight : MonoBehaviour
             {
                 highlight = null;
             }
+        }
+        else
+        {
+            highlightedText.text = "";
         }
     }
 }

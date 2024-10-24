@@ -110,6 +110,7 @@ public class PlayerController : MonoBehaviour
             if (activeSkill is SkillSwapRooms skillSwapRooms)
             {
                 skillSwapRooms.OnConfirm(context);
+                activeSkill = null;
             }
             // Add more checks if there are other skill types
         }
