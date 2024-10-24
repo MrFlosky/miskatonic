@@ -120669,14 +120669,30 @@ MonoBehaviour:
       m_Processors: 
       m_Interactions: 
       m_SingletonActionBindings:
-      - m_Name: 
-        m_Id: a7e27fda-c456-4460-b310-064e62c80f4b
-        m_Path: <Gamepad>/rightStick
+      - m_Name: Controller
+        m_Id: 2941fa81-9868-467e-ae38-919bf6499d7d
+        m_Path: 2DVector
         m_Interactions: 
         m_Processors: 
         m_Groups: 
         m_Action: Scroll Wheel
-        m_Flags: 0
+        m_Flags: 4
+      - m_Name: up
+        m_Id: cfeded0a-9e69-4cc8-80e0-13f9b70b44fa
+        m_Path: <Gamepad>/rightStick/right
+        m_Interactions: 
+        m_Processors: 
+        m_Groups: 
+        m_Action: Scroll Wheel
+        m_Flags: 8
+      - m_Name: down
+        m_Id: c00cf070-6ed2-4ad1-b7a0-5d23a4c4e543
+        m_Path: <Gamepad>/rightStick/left
+        m_Interactions: 
+        m_Processors: 
+        m_Groups: 
+        m_Action: Scroll Wheel
+        m_Flags: 8
       m_Flags: 0
     m_Reference: {fileID: 0}
 --- !u!114 &1015935252

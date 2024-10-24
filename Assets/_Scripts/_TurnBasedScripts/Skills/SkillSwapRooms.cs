@@ -21,7 +21,6 @@ public class SkillSwapRooms : Skill
     private string mRoomType2 = "None";
     private GameObject rm2Obj;
     private bool switchCanOccur = false;
-    private bool rightClickHandled = false;
 
     private PlayerInputActions inputActions;
 

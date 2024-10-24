@@ -32,7 +32,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""name"": ""Scroll"",
                     ""type"": ""Value"",
                     ""id"": ""35f97660-3050-4e4c-b9af-5151a59f3502"",
-                    ""expectedControlType"": """",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true

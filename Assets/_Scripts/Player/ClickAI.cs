@@ -65,7 +65,7 @@ public class ClickAI : MonoBehaviour
 
         // Use the Y component for vertical scrolling
         float scrollAmount = scrollInput.y;
-
+        
         // Update the tracked dolly's path position based on the scroll amount and speed factor
         track.m_PathPosition += scrollAmount/120 * scrollSpeed;
     }
