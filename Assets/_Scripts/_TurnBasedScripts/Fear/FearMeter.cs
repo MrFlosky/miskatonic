@@ -17,6 +17,7 @@ public class FearMeter : MonoBehaviour
     public float sliderSpeed = 0.2f;
     public ParticleSystem ps;
 
+
     void Awake()
     {
         slid = GetComponent<Slider>();
@@ -55,6 +56,7 @@ public class FearMeter : MonoBehaviour
     {
         return S.totalFear;
     }
+
 
     public GameObject endTurnButton;
     void CHECK_FEAR_WIN()

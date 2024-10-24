@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -34,6 +36,7 @@ namespace DialogueEditor
         public bool ScrollText;
         public float ScrollSpeed = 1;
         public Sprite BackgroundImage;
+        public GameObject AISlider; // added by Jay
         public bool BackgroundImageSliced;
         public Sprite OptionImage;
         public bool OptionImageSliced;
@@ -56,6 +59,7 @@ namespace DialogueEditor
         public UIConversationButton ButtonPrefab;
         // Default values
         public Sprite BlankSprite;
+
 
         // Getter properties
         public bool IsConversationActive
@@ -100,7 +104,11 @@ namespace DialogueEditor
             NpcIcon.sprite = BlankSprite;
             DialogueText.text = "";
             TurnOffUI();
+            
         }
+
+
+
 
         private void OnDestroy()
         {
@@ -628,6 +636,7 @@ namespace DialogueEditor
         {
             DialoguePanel.gameObject.SetActive(true);
             OptionsPanel.gameObject.SetActive(true);
+            AISlider.gameObject.SetActive(true);  // added by jay
 
             if (BackgroundImage != null)
             {
@@ -646,6 +655,7 @@ namespace DialogueEditor
         {
             DialoguePanel.gameObject.SetActive(false);
             OptionsPanel.gameObject.SetActive(false);
+            AISlider.gameObject.SetActive(false); // added by jay
             SetState(eState.Off);
 #if UNITY_EDITOR
             // Debug.Log("[ConversationManager]: Conversation UI off.");

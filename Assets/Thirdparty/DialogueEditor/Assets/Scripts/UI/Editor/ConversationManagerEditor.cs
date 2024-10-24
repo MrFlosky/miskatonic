@@ -14,7 +14,7 @@ namespace DialogueEditor
         private const float OPTION_BUFFER = 5;
         private const float OPTION_TEXT_BUF_Y = 10;
 
-
+        SerializedProperty AISliderProperty; // added by jay
         SerializedProperty BackgroundImageProperty;
         SerializedProperty BackgroundImageSlicedProperty;
         SerializedProperty OptionImageProperty;
@@ -25,6 +25,7 @@ namespace DialogueEditor
 
         private void OnEnable()
         {
+            AISliderProperty = serializedObject.FindProperty("AISlider"); // added by jay
             BackgroundImageProperty = serializedObject.FindProperty("BackgroundImage");
             BackgroundImageSlicedProperty = serializedObject.FindProperty("BackgroundImageSliced");
             OptionImageProperty = serializedObject.FindProperty("OptionImage");
@@ -46,6 +47,11 @@ namespace DialogueEditor
             EditorGUILayout.BeginVertical();
             GUILayout.Space(BOX_HEIGHT + OPTION_BUFFER + OPTION_HEIGHT);
             EditorGUILayout.EndVertical();
+
+            // Fear Slider addedv by jay
+            GUILayout.Label("AI Fear Slider", EditorStyles.boldLabel);
+            EditorGUILayout.PropertyField(AISliderProperty);
+            EditorGUILayout.Space();
 
             // Background image
             GUILayout.Label("Dialogue Image Options", EditorStyles.boldLabel);

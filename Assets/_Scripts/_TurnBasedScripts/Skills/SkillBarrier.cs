@@ -83,6 +83,7 @@ public class SkillBarrier : Skill
             MazeGenerator.Instance.SetWallInternalState(x, y, wT, true);
             TurnBasedSystem.DestroyAfterRounds destroyInstance = new TurnBasedSystem.DestroyAfterRounds(roundsLast, confirmedWall.gameObject, wT);
             ResetValues();
+            EndSkill();
         }
     }
 
@@ -112,6 +113,7 @@ public class SkillBarrier : Skill
         base.EndSkill();
         this.enabled = false;
 
+        // If player ends turn without confirming wall.
         if (canCycle)
         {
             mInactiveWalls[lastWallIndex].gameObject.SetActive(false);
