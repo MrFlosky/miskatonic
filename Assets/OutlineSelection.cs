@@ -84,7 +84,6 @@ public class OutlineHighlight : MonoBehaviour
         // Perform raycast to detect objects
         if (!EventSystem.current.IsPointerOverGameObject() && Physics.Raycast(ray, out raycastHit))
         {
-            Debug.Log(raycastHit.collider.gameObject.name);
             highlight = raycastHit.transform;
             if (highlight.tag is "Selectable" or "AI")
             {

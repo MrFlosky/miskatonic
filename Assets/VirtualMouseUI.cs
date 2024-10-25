@@ -46,14 +46,14 @@ public class VirtualMouseUI : MonoBehaviour
 
     private void Show()
     {
-        gameObject.SetActive(true);
+        virtualMouse.gameObject.SetActive(true);
     }
     
     private void Hide()
     {
         try
         {
-            gameObject.SetActive(false);
+            virtualMouse.gameObject.SetActive(false);
         }
         catch (Exception e)
         {
