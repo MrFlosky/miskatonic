@@ -35,13 +35,25 @@ public class AIFearMeter : MonoBehaviour
         }
     }
 
-    static public void StartUpSlider(int currentFear)
+    /// <summary>
+    /// Upon AI being selected in AICAmera, this function is called
+    /// which sets the slider's max and current value.
+    /// </summary>
+    /// <param name="currentFear"></param>
+    /// <param name="maxFear"></param>
+    static public void StartUpSlider(int currentFear, int maxFear)
     {
         //S.enabled = false; // not sure if needed here. maybe just on awake have enabled false.
         S.fear = currentFear;
+        S.aiSlider.maxValue = maxFear; 
         S.aiSlider.value = currentFear;
     }
 
+    /// <summary>
+    /// This function is called in Fear whenever fear is added/reduced on
+    /// an AI.
+    /// </summary>
+    /// <param name="newFear"></param>
     static public void UpdateSlider(int newFear)
     {
         S.timeElapsed = 0;

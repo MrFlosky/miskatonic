@@ -27,6 +27,7 @@ public class SkillSwapRooms : Skill
     private void Awake()
     {
         inputActions = new PlayerInputActions();
+        enabled = false;
     }
 
     private void OnEnable()
@@ -76,9 +77,13 @@ public class SkillSwapRooms : Skill
     public void OnRightClick(InputAction.CallbackContext context)
     {
         // Ensure the action is only processed once when the right-click is performed
-        if (context.phase != InputActionPhase.Performed)
-            return;
+        // if (context.phase != InputActionPhase.Performed)
+        //     return;
 
+        if (inputActions.Player.RightClick.phase == InputActionPhase.Performed)
+        {
+            return;
+        }
         // Execute only one condition per right-click
         if (mRoomType2 != "None")
         {

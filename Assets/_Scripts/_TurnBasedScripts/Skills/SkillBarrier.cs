@@ -27,6 +27,7 @@ public class SkillBarrier : Skill
     private void Awake()
     {
         inputActions = new PlayerInputActions();
+        enabled = false;
     }
 
     private void OnEnable()
@@ -91,6 +92,11 @@ public class SkillBarrier : Skill
 
     public void OnRightClick(InputAction.CallbackContext context)
     {
+        // Double processing fix
+        if (inputActions.Player.RightClick.phase == InputActionPhase.Performed)
+        {
+            return;
+        }
         // If a cell is selected, cancel the selection
         if (canCycle)
         {
@@ -100,6 +106,7 @@ public class SkillBarrier : Skill
                 wall.gameObject.SetActive(false);
             }
             ResetValues(); // Reset values for the current selection
+            //inputActions.Player.RightClick.Disable(); // Double Processing Fix(For our purposes anyways, as it is still doing the call twice)
         }
         else
         {
@@ -107,7 +114,9 @@ public class SkillBarrier : Skill
             Debug.Log("No cell selected, ending skill");
             base.ExitInput();
             EndSkill();
+   
         }
+        
     }
 
     public override void EndSkill()

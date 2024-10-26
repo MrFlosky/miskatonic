@@ -11,6 +11,7 @@ public class SkillAoeFear : Skill
     public GameObject AOEOb;
     Transform obTrans;
     bool canPlace = true;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -118,7 +119,7 @@ public class SkillAoeFear : Skill
         if(SkillSystem.GET_PTS() >= ptDeduction)
         {
         base.ActivateSkill();
-        this.enabled = true; // Enable the script allowing this skill to happen once.
+        enabled = true; // Enable the script allowing this skill to happen once.
         AOEOb.SetActive(true);
         canPlace = true;
         }
