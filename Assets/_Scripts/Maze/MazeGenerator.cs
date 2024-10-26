@@ -56,6 +56,7 @@ public class MazeGenerator : MonoBehaviour {
                 if (CreateRoom(maze))
                 {
                     createdRoomCount++;
+                    Debug.Log(createdRoomCount);
                 }
             }
 
@@ -67,6 +68,7 @@ public class MazeGenerator : MonoBehaviour {
             }
         
             // Increment the attempt counter and retry
+            rooms.Clear();
             attempts++;
         }
 

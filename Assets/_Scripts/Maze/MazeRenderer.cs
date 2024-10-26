@@ -59,6 +59,7 @@ public class MazeRenderer : MonoBehaviour
 
         }
         instantiatedRooms.Clear(); // remove all rooms from dictionary
+        mazeGenerator.rooms.Clear();
     }
 
     public void GenerateMaze()

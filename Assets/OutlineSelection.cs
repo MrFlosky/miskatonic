@@ -87,7 +87,7 @@ public class OutlineHighlight : MonoBehaviour
             highlight = raycastHit.transform;
             if (highlight.tag is "Selectable" or "AI")
             {
-                highlightedText.text = highlight.tag is "AI" ? highlight.gameObject.name : highlight.transform.parent.parent.name;
+                highlightedText.text = highlight.tag is "AI" ? highlight.gameObject.name : highlight.parent.GetComponent<MazeCellObject>().roomType;
                 // Enable outline component or add one if it doesn't exist
                 Outline outline = highlight.gameObject.GetComponent<Outline>();
                 if (outline == null)

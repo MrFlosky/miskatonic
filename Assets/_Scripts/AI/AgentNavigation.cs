@@ -1,15 +1,15 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class AgentNavigation : MonoBehaviour
 {
     public MazeGenerator mazeGenerator;
     public MazeRenderer mazeRenderer;
-    private MazeCell[,] maze;
-    private float CellSize;
 
     public float speed = 3.5f; // Movement speed
     public float mazeHeight = 0.5f; // Y offset to maintain height on the maze
@@ -22,7 +22,7 @@ public class AgentNavigation : MonoBehaviour
     public bool turnFinished = false;
 
     private Stack<Vector2Int> pathHistory = new Stack<Vector2Int>();
-    private List<Room> visitedRooms = new List<Room>();
+    private List<String> visitedRooms = new List<String>();
     private Dictionary<Vector2Int, int> visitCount = new Dictionary<Vector2Int, int>();
 
     public Vector3 destination;
@@ -39,6 +39,8 @@ public class AgentNavigation : MonoBehaviour
 
     public bool hasSwappedProps = false; // Flag to ensure swapping only happens once
     
+    private GameManager gameManager;
+    
     private void Start()
     {
         // Initialize the dictionary with room reactions for this agent
@@ -51,15 +53,11 @@ public class AgentNavigation : MonoBehaviour
     
     private void Awake()
     {
-        allAgents.Add(this);
-        
-        if (mazeRenderer != null)
+        gameManager = GameManager.Instance;
+        if (gameManager == null)
         {
-            mazeRenderer.OnMazeGenerated += OnMazeGenerated;
-        }
-        else
-        {
-            Debug.LogError("MazeRenderer instance is null.");
+            Debug.LogError("GameManager instance is null.");
+            return;
         }
     }
     
@@ -67,37 +65,16 @@ public class AgentNavigation : MonoBehaviour
     {
         allAgents.Remove(this);
     }
-
-
-    private void OnMazeGenerated()
-    {
-        CellSize = mazeRenderer.CellSize;
-        maze = mazeRenderer.GetMaze();
-        
-        // Example of setting a destination
-        //SetDestination(new Vector2Int(mazeGenerator.mazeWidth - 1, mazeGenerator.mazeHeight - 1)); // Bottom-right corner of maze
-    }
-
+    
     private void Update()
     {
+        // Follow the path
         FollowPath();
-        
-        if (visitedRooms.Count == 0) {
-            return;
-        }
 
-        // Use a StringBuilder for efficiency when concatenating strings
-        System.Text.StringBuilder roomInfo = new System.Text.StringBuilder();
+        if (visitedRooms.Count == 0) return;
 
-        foreach (Room room in visitedRooms) {
-            // Append each RoomID to the StringBuilder, followed by a comma
-            roomInfo.Append(room.roomType + ", ");  // You can use 'room.Name' if you prefer room names
-        }
-
-        // Remove the last comma and space
-        if (roomInfo.Length > 0)
-            roomInfo.Length -= 2;
-
+        // Log the visited rooms' names
+        string roomInfo = string.Join(", ", visitedRooms);
         Debug.Log(gameObject.name + "'s Visited Rooms: " + roomInfo);
     }
 
@@ -164,48 +141,37 @@ public class AgentNavigation : MonoBehaviour
         {
             path.RemoveAt(0);
 
-            // Convert the current world position to grid coordinates
             Vector2Int gridPosition = WorldToGridPosition(transform.position);
+            MazeCell currentCell = gameManager.centralMaze[gridPosition.x, gridPosition.y];
 
-            // Update visit count for this tile
-            visitCount.TryAdd(gridPosition, 0);
-            visitCount[gridPosition]++; // Increment the visit count
+            // Get the room type of the current cell
+            string roomType = currentCell.roomType;
 
-            // Check if the AI is standing over a new room tile (not a hallway)
-            MazeCell currentCell = maze[gridPosition.x, gridPosition.y];
-            Room room = MazeGenerator.Instance.rooms.FirstOrDefault(r => r.tilesInRoom.Contains(gridPosition));
-            
+            // Check if the room type has not been visited
+            if (!IsRoomVisited(roomType) && currentCell.roomTile)
+            {
+                Debug.Log("Stopping movement: New room found - " + roomType);
+                MarkRoomAsVisited(roomType);
+                StopMovement();
+                return;
+            }
 
-            // Collision detection and resolution
+            // Call ResolveCollision to handle any agent collisions at the current grid position
             ResolveCollision(gridPosition);
 
-            if (!IsRoomVisited(gridPosition) && currentCell.roomTile)
-            {
-                Debug.Log("Stopping movement: New room found at " + gridPosition);
-                MarkRoomAsVisited(gridPosition); 
-                StopMovement(); 
-                
-                currentRoom = room;
-                EnterRoom(room);
-                return; 
-            }
-            
-            if (currentCell.roomTile && currentRoom != room)
-            {
-                currentRoom = room;
-                EnterRoom(room);
-            }
-
+            // Set the next destination if there are more steps in the path
             if (path.Count > 0)
             {
                 destination = GetWorldPosition(path[0].position);
             }
             else
             {
-                isMoving = false; // Stop movement when path is complete
+                isMoving = false;
             }
         }
     }
+
+
     
     private void ResolveCollision(Vector2Int gridPosition)
     {
@@ -270,7 +236,7 @@ public class AgentNavigation : MonoBehaviour
         // Check if any of the adjacent positions are walkable and not occupied
         foreach (var position in possiblePositions)
         {
-            if (IsWithinBounds(position) && !IsTileOccupied(position) && IsWalkable(maze[currentGridPosition.x, currentGridPosition.y], maze[position.x, position.y]))
+            if (IsWithinBounds(position) && !IsTileOccupied(position) && IsWalkable(gameManager.centralMaze[currentGridPosition.x, currentGridPosition.y], gameManager.centralMaze[position.x, position.y]))
             {
                 return position;
             }
@@ -285,7 +251,7 @@ public class AgentNavigation : MonoBehaviour
         // If there is a stored path, update the first position to the new grid position
         if (storedPath.Count > 0)
         {
-            storedPath[0] = maze[newGridPosition.x, newGridPosition.y];
+            storedPath[0] = gameManager.centralMaze[newGridPosition.x, newGridPosition.y];
         }
     }
 
@@ -344,7 +310,7 @@ public class AgentNavigation : MonoBehaviour
     private void ValidateStoredPath()
     {
         // Start with the cell the agent is currently on
-        MazeCell currentCell = maze[WorldToGridPosition(transform.position).x, WorldToGridPosition(transform.position).y];
+        MazeCell currentCell = gameManager.centralMaze[WorldToGridPosition(transform.position).x, WorldToGridPosition(transform.position).y];
     
         // Iterate through the stored path, starting with the next cell
         for (int i = 0; i < storedPath.Count; i++)
@@ -367,14 +333,14 @@ public class AgentNavigation : MonoBehaviour
     // Converts a world position to grid coordinates (Vector2Int)
     public Vector2Int WorldToGridPosition(Vector3 worldPosition)
     {
-        int gridX = Mathf.RoundToInt(worldPosition.x / CellSize);
-        int gridZ = Mathf.RoundToInt(worldPosition.z / CellSize);
+        int gridX = Mathf.RoundToInt(worldPosition.x / gameManager.CellSize);
+        int gridZ = Mathf.RoundToInt(worldPosition.z / gameManager.CellSize);
         return new Vector2Int(gridX, gridZ);
     }
 
     private Vector3 GetWorldPosition(Vector2Int gridPosition)
     {
-        return new Vector3(gridPosition.x * CellSize, mazeHeight, gridPosition.y * CellSize);
+        return new Vector3(gridPosition.x * gameManager.CellSize, mazeHeight, gridPosition.y * gameManager.CellSize);
     }
 
     private List<MazeCell> FindPath(Vector2Int start, Vector2Int target)
@@ -382,8 +348,8 @@ public class AgentNavigation : MonoBehaviour
         List<MazeCell> openSet = new List<MazeCell>();
         HashSet<MazeCell> closedSet = new HashSet<MazeCell>();
 
-        MazeCell startCell = maze[start.x, start.y];
-        MazeCell targetCell = maze[target.x, target.y];
+        MazeCell startCell = gameManager.centralMaze[start.x, start.y];
+        MazeCell targetCell = gameManager.centralMaze[target.x, target.y];
 
         openSet.Add(startCell);
 
@@ -469,7 +435,7 @@ public class AgentNavigation : MonoBehaviour
             if (neighborPosition.x >= 0 && neighborPosition.x < mazeGenerator.mazeWidth &&
                 neighborPosition.y >= 0 && neighborPosition.y < mazeGenerator.mazeHeight)
             {
-                MazeCell neighborCell = maze[neighborPosition.x, neighborPosition.y];
+                MazeCell neighborCell = gameManager.centralMaze[neighborPosition.x, neighborPosition.y];
                 if (IsWalkable(cell, neighborCell))
                 {
                     neighbors.Add(neighborCell);
@@ -507,7 +473,7 @@ public class AgentNavigation : MonoBehaviour
             if (neighborPosition.x >= 0 && neighborPosition.x < mazeGenerator.mazeWidth &&
                 neighborPosition.y >= 0 && neighborPosition.y < mazeGenerator.mazeHeight)
             {
-                MazeCell neighborCell = maze[neighborPosition.x, neighborPosition.y];
+                MazeCell neighborCell = gameManager.centralMaze[neighborPosition.x, neighborPosition.y];
             
                 // Check line-of-sight (no walls between current cell and neighbor)
                 if (HasLineOfSight(cell, neighborCell, direction)) {
@@ -583,7 +549,7 @@ public class AgentNavigation : MonoBehaviour
             var (currentPos, steps) = frontier.Dequeue();
 
             // Removed arbitrary distance limit
-            List<MazeCell> neighbors = GetNeighbors(maze[currentPos.x, currentPos.y]);
+            List<MazeCell> neighbors = GetNeighbors(gameManager.centralMaze[currentPos.x, currentPos.y]);
 
             foreach (MazeCell neighbor in neighbors) {
                 Vector2Int neighborPos = neighbor.position;
@@ -627,11 +593,18 @@ public class AgentNavigation : MonoBehaviour
         return roomsInRegion * 0.5f;  // Adjust weight based on room density
     }
 
-    private int CountRoomsInRegion(int regionX, int regionY) {
-        // Iterate through visited rooms and count how many are in the region
+    private int CountRoomsInRegion(int regionX, int regionY) 
+    {
+        // Get all rooms from the GameManager
+        var allRooms = GameManager.Instance.GetRooms();
+
         int roomCount = 0;
-        foreach (Room room in visitedRooms) {
-            if (IsRoomInRegion(room, regionX, regionY)) {
+
+        // Iterate through the rooms in the GameManager and check if they are visited and in the region
+        foreach (Room room in allRooms) 
+        {
+            if (visitedRooms.Contains(room.roomType) && IsRoomInRegion(room, regionX, regionY)) 
+            {
                 roomCount++;
             }
         }
@@ -655,7 +628,7 @@ public class AgentNavigation : MonoBehaviour
         Vector2Int currentPosition = WorldToGridPosition(transform.position);
 
         // Get the current cell the AI is in
-        MazeCell currentCell = maze[currentPosition.x, currentPosition.y];
+        MazeCell currentCell = gameManager.centralMaze[currentPosition.x, currentPosition.y];
 
         // Get neighbors that are in line of sight
         List<MazeCell> neighbors = GetVisibleNeighbors(currentCell);
@@ -663,7 +636,9 @@ public class AgentNavigation : MonoBehaviour
         // First, check direct neighbors
         foreach (MazeCell neighbor in neighbors)
         {
-            if (neighbor.roomTile && !IsRoomVisited(neighbor.position))
+            Room neighborRoom = GameManager.Instance.GetRooms().FirstOrDefault(r => r.tilesInRoom.Contains(neighbor.position));
+
+            if (neighborRoom != null && neighbor.roomTile && !IsRoomVisited(neighborRoom.roomType))
             {
                 // If the neighbor is an unvisited room, return its position
                 return neighbor.position;
@@ -673,7 +648,9 @@ public class AgentNavigation : MonoBehaviour
             List<MazeCell> secondLayerNeighbors = GetVisibleNeighbors(neighbor);
             foreach (MazeCell secondNeighbor in secondLayerNeighbors)
             {
-                if (secondNeighbor.roomTile && !IsRoomVisited(secondNeighbor.position))
+                Room secondNeighborRoom = GameManager.Instance.GetRooms().FirstOrDefault(r => r.tilesInRoom.Contains(secondNeighbor.position));
+
+                if (secondNeighborRoom != null && secondNeighbor.roomTile && !IsRoomVisited(secondNeighborRoom.roomType))
                 {
                     // If the second-layer neighbor is an unvisited room, return its position
                     return secondNeighbor.position;
@@ -684,35 +661,28 @@ public class AgentNavigation : MonoBehaviour
         // If no visible unvisited room is found, return the current position (no movement)
         return currentPosition;
     }
-
     
-    public void MarkRoomAsVisited(Vector2Int tilePosition) {
-        foreach (Room room in MazeGenerator.Instance.rooms)
-        {
-            if (!room.tilesInRoom.Contains(tilePosition) || visitedRooms.Contains(room)) continue;
-            visitedRooms.Add(room);  // Mark all tiles in the room as visited
-
-            // Update the visit count
-            if (!visitCount.ContainsKey(tilePosition)) {
-                visitCount[tilePosition] = 0;
-            }
-            visitCount[tilePosition]++;
-            break;
-        }
-    }
-    
-    public bool IsRoomVisited(Vector2Int roomPosition)
+    public void UpdateMaze(MazeCell[,] updatedMaze)
     {
-        foreach (Room room in MazeGenerator.Instance.rooms)
-        {
-            if (room.tilesInRoom.Contains(roomPosition))
-            {
-                // If any tile of the room is in visitedRooms, the room is considered visited
-                return visitedRooms.Contains(room);
-            }
-        }
-        return false;
+        // Update the agent's reference to the new central maze
+        gameManager.centralMaze = updatedMaze;
     }
+
+
+    
+    public void MarkRoomAsVisited(string roomType)
+    {
+        if (!visitedRooms.Contains(roomType))
+        {
+            visitedRooms.Add(roomType); // Add the room type to the set of visited rooms
+        }
+    }
+
+    public bool IsRoomVisited(string roomType)
+    {
+        return visitedRooms.Contains(roomType);
+    }
+
     
     
     // Method to clear the random position
@@ -727,101 +697,12 @@ public class AgentNavigation : MonoBehaviour
         return hasDestination;
     }
     
-    
-    public void UpdateSwappedRooms(GameObject room1Ob, string newRoom1Type, GameObject room2Ob, string newRoom2Type)
-    {
-        // Get the positions of all cells in room1Ob
-        var room1Positions = room1Ob.GetComponentsInChildren<MazeCellObject>()
-            .Select(cell => new Vector2Int(cell.GetXCoord(), cell.GetYCoord())).ToList();
-
-        // Get the positions of all cells in room2Ob
-        var room2Positions = room2Ob.GetComponentsInChildren<MazeCellObject>()
-            .Select(cell => new Vector2Int(cell.GetXCoord(), cell.GetYCoord())).ToList();
-
-        // Find the corresponding rooms in the MazeGenerator
-        Room room1 = MazeGenerator.Instance.rooms.FirstOrDefault(r => r.tilesInRoom.SequenceEqual(room1Positions));
-        Room room2 = MazeGenerator.Instance.rooms.FirstOrDefault(r => r.tilesInRoom.SequenceEqual(room2Positions));
-
-        if (room1 != null) room1.roomType = newRoom1Type;
-        if (room2 != null) room2.roomType = newRoom2Type;
-
-        // Update the visitedRooms list to reflect the new room types
-        if (room1 != null && visitedRooms.Contains(room1))
-        {
-            visitedRooms.Remove(room1);
-            room1.roomType = newRoom1Type;
-            visitedRooms.Add(room1);
-        }
-
-        if (room2 != null && visitedRooms.Contains(room2))
-        {
-            visitedRooms.Remove(room2);
-            room2.roomType = newRoom2Type;
-            visitedRooms.Add(room2);
-        }
-    }
-
-    public void SwapRoomProps(GameObject room1Ob, string room1Type, GameObject room2Ob, string room2Type)
-    {
-        if (hasSwappedProps) return; // Exit if already swapped
-
-        // Find the props in the rooms based on the "Prop" tag
-        GameObject room1Prop = FindPropWithTag(room1Ob, "Prop");
-        GameObject room2Prop = FindPropWithTag(room2Ob, "Prop");
-
-        // Ensure the props and parents are valid
-        if (room1Prop != null && room2Prop != null)
-        {
-            Transform room1Parent = room1Ob.transform;
-            Transform room2Parent = room2Ob.transform;
-
-            // Store the local positions before destroying
-            Vector3 room1LocalPosition = room1Prop.transform.localPosition;
-            Vector3 room2LocalPosition = room2Prop.transform.localPosition;
-
-            // Store the prefab references before destroying
-            GameObject room1PropPrefab = Instantiate(room1Prop); // Create a copy of room1Prop
-            GameObject room2PropPrefab = Instantiate(room2Prop); // Create a copy of room2Prop
-
-            // Destroy the original GameObjects
-            Destroy(room1Prop);
-            Destroy(room2Prop);
-
-            // Re-instantiate room1Prop under room2's parent
-            GameObject newRoom1Prop = Instantiate(room1PropPrefab, room2Parent);
-            newRoom1Prop.transform.localPosition = room2LocalPosition; // Set the local position to match the previous room2Prop
-
-            // Re-instantiate room2Prop under room1's parent
-            GameObject newRoom2Prop = Instantiate(room2PropPrefab, room1Parent);
-            newRoom2Prop.transform.localPosition = room1LocalPosition; // Set the local position to match the previous room1Prop
-
-            // Destroy the temporary prefab copies used for swapping
-            Destroy(room1PropPrefab);
-            Destroy(room2PropPrefab);
-
-            hasSwappedProps = true;
-        }
-    }
-
-    // Helper method to find the child GameObject with the specified tag
-    private GameObject FindPropWithTag(GameObject parentObject, string tag)
-    {
-        foreach (Transform child in parentObject.transform)
-        {
-            if (child.CompareTag(tag))
-            {
-                return child.gameObject;
-            }
-        }
-        return null;
-    }
-    
     // This method is called when the agent enters a room
     public void EnterRoom(Room room)
     {
-        if (!visitedRooms.Contains(room))
+        if (room != null && !visitedRooms.Contains(room.roomType))
         {
-            visitedRooms.Add(room); // Add the room to the visitedRooms if not already present
+            visitedRooms.Add(room.roomType); // Add the room type to the visitedRooms if not already present
         }
 
         // Trigger the room fear effect if defined

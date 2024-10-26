@@ -154,47 +154,33 @@ public class SkillSwapRooms : Skill
 
     private void SwitchRooms(GameObject room1Ob, GameObject room2Ob, string rm1Type, string rm2Type)
     {
-        // Swap room types for the cells in the rooms
-        foreach (MazeCellObject cell in room1Ob.GetComponentsInChildren<MazeCellObject>())
+        // Get the GameManager instance
+        GameManager gameManager = GameManager.Instance;
+
+        if (gameManager == null)
         {
-            cell.roomType = rm2Type;
+            Debug.LogError("GameManager instance is null.");
+            return;
         }
 
-        foreach (MazeCellObject cell in room2Ob.GetComponentsInChildren<MazeCellObject>())
-        {
-            cell.roomType = rm1Type;
-        }
+        // Perform the room swap using GameManager
+        gameManager.SwapRooms(room1Ob, rm1Type, room2Ob, rm2Type);
 
-        // Notify AgentNavigation to update room tracking
-        AgentNavigation[] agents = FindObjectsOfType<AgentNavigation>();
-        if (agents.Length != 0)
-        {
-            foreach (var agent in agents)
-            {
-                agent.UpdateSwappedRooms(room1Ob, rm2Type, room2Ob, rm1Type);
-                if (!agent.hasSwappedProps && agents.Length != 0)
-                {
-                    agents[0].SwapRoomProps(room1Ob, rm1Type, room2Ob, rm2Type);
-                }
-            }
-
-            foreach (var agent in agents)
-                agent.hasSwappedProps = false;
-        }
-
+        // Update the UI to show the swap success
         txt.text = "SWAP BETWEEN " + "\n" + rm1Type + " AND " + rm2Type + "\n SUCCESSFUL";
 
-        // Reset the room types being held for switch
+        // Reset the room types and objects
         mRoomType1 = "None";
         mRoomType2 = "None";
         rm1Obj = null;
         rm2Obj = null;
         switchCanOccur = false;
 
-        // Set the rooms back to the original material
+        // Set the original materials back for the rooms
         SetRoomColor(room1Ob, beforeSelectMatFloor, beforeSelectMatWall);
         SetRoomColor(room2Ob, beforeSelectMatFloor, beforeSelectMatWall);
     }
+
 
     private void SetRoomColor(GameObject room, Material floorMaterial, Material wallMaterial)
     {
