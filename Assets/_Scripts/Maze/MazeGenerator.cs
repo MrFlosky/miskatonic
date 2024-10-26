@@ -56,7 +56,6 @@ public class MazeGenerator : MonoBehaviour {
                 if (CreateRoom(maze))
                 {
                     createdRoomCount++;
-                    Debug.Log(createdRoomCount);
                 }
             }
 

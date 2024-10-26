@@ -9,8 +9,7 @@ using Random = UnityEngine.Random;
 public class AgentNavigation : MonoBehaviour
 {
     public MazeGenerator mazeGenerator;
-    public MazeRenderer mazeRenderer;
-
+    
     public float speed = 3.5f; // Movement speed
     public float mazeHeight = 0.5f; // Y offset to maintain height on the maze
 
@@ -30,17 +29,14 @@ public class AgentNavigation : MonoBehaviour
     [SerializeField] private RoomName FearRoom;
     [SerializeField] private RoomName GoalRoom;
 
-    private Room currentRoom; // Track the current room the agent is in
+    private string currentRoom; // Track the current room the agent is in
     private Dictionary<string, System.Action> roomFearEffects;
 
     [SerializeField] private Fear agentFear;
     
-    private static List<AgentNavigation> allAgents = new List<AgentNavigation>();
-
-    public bool hasSwappedProps = false; // Flag to ensure swapping only happens once
-    
     private GameManager gameManager;
-    
+    public int tileSpeed = 10;
+
     private void Start()
     {
         // Initialize the dictionary with room reactions for this agent
@@ -57,13 +53,7 @@ public class AgentNavigation : MonoBehaviour
         if (gameManager == null)
         {
             Debug.LogError("GameManager instance is null.");
-            return;
         }
-    }
-    
-    private void OnDestroy()
-    {
-        allAgents.Remove(this);
     }
     
     private void Update()
@@ -124,6 +114,7 @@ public class AgentNavigation : MonoBehaviour
 
     private void FollowPath()
     {
+        
         if (!isMoving || path.Count == 0) return;
 
         Vector3 currentPosition = transform.position;
@@ -152,12 +143,18 @@ public class AgentNavigation : MonoBehaviour
             {
                 Debug.Log("Stopping movement: New room found - " + roomType);
                 MarkRoomAsVisited(roomType);
+                
+                EnterRoom(roomType);
                 StopMovement();
                 return;
             }
-
-            // Call ResolveCollision to handle any agent collisions at the current grid position
-            ResolveCollision(gridPosition);
+            
+            if (currentCell.roomTile && currentRoom != currentCell.roomType)
+            {
+                EnterRoom(roomType);
+            }
+            else if (currentCell.roomType == "Hallway")
+                currentRoom = null;
 
             // Set the next destination if there are more steps in the path
             if (path.Count > 0)
@@ -166,105 +163,12 @@ public class AgentNavigation : MonoBehaviour
             }
             else
             {
-                isMoving = false;
+                StopMovement();
             }
         }
-    }
-
-
-    
-    private void ResolveCollision(Vector2Int gridPosition)
-    {
-        // Check for other agents on the same position
-        var otherAgents = allAgents.Where(agent => agent != this && WorldToGridPosition(agent.transform.position) == gridPosition).ToList();
-
-        if (otherAgents.Count > 0)
-        {
-            // Try to move each other agent to an adjacent tile
-            foreach (var agent in otherAgents)
-            {
-                Vector2Int newGridPosition = FindAdjacentTile(agent, gridPosition);
-
-                if (newGridPosition != gridPosition)
-                {
-                    // Start the sliding coroutine to move smoothly to the new position
-                    StartCoroutine(SlideToPosition(agent, GetWorldPosition(newGridPosition)));
-                
-                    // Update the stored path with the new position
-                    agent.UpdateStoredPath(newGridPosition);
-                    agent.StopMovement();
-                }
-            }
-        }
-    }
-
-    private IEnumerator SlideToPosition(AgentNavigation agent, Vector3 targetPosition)
-    {
-        Vector3 startPosition = agent.transform.position;
-
-        // Keep sliding towards the target position
-        while (Vector3.Distance(agent.transform.position, targetPosition) > 0.01f)
-        {
-            // Move towards the target position at the defined speed
-            Vector3 direction = (targetPosition - agent.transform.position).normalized;
-            agent.transform.position += direction * agent.speed * Time.deltaTime;
-
-            // Maintain the agent's y position
-            agent.transform.position = new Vector3(agent.transform.position.x, mazeHeight, agent.transform.position.z);
-
-            yield return null; // Wait for the next frame
-        }
-
-        // Ensure the final position is exactly the target position
-        agent.transform.position = targetPosition;
     }
     
-    private Vector2Int FindAdjacentTile(AgentNavigation agent, Vector2Int currentGridPosition)
-    {
-        // Get all possible adjacent positions
-        var possiblePositions = new List<Vector2Int>
-        {
-            new Vector2Int(currentGridPosition.x + 1, currentGridPosition.y),
-            new Vector2Int(currentGridPosition.x - 1, currentGridPosition.y),
-            new Vector2Int(currentGridPosition.x, currentGridPosition.y + 1),
-            new Vector2Int(currentGridPosition.x, currentGridPosition.y - 1)
-        };
-
-        // Shuffle the list to add randomness to the selection
-        possiblePositions = possiblePositions.OrderBy(x => Random.value).ToList();
-
-        // Check if any of the adjacent positions are walkable and not occupied
-        foreach (var position in possiblePositions)
-        {
-            if (IsWithinBounds(position) && !IsTileOccupied(position) && IsWalkable(gameManager.centralMaze[currentGridPosition.x, currentGridPosition.y], gameManager.centralMaze[position.x, position.y]))
-            {
-                return position;
-            }
-        }
-
-        // Return the current position if no valid adjacent tile is found
-        return currentGridPosition;
-    }
-
-    private void UpdateStoredPath(Vector2Int newGridPosition)
-    {
-        // If there is a stored path, update the first position to the new grid position
-        if (storedPath.Count > 0)
-        {
-            storedPath[0] = gameManager.centralMaze[newGridPosition.x, newGridPosition.y];
-        }
-    }
-
-    private bool IsTileOccupied(Vector2Int position)
-    {
-        return allAgents.Any(agent => WorldToGridPosition(agent.transform.position) == position);
-    }
-
-    private bool IsWithinBounds(Vector2Int position)
-    {
-        return position.x >= 0 && position.x < mazeGenerator.mazeWidth &&
-               position.y >= 0 && position.y < mazeGenerator.mazeHeight;
-    }
+    
     
     // Stops the agent's movement by clearing the path
     public void StopMovement()
@@ -329,6 +233,7 @@ public class AgentNavigation : MonoBehaviour
             currentCell = nextCell;
         }
     }
+    
 
     // Converts a world position to grid coordinates (Vector2Int)
     public Vector2Int WorldToGridPosition(Vector3 worldPosition)
@@ -502,7 +407,7 @@ public class AgentNavigation : MonoBehaviour
         }
     }
 
-    private bool IsWalkable(MazeCell fromCell, MazeCell toCell)
+    public bool IsWalkable(MazeCell fromCell, MazeCell toCell)
     {
         // Check walls based on direction
         if (toCell.x > fromCell.x && !fromCell.rightWall && !toCell.leftWall) return true; // Right
@@ -545,10 +450,10 @@ public class AgentNavigation : MonoBehaviour
         frontier.Enqueue((currentPosition, 0));
         visited.Add(currentPosition);
 
+        System.Random random = new System.Random(gameObject.GetInstanceID());  // Unique seed for each agent
+
         while (frontier.Count > 0) {
             var (currentPos, steps) = frontier.Dequeue();
-
-            // Removed arbitrary distance limit
             List<MazeCell> neighbors = GetNeighbors(gameManager.centralMaze[currentPos.x, currentPos.y]);
 
             foreach (MazeCell neighbor in neighbors) {
@@ -558,13 +463,12 @@ public class AgentNavigation : MonoBehaviour
                     visited.Add(neighborPos);
                     frontier.Enqueue((neighborPos, steps + 1));
 
-                    // Dynamic scoring based on distance, visit frequency, and region
-                    float distanceScore = steps;  // Favor tiles that are farther away
-                    float visitScore = visitCount.ContainsKey(neighborPos) ? visitCount[neighborPos] : 0;  // Penalize frequently visited tiles
+                    float distanceScore = steps;
+                    float visitScore = visitCount.ContainsKey(neighborPos) ? visitCount[neighborPos] : 0;
+                    float regionPenalty = GetRegionRoomDensity(neighborPos);
 
-                    // Prioritize regions with fewer rooms
-                    float regionPenalty = GetRegionRoomDensity(neighborPos);  // Lower score for areas with more rooms
-                    float score = distanceScore - visitScore - regionPenalty;  // Adjust score based on all factors
+                    float randomFactor = (float)(random.NextDouble() * 0.5);
+                    float score = distanceScore - visitScore - regionPenalty + randomFactor;
 
                     scoredTiles.Add((neighborPos, score));
                 }
@@ -572,13 +476,15 @@ public class AgentNavigation : MonoBehaviour
         }
 
         if (scoredTiles.Count > 0) {
-            // Sort by score, highest score first
+            // Sort by score and pick a random tile from the top 3
             scoredTiles.Sort((a, b) => b.score.CompareTo(a.score));
-            return scoredTiles[0].position;
+            int randomIndex = random.Next(Mathf.Min(3, scoredTiles.Count));  // Select one of the top 3 tiles
+            return scoredTiles[randomIndex].position;
         }
 
         return currentPosition;  // Stay in place if no walkable tiles found
     }
+
     
     private float GetRegionRoomDensity(Vector2Int position) {
         // Divide maze into regions (e.g., left, right, center) or sectors
@@ -675,6 +581,7 @@ public class AgentNavigation : MonoBehaviour
         if (!visitedRooms.Contains(roomType))
         {
             visitedRooms.Add(roomType); // Add the room type to the set of visited rooms
+            path.Clear();
         }
     }
 
@@ -698,17 +605,13 @@ public class AgentNavigation : MonoBehaviour
     }
     
     // This method is called when the agent enters a room
-    public void EnterRoom(Room room)
+    public void EnterRoom(string roomType)
     {
-        if (room != null && !visitedRooms.Contains(room.roomType))
-        {
-            visitedRooms.Add(room.roomType); // Add the room type to the visitedRooms if not already present
-        }
-
+        currentRoom = roomType;
         // Trigger the room fear effect if defined
-        if (roomFearEffects.ContainsKey(room.roomType))
+        if (roomFearEffects.ContainsKey(roomType))
         {
-            roomFearEffects[room.roomType]?.Invoke();
+            roomFearEffects[roomType]?.Invoke();
         }
     }
     

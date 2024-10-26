@@ -14,7 +14,7 @@ public class MoveToPosition : ActionNode
     protected override void OnStop() {}
 
     protected override State OnUpdate() {
-        if (steps - 10 == context.agentNavigation.path.Count)
+        if (steps - context.agentNavigation.tileSpeed == context.agentNavigation.path.Count)
         {
             context.agentNavigation.PauseMovement();
             return State.Success;

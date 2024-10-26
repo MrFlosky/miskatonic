@@ -44313,7 +44313,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &394360490
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44368,7 +44368,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mazeGenerator: {fileID: 1604857008}
-  mazeRenderer: {fileID: 1604857007}
   speed: 3.5
   mazeHeight: 0.5
   hasDestination: 0
@@ -44377,7 +44376,7 @@ MonoBehaviour:
   FearRoom: 3
   GoalRoom: 4
   agentFear: {fileID: 394360491}
-  hasSwappedProps: 0
+  tileSpeed: 13
 --- !u!136 &394360494
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -116958,7 +116957,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mazeGenerator: {fileID: 1604857008}
-  mazeRenderer: {fileID: 1604857007}
   speed: 3.5
   mazeHeight: 0.5
   hasDestination: 0
@@ -116967,7 +116965,7 @@ MonoBehaviour:
   FearRoom: 1
   GoalRoom: 0
   agentFear: {fileID: 987532169}
-  hasSwappedProps: 0
+  tileSpeed: 12
 --- !u!136 &987532172
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -206335,7 +206333,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1734048512
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -206394,7 +206392,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mazeGenerator: {fileID: 1604857008}
-  mazeRenderer: {fileID: 1604857007}
   speed: 3.5
   mazeHeight: 0.5
   hasDestination: 0
@@ -206403,7 +206400,7 @@ MonoBehaviour:
   FearRoom: 1
   GoalRoom: 2
   agentFear: {fileID: 1734048513}
-  hasSwappedProps: 0
+  tileSpeed: 15
 --- !u!136 &1734048516
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -230662,7 +230659,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1903515395
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -230717,7 +230714,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mazeGenerator: {fileID: 1604857008}
-  mazeRenderer: {fileID: 1604857007}
   speed: 3.5
   mazeHeight: 0.5
   hasDestination: 0
@@ -230726,7 +230722,7 @@ MonoBehaviour:
   FearRoom: 3
   GoalRoom: 5
   agentFear: {fileID: 1903515396}
-  hasSwappedProps: 0
+  tileSpeed: 14
 --- !u!136 &1903515399
 CapsuleCollider:
   m_ObjectHideFlags: 0

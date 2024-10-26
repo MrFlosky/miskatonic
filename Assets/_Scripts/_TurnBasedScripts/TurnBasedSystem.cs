@@ -107,7 +107,6 @@ public class TurnBasedSystem : MonoBehaviour
             S.ResetAOEFear();
             currentTurn = TurnType.Player; 
             S.playerTurnCount ++;
-            Debug.Log("LETS GO");
             break;
 
             case TurnType.AI:
@@ -121,7 +120,6 @@ public class TurnBasedSystem : MonoBehaviour
             break;
 
             default:
-            Debug.Log("Well. That didn't work.");
             break;
 
         }
