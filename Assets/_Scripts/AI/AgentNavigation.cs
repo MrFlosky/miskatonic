@@ -9,12 +9,13 @@ using Random = UnityEngine.Random;
 public class AgentNavigation : MonoBehaviour
 {
     public MazeGenerator mazeGenerator;
+    public GameManager gameManager;
     
     public float speed = 3.5f; // Movement speed
     public float mazeHeight = 0.5f; // Y offset to maintain height on the maze
 
     public List<MazeCell> path = new List<MazeCell>();
-    private List<MazeCell> storedPath = new List<MazeCell>(); // Store the cleared path
+    public List<MazeCell> storedPath = new List<MazeCell>(); // Store the cleared path
 
     private bool isMoving = false;
     public bool hasDestination = false;
@@ -34,7 +35,6 @@ public class AgentNavigation : MonoBehaviour
 
     [SerializeField] private Fear agentFear;
     
-    private GameManager gameManager;
     public int tileSpeed = 10;
 
     private void Start()
@@ -45,11 +45,12 @@ public class AgentNavigation : MonoBehaviour
         roomFearEffects[GetRoomName(FearRoom)] = IncreaseFear;
         
         roomFearEffects[GetRoomName(GoalRoom)] = DecreaseFear;
+        
+        
     }
-    
+
     private void Awake()
     {
-        gameManager = GameManager.Instance;
         if (gameManager == null)
         {
             Debug.LogError("GameManager instance is null.");
@@ -141,7 +142,6 @@ public class AgentNavigation : MonoBehaviour
             // Check if the room type has not been visited
             if (!IsRoomVisited(roomType) && currentCell.roomTile)
             {
-                Debug.Log("Stopping movement: New room found - " + roomType);
                 MarkRoomAsVisited(roomType);
                 
                 EnterRoom(roomType);
@@ -618,13 +618,12 @@ public class AgentNavigation : MonoBehaviour
     private void IncreaseFear()
     {
         agentFear.AddFear(5);
-        Debug.Log("Increased " + gameObject.name + "'s fear");
     }
 
     private void DecreaseFear()
     {
+        gameManager.SetGoalBool(this, true);
         agentFear.ReduceFear(5);
-        Debug.Log("Decreased " + gameObject.name + "'s fear");
     }
 
     private enum RoomName

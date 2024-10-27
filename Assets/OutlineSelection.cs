@@ -41,25 +41,12 @@ public class OutlineHighlight : MonoBehaviour
 
     [SerializeField]
     private TMP_Text highlightedText;
-    
-    private void Awake()
-    {
-        // Get the InputAction for pointer position
-        pointerPositionAction = inputActionAsset.FindAction("Player/PointerPosition"); // Make sure this path matches your InputAction setup
-    }
 
     private void OnEnable()
     {
         highlightedText.text = "";
-        // Enable the InputAction
-        pointerPositionAction.Enable();
     }
 
-    private void OnDisable()
-    {
-        // Disable the InputAction
-        pointerPositionAction.Disable();
-    }
 
     private void Update()
     {
@@ -71,8 +58,10 @@ public class OutlineHighlight : MonoBehaviour
         }
         
         // Get the pointer position from the InputAction
-        Vector2 pointerPosition = pointerPositionAction.ReadValue<Vector2>();
-        Ray ray = Camera.main.ScreenPointToRay(pointerPosition);
+        Vector2 mousePos = Vector2.zero;
+        mousePos = GameInput.Instance.GetActiveGameDevice() == GameInput.GameDevice.KeyboardMouse ? Mouse.current.position.ReadValue() : VirtualMouseUI.Instance.GetVirtualMousePosition();
+        // Determine the rooms being selected for a switch
+        Ray ray = SkillSystem.GET_CAM().ScreenPointToRay(mousePos);
 
         // Disable previous highlight
         if (highlight != null)

@@ -53,8 +53,10 @@ public class SkillAoeFear : Skill
 
     public void OnClick(InputAction.CallbackContext context)
     {
-        
-        Ray ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
+        Vector2 mousePos = Vector2.zero;
+        mousePos = GameInput.Instance.GetActiveGameDevice() == GameInput.GameDevice.KeyboardMouse ? Mouse.current.position.ReadValue() : VirtualMouseUI.Instance.GetVirtualMousePosition();
+        // Determine the rooms being selected for a switch
+        Ray ray = SkillSystem.GET_CAM().ScreenPointToRay(mousePos);
         RaycastHit hit;
         // Note this is hitting the floor.
         if (Physics.Raycast(ray, out hit))

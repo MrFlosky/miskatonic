@@ -86269,18 +86269,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dungeon Room Props
       objectReference: {fileID: 0}
-    - target: {fileID: 2295930361769498978, guid: 361b5b54e358bdc4d945af23540f9680, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 3.35
-      objectReference: {fileID: 0}
-    - target: {fileID: 4777382762420768721, guid: 361b5b54e358bdc4d945af23540f9680, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 4.82
-      objectReference: {fileID: 0}
-    - target: {fileID: 4777382762420768721, guid: 361b5b54e358bdc4d945af23540f9680, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -2.54
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -209594,7 +209582,7 @@ MonoBehaviour:
   m_TrackedDeviceOrientationAction: {fileID: -2689586103193800682, guid: 3c632a1eb08cada4597587008adc7675, type: 3}
   m_DeselectOnBackgroundClick: 1
   m_PointerBehavior: 0
-  m_CursorLockBehavior: 0
+  m_CursorLockBehavior: 1
 --- !u!114 &1803275056
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -249980,6 +249968,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 1482061936}
     m_Modifications:
     - target: {fileID: 324314345843380642, guid: 1f63311383113ad4e87b8005583f8ccc, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 390768169}
+    - target: {fileID: 324314345843380642, guid: 1f63311383113ad4e87b8005583f8ccc, type: 3}
+      propertyPath: mazeRenderer
+      value: 
+      objectReference: {fileID: 1604857007}
+    - target: {fileID: 324314345843380642, guid: 1f63311383113ad4e87b8005583f8ccc, type: 3}
       propertyPath: mazeGenerator
       value: 
       objectReference: {fileID: 1604857008}
@@ -250101,6 +250097,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 1482061936}
     m_Modifications:
     - target: {fileID: 530265392745660750, guid: 6e15b47b7edc45e4e8fbbc5668b9cd9e, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 390768169}
+    - target: {fileID: 530265392745660750, guid: 6e15b47b7edc45e4e8fbbc5668b9cd9e, type: 3}
+      propertyPath: mazeRenderer
+      value: 
+      objectReference: {fileID: 1604857007}
+    - target: {fileID: 530265392745660750, guid: 6e15b47b7edc45e4e8fbbc5668b9cd9e, type: 3}
       propertyPath: mazeGenerator
       value: 
       objectReference: {fileID: 1604857008}
@@ -250210,6 +250214,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6096664654382364038, guid: e3eee655d87ceda4783f353d13a4af64, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 390768169}
+    - target: {fileID: 6096664654382364038, guid: e3eee655d87ceda4783f353d13a4af64, type: 3}
+      propertyPath: mazeRenderer
+      value: 
+      objectReference: {fileID: 1604857007}
+    - target: {fileID: 6096664654382364038, guid: e3eee655d87ceda4783f353d13a4af64, type: 3}
       propertyPath: mazeGenerator
       value: 
       objectReference: {fileID: 1604857008}
@@ -250242,6 +250254,14 @@ PrefabInstance:
       propertyPath: brain
       value: 
       objectReference: {fileID: 963053140}
+    - target: {fileID: 3296753354727406183, guid: cfdc6b546d4860d49ae0820305f7a38d, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 390768169}
+    - target: {fileID: 3296753354727406183, guid: cfdc6b546d4860d49ae0820305f7a38d, type: 3}
+      propertyPath: mazeRenderer
+      value: 
+      objectReference: {fileID: 1604857007}
     - target: {fileID: 3296753354727406183, guid: cfdc6b546d4860d49ae0820305f7a38d, type: 3}
       propertyPath: mazeGenerator
       value: 
@@ -250307,10 +250327,10 @@ PrefabInstance:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 390768170}
   - {fileID: 1763260650}
   - {fileID: 394672286}
   - {fileID: 1482061936}
   - {fileID: 666848950}
   - {fileID: 1226114362}
   - {fileID: 1679757954}
-  - {fileID: 390768170}

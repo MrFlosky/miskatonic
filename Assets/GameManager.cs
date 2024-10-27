@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -10,6 +12,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private MazeRenderer mazeRenderer;
     [SerializeField] private MazeGenerator mazeGenerator;
+
+    private Dictionary<AgentNavigation, bool> agentGoalRoom = new Dictionary<AgentNavigation, bool>();
 
     public float CellSize;
 
@@ -24,6 +28,15 @@ public class GameManager : MonoBehaviour
         else
         {
             Debug.LogError("MazeRenderer instance is null.");
+        }
+    }
+
+    private void Start()
+    {
+        AgentNavigation[] agents = FindObjectsOfType<AgentNavigation>();
+        foreach (AgentNavigation agent in agents)
+        {
+            agentGoalRoom[agent] = false;
         }
     }
 
@@ -149,8 +162,40 @@ public class GameManager : MonoBehaviour
         return null;
     }
 
-    public void UpdateRoomData()
+    private void UpdateRoomData()
     {
         rooms = mazeGenerator.rooms;
+    }
+    
+    public void SetGoalBool(AgentNavigation agent, bool foundRoom)
+    {
+        if (agentGoalRoom.ContainsKey(agent))
+        {
+            agentGoalRoom[agent] = foundRoom;
+        }
+    }
+
+    private bool AllAgentsFoundGoal()
+    {
+        return agentGoalRoom.Values.All(foundGoal => foundGoal);
+    }
+
+    private void DisplayAgentsGoalStatus()
+    {
+        foreach (var entry in agentGoalRoom)
+        {
+            AgentNavigation agent = entry.Key;
+            bool foundGoal = entry.Value;
+
+            // Display each agent's name and goal status
+            Debug.Log($"{agent.gameObject.name} has found goal room: {foundGoal}");
+        }
+    }
+    
+    private void LateUpdate()
+    {
+        DisplayAgentsGoalStatus();
+        if (AllAgentsFoundGoal())
+            print("You Lose");
     }
 }

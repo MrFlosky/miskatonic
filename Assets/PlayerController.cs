@@ -27,19 +27,24 @@ public class PlayerController : MonoBehaviour
 
     private void OnEnable()
     {
-        inputActions.Player.Click.performed += OnClick;
-        inputActions.Player.Scroll.performed += OnScroll;
+        inputActions.Player.Click.started += OnClick;
+        inputActions.Player.Scroll.started += OnScroll;
+        inputActions.Player.RightClick.started += OnRightClick;
         inputActions.Player.RightClick.performed += OnRightClick;
-        inputActions.Player.Confirm.performed += OnConfirm; // Add the Confirm action
+        inputActions.Player.RightClick.canceled += OnRightClick;
+        inputActions.Player.Confirm.started += OnConfirm; // Add the Confirm action
         inputActions.Enable();
     }
 
     private void OnDisable()
     {
-        inputActions.Player.Click.performed -= OnClick;
-        inputActions.Player.Scroll.performed -= OnScroll;
+        inputActions.Player.Click.started -= OnClick;
+        inputActions.Player.Scroll.started -= OnScroll;
+        inputActions.Player.RightClick.started -= OnRightClick;
         inputActions.Player.RightClick.performed -= OnRightClick;
-        inputActions.Player.Confirm.performed -= OnConfirm; // Remove the Confirm action
+        inputActions.Player.RightClick.canceled -= OnRightClick;
+        
+        inputActions.Player.Confirm.started -= OnConfirm; // Remove the Confirm action
         inputActions.Disable();
     }
 
@@ -88,7 +93,7 @@ public class PlayerController : MonoBehaviour
     private void OnRightClick(InputAction.CallbackContext context)
     {
         // Use the currently active skill
-        if (activeSkill != null && activeSkill.enabled)
+        if (activeSkill != null && activeSkill.enabled && context.started)
         {
             switch (activeSkill)
             {
@@ -102,7 +107,11 @@ public class PlayerController : MonoBehaviour
                     skillBarrier.OnRightClick(context);
                     break;
             }
-            // Add more checks if there are other skill types
+        }
+        
+        if (clickAI != null && activeSkill == null)
+        {
+            clickAI.OnRightClick(context);
         }
     }
 
