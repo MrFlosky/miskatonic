@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
 using DialogueEditor;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -18,9 +19,11 @@ public class ClickAI : MonoBehaviour
 
     public bool _clickedAI = false;
     
-    private List<Outline> activeOutlines = new List<Outline>();
+    private List<Transform> activeOutlines = new List<Transform>();
 
     private bool rightClicking = false;
+    
+    [SerializeField] Material outlineMaterial;
 
     private void Start()
     {
@@ -105,13 +108,33 @@ public class ClickAI : MonoBehaviour
                             MazeCell cell = agentNavigation.storedPath[i];
                             if (MazeRenderer.Instance.cellGameObjects.TryGetValue(cell.position, out GameObject cellObject))
                             {
-                                var outline = cellObject.GetComponentInChildren<Outline>(true);
-                                if (outline != null)
+                                List<Transform> childWithTag = new List<Transform>();
+                                for (int j = 0 ; j < cellObject.transform.childCount; j++)
                                 {
-                                    outline.enabled = true;
-                                    activeOutlines.Add(outline); // Save outline to the list
+                                    if (cellObject.transform.GetChild(i).gameObject.layer == LayerMask.NameToLayer("Ground"))
+                                        childWithTag.Add(cellObject.transform.GetChild(i));
+                                }
+
+                                foreach (var child in childWithTag)
+                                {
+                                    var materials = child.GetComponent<MeshRenderer>().materials;
+                                    
+                                    var newMaterials = new Material[materials.Length + 1];
+
+                                    for (int k = 0; k < materials.Length; k++)
+                                    {
+                                        newMaterials[k] = materials[k];
+                                    }
+
+                                    newMaterials[^1] = outlineMaterial;
+
+                                    child.GetComponent<MeshRenderer>().materials = newMaterials;
+                                    
+                                    activeOutlines.Add(child);
                                 }
                             }
+                            
+                            
                         }
                     }
                 }
@@ -133,11 +156,13 @@ public class ClickAI : MonoBehaviour
         }
     }
 
-    public void ClearOutlines()
+    private void ClearOutlines()
     {
         foreach (var outline in activeOutlines)
         {
-            outline.enabled = false;
+            var newMaterials = new Material[1];
+            newMaterials[0] = outline.GetComponent<MeshRenderer>().materials[0];
+            outline.GetComponent<MeshRenderer>().materials = newMaterials;
         }
         activeOutlines.Clear(); // Clear the list after disabling
     }

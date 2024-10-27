@@ -149,7 +149,7 @@ GameObject:
   - component: {fileID: 8442705332648937211}
   - component: {fileID: 7916661154764574345}
   - component: {fileID: 7022750033797968633}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ChessPiece
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -577,7 +577,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4328944795887566300}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -521.5, y: -316.5, z: 38}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 1
@@ -672,6 +672,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mazeGenerator: {fileID: 0}
+  gameManager: {fileID: 0}
   speed: 3.5
   mazeHeight: 0.5
   hasDestination: 0
