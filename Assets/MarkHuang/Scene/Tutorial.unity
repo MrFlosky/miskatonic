@@ -38,7 +38,6 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.3069224, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -318,8 +317,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: go!
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9fa3b973a2952a74b94ffb29eb91cb73, type: 2}
+  m_sharedMaterial: {fileID: 3802274005404054961, guid: 9fa3b973a2952a74b94ffb29eb91cb73, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -450,16 +449,16 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Player can have conversations with AI by click on them.
+  m_text: 'Talk to the characters by clicking on them.
 
-    Right choice
-    will rise the fear meter and fault choice will lower it.
+    Be careful what you say-
+    different dialog choices could either raise or lower the fear meter.
 
-    Find details in
-    profile and make your choice.'
+    Find
+    details in the  character profiles and make your choice.'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 5b915f831aacd3649af76d10b953082e, type: 2}
+  m_sharedMaterial: {fileID: 7064889032853163465, guid: 5b915f831aacd3649af76d10b953082e, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -771,10 +770,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Every round player can have 3 action points
+  m_text: For every round, you will get 3 action points. Use these to manipulate
+    the maze.
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 5b915f831aacd3649af76d10b953082e, type: 2}
+  m_sharedMaterial: {fileID: 7064889032853163465, guid: 5b915f831aacd3649af76d10b953082e, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1113,13 +1113,18 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Player Can place an barrier in the grid to stop AI\u2019s movement.\nPlayer
-    Can place aoe fear in the map and more AI in the range the fear meter will rise
-    more.\nPlayer can swap two room in the scene to keep AI away from their goal
-    room.\n"
+  m_text: '- Place barriers to stop a character''s movement
+
+    - Place AOE fear
+    to increase the fear meter when a character is within that area
+
+    - Swap the
+    location of two rooms to keep characters away from their goal room
+
+'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 5b915f831aacd3649af76d10b953082e, type: 2}
+  m_sharedMaterial: {fileID: 7064889032853163465, guid: 5b915f831aacd3649af76d10b953082e, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1745,10 +1750,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "And don\u2019t let people reach each of their goal room"
+  m_text: "And don\u2019t let people reach their goal room"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 5b915f831aacd3649af76d10b953082e, type: 2}
+  m_sharedMaterial: {fileID: 7064889032853163465, guid: 5b915f831aacd3649af76d10b953082e, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2403,6 +2408,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1827280249}
   - component: {fileID: 1827280248}
+  - component: {fileID: 1827280250}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -2487,6 +2493,29 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!114 &1827280250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1827280247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_RenderingLayers: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_ShadowRenderingLayers: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
 --- !u!1 &1915604142
 GameObject:
   m_ObjectHideFlags: 0
@@ -2657,10 +2686,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: You need to fill the fear meter to win the game
+  m_text: Fill the fear meter to win the game
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 5b915f831aacd3649af76d10b953082e, type: 2}
+  m_sharedMaterial: {fileID: 7064889032853163465, guid: 5b915f831aacd3649af76d10b953082e, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
