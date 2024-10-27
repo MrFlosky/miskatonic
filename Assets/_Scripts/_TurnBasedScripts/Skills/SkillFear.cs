@@ -32,8 +32,11 @@ public class SkillFear : Skill
 
     public void OnClick(InputAction.CallbackContext context)
     {
-        // Perform the raycast to detect the object under the mouse
-        Ray ray = SkillSystem.GET_CAM().ScreenPointToRay(Mouse.current.position.ReadValue());
+        // Get the pointer position from the InputAction
+        Vector2 mousePos = Vector2.zero;
+        mousePos = GameInput.Instance.GetActiveGameDevice() == GameInput.GameDevice.KeyboardMouse ? Mouse.current.position.ReadValue() : VirtualMouseUI.Instance.GetVirtualMousePosition();
+        // Determine the rooms being selected for a switch
+        Ray ray = SkillSystem.GET_CAM().ScreenPointToRay(mousePos);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit))
         {

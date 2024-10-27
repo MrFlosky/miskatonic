@@ -72,4 +72,14 @@ public class MazeCellObject : MonoBehaviour
     {
         yCoord = y;
     }
+    
+    public Vector2Int GetLocalCoordinates(int roomTopLeftX, int roomTopLeftY)
+    {
+        // Calculate the local x and y coordinates based on the room's top-left corner
+        int localX = GetXCoord() - roomTopLeftX;
+        int localY = GetYCoord() - roomTopLeftY;
+
+        // Return the local coordinates as a Vector2Int
+        return new Vector2Int(localX, localY);
+    }
 }

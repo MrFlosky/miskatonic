@@ -37,7 +37,7 @@ public class AICamera : MonoBehaviour
         // After blending is done, enable the canvas and start the dialogue
         if (isWaitingForBlend && !brain.IsBlending)
         {
-            AIFearMeter.StartUpSlider(thisAIsFear.GetFear()); 
+            AIFearMeter.StartUpSlider(thisAIsFear.GetFear(), thisAIsFear.GetFearThreshold()); 
             ConversationManager.Instance.StartConversation(_conversation);
 
             // Reset the flag to ensure it only triggers once per blend

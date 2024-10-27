@@ -11,6 +11,7 @@ public class SkillAoeFear : Skill
     public GameObject AOEOb;
     Transform obTrans;
     bool canPlace = true;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -52,8 +53,10 @@ public class SkillAoeFear : Skill
 
     public void OnClick(InputAction.CallbackContext context)
     {
-        
-        Ray ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
+        Vector2 mousePos = Vector2.zero;
+        mousePos = GameInput.Instance.GetActiveGameDevice() == GameInput.GameDevice.KeyboardMouse ? Mouse.current.position.ReadValue() : VirtualMouseUI.Instance.GetVirtualMousePosition();
+        // Determine the rooms being selected for a switch
+        Ray ray = SkillSystem.GET_CAM().ScreenPointToRay(mousePos);
         RaycastHit hit;
         // Note this is hitting the floor.
         if (Physics.Raycast(ray, out hit))
@@ -118,7 +121,7 @@ public class SkillAoeFear : Skill
         if(SkillSystem.GET_PTS() >= ptDeduction)
         {
         base.ActivateSkill();
-        this.enabled = true; // Enable the script allowing this skill to happen once.
+        enabled = true; // Enable the script allowing this skill to happen once.
         AOEOb.SetActive(true);
         canPlace = true;
         }

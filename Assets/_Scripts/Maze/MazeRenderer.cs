@@ -15,6 +15,8 @@ public class MazeRenderer : MonoBehaviour
     
     // A dictionary to keep track of instantiated room objects
     public Dictionary<string, Transform> instantiatedRooms = new Dictionary<string, Transform>();
+    
+    public Dictionary<Vector2Int, GameObject> cellGameObjects = new Dictionary<Vector2Int, GameObject>();
 
     // This the physical size of our maze cells. Getting this wrong will result in overlapping
     // or visible gaps between each cell.
@@ -59,6 +61,7 @@ public class MazeRenderer : MonoBehaviour
 
         }
         instantiatedRooms.Clear(); // remove all rooms from dictionary
+        mazeGenerator.rooms.Clear();
     }
 
     public void GenerateMaze()
@@ -106,6 +109,9 @@ public class MazeRenderer : MonoBehaviour
                 // Have it hold its x,y coordinates
                 mazeCell.SetXCoord(x);
                 mazeCell.SetYCoord(y);
+                
+                Vector2Int cellPosition = new Vector2Int(x, y);
+                cellGameObjects[cellPosition] = newCell;
 
                 // Determine which walls need to be active
                 bool top = maze[x, y].topWall;

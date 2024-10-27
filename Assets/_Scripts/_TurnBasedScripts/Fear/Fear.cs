@@ -67,4 +67,8 @@ public class Fear : MonoBehaviour
     {
         return currentFear;
     }
+    public int GetFearThreshold()
+    {
+        return fearThreshold;
+    }
 }
