@@ -60,6 +60,7 @@ public class SkillBarrier : Skill
                 {
                     cellHit = hit.transform.parent;
                     Debug.Log(cellHit.name);
+                    AudioManager.PlaySFX(SFXType.MouseButtonHit);
                     GetPossibleBarrierWalls(cellHit);
                     canCycle = true;
                 }
@@ -67,6 +68,7 @@ public class SkillBarrier : Skill
         }
         else
         {
+            AudioManager.PlaySFX(SFXType.MouseButtonHit);
             CycleWall();
         }
     }
@@ -106,6 +108,7 @@ public class SkillBarrier : Skill
             {
                 wall.gameObject.SetActive(false);
             }
+            AudioManager.PlaySFX(SFXType.MouseButtonHit);
             ResetValues(); // Reset values for the current selection
             //inputActions.Player.RightClick.Disable(); // Double Processing Fix(For our purposes anyways, as it is still doing the call twice)
         }

@@ -38,5 +38,10 @@ public class SceneController : MonoBehaviour
     {
         return SceneManager.GetActiveScene().name;
     }
+    
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
 }
 

@@ -70,6 +70,7 @@ public class SkillSwapRooms : Skill
 
                 // Select rooms
                 SelectionCheck(selectedRoomType, roomHit, cellHit);
+                AudioManager.PlaySFX(SFXType.MouseButtonHit);
             }
         }
     }
@@ -92,6 +93,7 @@ public class SkillSwapRooms : Skill
             SetRoomColor(rm2Obj, beforeSelectMatFloor, beforeSelectMatWall);
             rm2Obj = null;
             switchCanOccur = false;
+            AudioManager.PlaySFX(SFXType.MouseButtonHit);
             return;
         }
         if (mRoomType1 != "None")
@@ -100,6 +102,7 @@ public class SkillSwapRooms : Skill
             mRoomType1 = "None";
             SetRoomColor(rm1Obj, beforeSelectMatFloor, beforeSelectMatWall);
             rm1Obj = null;
+            AudioManager.PlaySFX(SFXType.MouseButtonHit);
             return;
         }
         base.ExitInput();
