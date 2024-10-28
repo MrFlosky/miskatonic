@@ -112833,7 +112833,6 @@ GameObject:
   - component: {fileID: 963053142}
   - component: {fileID: 963053141}
   - component: {fileID: 963053140}
-  - component: {fileID: 963053144}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -112949,6 +112948,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 666848950}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+<<<<<<< HEAD
 --- !u!114 &963053144
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -112994,6 +112994,9 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
 --- !u!1 &963110125
+=======
+--- !u!1 &963353574
+>>>>>>> parent of 1ffafd9 (Converted to URP)
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -196823,7 +196826,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1679757954}
   - component: {fileID: 1679757953}
-  - component: {fileID: 1679757955}
   m_Layer: 0
   m_Name: Spot Light
   m_TagString: Untagged
@@ -196843,10 +196845,10 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 628.6
-  m_Range: 72
-  m_SpotAngle: 179
-  m_InnerSpotAngle: 78.10215
+  m_Intensity: 15.4
+  m_Range: 48.7
+  m_SpotAngle: 122.7
+  m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
     m_Type: 0
@@ -196885,7 +196887,7 @@ Light:
   m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 0
+  m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
@@ -196902,12 +196904,13 @@ Transform:
   m_GameObject: {fileID: 1679757952}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 20, y: 18.35, z: 20}
+  m_LocalPosition: {x: 20, y: 35, z: 20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+<<<<<<< HEAD
 --- !u!114 &1679757955
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -196932,6 +196935,9 @@ MonoBehaviour:
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
 --- !u!1 &1680838606
+=======
+--- !u!1 &1682433724
+>>>>>>> parent of 1ffafd9 (Converted to URP)
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

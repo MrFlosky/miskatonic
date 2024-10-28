@@ -46,6 +46,12 @@ public class GameManager : MonoBehaviour
         centralMaze = mazeRenderer.GetMaze();
 
         rooms = mazeGenerator.rooms;
+
+        AgentNavigation[] agents = FindObjectsOfType<AgentNavigation>();
+        foreach (AgentNavigation agent in agents)
+        {
+            agent.SetFirstLocation();
+        }
     }
 
     public List<Room> GetRooms()
@@ -188,7 +194,7 @@ public class GameManager : MonoBehaviour
             bool foundGoal = entry.Value;
 
             // Display each agent's name and goal status
-            Debug.Log($"{agent.gameObject.name} has found goal room: {foundGoal}");
+            //Debug.Log($"{agent.gameObject.name} has found goal room: {foundGoal}");
         }
     }
     

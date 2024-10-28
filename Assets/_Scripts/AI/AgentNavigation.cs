@@ -62,11 +62,19 @@ public class AgentNavigation : MonoBehaviour
         // Follow the path
         FollowPath();
 
+        Debug.Log(gameObject.name + "'s Path Length: " + path.Count);
+        Debug.Log(gameObject.name + "'s Stored Path Length: " + storedPath.Count);
+        
         if (visitedRooms.Count == 0) return;
 
         // Log the visited rooms' names
         string roomInfo = string.Join(", ", visitedRooms);
         Debug.Log(gameObject.name + "'s Visited Rooms: " + roomInfo);
+    }
+
+    public void SetFirstLocation()
+    {
+        //path = FindPath(WorldToGridPosition(transform.position), GetRandomWalkableTile());
     }
 
     public void SetDestination(Vector2Int target) {
@@ -93,6 +101,29 @@ public class AgentNavigation : MonoBehaviour
             isMoving = true;  // Start moving toward the target
             destination = GetWorldPosition(path[0].position);  // Set the first destination in the path
         }
+    }
+    
+    public void SetDestinationWithoutMovement(Vector2Int target) {
+        hasDestination = true;
+
+        // Stop any current movement
+        StopMovement();
+
+        // Recalculate the agent's grid position
+        Vector2Int currentPosition = WorldToGridPosition(transform.position);
+        pathHistory.Push(currentPosition);
+
+        // Find a path from the current position to the target
+        Vector2Int start = currentPosition;
+        path = FindPath(start, target);
+
+        if (path.Count > 0) {
+            isMoving = true;  // Start moving toward the target
+            destination = GetWorldPosition(path[0].position);  // Set the first destination in the path
+        }
+        
+        // Stop any current movement
+        StopMovement();
     }
     
     public void SetRoomDestination(Vector2Int target) {
@@ -146,6 +177,7 @@ public class AgentNavigation : MonoBehaviour
                 
                 EnterRoom(roomType);
                 StopMovement();
+                
                 return;
             }
             
@@ -248,7 +280,7 @@ public class AgentNavigation : MonoBehaviour
         return new Vector3(gridPosition.x * gameManager.CellSize, mazeHeight, gridPosition.y * gameManager.CellSize);
     }
 
-    private List<MazeCell> FindPath(Vector2Int start, Vector2Int target)
+    public List<MazeCell> FindPath(Vector2Int start, Vector2Int target)
     {
         List<MazeCell> openSet = new List<MazeCell>();
         HashSet<MazeCell> closedSet = new HashSet<MazeCell>();
