@@ -12,6 +12,7 @@ public class Heartbeats : MonoBehaviour
 {
     private static Heartbeats S;
     public AudioSource heartbeat;
+    public AudioSource mainTheme;
     float heartbeatPitch;
     int maxFear;
 
@@ -37,6 +38,8 @@ public class Heartbeats : MonoBehaviour
 
     public void StartHeartbeat(int fear, int maxFear)
     {
+        mainTheme.volume = mainTheme.volume / 3; // lower main theme volume so heartbeat better heard
+
         S.maxFear = maxFear;
         S.heartbeatPitch = S.FearToHeartBeat(fear);
         S.heartbeat.pitch = S.heartbeatPitch;
@@ -56,7 +59,7 @@ public class Heartbeats : MonoBehaviour
         // decrease the val before * to intensify pitch increase.
         float percentage = 0.4f * maxFear;
         float pitch = fear / percentage;
-        if(pitch <= 0)
+        if(pitch <= 0.95f)
         {
             pitch = 0.95f;
         }
@@ -73,7 +76,7 @@ public class Heartbeats : MonoBehaviour
         return pitch;
     }
 
-
+    float mainThemeCurr;
     /// <summary>
     /// Stop the heartbeat sound. 
     /// This is called in convo manager bc cannot use disabled in this situation:
@@ -86,7 +89,11 @@ public class Heartbeats : MonoBehaviour
         if(S == null)
         {
             S = this;
+            mainThemeCurr = mainTheme.volume; // if have settings page for volume this will need to be changed
         }
+
+        mainTheme.volume = mainThemeCurr;
+        
 
         S.heartbeat.Stop();
     }
