@@ -15,10 +15,9 @@ public class Heartbeats : MonoBehaviour
     float heartbeatPitch;
     int maxFear;
 
-    // this might cause issues with nullobjref bc convomanager disables it in awake as well
+    // this was cause for issues with nullobjref bc convomanager awake first?
     void Awake()
     {
-        S = this;
         S.enabled = false;
     }
 
@@ -78,6 +77,12 @@ public class Heartbeats : MonoBehaviour
     /// </summary>
     public void StopHeartbeat()
     {
+        //Tempoary fix for nullref. Convomanager setting this as it is awake first, and turns UI off on awake.
+        if(S == null)
+        {
+            S = this;
+        }
+
         S.heartbeat.Stop();
         S.enabled = false;
     }
