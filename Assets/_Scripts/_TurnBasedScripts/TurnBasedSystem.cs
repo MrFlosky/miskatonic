@@ -45,7 +45,7 @@ public class TurnBasedSystem : MonoBehaviour
     {
         S = this;
         //S.txt.text = "Total Turns: " + S.totalTurnCount + "\n" + "Player Turns: " + S.playerTurnCount + "\n" + "AI Turns: " + S.aiTurnCount; ///***DEBUG
-        S.txt.text = "Turns Left: " + (10 - S.aiTurnCount);
+        S.txt.text = "Turns Left: " + (S.roundsUntilDefeat/2 - S.aiTurnCount);
         currentTurn = TurnType.Player;
     }
     

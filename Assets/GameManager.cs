@@ -46,12 +46,6 @@ public class GameManager : MonoBehaviour
         centralMaze = mazeRenderer.GetMaze();
 
         rooms = mazeGenerator.rooms;
-
-        AgentNavigation[] agents = FindObjectsOfType<AgentNavigation>();
-        foreach (AgentNavigation agent in agents)
-        {
-            agent.SetFirstLocation();
-        }
     }
 
     public List<Room> GetRooms()
