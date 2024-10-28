@@ -37,6 +37,7 @@ namespace DialogueEditor
         public float ScrollSpeed = 1;
         public Sprite BackgroundImage;
         public GameObject AISlider; // added by Jay
+        Heartbeats heartbeats; // added by jay
         public bool BackgroundImageSliced;
         public Sprite OptionImage;
         public bool OptionImageSliced;
@@ -92,7 +93,7 @@ namespace DialogueEditor
 
         private void Awake()
         {
-            Heartbeats heartbeats = AISlider.GetComponentInChildren<Heartbeats>();
+            heartbeats = AISlider.GetComponentInChildren<Heartbeats>();
             // Destroy myself if I am not the singleton
             if (Instance != null && Instance != this)
             {
@@ -657,7 +658,8 @@ namespace DialogueEditor
             DialoguePanel.gameObject.SetActive(false);
             OptionsPanel.gameObject.SetActive(false);
             AISlider.gameObject.SetActive(false); // added by jay
-            Heartbeats.StopHeartbeat();
+            heartbeats.StopHeartbeat();
+            
             SetState(eState.Off);
 #if UNITY_EDITOR
             // Debug.Log("[ConversationManager]: Conversation UI off.");

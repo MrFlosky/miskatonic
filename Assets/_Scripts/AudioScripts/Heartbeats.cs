@@ -76,7 +76,7 @@ public class Heartbeats : MonoBehaviour
     /// OnDisabled only detected when this script is enabled, and that is only when
     /// we need to increase heart rate in update.
     /// </summary>
-    static public void StopHeartbeat()
+    public void StopHeartbeat()
     {
         S.heartbeat.Stop();
         S.enabled = false;
