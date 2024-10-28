@@ -1,21 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class MainMenuUI : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    
+    private PlayerInputActions inputActions;
+
+    private void Awake()
     {
-        
+        inputActions = new PlayerInputActions(); // Initialize Input Actions
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnEnable()
     {
-        if(Input.anyKeyDown)
-        {
-            SceneController.Instance.LoadScene("Tutorial");
-        }
+        inputActions.Enable(); // Enable Input Actions
+        inputActions.Player.AnyKey.performed += OnAnyKey; // Subscribe to any key press
+    }
+
+    private void OnDisable()
+    {
+        inputActions.Player.AnyKey.performed -= OnAnyKey; // Unsubscribe on disable
+        inputActions.Disable();
+    }
+
+    private void OnAnyKey(InputAction.CallbackContext context)
+    {
+        SceneController.Instance.LoadScene("Tutorial");
     }
 }
