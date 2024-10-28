@@ -84,11 +84,7 @@ public class ClickAI : MonoBehaviour
     public void OnRightClick(InputAction.CallbackContext context)
     {
         rightClicking = true;
-        if (_clickedAI || !TurnBasedSystem.IsPlayerTurn() || _inConversation)
-        {
-            ClearOutlines();
-            return;
-        }
+        if (_clickedAI || !TurnBasedSystem.IsPlayerTurn() || _inConversation) return;
         
         var mousePos = GameInput.Instance.GetActiveGameDevice() == GameInput.GameDevice.KeyboardMouse ? Mouse.current.position.ReadValue() : VirtualMouseUI.Instance.GetVirtualMousePosition();
 
@@ -107,75 +103,38 @@ public class ClickAI : MonoBehaviour
                         // Clear any previously active outlines
                         ClearOutlines();
 
-                        List<Transform> childWithTag = new List<Transform>();
                         for (int i = 0; i < Mathf.Min(agentNavigation.tileSpeed, agentNavigation.storedPath.Count); i++)
                         {
                             MazeCell cell = agentNavigation.storedPath[i];
                             if (MazeRenderer.Instance.cellGameObjects.TryGetValue(cell.position, out GameObject cellObject))
                             {
+                                List<Transform> childWithTag = new List<Transform>();
                                 for (int j = 0 ; j < cellObject.transform.childCount; j++)
                                 {
-                                    if (cellObject.transform.GetChild(j).gameObject.layer == LayerMask.NameToLayer("Ground"))
-                                        childWithTag.Add(cellObject.transform.GetChild(j));
+                                    if (cellObject.transform.GetChild(i).gameObject.layer == LayerMask.NameToLayer("Ground"))
+                                        childWithTag.Add(cellObject.transform.GetChild(i));
                                 }
-                                
-                            }
-                        }
-                        
-                        foreach (var child in childWithTag)
-                        {
-                            var materials = child.GetComponent<MeshRenderer>().materials;
-                                    
-                            var newMaterials = new Material[materials.Length + 1];
 
-                            for (int i = 0; i < materials.Length; i++)
-                            {
-                                newMaterials[i] = materials[i];
-                            }
-
-                            newMaterials[^1] = outlineMaterial;
-
-                            child.GetComponent<MeshRenderer>().materials = newMaterials;
-                                    
-                            activeOutlines.Add(child);
-                        }
-                    }
-                    else if (agentNavigation != null && agentNavigation.path.Count > 0)
-                    {
-                        // Clear any previously active outlines
-                        ClearOutlines();
-
-                        List<Transform> childWithTag = new List<Transform>();
-                        for (int i = 0; i < Mathf.Min(agentNavigation.tileSpeed, agentNavigation.path.Count); i++)
-                        {
-                            MazeCell cell = agentNavigation.path[i];
-                            if (MazeRenderer.Instance.cellGameObjects.TryGetValue(cell.position, out GameObject cellObject))
-                            {
-                                for (int j = 0 ; j < cellObject.transform.childCount; j++)
+                                foreach (var child in childWithTag)
                                 {
-                                    if (cellObject.transform.GetChild(j).gameObject.layer == LayerMask.NameToLayer("Ground"))
-                                        childWithTag.Add(cellObject.transform.GetChild(j));
+                                    var materials = child.GetComponent<MeshRenderer>().materials;
+                                    
+                                    var newMaterials = new Material[materials.Length + 1];
+
+                                    for (int k = 0; k < materials.Length; k++)
+                                    {
+                                        newMaterials[k] = materials[k];
+                                    }
+
+                                    newMaterials[^1] = outlineMaterial;
+
+                                    child.GetComponent<MeshRenderer>().materials = newMaterials;
+                                    
+                                    activeOutlines.Add(child);
                                 }
-                                
                             }
-                        }
-                        
-                        foreach (var child in childWithTag)
-                        {
-                            var materials = child.GetComponent<MeshRenderer>().materials;
-                                    
-                            var newMaterials = new Material[materials.Length + 1];
-
-                            for (int i = 0; i < materials.Length; i++)
-                            {
-                                newMaterials[i] = materials[i];
-                            }
-
-                            newMaterials[^1] = outlineMaterial;
-
-                            child.GetComponent<MeshRenderer>().materials = newMaterials;
-                                    
-                            activeOutlines.Add(child);
+                            
+                            
                         }
                     }
                 }
