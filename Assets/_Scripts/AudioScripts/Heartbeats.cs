@@ -29,10 +29,9 @@ public class Heartbeats : MonoBehaviour
     {
         timeElapsed += Time.deltaTime;
         heartbeat.pitch = Mathf.Lerp(heartbeat.pitch, heartbeatPitch, timeElapsed * heartRateChangeSpeed);
-        
     }
 
-    static public void StartHeartbeat(int fear, int maxFear)
+    public void StartHeartbeat(int fear, int maxFear)
     {
         S.maxFear = maxFear;
         S.heartbeatPitch = S.FearToHeartBeat(fear);
@@ -40,7 +39,7 @@ public class Heartbeats : MonoBehaviour
         S.heartbeat.Play();
     }
 
-    static public void UpdateHeartBeat(int newFear)
+    public void UpdateHeartBeat(int newFear)
     {
         S.heartbeatPitch = S.FearToHeartBeat(newFear);
         S.timeElapsed = 0;

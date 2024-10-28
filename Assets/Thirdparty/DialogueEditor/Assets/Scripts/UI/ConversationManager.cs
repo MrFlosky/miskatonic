@@ -92,6 +92,7 @@ namespace DialogueEditor
 
         private void Awake()
         {
+            Heartbeats heartbeats = AISlider.GetComponentInChildren<Heartbeats>();
             // Destroy myself if I am not the singleton
             if (Instance != null && Instance != this)
             {
@@ -656,7 +657,7 @@ namespace DialogueEditor
             DialoguePanel.gameObject.SetActive(false);
             OptionsPanel.gameObject.SetActive(false);
             AISlider.gameObject.SetActive(false); // added by jay
-            Heartbeats.StopHeartbeat(); //added by jay
+            Heartbeats.StopHeartbeat();
             SetState(eState.Off);
 #if UNITY_EDITOR
             // Debug.Log("[ConversationManager]: Conversation UI off.");
