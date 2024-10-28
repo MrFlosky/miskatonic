@@ -28,6 +28,11 @@ public class Heartbeats : MonoBehaviour
     {
         timeElapsed += Time.deltaTime;
         heartbeat.pitch = Mathf.Lerp(heartbeat.pitch, heartbeatPitch, timeElapsed * heartRateChangeSpeed);
+
+        if(heartbeat.pitch == heartbeatPitch)
+        {
+            S.enabled = false;
+        }
     }
 
     public void StartHeartbeat(int fear, int maxFear)
@@ -51,7 +56,7 @@ public class Heartbeats : MonoBehaviour
         // decrease the val before * to intensify pitch increase.
         float percentage = 0.4f * maxFear;
         float pitch = fear / percentage;
-        if(pitch == 0)
+        if(pitch <= 0)
         {
             pitch = 0.95f;
         }
@@ -84,7 +89,6 @@ public class Heartbeats : MonoBehaviour
         }
 
         S.heartbeat.Stop();
-        S.enabled = false;
     }
 
     // Called when parent object is disabled? Can seemly only detect if this script also enabled i.e. the behavior
