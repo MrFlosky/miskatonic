@@ -656,6 +656,7 @@ namespace DialogueEditor
             DialoguePanel.gameObject.SetActive(false);
             OptionsPanel.gameObject.SetActive(false);
             AISlider.gameObject.SetActive(false); // added by jay
+            Heartbeats.StopHeartbeat(); //added by jay
             SetState(eState.Off);
 #if UNITY_EDITOR
             // Debug.Log("[ConversationManager]: Conversation UI off.");

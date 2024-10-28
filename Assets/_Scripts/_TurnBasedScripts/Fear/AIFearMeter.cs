@@ -44,6 +44,7 @@ public class AIFearMeter : MonoBehaviour
     static public void StartUpSlider(int currentFear, int maxFear)
     {
         //S.enabled = false; // not sure if needed here. maybe just on awake have enabled false.
+        Heartbeats.StartHeartbeat(currentFear, maxFear);
         S.fear = currentFear;
         S.aiSlider.maxValue = maxFear; 
         S.aiSlider.value = currentFear;
@@ -56,10 +57,12 @@ public class AIFearMeter : MonoBehaviour
     /// <param name="newFear"></param>
     static public void UpdateSlider(int newFear)
     {
+        Heartbeats.UpdateHeartBeat(newFear);
         S.timeElapsed = 0;
         S.fear = newFear;
         S.enabled = true;
     }
+
 
 
 }
