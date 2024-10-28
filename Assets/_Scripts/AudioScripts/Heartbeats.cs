@@ -15,6 +15,7 @@ public class Heartbeats : MonoBehaviour
     float heartbeatPitch;
     int maxFear;
 
+    // this might cause issues with nullobjref bc convomanager disables it in awake as well
     void Awake()
     {
         S = this;
