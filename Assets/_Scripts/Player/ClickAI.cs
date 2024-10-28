@@ -51,6 +51,7 @@ public class ClickAI : MonoBehaviour
         {
             if (hit.collider.CompareTag("AI"))
             {
+                AudioManager.PlaySFX(SFXType.CharacterSelection); 
                 _clickedAI = true;
                 PlayerController.Instance.clickedAI = _clickedAI;
                 var DialogueManager = hit.collider.GetComponentInChildren<DialogueManager>();

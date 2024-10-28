@@ -75,6 +75,7 @@ public class SkillBarrier : Skill
     {
         if (canCycle)
         {
+            AudioManager.PlaySFX(SFXType.SkillBarrier);
             Debug.Log("Confirming wall placement");
             this.enabled = false;
             Transform confirmedWall = mInactiveWalls[lastWallIndex];

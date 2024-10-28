@@ -51,6 +51,7 @@ public class Skill : MonoBehaviour
     {
         if (SkillSystem.GET_PTS() >= ptDeduction) // Check if the player has enough points
         {
+            AudioManager.PlaySFX(SFXType.ButtonSelection);
             PlayerController.Instance.SetActiveSkill(this);
             SkillSystem.DEDUCT_PT(ptDeduction);
             SkillsCollection.DISABLE_BUTTONS();
@@ -75,6 +76,7 @@ public class Skill : MonoBehaviour
         PlayerController.Instance.SetActiveSkill(null);
         if (!skillButton.interactable) // Check if the button is not interactable
         {
+            AudioManager.PlaySFX(SFXType.ButtonSelection);
             SkillSystem.ADD_PT(ptDeduction);
             EndSkill();
         }

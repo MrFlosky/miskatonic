@@ -63,7 +63,7 @@ public class SkillAoeFear : Skill
         {
             if (canPlace && hit.transform.GetComponentInParent<MazeCellObject>() != null)
             {
-            
+                AudioManager.PlaySFX(SFXType.SkillAOE);
                 Vector3 newPos = obTrans.position;
                 GameObject newAOE = Instantiate(AOEOb);
                 newAOE.transform.position = newPos;

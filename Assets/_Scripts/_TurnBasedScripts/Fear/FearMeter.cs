@@ -38,7 +38,7 @@ public class FearMeter : MonoBehaviour
 
     static public void INCREASE_METER(int increase)
     {
-
+        AudioManager.PlaySFX(SFXType.FearIncrease);
         S.timeElapsed = 0; // setting to 0 here makes so slider animates smoothly with multiple increase calls
         S.totalFear += increase;
         S.CHECK_FEAR_WIN();
@@ -47,6 +47,7 @@ public class FearMeter : MonoBehaviour
 
     static public void DECREASE_METER(int decrease)
     {
+        AudioManager.PlaySFX(SFXType.FearDecrease);
         S.timeElapsed = 0;
         S.totalFear -= decrease;
         S.enabled = true;
