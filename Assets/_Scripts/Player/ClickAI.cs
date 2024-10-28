@@ -62,7 +62,7 @@ public class ClickAI : MonoBehaviour
                 }
                 activeCamera = virtualCam;
                 playerCam.enabled = false;
-                DialogueManager.Increment();
+                DialogueManager.usedDialogue = true;
             }
         }
     }
