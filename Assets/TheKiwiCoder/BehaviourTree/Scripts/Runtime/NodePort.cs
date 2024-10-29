@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor.Experimental.GraphView;
+#endif
 using UnityEngine.UIElements;
 
 
 namespace TheKiwiCoder {
-
+#if UNITY_EDITOR
     public class NodePort : Port {
 
         // GITHUB:UnityCsReference-master\UnityCsReference-master\Modules\GraphViewEditor\Elements\Port.cs
@@ -68,4 +70,5 @@ namespace TheKiwiCoder {
             return rect.Contains(localPoint);
         }
     }
+#endif
 }

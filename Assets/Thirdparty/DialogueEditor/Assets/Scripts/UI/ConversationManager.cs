@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using Unity.VisualScripting;
+#if UNITY_EDITOR
 using UnityEditor.SceneManagement;
+#endif
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;

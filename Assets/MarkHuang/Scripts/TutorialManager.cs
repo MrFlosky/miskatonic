@@ -24,12 +24,12 @@ public class TutorialManager : MonoBehaviour
     void Update()
     {
         Debug.Log(tutorialPage.position.x);
-        if (tutorialPage.position.x == 960)
+        if (Mathf.Approximately(tutorialPage.position.x, (960f/1920f)*Screen.width))
         {
             previousButton.transform.gameObject.SetActive(false);
             nextButton.transform.gameObject.SetActive(true);
         }
-        else if(tutorialPage.position.x == -3040)
+        else if(Mathf.Approximately(tutorialPage.position.x, (-3040/1920f)*Screen.width))
         {
             nextButton.transform.gameObject.SetActive(false);
             previousButton.transform.gameObject.SetActive(true);
