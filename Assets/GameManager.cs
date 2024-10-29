@@ -12,6 +12,9 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private MazeRenderer mazeRenderer;
     [SerializeField] private MazeGenerator mazeGenerator;
+    
+    [SerializeField] private WinScript winScript;
+    [SerializeField] private LoseScript loseScript;
 
     private Dictionary<AgentNavigation, bool> agentGoalRoom = new Dictionary<AgentNavigation, bool>();
 
@@ -191,11 +194,20 @@ public class GameManager : MonoBehaviour
             //Debug.Log($"{agent.gameObject.name} has found goal room: {foundGoal}");
         }
     }
+
+    public void Win(string reason)
+    {
+        winScript.Win(reason);
+    }
+    public void Lose(string reason)
+    {
+        loseScript.Lose(reason);
+    }
     
     private void LateUpdate()
     {
         DisplayAgentsGoalStatus();
         if (AllAgentsFoundGoal())
-            print("You Lose");
+            Lose("Humans conquered fear");
     }
 }

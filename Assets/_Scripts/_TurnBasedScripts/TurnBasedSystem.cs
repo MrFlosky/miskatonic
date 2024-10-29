@@ -161,7 +161,7 @@ public class TurnBasedSystem : MonoBehaviour
         if(S.totalTurnCount == S.roundsUntilDefeat)
         {
             // Gameover
-            Destroy(S.gameObject); ///*** DEBUG
+            GameManager.Instance.Lose("Summon opening missed");
         }
     }
 

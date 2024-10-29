@@ -64,7 +64,7 @@ public class FearMeter : MonoBehaviour
     {
         if(totalFear >= winFear)
         {
-            ps.Play();
+            GameManager.Instance.Win("Successful summon");
             SkillsCollection.DISABLE_BUTTONS();
             Destroy(endTurnButton);
         }
