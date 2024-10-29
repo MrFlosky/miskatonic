@@ -20,6 +20,8 @@ public class LoseScript : MonoBehaviour
     public float canvasFadeDuration = .5f;
     public CanvasGroup canvasGroup;
 
+    public GameObject textParent;
+    
     private bool started = false;
     
     public void Lose(string reason)
@@ -38,6 +40,7 @@ public class LoseScript : MonoBehaviour
 
     private IEnumerator DimLightAndLoadScene(string reason)
     {
+        textParent.SetActive(true);
         mainText.text = "You Lose";
         reasonText.text = reason;
         

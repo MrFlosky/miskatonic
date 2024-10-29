@@ -20,6 +20,8 @@ public class WinScript : MonoBehaviour
     
     public CanvasGroup canvasGroup;
 
+    public GameObject textParent;
+
     public ParticleSystem winParticles;
 
     private string reasonWon = "";
@@ -51,6 +53,7 @@ public class WinScript : MonoBehaviour
 
     private IEnumerator DimLightAndLoadScene(string reason)
     {
+        textParent.SetActive(true);
         mainText.text = "You Win";
         reasonText.text = reason;
         
