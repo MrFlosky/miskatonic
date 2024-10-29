@@ -223,7 +223,7 @@ public class ClickAI : MonoBehaviour
         _inConversation = true;
     }
 
-    private void EndConversation()
+    public void EndConversation()
     {
         PlayerController.Instance.clickedAI = false;
         _inConversation = false;

@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private WinScript winScript;
     [SerializeField] private LoseScript loseScript;
 
+    [SerializeField] private ClickAI clickAI;
+    
     private Dictionary<AgentNavigation, bool> agentGoalRoom = new Dictionary<AgentNavigation, bool>();
 
     public float CellSize;
@@ -204,6 +206,9 @@ public class GameManager : MonoBehaviour
         {
             agent.StopMovement();
         }
+
+        clickAI.EndConversation();
+        Destroy(clickAI.gameObject);
         winScript.Win(reason);
     }
     
@@ -217,6 +222,8 @@ public class GameManager : MonoBehaviour
         }
         SkillsCollection.DISABLE_BUTTONS();
         Destroy(endTurnButton);
+        clickAI.EndConversation();
+        Destroy(clickAI.gameObject);
         loseScript.Lose(reason);
     }
     

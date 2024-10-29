@@ -98683,7 +98683,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5725194654233707325, guid: d4bead3b005172445b436719c62476af, type: 3}
       propertyPath: perTurnFear
-      value: 8
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8030496787493636427, guid: d4bead3b005172445b436719c62476af, type: 3}
       propertyPath: m_LocalPosition.x
@@ -122025,7 +122025,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1025997868
 RectTransform:
   m_ObjectHideFlags: 0
@@ -126378,6 +126378,7 @@ MonoBehaviour:
   mazeGenerator: {fileID: 1604857008}
   winScript: {fileID: 1061810805}
   loseScript: {fileID: 1061810804}
+  clickAI: {fileID: 394672284}
   CellSize: 0
   endTurnButton: {fileID: 0}
 --- !u!4 &1061810803
@@ -126418,6 +126419,7 @@ MonoBehaviour:
   agentFloatDistance: 25
   canvasFadeDuration: 0.5
   canvasGroup: {fileID: 459219613}
+  textParent: {fileID: 1025997867}
 --- !u!114 &1061810805
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -126440,6 +126442,7 @@ MonoBehaviour:
   waitAfterTextFade: 2
   waitAfterParticle: 5
   canvasGroup: {fileID: 459219613}
+  textParent: {fileID: 1025997867}
   winParticles: {fileID: 735793337}
 --- !u!1 &1062909626
 GameObject:
