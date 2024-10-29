@@ -46,8 +46,8 @@ namespace DialogueEditor
         public UnityEngine.Events.UnityEvent Event;
         public List<EditableParameter> ParameterList; // Serialized into the json string
 
-        
 
+        
 
         //--------------------------------------
         // Util
@@ -332,7 +332,7 @@ namespace DialogueEditor
 
             // Construct the parameters
             CreateParameters(ec, conversation);
-
+            
             // Construct the Conversation-Based variables (not node-based)
             conversation.ContinueFont = this.ContinueFont;
             conversation.EndConversationFont = this.EndConversationFont;
