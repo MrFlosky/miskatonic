@@ -181,7 +181,7 @@ namespace DialogueEditor
                 case eButtonType.Option:
                     {
                         TextMesh.text = node.Text;
-                        TextMesh.font = node.TMPFont;
+                        TextMesh.font = ConversationManager.Instance.dialogueFont;  // added by jay to change options font
                     }
                     break;
 
