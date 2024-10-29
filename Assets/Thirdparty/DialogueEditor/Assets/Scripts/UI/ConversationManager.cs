@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 #if UNITY_EDITOR
 using UnityEditor.SceneManagement;
@@ -39,6 +40,7 @@ namespace DialogueEditor
         public float ScrollSpeed = 1;
         public Sprite BackgroundImage;
         public GameObject AISlider; // added by Jay
+        public TMP_FontAsset dialogueFont;
         Heartbeats heartbeats; // added by jay
         public bool BackgroundImageSliced;
         public Sprite OptionImage;
@@ -492,9 +494,9 @@ namespace DialogueEditor
             }
 
             // Set font
-            if (speech.TMPFont != null)
+            if (dialogueFont != null)
             {
-                DialogueText.font = speech.TMPFont;
+                DialogueText.font = dialogueFont;
             }
             else
             {
@@ -699,19 +701,19 @@ namespace DialogueEditor
                         // If there was no valid speech node (due to no conditions being met) this becomes a None button type
                         if (next == null)
                         {
-                            uiOption.SetupButton(UIConversationButton.eButtonType.End, null, endFont: m_conversation.EndConversationFont);
+                            uiOption.SetupButton(UIConversationButton.eButtonType.End, null, endFont: dialogueFont);
                         }
                         // Else, valid speech node found
                         else
                         {
-                            uiOption.SetupButton(UIConversationButton.eButtonType.Speech, next, continueFont: m_conversation.ContinueFont);
+                            uiOption.SetupButton(UIConversationButton.eButtonType.Speech, next, continueFont: dialogueFont);
                         }
                         
                     }
                     else if (m_currentSpeech.ConnectionType == Connection.eConnectionType.None)
                     {
                         UIConversationButton uiOption = CreateButton();
-                        uiOption.SetupButton(UIConversationButton.eButtonType.End, null, endFont: m_conversation.EndConversationFont);
+                        uiOption.SetupButton(UIConversationButton.eButtonType.End, null, endFont: dialogueFont);
                     }
                 }
 
