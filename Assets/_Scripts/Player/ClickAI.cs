@@ -6,6 +6,7 @@ using DialogueEditor;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class ClickAI : MonoBehaviour
 {
@@ -24,6 +25,8 @@ public class ClickAI : MonoBehaviour
     private bool rightClicking = false;
     
     [SerializeField] Material outlineMaterial;
+
+    public Button[] buttons;
 
     private void Start()
     {
@@ -64,6 +67,10 @@ public class ClickAI : MonoBehaviour
                 activeCamera = virtualCam;
                 playerCam.enabled = false;
                 DialogueManager.usedDialogue = true;
+                foreach (var button in buttons)
+                {
+                    button.interactable = false;
+                }
             }
         }
     }
@@ -224,6 +231,11 @@ public class ClickAI : MonoBehaviour
         activeCamera.gameObject.SetActive(false);
         activeCamera.enabled = false;
         activeCamera = playerCam;
+        
+        foreach (var button in buttons)
+        {
+            button.interactable = true;
+        }
     }
 
     private void Update()

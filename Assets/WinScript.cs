@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -8,21 +9,39 @@ using UnityEngine.UI;
 public class WinScript : MonoBehaviour
 {
     public Light lightToDim;
-    public float dimmingDuration = 2f;
+    public float lightFadeDuration = 2f;
     public string winSceneName;
     public TMP_Text mainText;          // First text element
     public TMP_Text reasonText;         // Second text element explaining the win
     public float textFadeDuration = 1f;
+    public float canvasFadeDuration = .5f;
     public float waitAfterTextFade = 2f;
     public float waitAfterParticle = 5f;
+    
+    public CanvasGroup canvasGroup;
 
     public ParticleSystem winParticles;
+
+    private string reasonWon = "";
+    private bool won = false;
+    
+    private bool started = false;
     
     public void Win(string reason)
     {
+        won = true;
+        reasonWon = reason;
+    }
+
+    private void Update()
+    {
+        if (!(TurnBasedSystem.IsPlayerTurn() && won)) return;
+        
         if (lightToDim != null)
         {
-            StartCoroutine(DimLightAndLoadScene(reason));
+            if (started) return;
+            started = true;
+            StartCoroutine(DimLightAndLoadScene(reasonWon));
         }
         else
         {
@@ -32,14 +51,26 @@ public class WinScript : MonoBehaviour
 
     private IEnumerator DimLightAndLoadScene(string reason)
     {
+        mainText.text = "You Win";
         reasonText.text = reason;
-
-        float initialIntensity = lightToDim.intensity;
+        
         float elapsedTime = 0f;
 
-        while (elapsedTime < dimmingDuration)
+        while (elapsedTime < canvasFadeDuration)
         {
-            lightToDim.intensity = Mathf.Lerp(initialIntensity, 1f, elapsedTime / dimmingDuration);
+            canvasGroup.alpha = Mathf.Lerp(1f, 0f, elapsedTime / canvasFadeDuration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        canvasGroup.alpha = 0f;  // Ensure the light is fully off
+        
+        
+        float initialIntensity = lightToDim.intensity;
+        elapsedTime = 0f;
+
+        while (elapsedTime < lightFadeDuration)
+        {
+            lightToDim.intensity = Mathf.Lerp(initialIntensity, 1f, elapsedTime / lightFadeDuration);
             elapsedTime += Time.deltaTime;
             yield return null;
         }

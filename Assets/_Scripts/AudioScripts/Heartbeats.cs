@@ -19,6 +19,14 @@ public class Heartbeats : MonoBehaviour
     // this was cause for issues with nullobjref bc convomanager awake first?
     void Awake()
     {
+        if (S == null)
+        {
+            S = this; // Assign the instance to S
+        }
+        else if (S != this)
+        {
+            Destroy(gameObject); // Ensure there's only one instance
+        }
         S.enabled = false;
     }
 
@@ -76,7 +84,7 @@ public class Heartbeats : MonoBehaviour
         return pitch;
     }
 
-    float mainThemeCurr;
+    public static float mainThemeCurr;
     /// <summary>
     /// Stop the heartbeat sound. 
     /// This is called in convo manager bc cannot use disabled in this situation:

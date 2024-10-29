@@ -8,17 +8,26 @@ using UnityEngine.UI;
 public class LoseScript : MonoBehaviour
 {
     public Light lightToDim;
-    public float dimmingDuration = 2f;
+    public float lightFadeDuration = 2f;
     public string winSceneName;
     public TMP_Text mainText;          // First text element
     public TMP_Text reasonText;         // Second text element explaining the win
     public float textFadeDuration = 1f;
     public float waitAfterTextFade = 2f;
+    public float agentFloatDuration = 1f; // Duration of agents floating up
+    public float agentFloatDistance = 2f; // Distance agents will float up
+    
+    public float canvasFadeDuration = .5f;
+    public CanvasGroup canvasGroup;
 
+    private bool started = false;
+    
     public void Lose(string reason)
     {
         if (lightToDim != null)
         {
+            if (started) return;
+            started = true;
             StartCoroutine(DimLightAndLoadScene(reason));
         }
         else
@@ -29,14 +38,64 @@ public class LoseScript : MonoBehaviour
 
     private IEnumerator DimLightAndLoadScene(string reason)
     {
+        mainText.text = "You Lose";
         reasonText.text = reason;
-
-        float initialIntensity = lightToDim.intensity;
+        
         float elapsedTime = 0f;
 
-        while (elapsedTime < dimmingDuration)
+        while (elapsedTime < canvasFadeDuration)
         {
-            lightToDim.intensity = Mathf.Lerp(initialIntensity, 0f, elapsedTime / dimmingDuration);
+            canvasGroup.alpha = Mathf.Lerp(1f, 0f, elapsedTime / canvasFadeDuration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        canvasGroup.alpha = 0f;  // Ensure the light is fully off
+        
+        elapsedTime = 0f;
+        
+        AgentNavigation[] agents = FindObjectsOfType<AgentNavigation>();
+        // Agents float up and fade out
+        Vector3[] initialPositions = new Vector3[agents.Length];
+        MeshRenderer[] agentRenderers = new MeshRenderer[agents.Length];
+        Color[] initialColors = new Color[agents.Length];
+
+        for (int i = 0; i < agents.Length; i++)
+        {
+            initialPositions[i] = agents[i].transform.position;
+            agentRenderers[i] = agents[i].GetComponentInChildren<MeshRenderer>();
+            initialColors[i] = agentRenderers[i].material.color;
+        }
+
+        while (elapsedTime < agentFloatDuration)
+        {
+            for (int i = 0; i < agents.Length; i++)
+            {
+                // Floating up
+                agents[i].transform.position = Vector3.Lerp(initialPositions[i], initialPositions[i] + Vector3.up * agentFloatDistance, elapsedTime / agentFloatDuration);
+                
+                // Fading out
+                Color fadedColor = Color.Lerp(initialColors[i], new Color(initialColors[i].r, initialColors[i].g, initialColors[i].b, 0f), elapsedTime / agentFloatDuration);
+                agentRenderers[i].material.color = fadedColor;
+            }
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        // Ensure all agents are in final positions
+        for (int i = 0; i < agents.Length; i++)
+        {
+            agents[i].transform.position = initialPositions[i] + Vector3.up * agentFloatDistance;
+            agentRenderers[i].material.color = new Color(initialColors[i].r, initialColors[i].g, initialColors[i].b, 0f);
+        }
+        
+
+        
+        float initialIntensity = lightToDim.intensity;
+        elapsedTime = 0f;
+
+        while (elapsedTime < lightFadeDuration)
+        {
+            lightToDim.intensity = Mathf.Lerp(initialIntensity, 0f, elapsedTime / lightFadeDuration);
             elapsedTime += Time.deltaTime;
             yield return null;
         }

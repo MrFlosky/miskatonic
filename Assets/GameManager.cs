@@ -19,6 +19,8 @@ public class GameManager : MonoBehaviour
     private Dictionary<AgentNavigation, bool> agentGoalRoom = new Dictionary<AgentNavigation, bool>();
 
     public float CellSize;
+    
+    bool won = false;
 
     private void Awake()
     {
@@ -197,10 +199,24 @@ public class GameManager : MonoBehaviour
 
     public void Win(string reason)
     {
+        won = true;
+        foreach (var agent in agentGoalRoom.Keys)
+        {
+            agent.StopMovement();
+        }
         winScript.Win(reason);
     }
+    
+    public GameObject endTurnButton;
     public void Lose(string reason)
     {
+        if (won) return;
+        foreach (var agent in agentGoalRoom.Keys)
+        {
+            agent.StopMovement();
+        }
+        SkillsCollection.DISABLE_BUTTONS();
+        Destroy(endTurnButton);
         loseScript.Lose(reason);
     }
     

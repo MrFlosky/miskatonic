@@ -77,6 +77,7 @@ public class SkillBarrier : Skill
     {
         if (canCycle)
         {
+            PlayerController.Instance.SetActiveSkill(null);
             AudioManager.PlaySFX(SFXType.SkillBarrier);
             Debug.Log("Confirming wall placement");
             this.enabled = false;

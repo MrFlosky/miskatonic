@@ -127,7 +127,7 @@ public class TurnBasedSystem : MonoBehaviour
 
 
         //S.txt.text = "Total Turns: " + S.totalTurnCount + "\n" + "Player Turns: " + S.playerTurnCount + "\n" + "AI Turns: " + S.aiTurnCount;
-        S.txt.text = "Turns Left: " + (10 - S.aiTurnCount);
+        S.txt.text = "Turns Left: " + (S.roundsUntilDefeat/2 - S.aiTurnCount);
 
         // Each round added, check if any destroyable need be destroyed.
         foreach(DestroyAfterRounds destroyable in S.destroyablesList)
@@ -158,7 +158,7 @@ public class TurnBasedSystem : MonoBehaviour
     /// </summary>
     static public void ROUND_CHECK()
     {
-        if(S.totalTurnCount == S.roundsUntilDefeat)
+        if(S.totalTurnCount == S.roundsUntilDefeat && IsPlayerTurn())
         {
             // Gameover
             GameManager.Instance.Lose("Summon opening missed");

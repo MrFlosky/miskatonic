@@ -118,6 +118,7 @@ public class SkillSwapRooms : Skill
         // Initiate the room switch when Enter is pressed and two rooms are selected
         if (switchCanOccur)
         {
+            PlayerController.Instance.SetActiveSkill(null);
             AudioManager.PlaySFX(SFXType.SkillRoomswap);
             SwitchRooms(rm1Obj, rm2Obj, mRoomType1, mRoomType2);
             this.enabled = false; // Disable this skill after use

@@ -71,6 +71,7 @@ public class AudioManager : MonoBehaviour
     public void UpdateMusicVolume(Slider slider)
     {
         bgmMusic.volume = slider.value;
+        Heartbeats.mainThemeCurr = slider.value;
     }
     
     public void UpdateSfxVolume(Slider slider)

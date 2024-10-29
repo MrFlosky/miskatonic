@@ -8,6 +8,8 @@ public class GameButton : MonoBehaviour
 {
     Button button;
 
+    [SerializeField] ClickAI clickAI;
+    
     private void Awake()
     {
         button = GetComponent<Button>();

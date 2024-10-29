@@ -73,9 +73,9 @@ public class Skill : MonoBehaviour
     /// </summary>
     protected virtual void ExitInput()
     {
-        PlayerController.Instance.SetActiveSkill(null);
         if (!skillButton.interactable) // Check if the button is not interactable
         {
+            PlayerController.Instance.SetActiveSkill(null);
             AudioManager.PlaySFX(SFXType.ButtonSelection);
             SkillSystem.ADD_PT(ptDeduction);
             EndSkill();
