@@ -22,7 +22,8 @@ public class FearMeter : MonoBehaviour
     {
         slid = GetComponent<Slider>();
         S = this;
-        this.enabled = false;
+        slid.maxValue = winFear;
+        enabled = false;
     }
 
     void Update()
@@ -32,7 +33,7 @@ public class FearMeter : MonoBehaviour
 
         if(slid.value == totalFear)
         {
-            this.enabled = false;
+            enabled = false;
         }
     }
 

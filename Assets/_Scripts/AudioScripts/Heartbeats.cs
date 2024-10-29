@@ -46,7 +46,7 @@ public class Heartbeats : MonoBehaviour
 
     public void StartHeartbeat(int fear, int maxFear)
     {
-        mainTheme.volume = mainTheme.volume / 3; // lower main theme volume so heartbeat better heard
+        mainTheme.volume = mainTheme.volume / 4f; // lower main theme volume so heartbeat better heard
 
         S.maxFear = maxFear;
         S.heartbeatPitch = S.FearToHeartBeat(fear);
@@ -84,6 +84,9 @@ public class Heartbeats : MonoBehaviour
         return pitch;
     }
 
+    /// <summary>
+    /// AudioManager will update this float to apply any volume adjustments in settings.
+    /// </summary>
     public static float mainThemeCurr;
     /// <summary>
     /// Stop the heartbeat sound. 
@@ -97,7 +100,7 @@ public class Heartbeats : MonoBehaviour
         if(S == null)
         {
             S = this;
-            mainThemeCurr = mainTheme.volume; // if have settings page for volume this will need to be changed
+            mainThemeCurr = mainTheme.volume; 
         }
 
         mainTheme.volume = mainThemeCurr;
