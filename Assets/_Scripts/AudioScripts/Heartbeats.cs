@@ -46,7 +46,7 @@ public class Heartbeats : MonoBehaviour
 
     public void StartHeartbeat(int fear, int maxFear)
     {
-        mainTheme.volume = mainTheme.volume / 2.5f; // lower main theme volume so heartbeat better heard
+        AudioManager.SmoothVolumeTransition(mainTheme.volume, mainTheme.volume / 2.5f);  // lower main theme volume so heartbeat better heard
 
         S.maxFear = maxFear;
         S.heartbeatPitch = S.FearToHeartBeat(fear);
@@ -97,9 +97,11 @@ public class Heartbeats : MonoBehaviour
         {
             S = this;
             mainThemeCurr = mainTheme.volume; 
+            return;
         }
 
-        mainTheme.volume = mainThemeCurr;
+        
+        AudioManager.SmoothVolumeTransition(mainTheme.volume, mainThemeCurr);  // lower main theme volume so heartbeat better heard
         
 
         S.heartbeat.Stop();

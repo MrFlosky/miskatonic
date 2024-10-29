@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
+using UnityEngine.VFX;
 
 public enum SFXType{CharacterSelection, ButtonSelection, SkillAOE, SkillBarrier, SkillRoomswap, FearIncrease, FearDecrease, heartSound, MouseButtonHit};
 public class AudioManager : MonoBehaviour
@@ -13,6 +15,7 @@ public class AudioManager : MonoBehaviour
     void Awake()
     {
         S = this;
+        S.enabled = false;
     }
     public AudioSource characterSelect;
     public AudioSource buttonSelect;
@@ -27,7 +30,29 @@ public class AudioManager : MonoBehaviour
 
     public AudioSource bgmMusic;
 
+    float timeElapsed = 0f;
+    private float transitionSpeed = 1.8f; // bigger the val the faster
+    float start = 0f;
+    float end = 0f;
+    void Update()
+    {
+        timeElapsed += Time.deltaTime;
+        bgmMusic.volume = Mathf.Lerp(start, end, timeElapsed * transitionSpeed);
 
+        if(bgmMusic.volume == end)
+        {
+            enabled = false;
+        }
+    }
+
+    static public void SmoothVolumeTransition(float startVol, float endVol)
+    {
+        S.timeElapsed = 0f;
+        S.start = startVol;
+        S.end = endVol;
+        S.enabled = true;
+        
+    }
     static public void PlaySFX(SFXType clip)
     {
         switch(clip)
@@ -68,9 +93,18 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+
+    // note these not derived from mono
     public void UpdateMusicVolume(Slider slider)
     {
-        bgmMusic.volume = slider.value;
+        if(S.heartSound.isPlaying)
+        {
+            bgmMusic.volume = slider.value / 2.5f;
+        }
+        else
+        {
+            bgmMusic.volume = slider.value;
+        }
         Heartbeats.mainThemeCurr = slider.value;
     }
     
