@@ -46,7 +46,7 @@ public class Heartbeats : MonoBehaviour
 
     public void StartHeartbeat(int fear, int maxFear)
     {
-        mainTheme.volume = mainTheme.volume / 4f; // lower main theme volume so heartbeat better heard
+        mainTheme.volume = mainTheme.volume / 2.5f; // lower main theme volume so heartbeat better heard
 
         S.maxFear = maxFear;
         S.heartbeatPitch = S.FearToHeartBeat(fear);
@@ -64,22 +64,18 @@ public class Heartbeats : MonoBehaviour
 
     float FearToHeartBeat(int fear)
     {
-        // decrease the val before * to intensify pitch increase.
-        float percentage = 0.4f * maxFear;
-        float pitch = fear / percentage;
-        if(pitch <= 0.95f)
+       
+        float percentage = fear /((float) maxFear * 2f);
+        float pitch = (2f * percentage) + 1f;
+        if(pitch <= 1f)
         {
-            pitch = 0.95f;
+            pitch = 1f;
         }
 
-        if(pitch == 1)
-        {
-            pitch = 1.3f;
-        }
 
-        if(pitch > 2.2f)
+        if(pitch > 2f)
         {
-            pitch = 2.2f;
+            pitch = 2f;
         }
         return pitch;
     }
