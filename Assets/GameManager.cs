@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Cinemachine;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -24,6 +25,8 @@ public class GameManager : MonoBehaviour
     
     bool won = false;
 
+    public CinemachineVirtualCamera playerCam;
+
     private void Awake()
     {
         Instance = this;
@@ -36,6 +39,8 @@ public class GameManager : MonoBehaviour
         {
             Debug.LogError("MazeRenderer instance is null.");
         }
+        
+        if (!playerCam) {playerCam = GameObject.FindGameObjectWithTag("PlayerCamera").GetComponent<CinemachineVirtualCamera>();}
     }
 
     private void Start()

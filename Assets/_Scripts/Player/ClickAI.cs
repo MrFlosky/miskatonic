@@ -227,7 +227,13 @@ public class ClickAI : MonoBehaviour
     {
         PlayerController.Instance.clickedAI = false;
         _inConversation = false;
-        playerCam.enabled = true;
+        if (playerCam)
+            playerCam.enabled = true;
+        else
+        {
+            playerCam = GameManager.Instance.playerCam;
+            playerCam.enabled = true;
+        }
         activeCamera.gameObject.SetActive(false);
         activeCamera.enabled = false;
         activeCamera = playerCam;
