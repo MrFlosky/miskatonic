@@ -38306,7 +38306,7 @@ RectTransform:
   m_Father: {fileID: 1188060497}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -97304,9 +97304,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 83db700241d633049ba5fbf2e66a11bd, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 7c4fcdcaa6091eb4096d1e4fcb9e4519, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 0.9
   Loop: 1
   Mute: 0
@@ -111737,7 +111737,7 @@ RectTransform:
   m_Father: {fileID: 2007138249}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -134442,8 +134442,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1706275361}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 1.8}
   m_SizeDelta: {x: 30, y: 10.669998}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -140551,8 +140551,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 752686435}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 1.8}
   m_SizeDelta: {x: 30, y: 10.669998}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -200184,7 +200184,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5445973026233634224, guid: 258613a3680e6444fad35e0b8f6f428d, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5598338649357679096, guid: 258613a3680e6444fad35e0b8f6f428d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target

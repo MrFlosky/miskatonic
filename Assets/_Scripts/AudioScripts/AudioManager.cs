@@ -83,7 +83,11 @@ public class AudioManager : MonoBehaviour
         roomSwap.volume = slider.value;
         fearIncrease.volume = slider.value;
         fearDecrease.volume = slider.value;
-        heartSound.volume = slider.value;
         mouseButtonHit.volume = slider.value;
+    }
+
+    public void UpdateHBVolume(Slider slider)
+    {
+        heartSound.volume = slider.value;
     }
 }
