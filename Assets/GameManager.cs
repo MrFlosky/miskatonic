@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Cinemachine;
+using TMPro;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -50,6 +51,15 @@ public class GameManager : MonoBehaviour
         {
             agentGoalRoom[agent] = false;
         }
+    }
+
+    public bool CheckAgentGoal(AgentNavigation ag)
+    {
+        if(agentGoalRoom[ag] == true)
+        {
+            return true;
+        }
+        return false;
     }
 
     private void OnMazeGenerated()
@@ -179,6 +189,7 @@ public class GameManager : MonoBehaviour
         rooms = mazeGenerator.rooms;
     }
     
+  
     public void SetGoalBool(AgentNavigation agent, bool foundRoom)
     {
         if (agentGoalRoom.ContainsKey(agent))

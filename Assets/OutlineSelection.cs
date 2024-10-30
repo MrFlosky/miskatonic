@@ -25,6 +25,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
+using Unity.VisualScripting;
 
 public class OutlineHighlight : MonoBehaviour
 {
@@ -77,6 +78,20 @@ public class OutlineHighlight : MonoBehaviour
             if (highlight.tag is "Selectable" or "AI")
             {
                 highlightedText.text = highlight.tag is "AI" ? highlight.gameObject.name : highlight.parent.GetComponent<MazeCellObject>().roomType;
+
+                AgentNavigation agent;
+                if(highlight.transform.GetComponent<AgentNavigation>() != null)
+                {
+                    agent = highlight.transform.GetComponent<AgentNavigation>();
+                    if(GameManager.Instance.CheckAgentGoal(agent))
+                    {
+                        string textBeforeSprite = highlightedText.text;
+                        string spriteWithOffset = "  <voffset=10px><sprite=0></voffset>";
+                        highlightedText.text = textBeforeSprite + spriteWithOffset;
+                        outlineColor = Color.yellow;
+                    }
+                }
+
                 // Enable outline component or add one if it doesn't exist
                 Outline outline = highlight.gameObject.GetComponent<Outline>();
                 if (outline == null)
