@@ -42,6 +42,12 @@ public class ClickAI : MonoBehaviour
         ConversationManager.OnConversationEnded += EndConversation;
     }
 
+    private void OnDestroy()
+    {
+        ConversationManager.OnConversationStarted -= StartConversation;
+        ConversationManager.OnConversationEnded -= EndConversation;
+    }
+
     public void OnClick(InputAction.CallbackContext context)
     {
         if (_clickedAI || !TurnBasedSystem.IsPlayerTurn() || _inConversation) return;
