@@ -38,7 +38,6 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3662,7 +3661,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3231932715247207997, guid: f97322d0326e4c9428e72f7285dcea39, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 3231932715247207997, guid: f97322d0326e4c9428e72f7285dcea39, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -3691,6 +3690,10 @@ PrefabInstance:
     - target: {fileID: 6391943916593733659, guid: f97322d0326e4c9428e72f7285dcea39, type: 3}
       propertyPath: m_Name
       value: Info
+      objectReference: {fileID: 0}
+    - target: {fileID: 7707074874642824637, guid: f97322d0326e4c9428e72f7285dcea39, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1337442141285706746, guid: f97322d0326e4c9428e72f7285dcea39, type: 3}
@@ -114229,12 +114232,12 @@ MonoBehaviour:
   m_RequiresColorTexture: 0
   m_Version: 2
   m_TaaSettings:
-    quality: 3
-    frameInfluence: 0.1
-    jitterScale: 1
-    mipBias: 0
-    varianceClampScale: 0.9
-    contrastAdaptiveSharpening: 0
+    m_Quality: 3
+    m_FrameInfluence: 0.1
+    m_JitterScale: 1
+    m_MipBias: 0
+    m_VarianceClampScale: 0.9
+    m_ContrastAdaptiveSharpening: 0
 --- !u!1 &963110125
 GameObject:
   m_ObjectHideFlags: 0
@@ -126675,7 +126678,7 @@ MonoBehaviour:
   loseScript: {fileID: 1061810804}
   clickAI: {fileID: 394672284}
   CellSize: 0
-  playerCam: {fileID: 0}
+  playerCam: {fileID: 1514457254}
   endTurnButton: {fileID: 0}
 --- !u!4 &1061810803
 Transform:
