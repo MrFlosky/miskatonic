@@ -83,7 +83,7 @@ public class Heartbeats : MonoBehaviour
     /// <summary>
     /// AudioManager will update this float to apply any volume adjustments in settings.
     /// </summary>
-    public static float mainThemeCurr;
+    public static float mainThemeCurr = 0.5f;
     /// <summary>
     /// Stop the heartbeat sound. 
     /// This is called in convo manager bc cannot use disabled in this situation:

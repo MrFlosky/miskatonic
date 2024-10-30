@@ -37,9 +37,10 @@ public class AudioManager : MonoBehaviour
     void Update()
     {
         timeElapsed += Time.deltaTime;
+        
         bgmMusic.volume = Mathf.Lerp(start, end, timeElapsed * transitionSpeed);
 
-        if(bgmMusic.volume == end)
+        if(Mathf.Approximately(bgmMusic.volume, end))
         {
             enabled = false;
         }
