@@ -29,7 +29,7 @@ public class TutorialManager : MonoBehaviour
             previousButton.transform.gameObject.SetActive(false);
             nextButton.transform.gameObject.SetActive(true);
         }
-        else if(Mathf.Approximately(tutorialPage.position.x, (-3040/1920f)*Screen.width))
+        else if(Mathf.Approximately(tutorialPage.position.x, (-3040f/1920f)*Screen.width))
         {
             nextButton.transform.gameObject.SetActive(false);
             previousButton.transform.gameObject.SetActive(true);
