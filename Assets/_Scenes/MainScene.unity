@@ -120870,6 +120870,10 @@ PrefabInstance:
       propertyPath: mazeGenerator
       value: 
       objectReference: {fileID: 1604857008}
+    - target: {fileID: 1064426035891632692, guid: 1f63311383113ad4e87b8005583f8ccc, type: 3}
+      propertyPath: brain
+      value: 
+      objectReference: {fileID: 963053140}
     - target: {fileID: 1443340413657174048, guid: 1f63311383113ad4e87b8005583f8ccc, type: 3}
       propertyPath: brain
       value: 
@@ -120882,14 +120886,6 @@ PrefabInstance:
       propertyPath: brain
       value: 
       objectReference: {fileID: 963053140}
-    - target: {fileID: 2589710398991819832, guid: 1f63311383113ad4e87b8005583f8ccc, type: 3}
-      propertyPath: currentFear
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 2589710398991819832, guid: 1f63311383113ad4e87b8005583f8ccc, type: 3}
-      propertyPath: fearThreshold
-      value: 100
-      objectReference: {fileID: 0}
     - target: {fileID: 4021213870261346477, guid: 1f63311383113ad4e87b8005583f8ccc, type: 3}
       propertyPath: brain
       value: 
@@ -120899,10 +120895,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 963053140}
     - target: {fileID: 4248640618357712185, guid: 1f63311383113ad4e87b8005583f8ccc, type: 3}
-      propertyPath: brain
-      value: 
-      objectReference: {fileID: 963053140}
-    - target: {fileID: 4339069094553474094, guid: 1f63311383113ad4e87b8005583f8ccc, type: 3}
       propertyPath: brain
       value: 
       objectReference: {fileID: 963053140}
