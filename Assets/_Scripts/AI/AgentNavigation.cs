@@ -542,7 +542,7 @@ public class AgentNavigation : MonoBehaviour
         // First, check direct neighbors
         foreach (MazeCell neighbor in neighbors)
         {
-            Room neighborRoom = GameManager.Instance.GetRooms().FirstOrDefault(r => r.tilesInRoom.Contains(neighbor.position));
+            Room neighborRoom = gameManager.centralMaze[neighbor.x, neighbor.y].room;
 
             if (neighborRoom != null && neighbor.roomTile && !IsRoomVisited(neighborRoom.roomType))
             {
@@ -568,13 +568,6 @@ public class AgentNavigation : MonoBehaviour
         return currentPosition;
     }
     
-    public void UpdateMaze(MazeCell[,] updatedMaze)
-    {
-        // Update the agent's reference to the new central maze
-        gameManager.centralMaze = updatedMaze;
-    }
-
-
     
     public void MarkRoomAsVisited(string roomType)
     {

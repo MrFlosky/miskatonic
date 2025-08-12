@@ -7,9 +7,12 @@ public class Fear : MonoBehaviour
 {
 
     public int currentFear = 10;
-    [Header("If changed AI Slider max val will need to be adjusted to account for this atm.")]
+    /// <summary>
+    /// 2 important notes:
+    /// - Max value on AI slider automatically updated when this is changed.
+    /// - HOWEVER, the fear WIN meter max value (win value) needs to be manually adjusted to account for totaled AI thresholds.
+    /// </summary>
     public int fearThreshold = 25;
-    private Slider aiFearSlid;
     string weakness;
     // Start is called before the first frame update
     void Start()
@@ -17,13 +20,6 @@ public class Fear : MonoBehaviour
      
         // Initiate fear meter with contribution from the fear of this AI
         FearMeter.INCREASE_METER(currentFear);
-    }
-
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void AddFear(int add)
