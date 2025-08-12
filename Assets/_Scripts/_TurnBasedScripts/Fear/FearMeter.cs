@@ -9,9 +9,6 @@ public class FearMeter : MonoBehaviour
     private static FearMeter S;
     int totalFear = 0;
     
-    [Header("The amount of culminated fear needed to win game")]
-    public int winFear = 100;
-
     Slider slid;
     float timeElapsed = 0;
     public float sliderSpeed = 0.2f;
@@ -22,7 +19,7 @@ public class FearMeter : MonoBehaviour
     {
         slid = GetComponent<Slider>();
         S = this;
-        slid.maxValue = winFear;
+        slid.maxValue = GameManager.Instance.GetWinFear();
         enabled = false;
     }
 
@@ -42,7 +39,7 @@ public class FearMeter : MonoBehaviour
         AudioManager.PlaySFX(SFXType.FearIncrease);
         S.timeElapsed = 0; // setting to 0 here makes so slider animates smoothly with multiple increase calls
         S.totalFear += increase;
-        S.CHECK_FEAR_WIN();
+        GameManager.Instance.CHECK_FEAR_WIN(S.totalFear);
         S.enabled = true;
     }
 
@@ -60,16 +57,6 @@ public class FearMeter : MonoBehaviour
     }
 
 
-    public GameObject endTurnButton;
-    void CHECK_FEAR_WIN()
-    {
-        if(totalFear >= winFear)
-        {
-            GameManager.Instance.Win("Successful summon");
-            SkillsCollection.DISABLE_BUTTONS();
-            Destroy(endTurnButton);
-        }
-    }
 
 
 }

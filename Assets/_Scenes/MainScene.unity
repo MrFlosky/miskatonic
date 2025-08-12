@@ -36339,10 +36339,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08c6c1ed3f05ffe41b09100d8eb52c2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  winFear: 400
   sliderSpeed: 0.2
   ps: {fileID: 1268612874}
-  endTurnButton: {fileID: 840591858}
 --- !u!114 &316623340
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51045,7 +51043,7 @@ PrefabInstance:
     - target: {fileID: 2875423007499563510, guid: 54bc7d1ace99aae42abb9b4958ee5d03, type: 3}
       propertyPath: turnEvents.m_PersistentCalls.m_Calls.Array.data[6].m_Target
       value: 
-      objectReference: {fileID: 1024620622}
+      objectReference: {fileID: 1061810802}
     - target: {fileID: 2875423007499563510, guid: 54bc7d1ace99aae42abb9b4958ee5d03, type: 3}
       propertyPath: turnEvents.m_PersistentCalls.m_Calls.Array.data[6].m_CallState
       value: 2
@@ -51056,11 +51054,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2875423007499563510, guid: 54bc7d1ace99aae42abb9b4958ee5d03, type: 3}
       propertyPath: turnEvents.m_PersistentCalls.m_Calls.Array.data[6].m_MethodName
-      value: ROUND_CHECK
+      value: CHECK_ROUND_LOSE
       objectReference: {fileID: 0}
     - target: {fileID: 2875423007499563510, guid: 54bc7d1ace99aae42abb9b4958ee5d03, type: 3}
       propertyPath: turnEvents.m_PersistentCalls.m_Calls.Array.data[6].m_TargetAssemblyTypeName
-      value: TurnBasedSystem, Assembly-CSharp
+      value: GameManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 2875423007499563510, guid: 54bc7d1ace99aae42abb9b4958ee5d03, type: 3}
       propertyPath: turnEvents.m_PersistentCalls.m_Calls.Array.data[6].m_Arguments.m_IntArgument
@@ -51084,7 +51082,7 @@ PrefabInstance:
       objectReference: {fileID: 1204546541}
     - target: {fileID: 2933510938474081148, guid: 54bc7d1ace99aae42abb9b4958ee5d03, type: 3}
       propertyPath: roundsUntilDefeat
-      value: 30
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4618947864993190721, guid: 54bc7d1ace99aae42abb9b4958ee5d03, type: 3}
       propertyPath: m_LocalPosition.x
@@ -122153,17 +122151,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe9c141415abfbf4e8a46404e37dff1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1024620622 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2933510938474081148, guid: 54bc7d1ace99aae42abb9b4958ee5d03, type: 3}
-  m_PrefabInstance: {fileID: 436446327}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b57376800d1baad4180fca5afddfe8d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1024620625 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4618947864993190721, guid: 54bc7d1ace99aae42abb9b4958ee5d03, type: 3}
@@ -126660,7 +126647,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7311e858da19fd24bb5b890311de8dd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rooms: []
   mazeRenderer: {fileID: 1604857007}
   mazeGenerator: {fileID: 1604857008}
   winScript: {fileID: 1061810805}
@@ -126669,6 +126655,8 @@ MonoBehaviour:
   CellSize: 0
   playerCam: {fileID: 1514457254}
   endTurnButton: {fileID: 0}
+  winFear: 400
+  roundsUntilDefeat: 30
 --- !u!4 &1061810803
 Transform:
   m_ObjectHideFlags: 0
@@ -214895,6 +214883,7 @@ MonoBehaviour:
   m_DeselectOnBackgroundClick: 1
   m_PointerBehavior: 0
   m_CursorLockBehavior: 0
+  m_ScrollDeltaPerTick: 6
 --- !u!114 &1803275056
 MonoBehaviour:
   m_ObjectHideFlags: 0

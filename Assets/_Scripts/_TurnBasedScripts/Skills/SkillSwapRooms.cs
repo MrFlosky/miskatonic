@@ -45,7 +45,7 @@ public class SkillSwapRooms : Skill
         inputActions.Player.Confirm.performed -= OnConfirm;
         inputActions.Disable();
     }
-    
+
 
     public void OnClick(InputAction.CallbackContext context)
     {
@@ -107,7 +107,7 @@ public class SkillSwapRooms : Skill
         }
         base.ExitInput();
         EndSkill();
-        
+
     }
 
 
@@ -133,10 +133,10 @@ public class SkillSwapRooms : Skill
 
         // Reset the room types being held for switch
         mRoomType2 = "None";
-        if(rm2Obj != null){SetRoomColor(rm2Obj, beforeSelectMatFloor, beforeSelectMatWall);}
+        if (rm2Obj != null) { SetRoomColor(rm2Obj, beforeSelectMatFloor, beforeSelectMatWall); }
 
         mRoomType1 = "None";
-        if(rm1Obj != null){SetRoomColor(rm1Obj, beforeSelectMatFloor, beforeSelectMatWall);}
+        if (rm1Obj != null) { SetRoomColor(rm1Obj, beforeSelectMatFloor, beforeSelectMatWall); }
 
 
         switchCanOccur = false;
@@ -174,7 +174,7 @@ public class SkillSwapRooms : Skill
         }
 
         // Perform the room swap using GameManager
-        gameManager.SwapRooms(room1Ob, rm1Type, room2Ob, rm2Type);
+        SwapRooms(room1Ob, rm1Type, room2Ob, rm2Type);
 
         // Update the UI to show the swap success
         txt.text = "SWAP BETWEEN " + "\n" + rm1Type + " AND " + rm2Type + "\n SUCCESSFUL";
@@ -210,4 +210,97 @@ public class SkillSwapRooms : Skill
             this.enabled = true; // Enable the script allowing this skill to happen once
         }
     }
+
+
+
+
+    /// <summary>
+    /// Performs room swap skill between two rooms.
+    /// </summary>
+    public void SwapRooms(GameObject room1Ob, string rm1Type, GameObject room2Ob, string rm2Type)
+    {
+        // Swap the room positions in the scene
+        Vector3 room1Position = room1Ob.transform.position;
+        Vector3 room2Position = room2Ob.transform.position;
+
+        // Swap the positions of the room GameObjects
+        room1Ob.transform.position = room2Position;
+        room2Ob.transform.position = room1Position;
+
+        // Swap room types for the cells in the centralMaze
+        foreach (MazeCellObject cell in room1Ob.GetComponentsInChildren<MazeCellObject>())
+        {
+            Vector2Int cellPosition = new Vector2Int(cell.GetXCoord(), cell.GetYCoord());
+            GameManager.Instance.centralMaze[cellPosition.x, cellPosition.y].roomType = rm2Type;
+        }
+
+        foreach (MazeCellObject cell in room2Ob.GetComponentsInChildren<MazeCellObject>())
+        {
+            Vector2Int cellPosition = new Vector2Int(cell.GetXCoord(), cell.GetYCoord());
+            GameManager.Instance.centralMaze[cellPosition.x, cellPosition.y].roomType = rm1Type;
+        }
+
+        // Swap tiles between rooms while maintaining corresponding positions
+        SwapRoomTiles(room1Ob, room2Ob);
+    }
+
+    /// <summary>
+    /// For every cell apart of 2 given rooms, swap their types.
+    /// </summary>
+    private void SwapRoomTiles(GameObject room1Ob, GameObject room2Ob)
+    {
+        var room1Type = room1Ob.GetComponentsInChildren<MazeCellObject>()[0].roomType;
+        var room2Type = room2Ob.GetComponentsInChildren<MazeCellObject>()[0].roomType;
+
+        // Organize the tiles into a 5x5 grid based on their local positions
+        foreach (MazeCellObject cell in room1Ob.GetComponentsInChildren<MazeCellObject>())
+        {
+            cell.roomType = room2Type;
+        }
+
+        foreach (MazeCellObject cell in room2Ob.GetComponentsInChildren<MazeCellObject>())
+        {
+            cell.roomType = room1Type;
+        }
+
+        SwapRoomProps(room1Ob, room2Ob);
+    }
+
+    private void SwapRoomProps(GameObject room1Ob, GameObject room2Ob)
+    {
+        // Find the props in the rooms based on the "Prop" tag
+        GameObject room1Prop = FindPropWithTag(room1Ob, "Prop");
+        GameObject room2Prop = FindPropWithTag(room2Ob, "Prop");
+
+        // Ensure the props and parents are valid
+        if (room1Prop != null && room2Prop != null)
+        {
+            Transform room1Parent = room1Ob.transform;
+            Transform room2Parent = room2Ob.transform;
+
+            // Store the local positions before swapping
+            Vector3 room1LocalPosition = room1Prop.transform.localPosition;
+            Vector3 room2LocalPosition = room2Prop.transform.localPosition;
+
+            // Swap the props between rooms
+            room1Prop.transform.SetParent(room2Parent);
+            room1Prop.transform.localPosition = room2LocalPosition;
+
+            room2Prop.transform.SetParent(room1Parent);
+            room2Prop.transform.localPosition = room1LocalPosition;
+        }
+    }
+    
+    private GameObject FindPropWithTag(GameObject parentObject, string tag)
+    {
+        foreach (Transform child in parentObject.transform)
+        {
+            if (child.CompareTag(tag))
+            {
+                return child.gameObject;
+            }
+        }
+        return null;
+    }
+
 }

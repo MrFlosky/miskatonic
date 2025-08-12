@@ -30,8 +30,7 @@ public class TurnBasedSystem : MonoBehaviour
     private int eventTurnCount = 0;
 
     /// Number of rounds until defeat.
-    [Header("Number of rounds until player defeat.")]
-    public int roundsUntilDefeat = 10;
+    private int roundsUntilDefeat;
 
     /// List of items to destroy after x turns
     List<DestroyAfterRounds> destroyablesList = new List<DestroyAfterRounds>();
@@ -44,6 +43,7 @@ public class TurnBasedSystem : MonoBehaviour
     void Start()
     {
         S = this;
+        roundsUntilDefeat = GameManager.Instance.GetRoundsTillDefeat();
         //S.txt.text = "Total Turns: " + S.totalTurnCount + "\n" + "Player Turns: " + S.playerTurnCount + "\n" + "AI Turns: " + S.aiTurnCount; ///***DEBUG
         S.txt.text = "Turns Left: " + (S.roundsUntilDefeat/2 - S.aiTurnCount);
         currentTurn = TurnType.Player;
@@ -150,19 +150,6 @@ public class TurnBasedSystem : MonoBehaviour
             S.destroyablesListOb.Remove(destroy);
         }
 
-    }
-
-    
-    /// <summary>
-    /// Check if player has reached the ending round.
-    /// </summary>
-    static public void ROUND_CHECK()
-    {
-        if(S.totalTurnCount == S.roundsUntilDefeat && IsPlayerTurn())
-        {
-            // Gameover
-            GameManager.Instance.Lose("Summon opening missed");
-        }
     }
 
     /// <summary>

@@ -7,7 +7,7 @@ using UnityEngine.Events;
 
 public class PlayerTurn : Turns
 {
-
+    
     public bool inConversation = false;
     
     // Start off as disabled, only enable on button press.
