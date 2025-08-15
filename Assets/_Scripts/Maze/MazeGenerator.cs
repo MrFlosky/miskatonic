@@ -2,23 +2,34 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
+/// <summary>
+/// Recursive maze carving
+/// Room placement with randomized types and dimesions
+/// Path validation ro wnsure full maze connectivity
+/// Dynamic wall management and updated
+/// Room entrances and special tile handiling
+/// </summary>
 public class MazeGenerator : MonoBehaviour {
 
     
     public static MazeGenerator Instance;
-    
+
+    [Header("Maze Size")]
     [Range(5, 500)]
     public int mazeWidth = 5, mazeHeight = 5;           // The dimensions of the maze.
-    public int startX, startY;                          // The position our algorithm will start from.
-    MazeCell[,] maze;                                   // An array of maze cells representing the maze grid.
 
+    [Header("Starting point")]
+    public int startX, startY;                          // The position our algorithm will start from.
+    
+    [Header("Room Settings")]
     [Range(0, 10)] public int roomCount = 1;
     [Range(2,20)] public int roomXSizeMin, roomXSizeMax, roomYSizeMin, roomYSizeMax = 5;
+
+    MazeCell[,] maze;                                   // An array of maze cells representing the maze grid.
     Vector2Int currentCell;                             // The maze cell we are currently looking at.
 
     private List<string> _roomTypes;                     // all the room types
-    
-    
+      
     public List<Room> rooms = new List<Room>();
 
     private void Start()
@@ -26,6 +37,12 @@ public class MazeGenerator : MonoBehaviour {
         Instance = this;
     }
 
+
+    /// <summary>
+    /// Generates a new maze with rooms and return the maze grid
+    /// Retries generation if room placement fails
+    /// </summary>
+    /// <returns></returns>
     public MazeCell[,] GetMaze() 
     {
         int maxAttempts = 100; // Limit the number of retries to avoid infinite loops
@@ -35,8 +52,10 @@ public class MazeGenerator : MonoBehaviour {
         {
             // Initialize the maze
             maze = new MazeCell[mazeWidth, mazeHeight];
-            for (int x = 0; x < mazeWidth; x++) {
-                for (int y = 0; y < mazeHeight; y++) {
+            for (int x = 0; x < mazeWidth; x++) 
+            {
+                for (int y = 0; y < mazeHeight; y++) 
+                {
                     maze[x, y] = new MazeCell(x, y);
                 }
             }
@@ -83,6 +102,11 @@ public class MazeGenerator : MonoBehaviour {
     
     };
 
+
+    /// <summary>
+    /// Randomnizes the order of the four cardinal directions.
+    /// </summary>
+    /// <returns></returns>
     List<Directions> GetRandomDirections() {
 
         // Make a copy of our directions list that we can mess around with.
@@ -91,8 +115,8 @@ public class MazeGenerator : MonoBehaviour {
         // Make a directions list to put our randomised directions into.
         List<Directions> rndDir = new List<Directions>();
 
-        while (dir.Count > 0) {                         // Loop until our rndDir list is empty.
-
+        while (dir.Count > 0)                           // Loop until our rndDir list is empty.
+        {                         
             int rnd = Random.Range(0, dir.Count);       // Get random index in list.
             rndDir.Add(dir[rnd]);                       // Add the random direction to our list.
             dir.RemoveAt(rnd);                          // Remove that direction so we can't choose it again
@@ -104,6 +128,12 @@ public class MazeGenerator : MonoBehaviour {
 
     }
 
+    /// <summary>
+    /// Checks if a cell coordinate is within bounds and unvisited
+    /// </summary>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
+    /// <returns></returns>
     bool IsCellValid (int x, int y) {
 
         // If the cell is outside of the map or has already been visited, we consider it not valid.
@@ -112,18 +142,23 @@ public class MazeGenerator : MonoBehaviour {
 
     }
 
+
+    /// <summary>
+    /// Selects a random valid neighbor of the current cell.
+    /// </summary>
+    /// <returns></returns>
     Vector2Int CheckNeighbours() {
 
         List<Directions> rndDir = GetRandomDirections();
 
-        for (int i = 0; i < rndDir.Count; i++) {
-
+        for (int i = 0; i < rndDir.Count; i++) 
+        {
             // Set neighbour coordinates to current cell for now.
             Vector2Int neighbour = currentCell;
 
             // Modify neighbour coordinates based on the random directions we're currently trying.
-            switch (rndDir[i]) {
-
+            switch (rndDir[i]) 
+            {
                 case Directions.Up:
                     neighbour.y++;
                     break;
