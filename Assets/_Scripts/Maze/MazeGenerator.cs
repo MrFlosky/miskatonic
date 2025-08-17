@@ -182,7 +182,13 @@ public class MazeGenerator : MonoBehaviour {
         return currentCell;
     }
 
-    // Takes in two maze positions and sets the cells accordingly.
+
+    /// <summary>
+    /// Removes walls between two adjacent cells.
+    /// Takes in two maze positions and sets the cells accordingly.
+    /// </summary>
+    /// <param name="primaryCell"></param>
+    /// <param name="secondaryCell"></param>
     void BreakWalls (Vector2Int primaryCell, Vector2Int secondaryCell) {
 
         // We can only go in one direction at a time so we can handle this using if else statements.
@@ -239,8 +245,13 @@ public class MazeGenerator : MonoBehaviour {
         }
     }
 
-    // Starting at the x, y passed in, carves a path through the maze until it encounters a "dead end"
-    // (a dead end is a cell with no valid neighbours).   
+
+    /// <summary>
+    /// Starting at the x, y passed in, carves a path through the maze until it encounters a "dead end" using DFS
+    /// (a dead end is a cell with no valid neighbours).
+    /// </summary>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
     void CarvePath (int x, int y) {
 
         // Perform a quick check to make sure our start position is within the boundaries of the map,
@@ -293,7 +304,12 @@ public class MazeGenerator : MonoBehaviour {
             }
         }
     }
-    
+
+    /// <summary>
+    /// Attempts to place a random room in the maze grid.
+    /// </summary>
+    /// <param name="maze"></param>
+    /// <returns></returns>
     public bool CreateRoom(MazeCell[,] maze)
     {
         int xLength = Random.Range(roomXSizeMin, roomXSizeMax); // get random x size of room
