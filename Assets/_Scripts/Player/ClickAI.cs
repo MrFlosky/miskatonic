@@ -7,6 +7,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using Yarn.Unity;
 
 public class ClickAI : MonoBehaviour
 {
@@ -19,17 +20,20 @@ public class ClickAI : MonoBehaviour
     public float scrollSpeed = 1f; // Speed factor for scrolling
 
     public bool _clickedAI = false;
-    
+
     private List<Transform> activeOutlines = new List<Transform>();
 
     private bool rightClicking = false;
-    
+
     [SerializeField] Material outlineMaterial;
 
     public Button[] buttons;
 
+    DialogueRunner dialogueRunner;
+
     private void Start()
     {
+        dialogueRunner = FindObjectOfType<Yarn.Unity.DialogueRunner>();
         if (mainCamera == null)
         {
             mainCamera = Camera.main; // Use main camera if none specified
@@ -51,32 +55,46 @@ public class ClickAI : MonoBehaviour
     public void OnClick(InputAction.CallbackContext context)
     {
         if (_clickedAI || !TurnBasedSystem.IsPlayerTurn() || _inConversation) return;
-        
+
         Vector2 mousePos = Vector2.zero;
         mousePos = GameInput.Instance.GetActiveGameDevice() == GameInput.GameDevice.KeyboardMouse ? Mouse.current.position.ReadValue() : VirtualMouseUI.Instance.GetVirtualMousePosition();
         // Determine the rooms being selected for a switch
         Ray ray = SkillSystem.GET_CAM().ScreenPointToRay(mousePos);
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
+
             if (hit.collider.CompareTag("AI"))
             {
-                AudioManager.PlaySFX(SFXType.CharacterSelection); 
-                _clickedAI = true;
-                PlayerController.Instance.clickedAI = _clickedAI;
-                var DialogueManager = hit.collider.GetComponentInChildren<DialogueManager>();
-                var virtualCam = DialogueManager.GetCurrentDialogue().GetComponentInChildren<CinemachineVirtualCamera>(true);
-                if (virtualCam)
-                {
-                    virtualCam.gameObject.SetActive(true);
-                    virtualCam.enabled = true;
-                }
-                activeCamera = virtualCam;
-                playerCam.enabled = false;
-                DialogueManager.usedDialogue = true;
-                foreach (var button in buttons)
-                {
-                    button.interactable = false;
-                }
+
+                string SelectedAI = hit.collider.gameObject.name;
+                DialogueBank dialogueBank = hit.collider.GetComponent<DialogueBank>();
+                int dialogue = UnityEngine.Random.Range(0, dialogueBank.DialogueNum.Count);
+
+                PlayRandomDialogue(SelectedAI + dialogue);
+                
+
+
+
+
+                //OLD DIALOGUE SYSTEM DO NOT DELETE UNTIL VERIFYING IT IS NO LONGER NEEDED
+
+                // AudioManager.PlaySFX(SFXType.CharacterSelection); 
+                // _clickedAI = true;
+                // PlayerController.Instance.clickedAI = _clickedAI;
+                // var DialogueManager = hit.collider.GetComponentInChildren<DialogueManager>();
+                // var virtualCam = DialogueManager.GetCurrentDialogue().GetComponentInChildren<CinemachineVirtualCamera>(true);
+                // if (virtualCam)
+                // {
+                //     virtualCam.gameObject.SetActive(true);
+                //     virtualCam.enabled = true;
+                // }
+                // activeCamera = virtualCam;
+                // playerCam.enabled = false;
+                // DialogueManager.usedDialogue = true;
+                // foreach (var button in buttons)
+                // {
+                //     button.interactable = false;
+                // }
             }
         }
     }
@@ -90,11 +108,11 @@ public class ClickAI : MonoBehaviour
 
         // Use the Y component for vertical scrolling
         float scrollAmount = scrollInput.y;
-        
+
         // Update the tracked dolly's path position based on the scroll amount and speed factor
-        track.m_PathPosition += scrollAmount/120 * scrollSpeed;
+        track.m_PathPosition += scrollAmount / 120 * scrollSpeed;
     }
-    
+
     public void OnRightClick(InputAction.CallbackContext context)
     {
         rightClicking = true;
@@ -103,7 +121,7 @@ public class ClickAI : MonoBehaviour
             ClearOutlines();
             return;
         }
-        
+
         var mousePos = GameInput.Instance.GetActiveGameDevice() == GameInput.GameDevice.KeyboardMouse ? Mouse.current.position.ReadValue() : VirtualMouseUI.Instance.GetVirtualMousePosition();
 
         Ray ray = SkillSystem.GET_CAM().ScreenPointToRay(mousePos);
@@ -114,7 +132,7 @@ public class ClickAI : MonoBehaviour
                 if (context.started)
                 {
                     var agentNavigation = hit.collider.GetComponent<AgentNavigation>();
-                
+
                     // Highlight the agent's planned path for the next turn
                     if (agentNavigation != null && agentNavigation.storedPath.Count > 0)
                     {
@@ -127,19 +145,19 @@ public class ClickAI : MonoBehaviour
                             MazeCell cell = agentNavigation.storedPath[i];
                             if (MazeRenderer.Instance.cellGameObjects.TryGetValue(cell.position, out GameObject cellObject))
                             {
-                                for (int j = 0 ; j < cellObject.transform.childCount; j++)
+                                for (int j = 0; j < cellObject.transform.childCount; j++)
                                 {
                                     if (cellObject.transform.GetChild(j).gameObject.layer == LayerMask.NameToLayer("Ground"))
                                         childWithTag.Add(cellObject.transform.GetChild(j));
                                 }
-                                
+
                             }
                         }
-                        
+
                         foreach (var child in childWithTag)
                         {
                             var materials = child.GetComponent<MeshRenderer>().materials;
-                                    
+
                             var newMaterials = new Material[materials.Length + 1];
 
                             for (int i = 0; i < materials.Length; i++)
@@ -150,7 +168,7 @@ public class ClickAI : MonoBehaviour
                             newMaterials[^1] = outlineMaterial;
 
                             child.GetComponent<MeshRenderer>().materials = newMaterials;
-                                    
+
                             activeOutlines.Add(child);
                         }
                     }
@@ -165,19 +183,19 @@ public class ClickAI : MonoBehaviour
                             MazeCell cell = agentNavigation.path[i];
                             if (MazeRenderer.Instance.cellGameObjects.TryGetValue(cell.position, out GameObject cellObject))
                             {
-                                for (int j = 0 ; j < cellObject.transform.childCount; j++)
+                                for (int j = 0; j < cellObject.transform.childCount; j++)
                                 {
                                     if (cellObject.transform.GetChild(j).gameObject.layer == LayerMask.NameToLayer("Ground"))
                                         childWithTag.Add(cellObject.transform.GetChild(j));
                                 }
-                                
+
                             }
                         }
-                        
+
                         foreach (var child in childWithTag)
                         {
                             var materials = child.GetComponent<MeshRenderer>().materials;
-                                    
+
                             var newMaterials = new Material[materials.Length + 1];
 
                             for (int i = 0; i < materials.Length; i++)
@@ -188,7 +206,7 @@ public class ClickAI : MonoBehaviour
                             newMaterials[^1] = outlineMaterial;
 
                             child.GetComponent<MeshRenderer>().materials = newMaterials;
-                                    
+
                             activeOutlines.Add(child);
                         }
                     }
@@ -243,7 +261,7 @@ public class ClickAI : MonoBehaviour
         activeCamera.gameObject.SetActive(false);
         activeCamera.enabled = false;
         activeCamera = playerCam;
-        
+
         foreach (var button in buttons)
         {
             button.interactable = true;
@@ -255,4 +273,12 @@ public class ClickAI : MonoBehaviour
         if (rightClicking && TurnBasedSystem.IsPlayerTurn()) return;
         ClearOutlines();
     }
+
+
+
+    private void PlayRandomDialogue(string dialogueName)
+    {
+        dialogueRunner.StartDialogue(dialogueName);
+    }
+
 }
