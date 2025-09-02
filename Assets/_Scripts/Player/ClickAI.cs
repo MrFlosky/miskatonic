@@ -65,12 +65,20 @@ public class ClickAI : MonoBehaviour
 
             if (hit.collider.CompareTag("AI"))
             {
-
-                string SelectedAI = hit.collider.gameObject.name;
                 DialogueBank dialogueBank = hit.collider.GetComponent<DialogueBank>();
-                int dialogue = UnityEngine.Random.Range(0, dialogueBank.DialogueNum.Count);
+                if (dialogueBank.clicked)
+                {
+                    dialogueRunner.StartDialogue("ClickedAlready");
+                    return;
+                }
+                //name of object
+                string SelectedAI = hit.collider.gameObject.name;
 
-                PlayRandomDialogue(SelectedAI + dialogue);
+                //produces a random number, plays the corrisponding dialogue, then removes that number from the list
+                int dialogue = UnityEngine.Random.Range(0, dialogueBank.DialogueNum.Count);
+                PlayRandomDialogue(SelectedAI + dialogueBank.DialogueNum[dialogue]);
+                dialogueBank.DialogueNum.Remove(dialogueBank.DialogueNum[dialogue]);
+                dialogueBank.clicked= true;
                 
 
 

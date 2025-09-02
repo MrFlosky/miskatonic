@@ -8,6 +8,7 @@ public class DialogueBank : MonoBehaviour
     DialogueRunner DR;
 
     public List<int> DialogueNum;
+    public bool clicked;
 
     void Start()
     {

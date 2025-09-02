@@ -167,14 +167,17 @@ public class AgentNavigation : MonoBehaviour
             }
         }
     }
-    
-    
-    
+
+
+
     // Stops the agent's movement by clearing the path
     public void StopMovement()
     {
         path.Clear();
         isMoving = false;
+       
+        //allows new dialogue
+        gameObject.GetComponent<DialogueBank>().clicked = false;
     }
 
     public void PauseMovement()

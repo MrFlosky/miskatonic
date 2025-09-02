@@ -65874,6 +65874,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 549469730}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &551801733 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4328944795887566300, guid: e3eee655d87ceda4783f353d13a4af64, type: 3}
+  m_PrefabInstance: {fileID: 1526173144}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &552087182
 GameObject:
   m_ObjectHideFlags: 0
@@ -96994,6 +96999,24 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &804730714 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4497662663377860779, guid: 6e15b47b7edc45e4e8fbbc5668b9cd9e, type: 3}
+  m_PrefabInstance: {fileID: 1971535849}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &804730724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 804730714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27488cd4dc3353e47b8e361e11c91cad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DialogueNum: 000000000000000000000000
 --- !u!1 &804805056
 GameObject:
   m_ObjectHideFlags: 0
@@ -120914,7 +120937,7 @@ PrefabInstance:
       objectReference: {fileID: 963053140}
     - target: {fileID: 6579168539120367466, guid: 1f63311383113ad4e87b8005583f8ccc, type: 3}
       propertyPath: m_Name
-      value: Harold Auden
+      value: HaroldAuden
       objectReference: {fileID: 0}
     - target: {fileID: 6610062608737149689, guid: 1f63311383113ad4e87b8005583f8ccc, type: 3}
       propertyPath: brain
@@ -121019,7 +121042,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6579168539120367466, guid: 1f63311383113ad4e87b8005583f8ccc, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1616455648}
   m_SourcePrefab: {fileID: 100100000, guid: 1f63311383113ad4e87b8005583f8ccc, type: 3}
 --- !u!1 &1015935249
 GameObject:
@@ -178837,7 +178863,7 @@ PrefabInstance:
       objectReference: {fileID: 963053140}
     - target: {fileID: 4328944795887566300, guid: e3eee655d87ceda4783f353d13a4af64, type: 3}
       propertyPath: m_Name
-      value: Mackenzie Joyce
+      value: MackenzieJoyce
       objectReference: {fileID: 0}
     - target: {fileID: 4754172380535228095, guid: e3eee655d87ceda4783f353d13a4af64, type: 3}
       propertyPath: brain
@@ -178922,7 +178948,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4328944795887566300, guid: e3eee655d87ceda4783f353d13a4af64, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1711399587}
   m_SourcePrefab: {fileID: 100100000, guid: e3eee655d87ceda4783f353d13a4af64, type: 3}
 --- !u!1 &1527112598
 GameObject:
@@ -189813,6 +189842,24 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1614723550}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1616455638 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6579168539120367466, guid: 1f63311383113ad4e87b8005583f8ccc, type: 3}
+  m_PrefabInstance: {fileID: 1015134441}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1616455648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1616455638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27488cd4dc3353e47b8e361e11c91cad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DialogueNum: 000000000000000000000000
 --- !u!1 &1616643099
 GameObject:
   m_ObjectHideFlags: 0
@@ -203304,6 +203351,19 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5159927626381391047, guid: e3eee655d87ceda4783f353d13a4af64, type: 3}
   m_PrefabInstance: {fileID: 1526173144}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1711399587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 551801733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27488cd4dc3353e47b8e361e11c91cad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DialogueNum: 000000000000000000000000
 --- !u!1 &1712710940
 GameObject:
   m_ObjectHideFlags: 0
@@ -235101,7 +235161,7 @@ PrefabInstance:
       objectReference: {fileID: 963053140}
     - target: {fileID: 4497662663377860779, guid: 6e15b47b7edc45e4e8fbbc5668b9cd9e, type: 3}
       propertyPath: m_Name
-      value: Iain Schweblin
+      value: IainSchweblin
       objectReference: {fileID: 0}
     - target: {fileID: 4548632259326733073, guid: 6e15b47b7edc45e4e8fbbc5668b9cd9e, type: 3}
       propertyPath: brain
@@ -235182,7 +235242,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4497662663377860779, guid: 6e15b47b7edc45e4e8fbbc5668b9cd9e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 804730724}
   m_SourcePrefab: {fileID: 100100000, guid: 6e15b47b7edc45e4e8fbbc5668b9cd9e, type: 3}
 --- !u!1 &1971556363
 GameObject:
