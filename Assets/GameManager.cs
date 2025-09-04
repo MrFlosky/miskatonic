@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
 
     // Editable variables.
     [Header("The amount of culminated fear needed to win game")]
-    [SerializeField] int winFear = 100;
+    public int winFear = 100;
     /// Number of rounds until defeat.
     [Header("Number of rounds until player defeat.")]
     public int roundsUntilDefeat = 10;

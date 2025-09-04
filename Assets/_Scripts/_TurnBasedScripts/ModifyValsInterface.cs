@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,26 +12,60 @@ public class ModifyValsInterface : MonoBehaviour
     [Header("Modifiable")]
     [Tooltip("Number of points player starts off with each turn.")]
     [SerializeField] private int playerStartingPoints = 3;
+    [SerializeField] private int numberOfTOTALRoundsUntilDefeat = 30;
+    [SerializeField] private int totalFearToWin = 400;
     [SerializeField] private int aoeFearAddedPerTurn = 10;
+    
+    [Header("0:Evelyn _ 1:Harold _ 2:Iain _ 3:Mackenzie")]
+    [SerializeField] private int[] aiStartingFear = new int[4];
+    [SerializeField] private int[] aiFearThresholds = new int[4];
 
-    [Header("Dont touch!")]
+    [Header("DO NOT TOUCH!")]
     [SerializeField] private PlayerTurn pt;
     [SerializeField] private AOEEffect aoe;
+    [SerializeField] private SkillSystem ss;
+    [SerializeField] private GameManager gm;
+    [SerializeField] private FearMeter fm;
+    [SerializeField] private Fear[] fearArray = new Fear[4];
 
     /// <summary>
-    /// Called by BalanceValsEditor to apply new values
+    /// Resets all values to their original (last build before mi497)
     /// </summary>
-    public void ApplyValues()
-    {
-        pt.startingPoints = playerStartingPoints;
-        aoe.perTurnFear = aoeFearAddedPerTurn;
-        
-    }
-
     public void ResetToDefaults()
     {
+        playerStartingPoints = 3;
+        aoeFearAddedPerTurn = 10;
+        numberOfTOTALRoundsUntilDefeat = 30;
+        totalFearToWin = 400;
 
+        foreach (Fear aiFear in fearArray)
+        {
+            aiFear.fearThreshold = 100;
+            aiFear.currentFear = 10;
+        }
     }
+
+    /// <summary>
+    /// Sets all balance variables on frame script is enabled, start of game
+    /// </summary>
+    void Start()
+    {
+        pt.startingPoints = playerStartingPoints;
+        ss.availablePts = playerStartingPoints;
+        aoe.perTurnFear = aoeFearAddedPerTurn;
+        gm.roundsUntilDefeat = numberOfTOTALRoundsUntilDefeat;
+        gm.winFear = totalFearToWin;
+        // have to do this here bc maxval set once in awake for fmet
+        // same does NOT have to be done for ai fmet bc its updated upon clicking ai
+        fm.slid.maxValue = totalFearToWin;
+
+        for (int i = 0; i < fearArray.Length; i++)
+        {
+            fearArray[i].fearThreshold = aiFearThresholds[i];
+            fearArray[i].currentFear = aiStartingFear[i];
+        }
+    }
+
 
 
 }

@@ -6,19 +6,14 @@ public class BalanceValsEditor : Editor
 {
     public override void OnInspectorGUI()
     {
-        // This draws all your [SerializeField] variables above
+        // draws all regular inspector vars above
         DrawDefaultInspector();
         
         GUILayout.Space(40);
         
         ModifyValsInterface script = (ModifyValsInterface)target;
         
-        // Buttons that call functions in script
-        if (GUILayout.Button("Apply Changes", GUILayout.Height(30)))
-        {
-            script.ApplyValues();
-        }
-        
+        // Button that call functions in script
         if (GUILayout.Button("Reset to Defaults", GUILayout.Height(30)))
         {
             // confirm user wants to reset to default values with dialog box
@@ -35,6 +30,6 @@ public class BalanceValsEditor : Editor
             }
         }
         
-        EditorGUILayout.HelpBox("After editing values press Apply Changes for them to take effect", MessageType.Info);
+        //EditorGUILayout.HelpBox("After editing values press Apply Changes for them to take effect", MessageType.Info);
     }
 }

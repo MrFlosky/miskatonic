@@ -9,7 +9,7 @@ public class FearMeter : MonoBehaviour
     private static FearMeter S;
     int totalFear = 0;
     
-    Slider slid;
+    public Slider slid;
     float timeElapsed = 0;
     public float sliderSpeed = 0.2f;
     public ParticleSystem ps;

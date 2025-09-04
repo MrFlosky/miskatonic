@@ -10,6 +10,11 @@ public class PlayerTurn : Turns, ITurnObserver
     // How many points the player starts with each round
     public int startingPoints;
 
+    public void SetStartingPoints(int points)
+    {
+        startingPoints = points;
+    }
+
     void Start()
     {
         TurnBasedSystem.SubscribeAsObserver(this);
