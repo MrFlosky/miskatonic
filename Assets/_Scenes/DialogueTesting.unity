@@ -31322,7 +31322,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 284654619}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 92f022bcceddae14fa89c215bdbf6ce6, type: 3}
   m_Name: 
@@ -31342,7 +31342,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 284654619}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dfac553ed47539a4e95effcb884160a5, type: 3}
   m_Name: 
@@ -31361,7 +31361,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 284654619}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d648e69a8ede1754a82127dbdca1e88e, type: 3}
   m_Name: 
@@ -31378,7 +31378,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 1824788938}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 284654619}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 159190d1045bd324eb78f25ac516b8aa, type: 3}
   m_Name: 
@@ -51005,6 +51005,18 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 394672284}
     - target: {fileID: 2875423007499563510, guid: 54bc7d1ace99aae42abb9b4958ee5d03, type: 3}
+      propertyPath: turnText
+      value: 
+      objectReference: {fileID: 718299917}
+    - target: {fileID: 2875423007499563510, guid: 54bc7d1ace99aae42abb9b4958ee5d03, type: 3}
+      propertyPath: endTurnButton
+      value: 
+      objectReference: {fileID: 840591858}
+    - target: {fileID: 2875423007499563510, guid: 54bc7d1ace99aae42abb9b4958ee5d03, type: 3}
+      propertyPath: skillsManager
+      value: 
+      objectReference: {fileID: 284654619}
+    - target: {fileID: 2875423007499563510, guid: 54bc7d1ace99aae42abb9b4958ee5d03, type: 3}
       propertyPath: delayUntilNext
       value: 0
       objectReference: {fileID: 0}
@@ -51129,6 +51141,18 @@ PrefabInstance:
       value: Turn Manager
       objectReference: {fileID: 0}
     - target: {fileID: 7462511889029895204, guid: 54bc7d1ace99aae42abb9b4958ee5d03, type: 3}
+      propertyPath: turnText
+      value: 
+      objectReference: {fileID: 718299917}
+    - target: {fileID: 7462511889029895204, guid: 54bc7d1ace99aae42abb9b4958ee5d03, type: 3}
+      propertyPath: endTurnButton
+      value: 
+      objectReference: {fileID: 840591858}
+    - target: {fileID: 7462511889029895204, guid: 54bc7d1ace99aae42abb9b4958ee5d03, type: 3}
+      propertyPath: skillsManager
+      value: 
+      objectReference: {fileID: 284654619}
+    - target: {fileID: 7462511889029895204, guid: 54bc7d1ace99aae42abb9b4958ee5d03, type: 3}
       propertyPath: delayUntilNext
       value: 1
       objectReference: {fileID: 0}
@@ -51248,6 +51272,18 @@ PrefabInstance:
       propertyPath: turnEvents.m_PersistentCalls.m_Calls.Array.data[5].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 8541962640374668680, guid: 54bc7d1ace99aae42abb9b4958ee5d03, type: 3}
+      propertyPath: turnText
+      value: 
+      objectReference: {fileID: 718299917}
+    - target: {fileID: 8541962640374668680, guid: 54bc7d1ace99aae42abb9b4958ee5d03, type: 3}
+      propertyPath: endTurnButton
+      value: 
+      objectReference: {fileID: 840591858}
+    - target: {fileID: 8541962640374668680, guid: 54bc7d1ace99aae42abb9b4958ee5d03, type: 3}
+      propertyPath: skillsManager
+      value: 
+      objectReference: {fileID: 284654619}
     - target: {fileID: 8541962640374668680, guid: 54bc7d1ace99aae42abb9b4958ee5d03, type: 3}
       propertyPath: delayUntilNext
       value: 0
@@ -70940,7 +70976,15 @@ PrefabInstance:
     - target: {fileID: 5127021571920046550, guid: 4a21b8b42a2a421469be6ae7e951bd3a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1024620621}
+      objectReference: {fileID: 1199534983}
+    - target: {fileID: 5127021571920046550, guid: 4a21b8b42a2a421469be6ae7e951bd3a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: StartAITurn
+      objectReference: {fileID: 0}
+    - target: {fileID: 5127021571920046550, guid: 4a21b8b42a2a421469be6ae7e951bd3a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: TurnBasedSystem, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 5358776311528892122, guid: 4a21b8b42a2a421469be6ae7e951bd3a, type: 3}
       propertyPath: m_UiScaleMode
       value: 1
@@ -97017,6 +97061,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DialogueNum: 000000000000000000000000
+  clicked: 0
 --- !u!1 &804805056
 GameObject:
   m_ObjectHideFlags: 0
@@ -122166,17 +122211,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1024367244}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1024620621 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2875423007499563510, guid: 54bc7d1ace99aae42abb9b4958ee5d03, type: 3}
-  m_PrefabInstance: {fileID: 436446327}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe9c141415abfbf4e8a46404e37dff1d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1024620625 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4618947864993190721, guid: 54bc7d1ace99aae42abb9b4958ee5d03, type: 3}
@@ -143673,6 +143707,17 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1198679533}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1199534983 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2933510938474081148, guid: 54bc7d1ace99aae42abb9b4958ee5d03, type: 3}
+  m_PrefabInstance: {fileID: 436446327}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b57376800d1baad4180fca5afddfe8d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1200544082
 GameObject:
   m_ObjectHideFlags: 0
@@ -189860,6 +189905,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DialogueNum: 000000000000000000000000
+  clicked: 0
 --- !u!1 &1616643099
 GameObject:
   m_ObjectHideFlags: 0
@@ -203364,6 +203410,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DialogueNum: 000000000000000000000000
+  clicked: 0
 --- !u!1 &1712710940
 GameObject:
   m_ObjectHideFlags: 0
@@ -209796,6 +209843,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1763260650}
+  - component: {fileID: 1763260651}
   m_Layer: 0
   m_Name: Systems
   m_TagString: Untagged
@@ -209826,6 +209874,18 @@ Transform:
   - {fileID: 459219609}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1763260651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1763260649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b61cb92a579915343a4dd8ac52d08462, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1763884683
 GameObject:
   m_ObjectHideFlags: 0
@@ -216993,7 +217053,7 @@ PrefabInstance:
       objectReference: {fileID: 1859171433}
     - target: {fileID: 3639361823944359697, guid: 3ef7d8188e88fbf4982b482c6e23196d, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3639361823944359697, guid: 3ef7d8188e88fbf4982b482c6e23196d, type: 3}
       propertyPath: selectedMat
@@ -217023,6 +217083,10 @@ PrefabInstance:
       propertyPath: skillButton
       value: 
       objectReference: {fileID: 3494781224170206210, guid: 413fb82f23fa38d48b4b26f5125b97e4, type: 3}
+    - target: {fileID: 8113700954446848779, guid: 3ef7d8188e88fbf4982b482c6e23196d, type: 3}
+      propertyPath: skillSystem
+      value: 
+      objectReference: {fileID: 284654620}
     - target: {fileID: 8352495874475965290, guid: 3ef7d8188e88fbf4982b482c6e23196d, type: 3}
       propertyPath: m_LocalPosition.x
       value: -16.607647
@@ -233204,6 +233268,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DialogueNum: 000000000000000000000000
+  clicked: 0
 --- !u!1 &1955968982
 GameObject:
   m_ObjectHideFlags: 0

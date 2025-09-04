@@ -11,16 +11,23 @@ public class SkillAoeFear : Skill
     public GameObject AOEOb;
     Transform obTrans;
     bool canPlace = true;
-    
 
-    // Start is called before the first frame update
-    void Start()
+    private SkillsCollection skillsUI;
+
+    void Awake()
     {
         if (mainCamera == null)
         {
             mainCamera = Camera.main; // Use main camera if none specified
         }
         obTrans = AOEOb.GetComponent<Transform>();
+        skillsUI = GetComponent<SkillsCollection>();
+        skillSystem = GetComponent<SkillSystem>();
+    }
+
+    void Start()
+    {
+        enabled = false;
     }
 
     void Update()
@@ -56,7 +63,7 @@ public class SkillAoeFear : Skill
         Vector2 mousePos = Vector2.zero;
         mousePos = GameInput.Instance.GetActiveGameDevice() == GameInput.GameDevice.KeyboardMouse ? Mouse.current.position.ReadValue() : VirtualMouseUI.Instance.GetVirtualMousePosition();
         // Determine the rooms being selected for a switch
-        Ray ray = SkillSystem.GET_CAM().ScreenPointToRay(mousePos);
+        Ray ray = skillSystem.GET_CAM().ScreenPointToRay(mousePos);
         RaycastHit hit;
         // Note this is hitting the floor.
         if (Physics.Raycast(ray, out hit))
@@ -71,7 +78,7 @@ public class SkillAoeFear : Skill
                 AOEOb.SetActive(false);
                 canPlace = false;
                 this.enabled = false;
-                SkillsCollection.ENABLE_BUTTONS();
+                skillsUI.ENABLE_BUTTONS();
                 EndSkill();
             }
         }
@@ -89,41 +96,15 @@ public class SkillAoeFear : Skill
 
     }
 
-    /// <summary>
-    /// We might refactor this later so not going based on gameob name, instead a var in mazecell ob would be better
-    /// </summary>
-    /// <param name="selectedCell"></param>
-    // void GetSurroundingCells(MazeCellObject selectedCell)
-    // {
-    //     var match = Regex.Match(selectedCell.gameObject.name, @"\[(\d+),(\d+)\]");
-    //     if (match.Success)
-    //     {
-    //         int x = int.Parse(match.Groups[1].Value);
-    //         int y = int.Parse(match.Groups[2].Value);
-    //         var coordinates = (x, y);
-            
-    //         Debug.Log($"Extracted coordinates: ({coordinates.x}, {coordinates.y})");
-    //     }
-
-
-    //     GameObject parentRoom = selectedCell.transform.parent.gameObject;
-    //     foreach(MazeCellObject cell in parentRoom.GetComponentsInChildren<MazeCellObject>())
-    //     {
-
-
-    //     }
-
-    // }
-
 
     public override void ActivateSkill()
     {
-        if(SkillSystem.GET_PTS() >= ptDeduction)
+        if(skillSystem.GET_PTS() >= ptDeduction)
         {
-        base.ActivateSkill();
-        enabled = true; // Enable the script allowing this skill to happen once.
-        AOEOb.SetActive(true);
-        canPlace = true;
+            base.ActivateSkill();
+            enabled = true; // Enable the script allowing this skill to happen once.
+            AOEOb.SetActive(true);
+            canPlace = true;
         }
 
     }

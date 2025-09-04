@@ -11,7 +11,15 @@ public class SkillFear : Skill
     private void Awake()
     {
         inputActions = new PlayerInputActions();
+        skillSystem = GetComponent<SkillSystem>();
+        
     }
+    
+    private void Start()
+    {
+        enabled = false;
+    }
+
 
     private void OnEnable()
     {
@@ -36,7 +44,7 @@ public class SkillFear : Skill
         Vector2 mousePos = Vector2.zero;
         mousePos = GameInput.Instance.GetActiveGameDevice() == GameInput.GameDevice.KeyboardMouse ? Mouse.current.position.ReadValue() : VirtualMouseUI.Instance.GetVirtualMousePosition();
         // Determine the rooms being selected for a switch
-        Ray ray = SkillSystem.GET_CAM().ScreenPointToRay(mousePos);
+        Ray ray = skillSystem.GET_CAM().ScreenPointToRay(mousePos);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit))
         {

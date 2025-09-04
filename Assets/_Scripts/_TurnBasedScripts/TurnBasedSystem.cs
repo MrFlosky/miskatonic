@@ -12,10 +12,15 @@ using UnityEngine.UI;
 /// </summary>
 public enum TurnType{Player, AI, Event, NeverSet};
 
+
+/// <summary>
+/// Class that manages turn count and turn count dependent events.
+/// Subject for observer class!
+/// </summary>
 public class TurnBasedSystem : MonoBehaviour
 {
     static private TurnBasedSystem S;
-    
+
     static public TurnType currentTurn;
 
     ///***DEBUG
@@ -36,24 +41,26 @@ public class TurnBasedSystem : MonoBehaviour
     List<DestroyAfterRounds> destroyablesList = new List<DestroyAfterRounds>();
     List<DestroyAfterRounds> readyToDestroy = new List<DestroyAfterRounds>(); // NEED THIS FOR PROPER DELETION CANT LOOP THRU LIST DELETING FROM!
 
-        List<DestroyAfterRounds> destroyablesListOb = new List<DestroyAfterRounds>();
-    List<DestroyAfterRounds> readyToDestroyOb = new List<DestroyAfterRounds>(); 
-    
+    List<DestroyAfterRounds> destroyablesListOb = new List<DestroyAfterRounds>();
+    List<DestroyAfterRounds> readyToDestroyOb = new List<DestroyAfterRounds>();
+
     // Start is called before the first frame update
     void Start()
     {
         S = this;
         roundsUntilDefeat = GameManager.Instance.GetRoundsTillDefeat();
         //S.txt.text = "Total Turns: " + S.totalTurnCount + "\n" + "Player Turns: " + S.playerTurnCount + "\n" + "AI Turns: " + S.aiTurnCount; ///***DEBUG
-        S.txt.text = "Turns Left: " + (S.roundsUntilDefeat/2 - S.aiTurnCount);
+        S.txt.text = "Turns Left: " + (S.roundsUntilDefeat / 2 - S.aiTurnCount);
         currentTurn = TurnType.Player;
     }
-    
-    static public bool IsAITurn() {
+
+    static public bool IsAITurn()
+    {
         return currentTurn == TurnType.AI;
     }
-    
-    static public bool IsPlayerTurn() {
+
+    static public bool IsPlayerTurn()
+    {
         return currentTurn == TurnType.Player;
     }
 
@@ -70,24 +77,24 @@ public class TurnBasedSystem : MonoBehaviour
     static public int GET_TURN_COUNT(TurnType tt = TurnType.NeverSet) // must be set to static to be used as singleton function in other classes.
     {
 
-        switch(tt)
+        switch (tt)
         {
             case TurnType.Player:
-            {
-                return S.playerTurnCount;
-            }
+                {
+                    return S.playerTurnCount;
+                }
 
             case TurnType.AI:
-            {
-                return S.aiTurnCount;
-            }
+                {
+                    return S.aiTurnCount;
+                }
 
             case TurnType.Event:
-            return S.eventTurnCount;
+                return S.eventTurnCount;
 
             default:
-            return S.totalTurnCount;
-            
+                return S.totalTurnCount;
+
         }
     }
 
@@ -98,77 +105,120 @@ public class TurnBasedSystem : MonoBehaviour
     /// <param name="tt">
     /// Type of turn taken.
     /// </param>
-        static public void ADD_TURN(TurnType tt)
+    static public void ADD_TURN(TurnType tt)
     {
         S.totalTurnCount += 1;
 
-        switch(tt)
+        switch (tt)
         {
             case TurnType.Player:
-            S.ResetAOEFear();
-            currentTurn = TurnType.Player; 
-            S.playerTurnCount ++;
-            break;
+                S.ResetAOEFear();
+                currentTurn = TurnType.Player;
+                S.playerTurnCount++;
+                break;
 
             case TurnType.AI:
-            S.TriggerAOEFear();
-            currentTurn = TurnType.AI;
-            S.aiTurnCount ++;
-            break;
+                S.TriggerAOEFear();
+                currentTurn = TurnType.AI;
+                S.aiTurnCount++;
+                break;
 
             case TurnType.Event:
-            S.eventTurnCount ++;
-            break;
+                S.eventTurnCount++;
+                break;
 
             default:
-            break;
+                break;
 
         }
 
 
         //S.txt.text = "Total Turns: " + S.totalTurnCount + "\n" + "Player Turns: " + S.playerTurnCount + "\n" + "AI Turns: " + S.aiTurnCount;
-        S.txt.text = "Turns Left: " + (S.roundsUntilDefeat/2 - S.aiTurnCount);
+        S.txt.text = "Turns Left: " + (S.roundsUntilDefeat / 2 - S.aiTurnCount);
 
         // Each round added, check if any destroyable need be destroyed.
-        foreach(DestroyAfterRounds destroyable in S.destroyablesList)
+        foreach (DestroyAfterRounds destroyable in S.destroyablesList)
         {
             destroyable.CheckDestroy();
         }
         // Once added to destroyable list, destroy them to clean list. must be done this way. 
-        foreach(DestroyAfterRounds destroy in S.readyToDestroy)
+        foreach (DestroyAfterRounds destroy in S.readyToDestroy)
         {
             S.destroyablesList.Remove(destroy);
         }
 
-        foreach(DestroyAfterRounds destroyable in S.destroyablesListOb)
+        foreach (DestroyAfterRounds destroyable in S.destroyablesListOb)
         {
             destroyable.CheckObDestroy();
         }
-        
-        foreach(DestroyAfterRounds destroy in S.readyToDestroyOb)
+
+        foreach (DestroyAfterRounds destroy in S.readyToDestroyOb)
         {
             S.destroyablesListOb.Remove(destroy);
         }
 
     }
 
+
+    #region Turn Event Observers
+    public List<ITurnObserver> turnObservers = new List<ITurnObserver>();
+
+    /// <summary>
+    /// Called upon clicking end turn button, begin AI turn 
+    /// and notify any additional observers.
+    /// </summary>
+    static public void StartAITurn()
+    {
+        currentTurn = TurnType.AI;
+        ADD_TURN(currentTurn);
+        foreach (var observer in S.turnObservers)
+        {
+            observer.EnemyTurnInitiated();
+        }
+    }
+
+    /// <summary>
+    /// Called upon AI finishing its turn in AgentManger, begin Player turn
+    /// and notify any additional observers.
+    /// </summary>
+    static public void StartPlayerTurn()
+    {
+        currentTurn = TurnType.Player;
+        ADD_TURN(currentTurn);
+        foreach (var observer in S.turnObservers)
+        {
+            observer.PlayerTurnInitiated();
+        }
+    }
+
+    static public void SubscribeAsObserver(ITurnObserver observer)
+    {
+        S.turnObservers.Add(observer);
+    }
+    #endregion
+
+
+
+
+
+    #region  AOE and Barrier turn-based events
     /// <summary>
     /// For aoe fear obs to activate their fear increase once per turn. called only here
     /// </summary>
     void TriggerAOEFear()
     {
-        foreach(DestroyAfterRounds ob in S.destroyablesListOb)
+        foreach (DestroyAfterRounds ob in S.destroyablesListOb)
         {
-            
+
             ob.GetObToDestroy().GetComponent<AOEEffect>().boxColl.enabled = true;
         }
     }
 
     void ResetAOEFear()
     {
-        foreach(DestroyAfterRounds ob in S.destroyablesListOb)
+        foreach (DestroyAfterRounds ob in S.destroyablesListOb)
         {
-            
+
             ob.GetObToDestroy().GetComponent<AOEEffect>().boxColl.enabled = false;
         }
     }
@@ -201,17 +251,17 @@ public class TurnBasedSystem : MonoBehaviour
             S.destroyablesListOb.Add(this);
         }
 
-    
+
         public void CheckDestroy()
         {
-            if(destroyOnRound == S.playerTurnCount)
+            if (destroyOnRound == S.playerTurnCount)
             {
                 MazeCellObject cell = obToDestroy.GetComponentInParent<MazeCellObject>();
-                
+
                 MazeGenerator.Instance.SetWallInternalState(cell.GetXCoord(), cell.GetYCoord(), wallType, false); // Deactivate this wall internally in the maze array
                 obToDestroy.SetActive(false); // need set active so can be reselected letter
                 S.readyToDestroy.Add(this);
-                
+
             }
         }
 
@@ -220,19 +270,20 @@ public class TurnBasedSystem : MonoBehaviour
         /// </summary>
         public void CheckObDestroy()
         {
-            if(destroyOnRound == S.playerTurnCount)
+            if (destroyOnRound == S.playerTurnCount)
             {
                 S.readyToDestroyOb.Add(this);
                 Destroy(obToDestroy);
             }
         }
 
-    // used for aoe
+        // used for aoe
         public GameObject GetObToDestroy()
         {
             return obToDestroy;
         }
     }
+    #endregion
 
 
 }

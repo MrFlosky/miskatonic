@@ -26,7 +26,16 @@ public class SkillBarrier : Skill
 
     private void Awake()
     {
+        // For some reason the parent class, Skill, does not pass its reference to skillSystem as it should. Try
+        // debugging in various way but this my best fix. Simply calling get component again to get skillSystem.
         inputActions = new PlayerInputActions();
+        skillSystem = GetComponent<SkillSystem>();
+    }
+
+    private void Start()
+    {
+        // I had a bug because this was in awake thus stopping start from being called until this script became enabled again.
+        //Debug.Log(skillSystem != null);
         enabled = false;
     }
 
@@ -52,7 +61,7 @@ public class SkillBarrier : Skill
         {
             Vector2 mousePos = Vector2.zero;
             mousePos = GameInput.Instance.GetActiveGameDevice() == GameInput.GameDevice.KeyboardMouse ? Mouse.current.position.ReadValue() : VirtualMouseUI.Instance.GetVirtualMousePosition();
-            Ray ray = SkillSystem.GET_CAM().ScreenPointToRay(mousePos);
+            Ray ray = skillSystem.GET_CAM().ScreenPointToRay(mousePos);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit))
             {
@@ -204,7 +213,7 @@ public class SkillBarrier : Skill
 
     public override void ActivateSkill()
     {
-        if (SkillSystem.GET_PTS() >= ptDeduction)
+        if (skillSystem.GET_PTS() >= ptDeduction)
         {
             base.ActivateSkill();
             this.enabled = true;

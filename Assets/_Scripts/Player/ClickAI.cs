@@ -59,7 +59,7 @@ public class ClickAI : MonoBehaviour
         Vector2 mousePos = Vector2.zero;
         mousePos = GameInput.Instance.GetActiveGameDevice() == GameInput.GameDevice.KeyboardMouse ? Mouse.current.position.ReadValue() : VirtualMouseUI.Instance.GetVirtualMousePosition();
         // Determine the rooms being selected for a switch
-        Ray ray = SkillSystem.GET_CAM().ScreenPointToRay(mousePos);
+        Ray ray = Camera.main.ScreenPointToRay(mousePos);
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
 
@@ -132,7 +132,7 @@ public class ClickAI : MonoBehaviour
 
         var mousePos = GameInput.Instance.GetActiveGameDevice() == GameInput.GameDevice.KeyboardMouse ? Mouse.current.position.ReadValue() : VirtualMouseUI.Instance.GetVirtualMousePosition();
 
-        Ray ray = SkillSystem.GET_CAM().ScreenPointToRay(mousePos);
+        Ray ray = Camera.main.ScreenPointToRay(mousePos);
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
             if (hit.collider.CompareTag("AI"))

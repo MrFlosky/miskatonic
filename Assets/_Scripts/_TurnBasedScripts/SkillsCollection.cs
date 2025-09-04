@@ -11,7 +11,7 @@ using UnityEngine.UI;
 /// </summary>
 public class SkillsCollection : MonoBehaviour
 {
-    static private SkillsCollection S;
+    static public SkillsCollection S;
     /// Collection of Skill objects.
     List<Skill> skillList;
     
@@ -51,7 +51,7 @@ public class SkillsCollection : MonoBehaviour
         }
     }
 
-    static public void ENABLE_BUTTONS()
+    public void ENABLE_BUTTONS()
     {
         foreach(Skill skill in S.skillList)
         {
@@ -59,7 +59,7 @@ public class SkillsCollection : MonoBehaviour
         }
     }
 
-    static public void DISABLE_BUTTONS()
+    public void DISABLE_BUTTONS()
     {
         foreach(Skill skill in S.skillList)
         {
@@ -67,7 +67,7 @@ public class SkillsCollection : MonoBehaviour
         }
     }
 
-    static public void DEACTIVATE_SKILLS()
+    public void DEACTIVATE_SKILLS()
     {
         foreach(Skill skill in S.skillList)
         {

@@ -25,7 +25,7 @@ public class AgentManager : MonoBehaviour
         {
             agent.turnFinished = false;
         }
-        Turns.NextTurn(TurnType.Player);
+        TurnBasedSystem.StartPlayerTurn();
     }
     
     private bool CheckAgents()

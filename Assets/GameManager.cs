@@ -113,7 +113,7 @@ public class GameManager : MonoBehaviour
             agent.StopMovement();
         }
 
-        SkillsCollection.DISABLE_BUTTONS();
+        SkillsCollection.S.DISABLE_BUTTONS();
         Destroy(endTurnButton);
         clickAI.EndConversation();
         Destroy(clickAI.gameObject);
@@ -130,7 +130,7 @@ public class GameManager : MonoBehaviour
         {
             agent.StopMovement();
         }
-        SkillsCollection.DISABLE_BUTTONS();
+        SkillsCollection.S.DISABLE_BUTTONS();
         Destroy(endTurnButton);
         clickAI.EndConversation();
         Destroy(clickAI.gameObject);

@@ -27,6 +27,11 @@ public class SkillSwapRooms : Skill
     private void Awake()
     {
         inputActions = new PlayerInputActions();
+        skillSystem = GetComponent<SkillSystem>();
+    }
+
+    private void Start()
+    {
         enabled = false;
     }
 
@@ -52,7 +57,7 @@ public class SkillSwapRooms : Skill
         Vector2 mousePos = Vector2.zero;
         mousePos = GameInput.Instance.GetActiveGameDevice() == GameInput.GameDevice.KeyboardMouse ? Mouse.current.position.ReadValue() : VirtualMouseUI.Instance.GetVirtualMousePosition();
         // Determine the rooms being selected for a switch
-        Ray ray = SkillSystem.GET_CAM().ScreenPointToRay(mousePos);
+        Ray ray = skillSystem.GET_CAM().ScreenPointToRay(mousePos);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit))
         {
@@ -122,7 +127,7 @@ public class SkillSwapRooms : Skill
             AudioManager.PlaySFX(SFXType.SkillRoomswap);
             SwitchRooms(rm1Obj, rm2Obj, mRoomType1, mRoomType2);
             this.enabled = false; // Disable this skill after use
-            SkillsCollection.ENABLE_BUTTONS();
+            SkillsCollection.S.ENABLE_BUTTONS();
         }
     }
 
@@ -204,7 +209,7 @@ public class SkillSwapRooms : Skill
 
     public override void ActivateSkill()
     {
-        if (SkillSystem.GET_PTS() >= ptDeduction)
+        if (skillSystem.GET_PTS() >= ptDeduction)
         {
             base.ActivateSkill();
             this.enabled = true; // Enable the script allowing this skill to happen once

@@ -5,57 +5,34 @@ using UnityEngine;
 using DialogueEditor;
 using UnityEngine.Events;
 
-public class PlayerTurn : Turns
+public class PlayerTurn : Turns, ITurnObserver
 {
-    
-    public bool inConversation = false;
-    
-    // Start off as disabled, only enable on button press.
+    // How many points the player starts with each round
+    public int startingPoints;
+
     void Start()
     {
-        turnType = TurnType.Player; // Every turn script must set it's turn type.
-        this.enabled = false;
-        
-        ConversationManager.OnConversationStarted += () => inConversation = true;
-        ConversationManager.OnConversationEnded += () => inConversation = false;
-    }
-
-    // I can probably remove this...
-    float timeElapsed = 0f;
-    void Update()
-    {
-        timeElapsed += Time.deltaTime;
-        if(timeElapsed >= delayUntilNext)
-        {
-            NextTurn(TurnType.AI);
-            this.enabled = false;
-        }
+        TurnBasedSystem.SubscribeAsObserver(this);
     }
 
     /// <summary>
-    /// Enable this script, beginning the player turn. gonna need reference to button
+    /// What should this turn type do when its initiated.
+    /// Called as observer by TurnBasedSystem.
     /// </summary>
-    public void buttonPressed()
+    void ITurnObserver.PlayerTurnInitiated()
     {
-        timeElapsed = 0f;
-        this.enabled = true;
-        //base.InitiateTurn(); // Upcall DEBUG
-        //InitiateTurn();
-        
-        
-        if (inConversation)
-            ConversationManager.Instance.EndConversation();
+        turnText.text = "PLAYER TURN!";
+        endTurnButton.SetActive(true);
+        skillsUI.DISPLAY_SKILLS();
+        skillSystem.SET_PT(startingPoints);
+        skillSystem.DISPLAY_PTS();
+        GameManager.Instance.CHECK_ROUND_LOSE();
     }
 
-    /*
-    * UnityEvent turnEvents holds all actions to perform when the player's turn is initiated. 
-    * Not to be used by the player themselves!!
-    * Base functionality of every turn performed, then all those attaached to event.
-    */
-    public override void InitiateTurn()
+
+    void ITurnObserver.EnemyTurnInitiated()
     {
-        base.InitiateTurn(); // Upcall REINSTATE THIS
-        turnEvents.Invoke();
+        // NOTHING
     }
 
 }

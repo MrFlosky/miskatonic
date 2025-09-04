@@ -8,7 +8,7 @@ public class AOEEffect : MonoBehaviour
     [Header("How much fear is adding each turn an AI is in this AOE")]
     public int perTurnFear = 5;
     public BoxCollider boxColl; // gonna try turning on and off coll to reactivate ontrigger each turn. done by turnbasedsys
-    void Awake()
+    void Start()
     {
         boxColl = transform.GetComponent<BoxCollider>();
         boxColl.enabled = false;

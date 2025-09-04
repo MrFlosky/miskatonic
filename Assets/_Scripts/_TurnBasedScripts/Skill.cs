@@ -22,26 +22,19 @@ public class Skill : MonoBehaviour
     [Header("Event associated with this skill")]
     public UnityEvent skillEvent;
 
-    /// SkillType associated with this skill. Default to NeverSet for debugging.
-    protected SkillType st = SkillType.NeverSet; 
-
     /// Holding all skillButtons
     [Header("Dont assign here")]
     static public Button[] buttonList = new Button[4];
 
-    private PlayerInputActions inputActions;
+    // For some reason the parent class, Skill, does not pass its reference to skillSystem as it should. Try
+    // debugging in various way but this my best fix. Simply calling get component again to get skillSystem.
+    protected SkillSystem skillSystem;
 
     private void Awake()
     {
-        inputActions = new PlayerInputActions();
+        skillSystem = GetComponent<SkillSystem>();
     }
-    
-
-    void Update()
-    {
-        // You can put other update logic here if needed
-    }
-
+   
     /// <summary>
     /// Every skill can only be activated if the player has enough points.
     /// Upon activation, deduct its cost and invoke any event associated with
@@ -49,12 +42,12 @@ public class Skill : MonoBehaviour
     /// </summary>
     public virtual void ActivateSkill()
     {
-        if (SkillSystem.GET_PTS() >= ptDeduction) // Check if the player has enough points
+        if (skillSystem.GET_PTS() >= ptDeduction) // Check if the player has enough points
         {
             AudioManager.PlaySFX(SFXType.ButtonSelection);
             PlayerController.Instance.SetActiveSkill(this);
-            SkillSystem.DEDUCT_PT(ptDeduction);
-            SkillsCollection.DISABLE_BUTTONS();
+            skillSystem.DEDUCT_PT(ptDeduction);
+            SkillsCollection.S.DISABLE_BUTTONS();
             skillEvent.Invoke(); // Not using this for now
             // Stuff that happens when skill is activated!
         }
@@ -64,7 +57,7 @@ public class Skill : MonoBehaviour
     public virtual void EndSkill()
     {
         PlayerController.Instance.SetActiveSkill(null);
-        SkillsCollection.ENABLE_BUTTONS();
+        SkillsCollection.S.ENABLE_BUTTONS();
     }
 
     /// <summary>
@@ -77,7 +70,7 @@ public class Skill : MonoBehaviour
         {
             PlayerController.Instance.SetActiveSkill(null);
             AudioManager.PlaySFX(SFXType.ButtonSelection);
-            SkillSystem.ADD_PT(ptDeduction);
+            skillSystem.ADD_PT(ptDeduction);
             EndSkill();
         }
     }

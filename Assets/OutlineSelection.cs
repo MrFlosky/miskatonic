@@ -62,7 +62,7 @@ public class OutlineHighlight : MonoBehaviour
         Vector2 mousePos = Vector2.zero;
         mousePos = GameInput.Instance.GetActiveGameDevice() == GameInput.GameDevice.KeyboardMouse ? Mouse.current.position.ReadValue() : VirtualMouseUI.Instance.GetVirtualMousePosition();
         // Determine the rooms being selected for a switch
-        Ray ray = SkillSystem.GET_CAM().ScreenPointToRay(mousePos);
+        Ray ray = Camera.main.ScreenPointToRay(mousePos);
 
         // Disable previous highlight
         if (highlight != null)
