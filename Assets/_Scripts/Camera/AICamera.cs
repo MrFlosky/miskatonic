@@ -38,7 +38,7 @@ public class AICamera : MonoBehaviour
         if (isWaitingForBlend && !brain.IsBlending)
         {
             AIFearMeter.StartUpSlider(thisAIsFear.GetFear(), thisAIsFear.GetFearThreshold()); 
-            ConversationManager.Instance.StartConversation(_conversation);
+            //ConversationManager.Instance.StartConversation(_conversation);
 
             // Reset the flag to ensure it only triggers once per blend
             isWaitingForBlend = false;

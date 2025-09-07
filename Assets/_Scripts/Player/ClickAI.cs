@@ -9,6 +9,12 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using Yarn.Unity;
 
+
+/// <summary>
+/// This class is responsible for what happens upon clicking AI. Including:
+/// - Presenting dialogue
+/// - Camera transition
+/// </summary>
 public class ClickAI : MonoBehaviour
 {
     public Camera mainCamera; // Reference to the camera, if null defaults to main camera
@@ -19,6 +25,7 @@ public class ClickAI : MonoBehaviour
     public CinemachineTrackedDolly track;
     public float scrollSpeed = 1f; // Speed factor for scrolling
 
+    // Track if the AI has been clicked.
     public bool _clickedAI = false;
 
     private List<Transform> activeOutlines = new List<Transform>();
@@ -27,6 +34,7 @@ public class ClickAI : MonoBehaviour
 
     [SerializeField] Material outlineMaterial;
 
+    // buttons need to show/hide during dialogue
     public Button[] buttons;
 
     DialogueRunner dialogueRunner;
@@ -58,51 +66,53 @@ public class ClickAI : MonoBehaviour
 
         Vector2 mousePos = Vector2.zero;
         mousePos = GameInput.Instance.GetActiveGameDevice() == GameInput.GameDevice.KeyboardMouse ? Mouse.current.position.ReadValue() : VirtualMouseUI.Instance.GetVirtualMousePosition();
-        // Determine the rooms being selected for a switch
+        
+
         Ray ray = Camera.main.ScreenPointToRay(mousePos);
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
 
             if (hit.collider.CompareTag("AI"))
             {
-                DialogueBank dialogueBank = hit.collider.GetComponent<DialogueBank>();
-                if (dialogueBank.clicked)
+                GameObject aiGameObj = hit.collider.gameObject;
+
+                DialogueBank dialogueBank = aiGameObj.GetComponent<DialogueBank>();
+
+                // If AI was already clicked, play notify dialogue
+                if (dialogueBank.alreadyTalked)
                 {
                     dialogueRunner.StartDialogue("ClickedAlready");
                     return;
                 }
-                //name of object
-                string SelectedAI = hit.collider.gameObject.name;
 
-                //produces a random number, plays the corrisponding dialogue, then removes that number from the list
-                int dialogue = UnityEngine.Random.Range(0, dialogueBank.DialogueNum.Count);
-                PlayRandomDialogue(SelectedAI + dialogueBank.DialogueNum[dialogue]);
-                dialogueBank.DialogueNum.Remove(dialogueBank.DialogueNum[dialogue]);
-                dialogueBank.clicked= true;
-                
+                dialogueBank.PlayRandomDialogue();
+                dialogueBank.alreadyTalked = true;
 
 
 
 
-                //OLD DIALOGUE SYSTEM DO NOT DELETE UNTIL VERIFYING IT IS NO LONGER NEEDED
+                AudioManager.PlaySFX(SFXType.CharacterSelection);
+                _clickedAI = true;
+                PlayerController.Instance.clickedAI = _clickedAI;
+                var virtualCam = dialogueBank.gameObject.GetComponentInChildren<CinemachineVirtualCamera>(true);
 
-                // AudioManager.PlaySFX(SFXType.CharacterSelection); 
-                // _clickedAI = true;
-                // PlayerController.Instance.clickedAI = _clickedAI;
-                // var DialogueManager = hit.collider.GetComponentInChildren<DialogueManager>();
-                // var virtualCam = DialogueManager.GetCurrentDialogue().GetComponentInChildren<CinemachineVirtualCamera>(true);
-                // if (virtualCam)
-                // {
-                //     virtualCam.gameObject.SetActive(true);
-                //     virtualCam.enabled = true;
-                // }
-                // activeCamera = virtualCam;
-                // playerCam.enabled = false;
-                // DialogueManager.usedDialogue = true;
-                // foreach (var button in buttons)
-                // {
-                //     button.interactable = false;
-                // }
+                //Debug.Log(virtualCam != null);
+                //Debug.Log(virtualCam.gameObject.name);
+                //var DialogueManager = hit.collider.GetComponentInChildren<DialogueManager>();
+                if (virtualCam)
+                {
+                    virtualCam.gameObject.SetActive(true);
+                    virtualCam.enabled = true;
+                }
+                activeCamera = virtualCam;
+                playerCam.enabled = false;
+                foreach (var button in buttons)
+                {
+                    button.interactable = false;
+                }
+
+
+
             }
         }
     }

@@ -177,7 +177,7 @@ public class AgentNavigation : MonoBehaviour
         isMoving = false;
        
         //allows new dialogue
-        gameObject.GetComponent<DialogueBank>().clicked = false;
+        gameObject.GetComponent<DialogueBank>().alreadyTalked = false;
     }
 
     public void PauseMovement()
