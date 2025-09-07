@@ -1,0 +1,84 @@
+﻿title: IainSchweblin0
+---
+Iain slowly rises from the floor. He wipes his eyes, looking around the room. As soon as he comes to, he grabs his head and pushes himself against the wall. With his back flat against the wall, he begins to hyperventilate. “Oh god, Oh god”
+
+-> Create a strange noise that comes from down the hall
+    The sudden noise grabs Iain’s attention and he begins to collect his thoughts. He takes a deep breath a continues down the hallway, hand on the wall.
+-> Drop the temperature
+    The sudden change grabs Iain’s attention and he begins to collect his thoughts. He takes a deep breath a continues down the hallway, hand on the wall.
+-> Raise the lights
+    //<<call Remove_Fear()>>
+    The sudden change grabs Iain’s attention and he begins to collect his thoughts. He takes a deep breath a continues down the hallway, hand on the wall.
+-> Do nothing. Let his mind run in circles
+    //<<call Add_Fear()>>
+    He continues to hyperventilate. Eventually, he attempts to stand up, only to come crashing back to the floor. After several minutes, he tells himself he has to do something and starts to move down the hall.  
+===
+title: IainSchweblin1
+---
+Iain was used to the silence of The Great Plains, but this place was different. There was an unnatural stillness that crept deep within him. He could hear the sound of his heart beating in his chest and his blood as it ran cold. 
+->Let him stir in the silence
+    The sound of his heart beating reminds him he's alive and in control.
+->Create a dull sound from far off in the distance
+    //<<call Remove_Fear()>>
+    He looks around him only to find nothing. The sound was innoculous enough. He's glad to know the world is still turning. 
+->Fill his head with the sounds of people talking all around him
+    //<<call Add_Fear()>>
+    Iain grabs his head. This isolation is starting to get to him. The voices slowly dissipate, but a the feeling that he could be losing it lingers. 
+->Create a sharp ringing noise
+    Iain grabs his heead. "Where the hell is that coming from?" He walks further down the hall to investigate. 
+===
+title: IainSchweblin2
+---
+As the minutes turn to hours, his mind goes to Grace. Did someone do this to him because of her? Who would stalk his dead wife's grave site? Who would trap him in this kind of place?
+->This place must be under the cemetery. Like some lost catacombs.
+    //<<call Remove_Fear()>>
+    "Yeah! That could be it!" He feels a wave of hope. 
+->Why would someone change the words on her gravestone?
+    No use speculating. There is no way he can find answers by just standing around. 
+->You didn’t appreciate her enough while she was alive. This is God punishing you.
+    He remembers the way that she smiled at him whenever he walked in the door, and the way she gasped whenever he got her flowers. That can't be true. 
+->Her soul has trapped you here. You failed to protect your wife when she needed you the most. You've been a neglectful father, careless with her children's childhoods. 
+    //<<call Add_Fear()>>
+    “I’m so sorry, Grace.” He holds back tears. 
+===
+title: IainSchweblin3
+---
+Iain thinks deeply about what happened before he blacked out, trying to find any answers. 
+->"There was a storm coming, maybe you got hit by lightning and this is some sort of coma."
+    Iain doesn't remember there being a storm going on. He shakes the thought from his mind. 
+->"Someone else must have known you were coming to see Grace and captured you."
+    "What would kidnapping me do?" He shakes the thought from his mind. 
+->"Maybe you fell on the walk back and hit your head."
+    "This feels too real." He shakes the thought from his mind. 
+->"The kids are still in the car."
+    //<<call Add_Fear()>>
+    “Oh my god, THE KIDS” He goes into a frenzy. "What happened to the kids? Are they in here? Did someone notice that they were left there? How are they going to get back home?" He paces back and forth, sweating profusely.
+===
+title: IainSchweblin4
+---
+The rows of brick melt into a hypnotic pattern as he walks down corridor after corridor. He can feel his mind slipping.
+->"Think of Grace and the kids"
+    //<<call Remove_Fear()>>
+    This thought soothes him and gives him the courage to keep looking for a way out.
+->Do nothing.
+    He pulls himself together. "Gotta keep moving"
+->Force a draft of air through the corridor that spins him around.
+    //<<call Remove_Fear()>>
+    "WOAH!" He laughs to himself a little after he regains his balance. "That wind must have come from somewhere!"
+->"You're going crazy."
+    //<<call Add_Fear()>>
+    He starts to sweat and his legs buckle. "What can I do?" He feels hopeless
+===
+title: IainSchweblin5
+---
+A voice comes booming in from deeper in the maze. He can't make out what it's saying.
+->"Hide"
+    Iain tries to escape the approaching noise, but it suddenly goes silent. He looks back down the hallway and sees nothing. 
+->"Run"
+    Iain tries to escape the approaching noise, but it suddenly goes silent. He looks back down the hallway and sees nothing. 
+->"Stand Still"
+    Iain stands facing the approaching noise, but it suddenly goes silent. He looks down the hallway and sees nothing. 
+->"There is nothing here. You're going crazy."
+    //<<call Add_Fear()>>
+    Iain stops for a moment, looking back at the noise. He shakes his head. "God, I'm really losing it" He continues walking with his shoulders tensed. 
+===

@@ -1,0 +1,107 @@
+﻿title: MackenzieJoyce0
+---
+Maackenzie looks around the room, feeling a pressure in her chest. She tries to scream, but can't find the air. 
+->Raise the lights 
+        She collects herself, takes a few breaths, and starts to focus. Looking around the hall for anything familiar, she begins to worry. Everything looks so foreign. 
+->"You have to get up"
+        //<<call Remove_Fear()>>
+        This affirms her. She pushes herself off the ground, takes a few breaths, and starts to focus. Looking around the hall for anything familiar, she begins to worry. Everything looks so foreign. 
+->Create a ringing sound coming from the darkness
+        //<<call Add_Fear()>>
+        She looks all around for the source of the sound. The past comes flooding back to her. Dread sets in. "He's still after me." She begins to run down the hall, away from the noise.
+->Flash a blue light in the distance
+        //<<call Add_Fear()>>
+        She looks down at the floor and sees the blue light diffuse on the floor. It feels like it is moving towards her. Dread sets in. "He's still after me" She begins to run down the hall, away from the noise.
+===
+title: MackenzieJoyce1
+---
+"Where am I?" She tries to recall what brought her here, but draws a blannk. It was a normal day, as far as she remembers. 
+->"What do you not understand? It's obvious what happened."
+        //<<call Add_Fear()>>
+        Mackenzie's head begins to hurt. She places the palms against her forehead and tries to focus, but her mind is racing. 
+->"Prison"
+        This leaves her with more questions. Why would she be locked up? What did she do?
+->"Purgatory"
+        This leaves her with more questions. Did she die? She feels fine. This doesn't add up to her.
+->"Punishment"
+        This leaves her with more questions. Punishment for what? What did she do?
+===
+title: MackenzieJoyce2
+---
+Mackenzie shivers. It feels like the air is getting progressively colder. She starts to walk faster, hoping that the movement will warm her up.
+->Lower the temperature
+        She starts to shake. "God, its so cold." She is more sure in herself now. This trap is responding to her, maybe she can begin to figure it out.
+->Raise the temperature
+        //<<call Remove_Fear()>>
+        She slows down as the air in the room becomes much more confortable.
+->Increase the sound of her footsteps
+        //<<call Add_Fear()>>
+        The sound of her footsteps start to pound in her ears. The more she exerts herself, the worse it gets. She can hardly stand it. 
+===
+title: MackenzieJoyce3
+---
+Mackenzie begins to break. She can't find anything here. No people. No answers. No nothing.
+->Do nothing. Let her stir.
+        Mackenzie sighs. She knows she has to keep going, but it is getting harder to convince her legs to move.
+->"You will find nothing."
+        Mackenzie sighs. She knows she has to keep going, but it is getting harder to convince her legs to move.
+->"This is hell"
+        Mackenzie sighs. There is no use trying to diagnose it now. She knows she has to keep going, but it is getting harder to convince her legs to move.
+->"The old man put you here"
+        //<<call Add_Fear()>>
+        It finally dawns on her. Why did she do this to her? She begins to sweat profusely. What did she do to that man? Why? She screams
+===
+title: MackenzieJoyce4
+---
+Mackenzie's mind starts to wander from outside her confines. She thinks to her job. Did her coworkers see her get kidnapped? Did they report her missing?
+->"They must have reported something"
+        //<<call Remove_Fear()>>
+        "Someone must be coming to help me." She feels an inkling of hope.
+->"Maybe they are also stuck in here"
+        //<<call Remove_Fear()>>
+        "Maybe I can find them!" She starts to call out their names. Her voice echoes throughout the halls. 
+->"What is there to notice missing?"
+        //<<call Add_Fear()>>
+        Her sholders drop as she holds the weight of shame. Why would anybody waste time looking for her?
+->"Maybe they trapped you in here"
+        Mackenzie thinks about this for a second, but it makes no sense to her. Why would they do that? She laughs a little at the thought.
+===
+title: MackenzieJoyce5
+---
+Mackenzie tries to think back to when she was taken. What happened?
+->"What? You can't remember? Jesus, you really are slow."
+        //<<call Add_Fear()>>
+        She tries as hard as she can to think back to that moment, but comes up short. Dejected, she continues forward.
+->"There was a old man who took you."
+        She remembers the old man. Skinny, tall, and eyes that saw for miles. She keeps trying to piece together the past.
+->"You just hit your head."
+        She doesn't remember hitting her head on anything, but she entertains it as a possibility.
+->Say nothing
+        Mackenzie shakes the thought and continues moving down the hall. 
+===
+title: MackenzieJoyce6
+---
+She runs her hand along the cracks in the wall. Knocking at the brick, marks are left on her pale knuckles. 
+->"There is something beyond these walls."
+        She thinks about this for a moment before putting her ear up to the wall, only to hear nothing.
+->"There is something lurking here"
+        She looks at the cracks in the walls. They seem natural.
+->"Nothing is here"
+        Mackenzie rests her palms against the wall, taking a moment to breath. 
+->"You are wasting your time. going around and around and around and around..."
+        //<<call Add_Fear()>>
+        Mackenzie rests her palms against the wall, taking a moment to breath. She is beginning to feel as if there is no escape.
+===
+title: MackenzieJoyce7
+---
+Mackenzie sulks as she walks down the hall. 
+->"Hey! Chin up, kid!"
+        //<<call Remove_Fear()>>
+        She laughs a little. This reminds Mackenzie of her father. 
+->"You can do it!"
+        //<<call Remove_Fear()>>
+        She tries to muster up some drive to continue, but the hours are wearing on her.
+->"It's a simple maze. A child's game"
+        //<<call Add_Fear()>>
+        She feels depressed. She sits on the floor and lies down.
+===
