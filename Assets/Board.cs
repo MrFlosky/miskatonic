@@ -3,27 +3,37 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Handles manipulation of the entire game board
+/// </summary>
 public class Board : MonoBehaviour
 {
     public bool isFlipped = false;
     public float flipDuration = 1f;
     public float flipSteps = 30f;
+    public MeshRenderer[] NPCModels;
 
-    private void Start()
-    {
-        FlipBoard();
-    }
+
+    /// <summary>
+    /// Flips the gameboard and disables any other models
+    /// </summary>
     public void FlipBoard()
     {
         StartCoroutine(nameof(FlipRoutine));
-        Debug.LogWarning("Flip called!");
+        foreach (MeshRenderer model in NPCModels)
+        {
+            model.enabled = !model.enabled;
+        }
     }
 
     public IEnumerator FlipRoutine()
-    { 
-        Debug.LogWarning("Flip stepped!");
-        transform.Rotate(new Vector3(180 / flipSteps, 0, 0));
-        yield return new WaitForSeconds(flipDuration / flipSteps);
+    {
+        for (int i = 0; i < flipSteps; i++)
+        {
+            transform.Rotate(new Vector3(180 / flipSteps, 0, 0));
+            yield return new WaitForSeconds(flipDuration / flipSteps);
+        }
+        MinigameManager.Instance.gameStarted = !MinigameManager.Instance.gameStarted;
     }
 
 }
