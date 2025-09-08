@@ -15,6 +15,9 @@ public class ModifyValsInterface : MonoBehaviour
     [SerializeField] private int numberOfTOTALRoundsUntilDefeat = 30;
     [SerializeField] private int totalFearToWin = 400;
     [SerializeField] private int aoeFearAddedPerTurn = 10;
+    [SerializeField] private int dialogueFearAdd = 10;
+    [SerializeField] private int dialogueFearReduce = 10;
+
     
     [Header("0:Evelyn _ 1:Harold _ 2:Iain _ 3:Mackenzie")]
     [SerializeField] private int[] aiStartingFear = new int[4];
@@ -38,6 +41,10 @@ public class ModifyValsInterface : MonoBehaviour
         numberOfTOTALRoundsUntilDefeat = 30;
         totalFearToWin = 400;
 
+        // idk if these are the originals, i forget
+        dialogueFearAdd = 10;
+        dialogueFearReduce = 10;
+
         foreach (Fear aiFear in fearArray)
         {
             aiFear.fearThreshold = 100;
@@ -55,6 +62,8 @@ public class ModifyValsInterface : MonoBehaviour
         aoe.perTurnFear = aoeFearAddedPerTurn;
         gm.roundsUntilDefeat = numberOfTOTALRoundsUntilDefeat;
         gm.winFear = totalFearToWin;
+        DialogueBank.fearAdd = dialogueFearAdd;
+        DialogueBank.fearReduce = dialogueFearReduce;
         // have to do this here bc maxval set once in awake for fmet
         // same does NOT have to be done for ai fmet bc its updated upon clicking ai
         fm.slid.maxValue = totalFearToWin;

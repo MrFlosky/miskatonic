@@ -153,17 +153,27 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
     }
 
 
+
+    // Changed by balance value interface, controls
+    // how much fear is added/reduced with yarn script 
+    // commands. Based on assumption that these are
+    // consistent across all characters and dialogues.
+    public static int fearAdd;
+    public static int fearReduce;
+    /// <summary>
+    ///  These are the functions that are used within the yarn scripts
+    /// </summary>
     #region Yarn Commands
     [YarnCommand("add_fear")]
-    public void YarnAddFear(int fear)
+    public void YarnAddFear()
     {
-        characterFear.AddFear(fear);
+        characterFear.AddFear(fearAdd);
     }
 
     [YarnCommand("reduce_fear")]
-    public void YarnReduceFear(int fear)
+    public void YarnReduceFear()
     {
-        characterFear.AddFear(fear);
+        characterFear.AddFear(fearReduce);
     }
     #endregion
 
