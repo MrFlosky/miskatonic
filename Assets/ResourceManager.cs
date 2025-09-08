@@ -43,10 +43,28 @@ public class ResourceManager : MonoBehaviour
         worshipText.text = "Worship Points: " + worshipPoints;
     }
 
+    public void SetWorship(int num)
+    {
+        worshipPoints = num;
+        worshipText.text = "Worship Points: " + worshipPoints;
+    }
+
     public void RemoveWorship(int num)
     {
         if (worshipPoints >= 0) worshipPoints -= num;
         worshipText.text = "Worship Points: " + worshipPoints;
+    }
+
+    public void HideResourceText()
+    {
+        idolText.enabled = false;
+        worshipText.enabled = false;
+    }
+
+    public void ShowResourceText()
+    {
+        idolText.enabled = true;
+        worshipText.enabled = true;
     }
     
 }

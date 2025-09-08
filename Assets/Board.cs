@@ -11,7 +11,7 @@ public class Board : MonoBehaviour
     public bool isFlipped = false;
     public float flipDuration = 1f;
     public float flipSteps = 30f;
-    public MeshRenderer[] NPCModels;
+    public GameObject[] NPCModels;
     private bool starting = true;
 
 
@@ -31,9 +31,9 @@ public class Board : MonoBehaviour
         if (!starting) MinigameManager.Instance.gameRunning = false;
         else
         {
-            foreach (MeshRenderer model in NPCModels)
+            foreach (GameObject model in NPCModels)
             {
-                model.enabled = false;
+                model.SetActive(false);
             }
         }
 
@@ -48,9 +48,9 @@ public class Board : MonoBehaviour
         if (starting) MinigameManager.Instance.gameRunning = true;
         else
         {
-            foreach (MeshRenderer model in NPCModels)
+            foreach (GameObject model in NPCModels)
             {
-                model.enabled = true;
+                model.SetActive(true);
             }
         }
 

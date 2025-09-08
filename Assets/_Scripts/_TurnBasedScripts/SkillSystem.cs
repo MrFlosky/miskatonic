@@ -22,21 +22,38 @@ public enum SkillType{Skill1, Skill2, Skill3, NeverSet};
 public class SkillSystem : MonoBehaviour
 {
 
-    public static SkillSystem S { get; private set; }
     /// The text that holds current points
     public TextMeshProUGUI txt;
 
     /// Camera used for detecting clicks. Defaults to main in scene.
     public Camera mainCam;
 
+    public int availablePts
+    {
+        get
+        {
+            return ResourceManager.Instance.worshipPoints;
+        }
+        set
+        {
+            ResourceManager.Instance.SetWorship(value);
+        }
+    }
+
     void Start()
     {
-        S = this;
         if (mainCam == null)
         {
             mainCam = Camera.main; // Use main camera if none specified
         }
     }
+
+
+    public void HIDE_PTS()
+    {
+        ResourceManager.Instance.HideResourceText();
+    }
+
 
 
     public Camera GET_CAM()

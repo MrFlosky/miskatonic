@@ -30,6 +30,7 @@ public class MinigameManager : MonoBehaviour
     private List<Vector3[]> spawnpoints = new List<Vector3[]>();
 
     private PlayerInputActions inputActions;
+    public SkillSystem skillSystem;
 
     private void Awake()
     {
@@ -46,7 +47,7 @@ public class MinigameManager : MonoBehaviour
         spawnpoints.Add(edge3Spawnpoints);
         spawnpoints.Add(edge4Spawnpoints);
         // give a free idol for testing purposes
-        //ResourceManager.Instance.AddIdols(1);
+        ResourceManager.Instance.AddIdols(1);
 
     }
 
@@ -138,7 +139,7 @@ public class MinigameManager : MonoBehaviour
         Vector2 mousePos = Vector2.zero;
         mousePos = GameInput.Instance.GetActiveGameDevice() == GameInput.GameDevice.KeyboardMouse ? Mouse.current.position.ReadValue() : VirtualMouseUI.Instance.GetVirtualMousePosition();
         
-        Ray ray = SkillSystem.GET_CAM().ScreenPointToRay(mousePos);
+        Ray ray = skillSystem.GET_CAM().ScreenPointToRay(mousePos);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit))
         {
