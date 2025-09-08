@@ -99,7 +99,7 @@ public class SkillAoeFear : Skill
 
     public override void ActivateSkill()
     {
-        if(skillSystem.GET_PTS() >= ptDeduction)
+        if(ResourceManager.Instance.worshipPoints >= ptDeduction)
         {
             base.ActivateSkill();
             enabled = true; // Enable the script allowing this skill to happen once.
