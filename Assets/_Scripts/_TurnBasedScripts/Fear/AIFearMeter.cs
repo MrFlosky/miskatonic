@@ -14,12 +14,16 @@ public class AIFearMeter : MonoBehaviour
     private static AIFearMeter S;
     private Slider aiSlider;
     private Heartbeats heartbeats;
+
+    // gameobject that slider is attached to, child of AIFearMeter script
+    GameObject visibleSlider;
     private int fear;
     void Awake()
     {
         S = this;
         aiSlider = GetComponent<Slider>();
         heartbeats = transform.GetChild(0).GetComponent<Heartbeats>();
+        visibleSlider = transform.GetChild(0).gameObject;
         S.enabled = false;
     }
 
@@ -31,7 +35,7 @@ public class AIFearMeter : MonoBehaviour
         timeElapsed += Time.deltaTime;
         aiSlider.value = Mathf.Lerp(aiSlider.value, fear, timeElapsed * sliderSpeed);
 
-        if(aiSlider.value == fear)
+        if (aiSlider.value == fear)
         {
             S.enabled = false;
         }
@@ -48,7 +52,7 @@ public class AIFearMeter : MonoBehaviour
         //S.enabled = false; // not sure if needed here. maybe just on awake have enabled false.
         S.heartbeats.StartHeartbeat(currentFear, maxFear);
         S.fear = currentFear;
-        S.aiSlider.maxValue = maxFear; 
+        S.aiSlider.maxValue = maxFear;
         S.aiSlider.value = currentFear;
     }
 
@@ -63,6 +67,17 @@ public class AIFearMeter : MonoBehaviour
         S.timeElapsed = 0;
         S.fear = newFear;
         S.enabled = true;
+    }
+
+
+    static public void DisplayAIMeter()
+    {
+        S.visibleSlider.SetActive(true);
+    }
+
+    static public void HideAIMeter()
+    {
+        S.visibleSlider.SetActive(false);
     }
 
 

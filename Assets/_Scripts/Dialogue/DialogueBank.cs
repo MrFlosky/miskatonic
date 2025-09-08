@@ -4,6 +4,7 @@ using UnityEngine;
 using Yarn;
 using Yarn.Unity;
 
+
 /// <summary>
 /// This class will be responsible for accessing the respective dialogues for each character.
 /// It automatically detects how many dialogues a given character has based on a strict file structure.
@@ -13,7 +14,12 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
     /// <summary>
     /// The main way to manipulate the state of dialog.
     /// </summary>
-    DialogueRunner DR;
+    private DialogueRunner dialgoueRunner;
+
+    /// <summary>
+    /// Character's given fear, used for yarn commands
+    /// </summary>
+    private Fear characterFear;
 
     // Number of total dialogues this character has.
     private int totalDialogues;
@@ -32,45 +38,134 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
     void Start()
     {
         TurnBasedSystem.SubscribeAsObserver(this);
+        dialgoueRunner = FindObjectOfType<DialogueRunner>();
+        characterFear = GetComponent<Fear>();
 
-        DR = FindObjectOfType<DialogueRunner>();
         characterFullName = characterFirstName + characterLastName;
 
         LoadYarnDialogues();
         dialoguesRemaining = totalDialogues;
 
-        
-
     }
 
     /// <summary>
-    /// Loads respective character's dialogues from resource folder and stores them
-    /// in a dictionary.
+    /// Load respective character's yarn script and count all
+    /// the dialogues within it by counting "title" within text file.
     /// </summary>
     void LoadYarnDialogues()
     {
         string characterPath = $"YarnScripts/{characterFirstName}";
         TextAsset[] textAssets = Resources.LoadAll<TextAsset>(characterPath);
 
-        Debug.Log($"Found {textAssets.Length} text files for {characterFirstName}");
+        if (textAssets.Length > 0 && textAssets[0] != null)
+        {
+            string documentText = textAssets[0].text;
+            int titleCount = CountDialogueNodes(documentText);
+            totalDialogues = titleCount;
+            Debug.Log($"'{textAssets[0].name}' has {titleCount} title occurrences");
+        }
+        else
+        {
+            Debug.LogError($"No text asset found in path: {characterPath}");
+        }
     }
 
+    /// <summary>
+    /// Play random dialogue for given character,
+    /// then remove that dialogue index as a possibility.
+    /// </summary>
     public void PlayRandomDialogue()
     {
+
+        ClickAI.S.StartConversation();
+        // add function to be called when dialogue ends. cannot be done in start,
+        // otherwise all dialoguebank gameobjects listening for event at same time
+        dialgoueRunner.onDialogueComplete.AddListener(EndDialogue);
+
         // need do smth when out of dialogues
         int dialogueKey = UnityEngine.Random.Range(0, dialoguesRemaining - 1);
         string yarnAcessStr = characterFullName + dialogueKey;
-        DR.StartDialogue(yarnAcessStr);
+        dialgoueRunner.StartDialogue(yarnAcessStr);
+
+        dialoguesRemaining -= 1;
 
     }
+
+    /// <summary>
+    /// Calls events that must happen when dialogue ends
+    /// </summary>
+    private void EndDialogue()
+    {
+     
+        dialgoueRunner.onDialogueComplete.RemoveListener(EndDialogue);
+
+        // Events that need to happen when dialogue has ended. This
+        // is a bit messy since these StartDialogue events also happen in AICamera
+        ClickAI.S.EndConversation();
+        Heartbeats.S.StopHeartbeat();
+        AIFearMeter.HideAIMeter();
+    }
+
+    /// <summary>
+    /// Called when AI has already been spoken to in given turn
+    /// </summary>
+    public void AlreadyTalked()
+    {
+        dialgoueRunner.StartDialogue("ClickedAlready");
+    }
+
 
     // When play turn is initiated, re-allow interaction with this npc
     void ITurnObserver.PlayerTurnInitiated()
     {
         alreadyTalked = false;
     }
-    void ITurnObserver.EnemyTurnInitiated(){}
+    void ITurnObserver.EnemyTurnInitiated() { }
 
+
+
+
+
+    /// <summary>
+    /// Helper function to count number of dialogues in a yarn file,
+    /// by counting titles.
+    /// </summary>
+    /// <param name="text">
+    /// Entire yarn script in string format
+    /// </param>
+    /// <returns>
+    /// Number of dialogues in yarn file
+    /// </returns>
+    private int CountDialogueNodes(string text)
+    {
+        string searchTerm = "title";
+        int count = 0;
+        int index = 0;
+
+        // Count occurrences
+        while ((index = text.IndexOf(searchTerm, index)) != -1)
+        {
+            count++;
+            index += searchTerm.Length;
+        }
+
+        return count;
+    }
+
+
+    #region Yarn Commands
+    [YarnCommand("add_fear")]
+    public void YarnAddFear(int fear)
+    {
+        characterFear.AddFear(fear);
+    }
+
+    [YarnCommand("reduce_fear")]
+    public void YarnReduceFear(int fear)
+    {
+        characterFear.AddFear(fear);
+    }
+    #endregion
 
 
 

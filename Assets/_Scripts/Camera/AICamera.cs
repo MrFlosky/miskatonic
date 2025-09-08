@@ -10,8 +10,9 @@ using UnityEngine.UI;
 public class AICamera : MonoBehaviour
 {
     [SerializeField] private CinemachineBrain brain;
-    [SerializeField] private NPCConversation _conversation;
     [SerializeField] private GameObject _canvas;
+    private DialogueBank dialogueBank;
+
     /// <summary>
     /// AI Camera is responsible for setting the AI's fear
     /// slider with the AI's current fear upon starting a convo.
@@ -22,6 +23,7 @@ public class AICamera : MonoBehaviour
 
     private void Awake()
     {
+        dialogueBank = transform.parent.GetComponent<DialogueBank>();
         thisAIsFear = transform.parent.GetComponent<Fear>();
         if (Camera.main != null) brain = Camera.main.GetComponent<CinemachineBrain>();
     }
@@ -34,11 +36,13 @@ public class AICamera : MonoBehaviour
             isWaitingForBlend = true; // Start tracking the blend
         }
 
-        // After blending is done, enable the canvas and start the dialogue
+        // After blending is done, enable the ai's fear meter and start the dialogue
         if (isWaitingForBlend && !brain.IsBlending)
         {
-            AIFearMeter.StartUpSlider(thisAIsFear.GetFear(), thisAIsFear.GetFearThreshold()); 
-            //ConversationManager.Instance.StartConversation(_conversation);
+            AIFearMeter.StartUpSlider(thisAIsFear.GetFear(), thisAIsFear.GetFearThreshold());
+            AIFearMeter.DisplayAIMeter();
+            dialogueBank.PlayRandomDialogue();
+
 
             // Reset the flag to ensure it only triggers once per blend
             isWaitingForBlend = false;

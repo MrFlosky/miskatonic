@@ -22,9 +22,9 @@ public class Skill : MonoBehaviour
     [Header("Event associated with this skill")]
     public UnityEvent skillEvent;
 
-    /// Holding all skillButtons
-    [Header("Dont assign here")]
-    static public Button[] buttonList = new Button[4];
+    // end turn button, just hangin out as a loose variable
+    public Button endTurnButton;
+
 
     // For some reason the parent class, Skill, does not pass its reference to skillSystem as it should. Try
     // debugging in various way but this my best fix. Simply calling get component again to get skillSystem.
@@ -48,14 +48,17 @@ public class Skill : MonoBehaviour
             PlayerController.Instance.SetActiveSkill(this);
             skillSystem.DEDUCT_PT(ptDeduction);
             SkillsCollection.S.DISABLE_BUTTONS();
+            endTurnButton.interactable = false;
             skillEvent.Invoke(); // Not using this for now
             // Stuff that happens when skill is activated!
         }
     }
 
-    // Each skill must perform different functions to end itself. Called on end turn!
+    // Each skill must perform different functions to end itself.
+    //  Called on fully exiting skill end turn!
     public virtual void EndSkill()
     {
+        endTurnButton.interactable = true;
         PlayerController.Instance.SetActiveSkill(null);
         SkillsCollection.S.ENABLE_BUTTONS();
     }

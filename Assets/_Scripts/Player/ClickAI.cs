@@ -11,12 +11,15 @@ using Yarn.Unity;
 
 
 /// <summary>
+/// NEEDS REFACTOR BADLY!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 /// This class is responsible for what happens upon clicking AI. Including:
 /// - Presenting dialogue
 /// - Camera transition
 /// </summary>
 public class ClickAI : MonoBehaviour
 {
+    public static ClickAI S;
+
     public Camera mainCamera; // Reference to the camera, if null defaults to main camera
     public CinemachineVirtualCamera playerCam;
     public CinemachineVirtualCamera activeCamera;
@@ -37,11 +40,10 @@ public class ClickAI : MonoBehaviour
     // buttons need to show/hide during dialogue
     public Button[] buttons;
 
-    DialogueRunner dialogueRunner;
 
     private void Start()
     {
-        dialogueRunner = FindObjectOfType<Yarn.Unity.DialogueRunner>();
+        S = this;
         if (mainCamera == null)
         {
             mainCamera = Camera.main; // Use main camera if none specified
@@ -49,15 +51,6 @@ public class ClickAI : MonoBehaviour
 
         activeCamera = playerCam;
         track = playerCam.GetCinemachineComponent<CinemachineTrackedDolly>();
-
-        ConversationManager.OnConversationStarted += StartConversation;
-        ConversationManager.OnConversationEnded += EndConversation;
-    }
-
-    private void OnDestroy()
-    {
-        ConversationManager.OnConversationStarted -= StartConversation;
-        ConversationManager.OnConversationEnded -= EndConversation;
     }
 
     public void OnClick(InputAction.CallbackContext context)
@@ -75,30 +68,23 @@ public class ClickAI : MonoBehaviour
             if (hit.collider.CompareTag("AI"))
             {
                 GameObject aiGameObj = hit.collider.gameObject;
-
                 DialogueBank dialogueBank = aiGameObj.GetComponent<DialogueBank>();
-
                 // If AI was already clicked, play notify dialogue
                 if (dialogueBank.alreadyTalked)
                 {
-                    dialogueRunner.StartDialogue("ClickedAlready");
+                    dialogueBank.AlreadyTalked();
                     return;
                 }
-
-                dialogueBank.PlayRandomDialogue();
                 dialogueBank.alreadyTalked = true;
 
 
 
-
+                // camera and sound effect
                 AudioManager.PlaySFX(SFXType.CharacterSelection);
                 _clickedAI = true;
                 PlayerController.Instance.clickedAI = _clickedAI;
                 var virtualCam = dialogueBank.gameObject.GetComponentInChildren<CinemachineVirtualCamera>(true);
 
-                //Debug.Log(virtualCam != null);
-                //Debug.Log(virtualCam.gameObject.name);
-                //var DialogueManager = hit.collider.GetComponentInChildren<DialogueManager>();
                 if (virtualCam)
                 {
                     virtualCam.gameObject.SetActive(true);
@@ -106,8 +92,11 @@ public class ClickAI : MonoBehaviour
                 }
                 activeCamera = virtualCam;
                 playerCam.enabled = false;
+
+                // disable buttons 
                 foreach (var button in buttons)
                 {
+                    Debug.Log(button.gameObject.name);
                     button.interactable = false;
                 }
 
@@ -259,12 +248,20 @@ public class ClickAI : MonoBehaviour
     }
 
 
-    private void StartConversation()
+    /// <summary>
+    /// Apparently this is important to call at start of conversation, not sure why!
+    /// Seems to disable camera controls at end of convo if this is not called?
+    /// </summary>
+    public void StartConversation()
     {
         _clickedAI = false;
         _inConversation = true;
     }
 
+
+    /// <summary>
+    /// Returns the camera back to its main state and some other stuff?
+    /// </summary>
     public void EndConversation()
     {
         PlayerController.Instance.clickedAI = false;
@@ -293,10 +290,5 @@ public class ClickAI : MonoBehaviour
     }
 
 
-
-    private void PlayRandomDialogue(string dialogueName)
-    {
-        dialogueRunner.StartDialogue(dialogueName);
-    }
 
 }

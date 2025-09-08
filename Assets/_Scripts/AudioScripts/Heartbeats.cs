@@ -10,7 +10,7 @@ using UnityEngine;
 /// </summary>
 public class Heartbeats : MonoBehaviour
 {
-    private static Heartbeats S;
+    public static Heartbeats S;
     public AudioSource heartbeat;
     public AudioSource mainTheme;
     float heartbeatPitch;
