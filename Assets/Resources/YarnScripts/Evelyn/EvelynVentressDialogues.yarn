@@ -6,7 +6,7 @@ Evelyn's head scans the hallway as she walks, slowly side to side. She walks ass
 ->Create a gust of wind that goes through her
         "I must be aboveground... somewhere." She notes this, but continues moving.
 ->Do nothing. Complete stillness
-        //<<call Add_Fear()>>
+        <<add_fear "Evelyn Ventress">>
         She is completely lost. "Where could I be? What happened?"
 ->"What could be beyond the darkness"
         She continues forward, determine to answer that question.
@@ -21,7 +21,7 @@ Evelyn taps at her smart watch, trying to get it to come alive. The screen flick
 ->"Worth a shot"
         She unlatches the watch from her wrist, sliding it back into her pocket. She explores further, but hears a sharp popping noise as she walks away. She ignores it and continues moving.
 ->"No one can reach you here"
-        //<<call Add_Fear()>>
+        <<add_fear "Evelyn Ventress">>
         She stops for a second, thinks to herself, and looks down at the watch. Frantically, she starts to shake her wrist with her other hand, hoping that she can will it back to life. Suddenly, it begins glowing a bright blue light. Evelyn covers her eyes. Just as she begins to reopen them, the screen goes dark and smoke emanates from the watch. She throws it to the floor and keeps on walking. 
 ===
 title: EvelynVentress2
@@ -32,7 +32,7 @@ title: EvelynVentress2
 ->"Anything could be down here with you"
         She ignores the thought. "Focus."
 ->"SLOW DOWN. You don't know what could be ahead."
-        //<<call Add_Fear()>>
+        <<add_fear "Evelyn Ventress">>
         "Makes sense." She slows down. Her mind starts racing, trying to figure out where she is. The lack of answers unnerves her. 
 ->Do nothing
         She continues jogging down the hallway. 
@@ -45,7 +45,7 @@ title: EvelynVentress3
 ->Make it sound solid
         She looks at the wall confused. She continues down the hallway, looking for rooms. 
 ->Hear the sounds of people talking on the other side
-        //<<call Add_Fear()>>
+        <<add_fear "Evelyn Ventress">>
         "What is going on?" She feels like she is a rat in a maze, like there are eyes are watching her. 
 ->No sound at all
         "Strange..." She has never experinced anything like this. The seemingly innocuous nature of this phenomenon excites her. 
@@ -58,7 +58,7 @@ title: EvelynVentress4
 ->"You have to keep fighting"
         Evelyn gets up off the floor and pulls herself together. No reason to waste her time here. 
 ->"There is no way to know"
-        //<<call Add_Fear()>>
+        <<add_fear "Evelyn Ventress">>
         She lets herself fall apart for a moment. Her movements are slower now as she begins to get up. She now walks with a invisible weight around her neck.
 ===
 title: EvelynVentress5
@@ -67,41 +67,41 @@ title: EvelynVentress5
 ->"You should have known that guy couldn't be trusted."
         How could she have known? She shakes the thought from her mind. 
 ->"There was no way to know." 
-        //<<call Remove_Fear()>>
+        <<reduce_fear "Evelyn Ventress">>
         She forgives herself. “You can’t know everything.” 
 ->"You're too desperate for attention."
         "I guess" She ignores the thought and keeps moving. 
 ->"You were meant to be alone forever. This place is just showing you that."
-        //<<call Add_Fear()>>
+        <<add_fear "Evelyn Ventress">>
         She stands still for a moment and begins to cry. The maze is silent. 
 ===
 title: EvelynVentress6
 ---
 She lays out all of the information she knows in front of her and tries to find an answer.
 ->"This is a dream"
-        //<<call Remove_Fear()>>
+        <<reduce_fear "Evelyn Ventress">>
         This thought is strangely comforting. By removing this situation from reality, she is able to think through it clearly without fear. 
 ->"This is some sort of strange hallucination"
-        //<<call Remove_Fear()>>
+        <<reduce_fear "Evelyn Ventress">>
         This thought is strangely comforting. By removing this situation from reality, she is able to think through it clearly without fear. 
 ->"You are stuck in a coma"
-        //<<call Remove_Fear()>>
+        <<reduce_fear "Evelyn Ventress">>
         This thought is strangely comforting. By removing this situation from reality, she is able to think through it clearly without fear. 
 ->"That man. He trapped you here"
-        //<<call Add_Fear()>>
+        <<add_fear "Evelyn Ventress">>
         “What does he want with me. What has he done to me?” She tenses up.
 ===
 title: EvelynVentress7
 ---
 “I have to make a plan. How am I getting out of here?”
 ->"Leave a trail, so you know where you've gone."
-        //<<call Remove_Fear()>>
+        <<reduce_fear "Evelyn Ventress">>
         She uses a pen in her pocket to scrap at the walls, leaving a scar in the wall every couple of feet. She smiles at her work. "Progress" 
 ->"Make a marking on the wall."
-        //<<call Remove_Fear()>>
+        <<reduce_fear "Evelyn Ventress">>
         She uses a pen in her pocket to scrap at the walls, leaving a scar in the wall every couple of feet. She smiles at her work. "Progress" 
 ->"What can you do? You know nothing..."
-        //<<call Add_Fear()>>
+        <<add_fear "Evelyn Ventress">>
         She thinks for a while, trying to come up with an ideas. She sighs. What can she do
 ->Do nothing
         he thinks for a while, trying to come up with an ideas. She sighs.
@@ -110,15 +110,15 @@ title: EvelynVentress8
 ---
 Evelyn feels her arms. They are drenched in sweat.
 ->"Interesting how the body reacts so irrationally to fear. What use is this sweat"
-        //<<call Remove_Fear()>>
+        <<reduce_fear "Evelyn Ventress">>
         She is distracted from this nightmare for a second while she ponders the mysteries of the body. 
 ->"Weird"
         She continues moving.
 ->"You are falling apart"
-        //<<call Add_Fear()>>
+        <<add_fear "Evelyn Ventress">>
         Her shoulders raise. She swears that she can feel a sickness under her skin.
 ->"Something else is causing this. Something insdie of you"
-        //<<call Add_Fear()>>
+        <<add_fear "Evelyn Ventress">>
         Her shoulders raise. She swears that she can feel a sickness under her skin.
 ===
 title: EvelynVentress9
@@ -127,11 +127,11 @@ The hairs on Evelyn’s back begin to stand on edge. She feels as though she is 
 ->"You are being watched"
         She is freaked out by the thought of someone watching her for a moment. She thinks about it for a moment: that means there is an answer. She walks faster, eager to figure out this mystery. 
 ->"Maybe it's god"
-        //<<call Remove_Fear()>>
+        <<reduce_fear "Evelyn Ventress">>
         She is freaked out by the thought of someone watching her for a moment. She thinks about it for a moment: that means there is an answer. She walks faster, eager to figure out this mystery. 
 ->"Nope. You are alone."
         She continues walking. The weight of her own failure hangs on her shoulders. 
 ->"You’re alone, like every moment of your life. Always alone."
-        //<<call Add_Fear()>>
+        <<add_fear "Evelyn Ventress">>
         She continues walking. The weight of her own failure hangs on her shoulders.
 ===
