@@ -22772,6 +22772,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 201564223}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!225 &202149525 stripped
+CanvasGroup:
+  m_CorrespondingSourceObject: {fileID: 2958262985454349543, guid: 52571f68872914e24837210513edea1d, type: 3}
+  m_PrefabInstance: {fileID: 2134085972}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &203860781
 GameObject:
   m_ObjectHideFlags: 0
@@ -46649,6 +46654,7 @@ MonoBehaviour:
   mainCamera: {fileID: 963053142}
   playerCam: {fileID: 1514457254}
   activeCamera: {fileID: 0}
+  evilCanvasGroup: {fileID: 202149525}
   track: {fileID: 0}
   scrollSpeed: 7.5
   _clickedAI: 0
