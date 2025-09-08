@@ -27,6 +27,6 @@ public class MainMenuUI : MonoBehaviour
 
     private void OnAnyKey(InputAction.CallbackContext context)
     {
-        SceneController.Instance.LoadScene("Tutorial");
+        SceneController.Instance.LoadScene("NEW_MAIN");
     }
 }
