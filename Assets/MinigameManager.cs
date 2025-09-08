@@ -20,7 +20,7 @@ public class MinigameManager : MonoBehaviour
     public float spawnCooldown = 1f;
     public float minRotation = -30f;
     public float maxRotation = 30f;
-    public bool gameStarted = false;
+    public bool gameRunning = false;
     public float gameEndDelay = 3f;
     private float lastSpawnTime = 0;
     public Vector3[] edge1Spawnpoints;
@@ -34,7 +34,8 @@ public class MinigameManager : MonoBehaviour
     private void Awake()
     {
         inputActions = new PlayerInputActions();
-        Instance = this;
+        if (Instance != null) Debug.LogError("There are two MinigameManagers in your scene!");
+        else Instance = this;
     }
 
 
@@ -45,7 +46,7 @@ public class MinigameManager : MonoBehaviour
         spawnpoints.Add(edge3Spawnpoints);
         spawnpoints.Add(edge4Spawnpoints);
         // give a free idol for testing purposes
-        ResourceManager.Instance.AddIdols(1);
+        //ResourceManager.Instance.AddIdols(1);
 
     }
 
@@ -84,7 +85,7 @@ public class MinigameManager : MonoBehaviour
 
     void Update()
     {
-        if (!gameStarted || ending) return;
+        if (!gameRunning || ending) return;
 
         if (Time.time >= lastSpawnTime + spawnCooldown) SpawnPawn();
         
@@ -127,13 +128,13 @@ public class MinigameManager : MonoBehaviour
         GameObject go = Instantiate(idolPrefab);
         go.transform.position = position;
         ResourceManager.Instance.RemoveIdols(1);
+        go.GetComponent<Idol>().Capture();
     }
 
 
 
     public void OnClick(InputAction.CallbackContext context)
     {
-        Debug.Log("Clicked Called!");
         Vector2 mousePos = Vector2.zero;
         mousePos = GameInput.Instance.GetActiveGameDevice() == GameInput.GameDevice.KeyboardMouse ? Mouse.current.position.ReadValue() : VirtualMouseUI.Instance.GetVirtualMousePosition();
         
@@ -143,7 +144,6 @@ public class MinigameManager : MonoBehaviour
         {
             if (hit.transform.gameObject.CompareTag("BoardBottom"))
             {
-                Debug.Log("Hit at: " + hit.point);
                 SpawnIdol(hit.point);
             }
         }

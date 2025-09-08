@@ -6,7 +6,6 @@ public class MinigameBoundingBox : MonoBehaviour
 {
     void OnTriggerEnter(Collider coll)
     {
-        Debug.Log(coll.gameObject.name);
         Unconverted u = coll.gameObject.GetComponent<Unconverted>();
         if (u != null)
         {

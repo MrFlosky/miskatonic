@@ -14,12 +14,14 @@ public class ResourceManager : MonoBehaviour
 
     public TextMeshProUGUI idolText;
     public TextMeshProUGUI worshipText;
-    
+
 
 
     void Awake()
     {
         Instance = this;
+        idolText.text = "Idols: " + availableIdols;
+        worshipText.text = "Worship Points: " + worshipPoints;
     }
 
     public void AddIdols(int num)

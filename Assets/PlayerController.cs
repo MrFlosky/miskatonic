@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviour
     private void OnClick(InputAction.CallbackContext context)
     {
 
-        if (MinigameManager.Instance.gameStarted)
+        if (MinigameManager.Instance.gameRunning)
         {
             MinigameManager.Instance.OnClick(context);
         }

@@ -11,6 +11,7 @@ public class Unconverted : MonoBehaviour
 
     public bool hidden;
     public Material convertedMat;
+    private bool converted = false;
 
 
     void FixedUpdate()
@@ -32,7 +33,7 @@ public class Unconverted : MonoBehaviour
 
     void Update()
     {
-        if (MinigameManager.Instance.ending == true)
+        if (!MinigameManager.Instance.gameRunning == true)
         {
             Destroy(this.gameObject);
         }
@@ -48,9 +49,12 @@ public class Unconverted : MonoBehaviour
 
     public void Convert()
     {
+        if (converted) return;
+        converted = true;
         speed = 0;
         MeshRenderer renderer = GetComponent<MeshRenderer>();
         renderer.material = convertedMat;
+        ResourceManager.Instance.AddWorship(1);
     }
 
 }

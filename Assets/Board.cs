@@ -12,6 +12,7 @@ public class Board : MonoBehaviour
     public float flipDuration = 1f;
     public float flipSteps = 30f;
     public MeshRenderer[] NPCModels;
+    private bool starting = true;
 
 
     /// <summary>
@@ -19,21 +20,40 @@ public class Board : MonoBehaviour
     /// </summary>
     public void FlipBoard()
     {
+        starting = !MinigameManager.Instance.gameRunning;
         StartCoroutine(nameof(FlipRoutine));
-        foreach (MeshRenderer model in NPCModels)
-        {
-            model.enabled = !model.enabled;
-        }
+        
     }
 
     public IEnumerator FlipRoutine()
     {
+        // Handle actions that should happen before the board flips
+        if (!starting) MinigameManager.Instance.gameRunning = false;
+        else
+        {
+            foreach (MeshRenderer model in NPCModels)
+            {
+                model.enabled = false;
+            }
+        }
+
+        // Rotate the board
         for (int i = 0; i < flipSteps; i++)
         {
             transform.Rotate(new Vector3(180 / flipSteps, 0, 0));
             yield return new WaitForSeconds(flipDuration / flipSteps);
         }
-        MinigameManager.Instance.gameStarted = !MinigameManager.Instance.gameStarted;
+
+        // Handle actions that should happen after the board flips
+        if (starting) MinigameManager.Instance.gameRunning = true;
+        else
+        {
+            foreach (MeshRenderer model in NPCModels)
+            {
+                model.enabled = true;
+            }
+        }
+
     }
 
 }

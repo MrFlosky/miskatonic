@@ -204,7 +204,7 @@ public class SkillSwapRooms : Skill
 
     public override void ActivateSkill()
     {
-        if (SkillSystem.GET_PTS() >= ptDeduction)
+        if (ResourceManager.Instance.worshipPoints >= ptDeduction)
         {
             base.ActivateSkill();
             this.enabled = true; // Enable the script allowing this skill to happen once

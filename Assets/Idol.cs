@@ -6,22 +6,33 @@ using UnityEngine;
 public class Idol : MonoBehaviour
 {
 
-    void OnTriggerEnter(Collider other)
+    public float range = 4f;
+
+
+    public void Capture()
     {
-        Debug.Log(other.gameObject.name);
-        Unconverted u = other.gameObject.GetComponent<Unconverted>();
-
-        if (u != null)
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, range);
+        foreach (var hitCollider in hitColliders)
         {
-            u.Convert();
-            ResourceManager.Instance.AddWorship(1);
+            Unconverted u = hitCollider.gameObject.GetComponent<Unconverted>();
+            if (u != null)
+            {
+                u.Convert();
+            }
         }
-
     }
+
+
+
+
+
+
+
+
 
     void Update()
     {
-        if (MinigameManager.Instance.ending == true)
+        if (!MinigameManager.Instance.gameRunning)
         {
             Destroy(this.gameObject);
         }
