@@ -458,7 +458,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   brain: {fileID: 0}
-  _conversation: {fileID: 559894699154873847}
   _canvas: {fileID: 0}
 --- !u!1 &1014194859255551480
 GameObject:
@@ -1367,89 +1366,6 @@ MonoBehaviour:
   TMPFont: {fileID: 0}
   Icon: {fileID: 0}
   Audio: {fileID: 0}
---- !u!1 &1807745548564947504
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8442705332648937211}
-  - component: {fileID: 7916661154764574345}
-  - component: {fileID: 7022750033797968633}
-  m_Layer: 6
-  m_Name: ChessPiece
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8442705332648937211
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1807745548564947504}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: 0, y: -0.9, z: 0}
-  m_LocalScale: {x: 0.75, y: 0.74999994, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 5159927626381391047}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &7916661154764574345
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1807745548564947504}
-  m_Mesh: {fileID: 6239881831769578202, guid: ccf91b9b133205e4da892ed946f1e4f6, type: 3}
---- !u!23 &7022750033797968633
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1807745548564947504}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 8449441269764220849, guid: ccf91b9b133205e4da892ed946f1e4f6, type: 3}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &1861529275235197520
 GameObject:
   m_ObjectHideFlags: 0
@@ -1585,7 +1501,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   brain: {fileID: 0}
-  _conversation: {fileID: 5945781616738781813}
   _canvas: {fileID: 0}
 --- !u!1 &1890325950392627289
 GameObject:
@@ -1984,7 +1899,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   brain: {fileID: 0}
-  _conversation: {fileID: 5519604283467971904}
   _canvas: {fileID: 0}
 --- !u!1 &2332458649191788992
 GameObject:
@@ -2105,7 +2019,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   brain: {fileID: 0}
-  _conversation: {fileID: 8955046544356856364}
   _canvas: {fileID: 0}
 --- !u!1 &2464106461374327114
 GameObject:
@@ -2226,7 +2139,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   brain: {fileID: 0}
-  _conversation: {fileID: 7591843267030908282}
   _canvas: {fileID: 0}
 --- !u!1 &2816690243025785177
 GameObject:
@@ -2347,7 +2259,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   brain: {fileID: 0}
-  _conversation: {fileID: 3653061859852842804}
   _canvas: {fileID: 0}
 --- !u!1 &2824837685976885637
 GameObject:
@@ -2578,7 +2489,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   brain: {fileID: 0}
-  _conversation: {fileID: 4571443638600298792}
   _canvas: {fileID: 0}
 --- !u!1 &3455510566931533404
 GameObject:
@@ -3237,7 +3147,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   brain: {fileID: 0}
-  _conversation: {fileID: 6664560285434009825}
   _canvas: {fileID: 0}
 --- !u!1 &4328944795887566300
 GameObject:
@@ -3277,7 +3186,7 @@ Transform:
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 1
   m_Children:
-  - {fileID: 8442705332648937211}
+  - {fileID: 8107666206402581017}
   - {fileID: 8605525531046106200}
   - {fileID: 3115451592107161995}
   - {fileID: 1988229563640546871}
@@ -4036,7 +3945,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   brain: {fileID: 0}
-  _conversation: {fileID: 7472247772231843365}
   _canvas: {fileID: 0}
 --- !u!1 &5190213961676938059
 GameObject:
@@ -4970,7 +4878,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   brain: {fileID: 0}
-  _conversation: {fileID: 4824062877678646123}
   _canvas: {fileID: 0}
 --- !u!1 &5997084895543816630
 GameObject:
@@ -5186,7 +5093,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   brain: {fileID: 0}
-  _conversation: {fileID: 290207114904410713}
   _canvas: {fileID: 0}
 --- !u!1 &6251558643111815473
 GameObject:
@@ -5322,7 +5228,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   brain: {fileID: 0}
-  _conversation: {fileID: 474295384232177290}
   _canvas: {fileID: 0}
 --- !u!1 &6285927818347377256
 GameObject:
@@ -5455,7 +5360,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   brain: {fileID: 0}
-  _conversation: {fileID: 2058278936604224677}
   _canvas: {fileID: 0}
 --- !u!1 &6485366634995450075
 GameObject:
@@ -5887,7 +5791,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   brain: {fileID: 0}
-  _conversation: {fileID: 8291884909050669076}
   _canvas: {fileID: 0}
 --- !u!1 &6644013959017970527
 GameObject:
@@ -6023,7 +5926,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   brain: {fileID: 0}
-  _conversation: {fileID: 7335155605649325186}
   _canvas: {fileID: 0}
 --- !u!1 &7188468507881172046
 GameObject:
@@ -7002,7 +6904,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   brain: {fileID: 0}
-  _conversation: {fileID: 5504760240471801597}
   _canvas: {fileID: 0}
 --- !u!1 &8018058835598338163
 GameObject:
@@ -7420,3 +7321,65 @@ MonoBehaviour:
   TMPFont: {fileID: 0}
   Icon: {fileID: 0}
   Audio: {fileID: 0}
+--- !u!1001 &8578950505746527730
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 5159927626381391047}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: b843e0122011de84aa25955843a7fb0b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b843e0122011de84aa25955843a7fb0b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b843e0122011de84aa25955843a7fb0b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b843e0122011de84aa25955843a7fb0b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b843e0122011de84aa25955843a7fb0b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b843e0122011de84aa25955843a7fb0b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b843e0122011de84aa25955843a7fb0b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b843e0122011de84aa25955843a7fb0b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b843e0122011de84aa25955843a7fb0b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b843e0122011de84aa25955843a7fb0b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b843e0122011de84aa25955843a7fb0b, type: 3}
+      propertyPath: m_Name
+      value: Phone Player Token
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b843e0122011de84aa25955843a7fb0b, type: 3}
+--- !u!4 &8107666206402581017 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b843e0122011de84aa25955843a7fb0b, type: 3}
+  m_PrefabInstance: {fileID: 8578950505746527730}
+  m_PrefabAsset: {fileID: 0}
