@@ -11018,10 +11018,12 @@ MonoBehaviour:
   board: {fileID: 1312389701}
   pawnPrefab: {fileID: 2785313298538970955, guid: 7e4d71a2d1539474da779f40a6a8d4c8, type: 3}
   idolPrefab: {fileID: 6641589914982787584, guid: 6e93c329e94eff64687e4edfb92dac3b, type: 3}
+  ending: 0
   spawnCooldown: 0.2
   minRotation: -30
   maxRotation: 30
-  gameStarted: 0
+  gameRunning: 0
+  gameEndDelay: 3
   edge1Spawnpoints:
   - {x: 0, y: 0.37, z: 0}
   - {x: 0, y: 0.37, z: 4}
@@ -11070,6 +11072,7 @@ MonoBehaviour:
   - {x: 32, y: 0.37, z: 0}
   - {x: 36, y: 0.37, z: 0}
   - {x: 40, y: 0.37, z: 0}
+  skillSystem: {fileID: 0}
 --- !u!1 &96670681
 GameObject:
   m_ObjectHideFlags: 0
@@ -20774,7 +20777,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1244271e2516ba54ea622f58e2a8a095, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clickAI: {fileID: 394672284}
 --- !u!114 &184232793
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31834,6 +31836,7 @@ MonoBehaviour:
   skillEvent:
     m_PersistentCalls:
       m_Calls: []
+  endTurnButton: {fileID: 0}
   roundsLast: 3
   mainCamera: {fileID: 0}
   AOEOb: {fileID: 1977298795}
@@ -31854,6 +31857,7 @@ MonoBehaviour:
   skillEvent:
     m_PersistentCalls:
       m_Calls: []
+  endTurnButton: {fileID: 0}
   selectedMat: {fileID: 2100000, guid: 2b6c9665030987d489f37a1b0dffc975, type: 2}
   roundsLast: 3
 --- !u!114 &284654623
@@ -31873,6 +31877,7 @@ MonoBehaviour:
   skillEvent:
     m_PersistentCalls:
       m_Calls: []
+  endTurnButton: {fileID: 0}
   fearIncrease: 10
 --- !u!114 &284654624 stripped
 MonoBehaviour:
@@ -36959,6 +36964,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08c6c1ed3f05ffe41b09100d8eb52c2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slid: {fileID: 0}
   sliderSpeed: 0.2
   ps: {fileID: 1268612874}
 --- !u!114 &316623340
@@ -47384,6 +47390,7 @@ MonoBehaviour:
   mainCamera: {fileID: 963053142}
   playerCam: {fileID: 1514457254}
   activeCamera: {fileID: 0}
+  evilCanvasGroup: {fileID: 0}
   track: {fileID: 0}
   scrollSpeed: 7.5
   _clickedAI: 0
@@ -101083,7 +101090,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1244271e2516ba54ea622f58e2a8a095, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clickAI: {fileID: 394672284}
 --- !u!114 &840591864 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5127021571920046550, guid: 4a21b8b42a2a421469be6ae7e951bd3a, type: 3}
@@ -156972,10 +156978,10 @@ MonoBehaviour:
   flipDuration: 1
   flipSteps: 30
   NPCModels:
-  - {fileID: 1782301677}
-  - {fileID: 1971789319}
-  - {fileID: 1370619542}
-  - {fileID: 1376495256}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &1314670594
 GameObject:
   m_ObjectHideFlags: 0
@@ -163267,11 +163273,6 @@ MonoBehaviour:
   roomFloorMaterial: {fileID: 2100000, guid: a166c9720d356d3469587ea35c8cab2b, type: 2}
   roomWallMaterial: {fileID: 2100000, guid: 9ab1b140570b2a943b20a45ff2e6cea9, type: 2}
   roomType: Hallway
---- !u!23 &1370619542 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 4205176078161946509, guid: 6e15b47b7edc45e4e8fbbc5668b9cd9e, type: 3}
-  m_PrefabInstance: {fileID: 1971535849}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1371893114
 GameObject:
   m_ObjectHideFlags: 0
@@ -164284,11 +164285,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1376122968}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &1376495256 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 7022750033797968633, guid: e3eee655d87ceda4783f353d13a4af64, type: 3}
-  m_PrefabInstance: {fileID: 1526173144}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1377366567
 GameObject:
   m_ObjectHideFlags: 0
@@ -211495,7 +211491,7 @@ MonoBehaviour:
   m_PathOffset: {x: 0, y: 0, z: 0}
   m_XDamping: 0
   m_YDamping: 0
-  m_ZDamping: 0.5
+  m_ZDamping: 2
   m_CameraUp: 0
   m_PitchDamping: 0
   m_YawDamping: 0
@@ -213072,11 +213068,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1782270217}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &1782301677 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 866035857761018759, guid: cfdc6b546d4860d49ae0820305f7a38d, type: 3}
-  m_PrefabInstance: {fileID: 1505115602}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1783006920
 GameObject:
   m_ObjectHideFlags: 0
@@ -236530,11 +236521,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1971788166}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &1971789319 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 1960004075672866255, guid: 1f63311383113ad4e87b8005583f8ccc, type: 3}
-  m_PrefabInstance: {fileID: 1015134441}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1974166507
 GameObject:
   m_ObjectHideFlags: 0
