@@ -10,7 +10,6 @@ public class PlayerController : MonoBehaviour
     private ClickAI clickAI;
     public Skill activeSkill; // Reference to the currently active skill
     public bool clickedAI = false;
-    
 
     private void Awake()
     {
@@ -58,13 +57,6 @@ public class PlayerController : MonoBehaviour
 
     private void OnClick(InputAction.CallbackContext context)
     {
-
-        if (MinigameManager.Instance.gameRunning)
-        {
-            MinigameManager.Instance.OnClick(context);
-        }
-
-
         // Use the currently active skill
         if (activeSkill != null && activeSkill.enabled)
         {

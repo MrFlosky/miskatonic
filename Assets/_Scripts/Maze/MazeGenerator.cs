@@ -22,15 +22,15 @@ public class MazeGenerator : MonoBehaviour {
     public int startX, startY;                          // The position our algorithm will start from.
     
     [Header("Room Settings")]
-    [Range(0, 10)] public int roomCount = 1;            // The numver of rooms in the maze
-    [Range(2,20)] public int roomXSizeMin, roomXSizeMax, roomYSizeMin, roomYSizeMax = 5;    // Randomize rooms' size 
+    [Range(0, 10)] public int roomCount = 1;
+    [Range(2,20)] public int roomXSizeMin, roomXSizeMax, roomYSizeMin, roomYSizeMax = 5;
 
     MazeCell[,] maze;                                   // An array of maze cells representing the maze grid.
     Vector2Int currentCell;                             // The maze cell we are currently looking at.
 
-    private List<string> _roomTypes;                    // All the room types
+    private List<string> _roomTypes;                     // all the room types
       
-    public List<Room> rooms = new List<Room>();         // Sucessfully created room
+    public List<Room> rooms = new List<Room>();
 
     private void Start()
     {
@@ -686,7 +686,6 @@ public class MazeGenerator : MonoBehaviour {
         }
     }
     
-
     public void UpdateAllOpposingWalls()
     {
         for (int x = 0; x < mazeWidth; x++)
@@ -728,18 +727,17 @@ public enum Directions {
 }
 
 public class MazeCell {
-    
-    public bool visited;        // Check if the cell has been visited in DFS
-    public bool roomTile;       // Is this part of the room
-    public bool outsideTile;    // Is this a tile around the room
-    public int x, y;            // Coordinates
 
-    public Room room;           // Room this cell is part of (if it is)
+    public bool visited;
+    public bool roomTile;
+    public bool outsideTile;
+    public int x, y;
+
+    public Room room;
 
     public string roomType = "Hallway"; // default roomtype
 
-    /// Wall flags
-    public bool topWall;        
+    public bool topWall;
     public bool bottomWall;
     public bool leftWall;
     public bool rightWall;
@@ -775,8 +773,9 @@ public class MazeCell {
 
 [System.Serializable]
 public class Room {
-    public List<Vector2Int> tilesInRoom;        // Postion of tiles in the room
-    public string roomType;                     // The room type
+    public List<Vector2Int> tilesInRoom;
+    public string roomType;
+
     public Room(string roomType) {
         this.roomType = roomType;
         tilesInRoom = new List<Vector2Int>();

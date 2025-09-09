@@ -42,12 +42,13 @@ public class Skill : MonoBehaviour
     /// </summary>
     public virtual void ActivateSkill()
     {
-        if (ResourceManager.Instance.worshipPoints >= ptDeduction) // Check if the player has enough points
+        if (skillSystem.GET_PTS() >= ptDeduction) // Check if the player has enough points
         {
             AudioManager.PlaySFX(SFXType.ButtonSelection);
             PlayerController.Instance.SetActiveSkill(this);
-            ResourceManager.Instance.RemoveWorship(ptDeduction);
+            skillSystem.DEDUCT_PT(ptDeduction);
             SkillsCollection.S.DISABLE_BUTTONS();
+            endTurnButton.interactable = false;
             skillEvent.Invoke(); // Not using this for now
             // Stuff that happens when skill is activated!
         }
@@ -72,7 +73,7 @@ public class Skill : MonoBehaviour
         {
             PlayerController.Instance.SetActiveSkill(null);
             AudioManager.PlaySFX(SFXType.ButtonSelection);
-            ResourceManager.Instance.AddWorship(ptDeduction);
+            skillSystem.ADD_PT(ptDeduction);
             EndSkill();
         }
     }

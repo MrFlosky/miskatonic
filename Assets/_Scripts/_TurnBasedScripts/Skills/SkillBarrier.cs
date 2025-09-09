@@ -213,7 +213,7 @@ public class SkillBarrier : Skill
 
     public override void ActivateSkill()
     {
-        if (ResourceManager.Instance.worshipPoints >= ptDeduction)
+        if (skillSystem.GET_PTS() >= ptDeduction)
         {
             base.ActivateSkill();
             this.enabled = true;
