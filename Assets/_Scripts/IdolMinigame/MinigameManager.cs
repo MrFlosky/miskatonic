@@ -131,7 +131,11 @@ public class MinigameManager : MonoBehaviour
 
     void SpawnIdol(Vector3 position)
     {
-        if (idolPoints.remainingPoints == 0) return;
+        if (idolPoints.remainingPoints == 0)
+        {
+            EndMinigame();
+        }
+        ;
         GameObject go = Instantiate(idolPrefab);
         go.transform.position = position;
         idolPoints.DEDUCT_POINT();
