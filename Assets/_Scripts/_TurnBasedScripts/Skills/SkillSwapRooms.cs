@@ -128,6 +128,7 @@ public class SkillSwapRooms : Skill
             SwitchRooms(rm1Obj, rm2Obj, mRoomType1, mRoomType2);
             this.enabled = false; // Disable this skill after use
             SkillsCollection.S.ENABLE_BUTTONS();
+            EndSkill();
         }
     }
 

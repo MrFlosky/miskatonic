@@ -41,12 +41,21 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
         dialgoueRunner = FindObjectOfType<DialogueRunner>();
         characterFear = GetComponent<Fear>();
 
+        // sub to dialogue on/off events for essentials line presenter settings
+        dialgoueRunner.onDialogueStart.AddListener(UIManagerLite.EnableDialogueSettings);
+        dialgoueRunner.onDialogueComplete.AddListener(UIManagerLite.DisableDialogueSettings);
+
+
         characterFullName = characterFirstName + characterLastName;
 
         LoadYarnDialogues();
         dialoguesRemaining = totalDialogues;
 
     }
+
+    // List of dialogue indices, corresponding to yarn scripts, that the player has yet to
+    // play. Entries removed after they are used, for non-repeating dialogues
+    List<int> unPlayedDialogues = new List<int>();
 
     /// <summary>
     /// Load respective character's yarn script and count all
@@ -63,6 +72,13 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
             int titleCount = CountDialogueNodes(documentText);
             totalDialogues = titleCount;
             Debug.Log($"'{textAssets[0].name}' has {titleCount} title occurrences");
+            // setup list for non-repeating dialogues
+            unPlayedDialogues.Capacity = totalDialogues;
+            for (int i = 0; i < totalDialogues; i++)
+            {
+                unPlayedDialogues.Add(i);
+            }
+
         }
         else
         {
@@ -76,19 +92,20 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
     /// </summary>
     public void PlayRandomDialogue()
     {
-
         ClickAI.S.StartConversation();
         // add function to be called when dialogue ends. cannot be done in start,
         // otherwise all dialoguebank gameobjects listening for event at same time
         dialgoueRunner.onDialogueComplete.AddListener(EndDialogue);
 
-        // need do smth when out of dialogues
-        int dialogueKey = UnityEngine.Random.Range(0, dialoguesRemaining - 1);
+        int listIndex = UnityEngine.Random.Range(0, unPlayedDialogues.Count);
+        // access the dialogue at the random index, then play and remove
+        // whatever dialogue number that returns from the list
+        int dialogueKey = unPlayedDialogues[listIndex];
         string yarnAcessStr = characterFullName + dialogueKey;
         dialgoueRunner.StartDialogue(yarnAcessStr);
 
         dialoguesRemaining -= 1;
-
+        unPlayedDialogues.RemoveAt(listIndex);
     }
 
     /// <summary>
@@ -112,6 +129,20 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
     public void AlreadyTalked()
     {
         dialgoueRunner.StartDialogue("ClickedAlready");
+    }
+
+    /// <summary>
+    /// Called when AI is out of new dialogues to present.
+    /// </summary>
+    public void OutOfDialogues()
+    {
+        dialgoueRunner.StartDialogue("OutOfDialogue");
+    }
+
+    
+    public int GetRemainingDialogueCount()
+    {
+        return dialoguesRemaining;
     }
 
 
