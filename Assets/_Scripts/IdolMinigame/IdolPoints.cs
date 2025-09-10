@@ -33,6 +33,7 @@ public class IdolPoints : MonoBehaviour
 
     public static void ADD_POINT()
     {
+        Debug.LogWarning("POINT ADDED!");
         S.remainingPoints += 1;
         S.txt.text = "Idols: " + S.remainingPoints;
         if (S.txt.IsActive() == false)

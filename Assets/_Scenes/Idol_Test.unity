@@ -23471,6 +23471,51 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 206740303}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &206796948
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 206796949}
+  - component: {fileID: 206796950}
+  m_Layer: 0
+  m_Name: UIManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &206796949
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 206796948}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1763260650}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &206796950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 206796948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5649f51b731cfe4fade03ce06774fa6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  evilCanvasGroup: {fileID: 202149525}
 --- !u!1 &207140686
 GameObject:
   m_ObjectHideFlags: 0
@@ -31467,9 +31512,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ptDeduction: 1
   skillButton: {fileID: 1908654607}
-  skillEvent:
-    m_PersistentCalls:
-      m_Calls: []
   endTurnButton: {fileID: 840591864}
   roundsLast: 3
   mainCamera: {fileID: 0}
@@ -31488,9 +31530,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ptDeduction: 1
   skillButton: {fileID: 1766835026}
-  skillEvent:
-    m_PersistentCalls:
-      m_Calls: []
   endTurnButton: {fileID: 840591864}
   selectedMat: {fileID: 2100000, guid: 2b6c9665030987d489f37a1b0dffc975, type: 2}
   roundsLast: 3
@@ -31508,9 +31547,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ptDeduction: 1
   skillButton: {fileID: 1908654607}
-  skillEvent:
-    m_PersistentCalls:
-      m_Calls: []
   endTurnButton: {fileID: 840591864}
   fearIncrease: 10
 --- !u!114 &284654624 stripped
@@ -47039,7 +47075,6 @@ MonoBehaviour:
   mainCamera: {fileID: 963053142}
   playerCam: {fileID: 1514457254}
   activeCamera: {fileID: 0}
-  evilCanvasGroup: {fileID: 202149525}
   track: {fileID: 0}
   scrollSpeed: 7.5
   _clickedAI: 0
@@ -55085,6 +55120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   txt: {fileID: 2022695651}
+  startingPoints: 0
   totalPoints: 0
 --- !u!1 &462884595
 GameObject:
@@ -211140,6 +211176,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 206796949}
   - {fileID: 462089282}
   - {fileID: 1024620625}
   - {fileID: 284654627}
@@ -218359,7 +218396,7 @@ PrefabInstance:
     - target: {fileID: 8113700954446848779, guid: 3ef7d8188e88fbf4982b482c6e23196d, type: 3}
       propertyPath: endTurnButton
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 840591864}
     - target: {fileID: 8352495874475965290, guid: 3ef7d8188e88fbf4982b482c6e23196d, type: 3}
       propertyPath: m_LocalPosition.x
       value: -16.607647
@@ -257685,7 +257722,7 @@ PrefabInstance:
       objectReference: {fileID: 1977298799}
     - target: {fileID: 4329230583971179906, guid: e71a97cbe39edb84da728219de2caeef, type: 3}
       propertyPath: playerStartingPoints
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4329230583971179906, guid: e71a97cbe39edb84da728219de2caeef, type: 3}
       propertyPath: fearArray.Array.data[0]

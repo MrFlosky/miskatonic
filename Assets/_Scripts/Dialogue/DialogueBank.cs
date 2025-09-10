@@ -35,11 +35,17 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
     // Track when a dialogue has already been initiated in a given turn
     public bool alreadyTalked = false;
 
+
     void Start()
     {
         TurnBasedSystem.SubscribeAsObserver(this);
         dialgoueRunner = FindObjectOfType<DialogueRunner>();
         characterFear = GetComponent<Fear>();
+
+        // sub to dialogue on/off events for essentials line presenter settings
+        dialgoueRunner.onDialogueStart.AddListener(UIManagerLite.EnableDialogueSettings);
+        dialgoueRunner.onDialogueComplete.AddListener(UIManagerLite.DisableDialogueSettings);
+        
 
         characterFullName = characterFirstName + characterLastName;
 
@@ -48,6 +54,8 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
 
     }
 
+
+    List<int> unPlayedDialogues = new List<int>();
     /// <summary>
     /// Load respective character's yarn script and count all
     /// the dialogues within it by counting "title" within text file.
@@ -63,6 +71,13 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
             int titleCount = CountDialogueNodes(documentText);
             totalDialogues = titleCount;
             Debug.Log($"'{textAssets[0].name}' has {titleCount} title occurrences");
+
+            // setup list for non-repeating dialogues
+            unPlayedDialogues.Capacity = totalDialogues;
+            for (int i = 0; i < totalDialogues; i++)
+            {
+                unPlayedDialogues.Add(i);
+            }
         }
         else
         {
@@ -70,25 +85,28 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
         }
     }
 
+
+
     /// <summary>
     /// Play random dialogue for given character,
     /// then remove that dialogue index as a possibility.
     /// </summary>
     public void PlayRandomDialogue()
     {
-
+        Debug.LogWarning(dialoguesRemaining + gameObject.name);
         ClickAI.S.StartConversation();
         // add function to be called when dialogue ends. cannot be done in start,
         // otherwise all dialoguebank gameobjects listening for event at same time
         dialgoueRunner.onDialogueComplete.AddListener(EndDialogue);
 
         // need do smth when out of dialogues
-        int dialogueKey = UnityEngine.Random.Range(0, dialoguesRemaining - 1);
+        int listIndex = UnityEngine.Random.Range(0, unPlayedDialogues.Count);
+        int dialogueKey = unPlayedDialogues[listIndex];
         string yarnAcessStr = characterFullName + dialogueKey;
         dialgoueRunner.StartDialogue(yarnAcessStr);
 
         dialoguesRemaining -= 1;
-
+        unPlayedDialogues.RemoveAt(listIndex);
     }
 
     /// <summary>
@@ -114,6 +132,11 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
         dialgoueRunner.StartDialogue("ClickedAlready");
     }
 
+    public void OutOfDialogues()
+    {
+        dialgoueRunner.StartDialogue("OutOfDialogue");
+    }
+
 
     // When play turn is initiated, re-allow interaction with this npc
     void ITurnObserver.PlayerTurnInitiated()
@@ -124,11 +147,15 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
 
 
 
+    public int GetRemainingDialogueCount()
+    {
+        return dialoguesRemaining;
+    }
 
 
     /// <summary>
     /// Helper function to count number of dialogues in a yarn file,
-    /// by counting titles.
+    /// by counting titles. 
     /// </summary>
     /// <param name="text">
     /// Entire yarn script in string format
@@ -174,7 +201,7 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
     [YarnCommand("reduce_fear")]
     public void YarnReduceFear()
     {
-        characterFear.AddFear(fearReduce);
+        characterFear.ReduceFear(fearReduce);
     }
     #endregion
 

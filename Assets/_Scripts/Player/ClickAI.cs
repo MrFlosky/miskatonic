@@ -23,11 +23,7 @@ public class ClickAI : MonoBehaviour
     public Camera mainCamera; // Reference to the camera, if null defaults to main camera
     public CinemachineVirtualCamera playerCam;
     public CinemachineVirtualCamera activeCamera;
-    /// <summary>
-    /// Needed in order to manually set interactable and block raycasts on dialogue presenter.
-    /// for some reason option presenter handles this auto but this one doesnt.
-    /// </summary>
-    [SerializeField] private CanvasGroup evilCanvasGroup;
+
     private bool _inConversation;
 
     public CinemachineTrackedDolly track;
@@ -80,7 +76,14 @@ public class ClickAI : MonoBehaviour
                     dialogueBank.AlreadyTalked();
                     return;
                 }
+                // if ai out of dialogues, play notify diulogue. dont want anything more to happen. i.e. camera shift
+                if (dialogueBank.GetRemainingDialogueCount() == 0)
+                {
+                    dialogueBank.OutOfDialogues();
+                    return;
+                }
                 dialogueBank.alreadyTalked = true;
+
 
 
 
@@ -259,9 +262,6 @@ public class ClickAI : MonoBehaviour
     /// </summary>
     public void StartConversation()
     {
-        evilCanvasGroup.interactable = true;
-        evilCanvasGroup.blocksRaycasts = true;
-
         _clickedAI = false;
         _inConversation = true;
     }
@@ -272,9 +272,6 @@ public class ClickAI : MonoBehaviour
     /// </summary>
     public void EndConversation()
     {
-        evilCanvasGroup.interactable = false;
-        evilCanvasGroup.blocksRaycasts = false;
-
         PlayerController.Instance.clickedAI = false;
         _inConversation = false;
         if (playerCam)

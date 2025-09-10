@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class WorshipPoints : MonoBehaviour
+public class WorshipPoints : MonoBehaviour, ITurnObserver
 {
     public TextMeshProUGUI txt;
     public static WorshipPoints S;
+    public int startingPoints = 0; 
     public int totalPoints = 0;
 
     void Start()
     {
+        totalPoints = startingPoints;
         S = this;
     }
 
@@ -26,6 +28,7 @@ public class WorshipPoints : MonoBehaviour
             Debug.Log("NOT ENOUGH WORSHIP POINTS");
             return;
         }
+        DISPLAY_PTS();
     }
 
     public static void ADD_POINTS(int pts)
@@ -38,10 +41,11 @@ public class WorshipPoints : MonoBehaviour
     {
         S.totalPoints = pts;
         DISPLAY_PTS();
-    } 
+    }
 
     public static void DISPLAY_PTS()
     {
+        Debug.Log("WTF" + S.totalPoints);
         S.txt.text = "Worship Points: " + S.totalPoints;
         if (S.txt.IsActive() == false)
         {
@@ -53,4 +57,19 @@ public class WorshipPoints : MonoBehaviour
     {
         S.txt.gameObject.SetActive(false);
     }
+
+    /// <summary>
+    /// not added as subscriber to subject
+    /// </summary>
+    void ITurnObserver.PlayerTurnInitiated()
+    {
+        return; // dont want this for prototype with minigame
+    }
+    
+
+    void ITurnObserver.EnemyTurnInitiated()
+    {
+        return;
+    }
+    
 }

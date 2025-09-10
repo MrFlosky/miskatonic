@@ -127,15 +127,27 @@ public class MinigameManager : MonoBehaviour
 
     void SpawnIdol(Vector3 position)
     {
-        if (IdolPoints.S.remainingPoints == 0)
+        
+        
+        // stop allowing idol placement if out of points
+        if (IdolPoints.S.remainingPoints <= 0)
         {
-            EndMinigame();
+            return;
+
         }
-        ;
+        
         GameObject go = Instantiate(idolPrefab);
         go.transform.position = position;
         IdolPoints.DEDUCT_POINT();
+        Debug.LogWarning(IdolPoints.S.remainingPoints);
         go.GetComponent<Idol>().Capture();
+
+        // if after deducting idol cost player outta points, end game
+        if (IdolPoints.S.remainingPoints <= 0)
+        {
+            EndMinigame();
+        }
+
     }
 
 

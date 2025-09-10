@@ -19,9 +19,6 @@ public class Skill : MonoBehaviour
     [Header("The selectable image associated with this skill")]
     public Button skillButton;
 
-    [Header("Event associated with this skill")]
-    public UnityEvent skillEvent;
-
     // end turn button, just hangin out as a loose variable
     public Button endTurnButton;
 
@@ -49,8 +46,7 @@ public class Skill : MonoBehaviour
             WorshipPoints.DEDUCT_POINTS(ptDeduction);
             SkillsCollection.S.DISABLE_BUTTONS();
             endTurnButton.interactable = false;
-            skillEvent.Invoke(); // Not using this for now
-            // Stuff that happens when skill is activated!
+
         }
     }
 
