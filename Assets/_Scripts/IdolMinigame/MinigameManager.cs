@@ -31,8 +31,6 @@ public class MinigameManager : MonoBehaviour
 
     private PlayerInputActions inputActions;
 
-    IdolPoints idolPoints;
-    WorshipPoints worshipPoints;
 
     private void Awake()
     {
@@ -45,8 +43,6 @@ public class MinigameManager : MonoBehaviour
 
     void Start()
     {
-        idolPoints = GetComponent<IdolPoints>();
-        worshipPoints = GetComponent<WorshipPoints>();
 
         spawnpoints.Add(edge1Spawnpoints);
         spawnpoints.Add(edge2Spawnpoints);
@@ -72,7 +68,7 @@ public class MinigameManager : MonoBehaviour
 
     public void StartMinigame()
     {
-        if (idolPoints.remainingPoints <= 0)
+        if (IdolPoints.S.remainingPoints <= 0)
         {
             Debug.LogWarning("No idols to play minigame with!"); // Replace with UI (popup, or gray out the flip board button)
             return;
@@ -131,14 +127,14 @@ public class MinigameManager : MonoBehaviour
 
     void SpawnIdol(Vector3 position)
     {
-        if (idolPoints.remainingPoints == 0)
+        if (IdolPoints.S.remainingPoints == 0)
         {
             EndMinigame();
         }
         ;
         GameObject go = Instantiate(idolPrefab);
         go.transform.position = position;
-        idolPoints.DEDUCT_POINT();
+        IdolPoints.DEDUCT_POINT();
         go.GetComponent<Idol>().Capture();
     }
 

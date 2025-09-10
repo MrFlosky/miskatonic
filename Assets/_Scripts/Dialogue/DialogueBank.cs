@@ -168,6 +168,7 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
     public void YarnAddFear()
     {
         characterFear.AddFear(fearAdd);
+        IdolPoints.ADD_POINT();
     }
 
     [YarnCommand("reduce_fear")]

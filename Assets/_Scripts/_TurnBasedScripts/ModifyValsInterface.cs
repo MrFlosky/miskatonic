@@ -57,8 +57,7 @@ public class ModifyValsInterface : MonoBehaviour
     /// </summary>
     void Start()
     {
-        pt.startingPoints = playerStartingPoints;
-        ss.availablePts = playerStartingPoints;
+        WorshipPoints.SET_POINTS(playerStartingPoints);
         aoe.perTurnFear = aoeFearAddedPerTurn;
         gm.roundsUntilDefeat = numberOfTOTALRoundsUntilDefeat;
         gm.winFear = totalFearToWin;

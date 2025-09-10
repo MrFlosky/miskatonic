@@ -7,13 +7,6 @@ using UnityEngine.Events;
 
 public class PlayerTurn : Turns, ITurnObserver
 {
-    // How many points the player starts with each round
-    public int startingPoints;
-
-    public void SetStartingPoints(int points)
-    {
-        startingPoints = points;
-    }
 
     void Start()
     {
@@ -29,8 +22,8 @@ public class PlayerTurn : Turns, ITurnObserver
         turnText.text = "PLAYER TURN!";
         endTurnButton.SetActive(true);
         skillsUI.DISPLAY_SKILLS();
-        skillSystem.SET_PT(startingPoints);
-        skillSystem.DISPLAY_PTS();
+        WorshipPoints.DISPLAY_PTS();
+        IdolPoints.DISPLAY_PTS();
         GameManager.Instance.CHECK_ROUND_LOSE();
     }
 

@@ -46,7 +46,7 @@ public class Skill : MonoBehaviour
         {
             AudioManager.PlaySFX(SFXType.ButtonSelection);
             PlayerController.Instance.SetActiveSkill(this);
-            skillSystem.DEDUCT_PT(ptDeduction);
+            WorshipPoints.DEDUCT_POINTS(ptDeduction);
             SkillsCollection.S.DISABLE_BUTTONS();
             endTurnButton.interactable = false;
             skillEvent.Invoke(); // Not using this for now
@@ -73,7 +73,7 @@ public class Skill : MonoBehaviour
         {
             PlayerController.Instance.SetActiveSkill(null);
             AudioManager.PlaySFX(SFXType.ButtonSelection);
-            skillSystem.ADD_PT(ptDeduction);
+            WorshipPoints.ADD_POINTS(ptDeduction);
             EndSkill();
         }
     }
