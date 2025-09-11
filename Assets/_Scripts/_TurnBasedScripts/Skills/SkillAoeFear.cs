@@ -9,6 +9,7 @@ public class SkillAoeFear : Skill
     public int roundsLast = 3;
     public Camera mainCamera; // Reference to the camera, if null defaults to main camera
     public GameObject AOEOb;
+    public Transform boardRef;
     Transform obTrans;
     bool canPlace = true;
 
@@ -72,7 +73,8 @@ public class SkillAoeFear : Skill
             {
                 AudioManager.PlaySFX(SFXType.SkillAOE);
                 Vector3 newPos = obTrans.position;
-                GameObject newAOE = Instantiate(AOEOb);
+                GameObject newAOE = Instantiate(AOEOb, boardRef);
+                newPos += new Vector3(0, 0.2f, 0);
                 newAOE.transform.position = newPos;
                 TurnBasedSystem.DestroyAfterRounds destroyInstance = new TurnBasedSystem.DestroyAfterRounds(roundsLast, newAOE);
                 AOEOb.SetActive(false);
