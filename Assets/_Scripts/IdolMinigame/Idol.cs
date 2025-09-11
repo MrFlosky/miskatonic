@@ -7,11 +7,14 @@ public class Idol : MonoBehaviour
 {
 
     public float range = 4f;
+    public GameObject rangeIndicatorPrefab;
 
 
     public void Capture()
     {
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, range);
+        GameObject ind = Instantiate(rangeIndicatorPrefab, transform);
+        ind.transform.localScale = new Vector3(range * 2, 0.1f, range * 2);
         foreach (var hitCollider in hitColliders)
         {
             GamePiece u = hitCollider.gameObject.GetComponent<GamePiece>();
@@ -22,7 +25,12 @@ public class Idol : MonoBehaviour
         }
     }
 
-
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.matrix = transform.localToWorldMatrix;
+        Gizmos.DrawSphere(transform.position, range);
+    }
 
 
 
