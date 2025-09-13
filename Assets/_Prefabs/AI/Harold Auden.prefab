@@ -5472,6 +5472,7 @@ GameObject:
   - component: {fileID: 861039569244902896}
   - component: {fileID: 330639485335753572}
   - component: {fileID: 2589710398991819832}
+  - component: {fileID: -353141564181904106}
   m_Layer: 0
   m_Name: Harold Auden
   m_TagString: AI
@@ -5714,6 +5715,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentFear: 10
   fearThreshold: 100
+--- !u!222 &-353141564181904106
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6579168539120367466}
+  m_CullTransparentMesh: 1
 --- !u!1 &6787012791029074862
 GameObject:
   m_ObjectHideFlags: 0

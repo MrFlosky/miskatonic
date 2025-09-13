@@ -153,6 +153,12 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
     }
 
 
+    //Plays dialogue for findig goal room
+    public void FindKey()
+    {
+        dialgoueRunner.StartDialogue(characterFullName + "Key");
+    }
+
 
     // Changed by balance value interface, controls
     // how much fear is added/reduced with yarn script 

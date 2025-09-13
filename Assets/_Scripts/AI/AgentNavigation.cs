@@ -175,9 +175,10 @@ public class AgentNavigation : MonoBehaviour
     {
         path.Clear();
         isMoving = false;
-       
+
         //allows new dialogue
         gameObject.GetComponent<DialogueBank>().alreadyTalked = false;
+        
     }
 
     public void PauseMovement()
@@ -578,6 +579,7 @@ public class AgentNavigation : MonoBehaviour
         {
             visitedRooms.Add(roomType); // Add the room type to the set of visited rooms
             path.Clear();
+            print(roomType);
         }
     }
 

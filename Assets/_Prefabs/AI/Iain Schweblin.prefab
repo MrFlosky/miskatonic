@@ -3012,6 +3012,7 @@ GameObject:
   - component: {fileID: 7108455812190229252}
   - component: {fileID: 4881455144070418030}
   - component: {fileID: 8778541363945203729}
+  - component: {fileID: 8699102603956823806}
   m_Layer: 0
   m_Name: Iain Schweblin
   m_TagString: AI
@@ -3019,18 +3020,17 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8471662616741190239
-Transform:
+--- !u!224 &8471662616741190239
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4497662663377860779}
-  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -521.5, y: -316.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
-  m_ConstrainProportionsScale: 1
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 766304759845959611}
   - {fileID: 6434409978483521711}
@@ -3051,6 +3051,11 @@ Transform:
   - {fileID: 1750713586918958817}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -521.5, y: -316.5}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!33 &3932102006294429288
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -3250,6 +3255,14 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
+--- !u!222 &8699102603956823806
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4497662663377860779}
+  m_CullTransparentMesh: 1
 --- !u!1 &4867603376574170223
 GameObject:
   m_ObjectHideFlags: 0
