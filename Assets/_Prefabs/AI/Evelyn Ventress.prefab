@@ -4877,6 +4877,7 @@ GameObject:
   - component: {fileID: 9101784060931787849}
   - component: {fileID: 5357938843413115689}
   - component: {fileID: 8037503067571498824}
+  - component: {fileID: 6907597717670325211}
   m_Layer: 0
   m_Name: Evelyn Ventress
   m_TagString: AI
@@ -4884,18 +4885,17 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7587132593414468649
-Transform:
+--- !u!224 &7587132593414468649
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5875064369423962649}
-  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -559.5, y: -316.5, z: 38}
+  m_LocalPosition: {x: 0, y: 0, z: 38}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
-  m_ConstrainProportionsScale: 1
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1317561266384034707}
   - {fileID: 4991189622155021801}
@@ -4916,6 +4916,11 @@ Transform:
   - {fileID: 4919556849672274811}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -559.5, y: -316.5}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!33 &2595232479173382579
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -5115,6 +5120,14 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
+--- !u!222 &6907597717670325211
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5875064369423962649}
+  m_CullTransparentMesh: 1
 --- !u!1 &5978693327650174497
 GameObject:
   m_ObjectHideFlags: 0

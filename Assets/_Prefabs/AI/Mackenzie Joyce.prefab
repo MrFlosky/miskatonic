@@ -3166,6 +3166,7 @@ GameObject:
   - component: {fileID: 2065321723929281969}
   - component: {fileID: 996695289097259990}
   - component: {fileID: 8716120238101376463}
+  - component: {fileID: 7774779895997904042}
   m_Layer: 0
   m_Name: Mackenzie Joyce
   m_TagString: AI
@@ -3173,18 +3174,17 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5159927626381391047
-Transform:
+--- !u!224 &5159927626381391047
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4328944795887566300}
-  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -521.5, y: -316.5, z: 38}
+  m_LocalPosition: {x: 0, y: 0, z: 38}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
-  m_ConstrainProportionsScale: 1
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8107666206402581017}
   - {fileID: 8605525531046106200}
@@ -3205,6 +3205,11 @@ Transform:
   - {fileID: 6251625998294871347}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -521.5, y: -316.5}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!33 &6133536972889124227
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -3404,6 +3409,14 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
+--- !u!222 &7774779895997904042
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4328944795887566300}
+  m_CullTransparentMesh: 1
 --- !u!1 &4375690568828370164
 GameObject:
   m_ObjectHideFlags: 0

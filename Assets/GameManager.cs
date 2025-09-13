@@ -5,6 +5,7 @@ using System.Linq;
 using Cinemachine;
 using TMPro;
 using UnityEngine;
+using Yarn.Unity;
 
 
 /// <summary>
@@ -27,6 +28,8 @@ public class GameManager : MonoBehaviour
     bool won = false;
     public CinemachineVirtualCamera playerCam;
     public GameObject endTurnButton; // Needs to be destroyed seperately for win/lose
+
+    DialogueRunner dialogueRunner;
 
 
     // Editable variables.
@@ -60,6 +63,7 @@ public class GameManager : MonoBehaviour
         {
             agentGoalRoom[agent] = false;
         }
+        dialogueRunner = FindObjectOfType<DialogueRunner>();
     }
 
     #region Win and Lose condition checks.
@@ -172,6 +176,14 @@ public class GameManager : MonoBehaviour
         if (agentGoalRoom.ContainsKey(agent))
         {
             agentGoalRoom[agent] = foundRoom;
+
+            //PLACEHOLDER: Activates the key game object of an agent
+            agent.GetComponent<keyTracker>().Key.SetActive(true);
+            //PLACEHOLDER: Plays a yarn spinner script
+            DialogueBank DB = agent.GetComponent<DialogueBank>();
+            DB.FindKey();
+            
+
         }
     }
 
