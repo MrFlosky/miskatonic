@@ -81,6 +81,8 @@ public class ClickAI : MonoBehaviour
                     return;
                 }
                 dialogueBank.alreadyTalked = true;
+                PortraitFade portraitFade =aiGameObj.GetComponent<PortraitFade>();
+                portraitFade.StartCoroutine(portraitFade.FadeOut());
 
 
 
