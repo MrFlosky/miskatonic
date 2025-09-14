@@ -3,7 +3,22 @@ guid: ec359e40f3a269846bd44496f981e043
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gem
+    second: {fileID: 2100000, guid: 0c8f31c1c68dd4345a1c98c7abe8790f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: podium
+    second: {fileID: 2100000, guid: 5225eef75e7c4cf44bfeff6e1a5bd904, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: podium accents
+    second: {fileID: 2100000, guid: 94137ae843850b44ea36eaf3cfa847bd, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
