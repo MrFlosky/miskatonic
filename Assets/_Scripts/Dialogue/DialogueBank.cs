@@ -152,6 +152,12 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
         return count;
     }
 
+    //Plays dialogue for findig goal room
+    public void FindKey()
+    {
+        dialgoueRunner.StartDialogue(characterFullName + "Key");
+    }
+
 
 
     // Changed by balance value interface, controls
