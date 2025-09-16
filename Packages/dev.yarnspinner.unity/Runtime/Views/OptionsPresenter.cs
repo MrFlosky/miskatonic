@@ -334,20 +334,20 @@ namespace Yarn.Unity
                 await Effects.FadeAlphaAsync(canvasGroup, 1, 0, fadeDownDuration, cancellationToken);
             }
 
-            // disabling ALL the options views now
+            // disabling ALL the options views 
             foreach (var optionView in optionViews)
             {
                 optionView.gameObject.SetActive(false);
             }
             await YarnTask.Yield();
 
-            // if we are cancelled we still need to return but we don't want to have a selection, so we return no selected option
+            // if cancelled still need to return but don't want to have a selection, so return no selected option
             if (cancellationToken.IsCancellationRequested)
             {
                 return await DialogueRunner.NoOptionSelected;
             }
 
-            // finally we return the selected option
+            // return the selected option
             return completedTask;
         }
 
