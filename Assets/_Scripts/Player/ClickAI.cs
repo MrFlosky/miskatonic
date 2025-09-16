@@ -12,9 +12,13 @@ using Yarn.Unity;
 
 /// <summary>
 /// 
+/// Handles interactions when player clicks on AI characters
 /// 
+/// Responsibilities:
 /// - Triggering dialouge with AI
 /// - Managing camrea trsnsitions between player camera and AI camera
+/// - Handling outline visualization for AI movement paths
+/// - Disabling/enabling UI buttons during conversations
 /// 
 /// </summary>
 public class ClickAI : MonoBehaviour
