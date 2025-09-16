@@ -97,6 +97,7 @@ public class GameManager : MonoBehaviour
     {
         if (agentGoalRoom[ag] == true)
         {
+
             return true;
         }
         return false;
@@ -172,6 +173,11 @@ public class GameManager : MonoBehaviour
         if (agentGoalRoom.ContainsKey(agent))
         {
             agentGoalRoom[agent] = foundRoom;
+            //PLACEHOLDER: Activates the key game object of an agent
+            agent.GetComponent<keyTracker>().Key.SetActive(true);
+            //PLACEHOLDER: Plays a yarn spinner script
+            DialogueBank DB = agent.GetComponent<DialogueBank>();
+            DB.FindKey();
         }
     }
 
