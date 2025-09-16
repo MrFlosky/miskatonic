@@ -154,7 +154,10 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
     void ITurnObserver.EnemyTurnInitiated() { }
 
 
-
+    public void FindKey()
+    {
+        dialgoueRunner.StartDialogue(characterFullName + "Key");
+    }
 
 
     /// <summary>
