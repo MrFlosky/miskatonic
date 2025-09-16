@@ -92,6 +92,8 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
     /// </summary>
     public void PlayRandomDialogue()
     {
+        Debug.Log("PlayRandomDialogue called for " + characterFullName);
+
         ClickAI.S.StartConversation();
         // add function to be called when dialogue ends. cannot be done in start,
         // otherwise all dialoguebank gameobjects listening for event at same time

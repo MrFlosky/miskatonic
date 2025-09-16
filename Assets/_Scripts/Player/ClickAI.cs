@@ -59,17 +59,18 @@ public class ClickAI : MonoBehaviour
         if (_clickedAI || !TurnBasedSystem.IsPlayerTurn() || _inConversation) return;
 
         Vector2 mousePos = Vector2.zero;
-        mousePos = GameInput.Instance.GetActiveGameDevice() == GameInput.GameDevice.KeyboardMouse ? Mouse.current.position.ReadValue() : VirtualMouseUI.Instance.GetVirtualMousePosition();
-        
+        mousePos = GameInput.Instance.GetActiveGameDevice() == GameInput.GameDevice.KeyboardMouse
+            ? Mouse.current.position.ReadValue()
+            : VirtualMouseUI.Instance.GetVirtualMousePosition();
 
         Ray ray = Camera.main.ScreenPointToRay(mousePos);
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
-
             if (hit.collider.CompareTag("AI"))
             {
                 GameObject aiGameObj = hit.collider.gameObject;
                 DialogueBank dialogueBank = aiGameObj.GetComponent<DialogueBank>();
+
                 // If AI was already clicked, play notify dialogue
                 if (dialogueBank.alreadyTalked)
                 {
@@ -77,26 +78,24 @@ public class ClickAI : MonoBehaviour
                     return;
                 }
 
-                // if ai out of dialogues, play notify diulogue. dont want anything more to happen. i.e. camera shift
+                // If AI out of dialogues, play notify dialogue
                 if (dialogueBank.GetRemainingDialogueCount() == 0)
                 {
                     dialogueBank.OutOfDialogues();
                     return;
                 }
 
-                // mark ai as already talked to, and fadeout their potrait
+                // Mark AI as already talked to, fade out portrait
                 dialogueBank.alreadyTalked = true;
                 PortraitFade portraitFade = aiGameObj.GetComponent<PortraitFade>();
                 portraitFade.StartCoroutine(portraitFade.FadeOut());
 
-
-
-                // camera and sound effect
+                // Camera and sound effect
                 AudioManager.PlaySFX(SFXType.CharacterSelection);
                 _clickedAI = true;
                 PlayerController.Instance.clickedAI = _clickedAI;
-                var virtualCam = dialogueBank.gameObject.GetComponentInChildren<CinemachineVirtualCamera>(true);
 
+                var virtualCam = dialogueBank.gameObject.GetComponentInChildren<CinemachineVirtualCamera>(true);
                 if (virtualCam)
                 {
                     virtualCam.gameObject.SetActive(true);
@@ -105,18 +104,18 @@ public class ClickAI : MonoBehaviour
                 activeCamera = virtualCam;
                 playerCam.enabled = false;
 
-                // disable buttons 
+                // Disable buttons 
                 foreach (var button in buttons)
                 {
-                    Debug.Log(button.gameObject.name);
                     button.interactable = false;
                 }
 
-
-
+                //  Shows the option panel instead of starting dialogue immediately
+                FindObjectOfType<AIClickOptions>().ShowOptions(dialogueBank);
             }
         }
     }
+
 
     public void OnScroll(InputAction.CallbackContext context)
     {
@@ -278,22 +277,29 @@ public class ClickAI : MonoBehaviour
     {
         PlayerController.Instance.clickedAI = false;
         _inConversation = false;
-        if (playerCam)
-            playerCam.enabled = true;
-        else
+
+        
+        if (activeCamera != null && activeCamera != playerCam)
         {
-            playerCam = GameManager.Instance.playerCam;
-            playerCam.enabled = true;
+            activeCamera.Priority = 10; 
         }
-        activeCamera.gameObject.SetActive(false);
-        activeCamera.enabled = false;
+
+        // Make player camera active
+        if (playerCam != null)
+        {
+            playerCam.Priority = 20; 
+        }
+
+        // Update activeCamera reference
         activeCamera = playerCam;
 
+        // Re-enable buttons
         foreach (var button in buttons)
         {
             button.interactable = true;
         }
     }
+
 
     private void Update()
     {
