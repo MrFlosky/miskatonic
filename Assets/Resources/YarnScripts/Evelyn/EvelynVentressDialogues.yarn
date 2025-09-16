@@ -7,6 +7,7 @@ Evelyn's head scans the hallway as she walks, slowly side to side. She walks ass
         "I must be aboveground... somewhere." She notes this, but continues moving.
 ->Do nothing. Complete stillness
         <<add_fear "Evelyn Ventress">>
+        //Fear of Silence
         She is completely lost. "Where could I be? What happened?"
 ->"What could be beyond the darkness"
         She continues forward, determine to answer that question.
@@ -22,6 +23,7 @@ Evelyn taps at her smart watch, trying to get it to come alive. The screen flick
         She unlatches the watch from her wrist, sliding it back into her pocket. She explores further, but hears a sharp popping noise as she walks away. She ignores it and continues moving.
 ->"No one can reach you here"
         <<add_fear "Evelyn Ventress">>
+        //Fear of Isolation
         She stops for a second, thinks to herself, and looks down at the watch. Frantically, she starts to shake her wrist with her other hand, hoping that she can will it back to life. Suddenly, it begins glowing a bright blue light. Evelyn covers her eyes. Just as she begins to reopen them, the screen goes dark and smoke emanates from the watch. She throws it to the floor and keeps on walking. 
 ===
 title: EvelynVentress2
@@ -32,10 +34,10 @@ title: EvelynVentress2
 ->"Anything could be down here with you"
         She ignores the thought. "Focus."
 ->"SLOW DOWN. You don't know what could be ahead."
-        <<add_fear "Evelyn Ventress">>
         "Makes sense." She slows down. Her mind starts racing, trying to figure out where she is. The lack of answers unnerves her. 
-->Do nothing
-        She continues jogging down the hallway. 
+->"No running in the halls!"
+        <<add_fear "Evelyn Ventress">>
+        The sound of her father's voice echoes in her mind. She feels like a scared kid again.
 ===
 title: EvelynVentress3
 ---
@@ -46,6 +48,7 @@ title: EvelynVentress3
         She looks at the wall confused. She continues down the hallway, looking for rooms. 
 ->Hear the sounds of people talking on the other side
         <<add_fear "Evelyn Ventress">>
+        //Fear of being watched
         "What is going on?" She feels like she is a rat in a maze, like there are eyes are watching her. 
 ->No sound at all
         "Strange..." She has never experinced anything like this. The seemingly innocuous nature of this phenomenon excites her. 
@@ -59,6 +62,7 @@ title: EvelynVentress4
         Evelyn gets up off the floor and pulls herself together. No reason to waste her time here. 
 ->"There is no way to know"
         <<add_fear "Evelyn Ventress">>
+        //Fear of meaninglessness
         She lets herself fall apart for a moment. Her movements are slower now as she begins to get up. She now walks with a invisible weight around her neck.
 ===
 title: EvelynVentress5
@@ -73,6 +77,7 @@ title: EvelynVentress5
         "I guess" She ignores the thought and keeps moving. 
 ->"You were meant to be alone forever. This place is just showing you that."
         <<add_fear "Evelyn Ventress">>
+        //Fear of ending up alone
         She stands still for a moment and begins to cry. The maze is silent. 
 ===
 title: EvelynVentress6
@@ -89,6 +94,7 @@ She lays out all of the information she knows in front of her and tries to find 
         This thought is strangely comforting. By removing this situation from reality, she is able to think through it clearly without fear. 
 ->"That man. He trapped you here"
         <<add_fear "Evelyn Ventress">>
+        //Fear of Gene
         “What does he want with me. What has he done to me?” She tenses up.
 ===
 title: EvelynVentress7
@@ -102,7 +108,8 @@ title: EvelynVentress7
         She uses a pen in her pocket to scrap at the walls, leaving a scar in the wall every couple of feet. She smiles at her work. "Progress" 
 ->"What can you do? You know nothing..."
         <<add_fear "Evelyn Ventress">>
-        She thinks for a while, trying to come up with an ideas. She sighs. What can she do
+        //Fear of helplessness
+        She thinks for a while, trying to come up with an ideas. She sighs. What can she do? The lack of control bothers her. 
 ->Do nothing
         he thinks for a while, trying to come up with an ideas. She sighs.
 ===
@@ -116,10 +123,10 @@ Evelyn feels her arms. They are drenched in sweat.
         She continues moving.
 ->"You are falling apart"
         <<add_fear "Evelyn Ventress">>
+        //Fear of Sickness
         Her shoulders raise. She swears that she can feel a sickness under her skin.
-->"Something else is causing this. Something insdie of you"
-        <<add_fear "Evelyn Ventress">>
-        Her shoulders raise. She swears that she can feel a sickness under her skin.
+->"Something else is causing this."
+        She is distracted from this nightmare for a second while she ponders the mystery.
 ===
 title: EvelynVentress9
 ---
@@ -127,11 +134,85 @@ The hairs on Evelyn’s back begin to stand on edge. She feels as though she is 
 ->"You are being watched"
         She is freaked out by the thought of someone watching her for a moment. She thinks about it for a moment: that means there is an answer. She walks faster, eager to figure out this mystery. 
 ->"Maybe it's god"
-        <<reduce_fear "Evelyn Ventress">>
         She is freaked out by the thought of someone watching her for a moment. She thinks about it for a moment: that means there is an answer. She walks faster, eager to figure out this mystery. 
 ->"Nope. You are alone."
         She continues walking. The weight of her own failure hangs on her shoulders. 
 ->"You’re alone, like every moment of your life. Always alone."
         <<add_fear "Evelyn Ventress">>
+        //Fear of ending up alone
         She continues walking. The weight of her own failure hangs on her shoulders.
+===
+title: EvelynVentress10
+---
+As she walks down corridor after corridor, she keeps her steps heavy to hear the sound of her footsteps echo down the hallway.
+->Change the pitch of her steps.
+        She laughs at the sound and takes a break from walking. "This is getting out of hand..." She says outloud to herself.
+->Make the steps even loader as the echo
+        <<reduce_fear "Evelyn Ventress">>
+        Her ears start to ring from the sound of the echo. She laughs at herself a little and takes a break from walking. "Okay, this isn't a march. This is getting out of hand..." She says outloud to herself.
+->Dampen the sound of her footsteps
+        <<add_fear "Evelyn Ventress">>
+        The sound of her footsteps slowly fizzle into nothing. She starts to sweat. She starts to run, hoping that this will interrupt the silence. The only thing that brings her comfort is the sound of her own heartbeat. 
+->Do nothing
+         She laughs at herself a little and takes a break from walking. "Okay, this isn't a march. This is getting out of hand..." She says outloud to herself.
+===
+title: EvelynVentress11
+---
+As she gazes upon row of brick after row of brick, Evelyn's mind starts to play tricks on her. She begins to hallucinate. A figure appears before her. "What is that?"
+->"It's Gene"
+        <<add_fear "Evelyn Ventress">>
+        //Fear of Gene
+        She feels a lump start to grow in her throat. She tries to yell for help, but nothing comes out. She starts to run as the hallucination fizzles into the air. 
+->"It's your father"
+        <<add_fear "Evelyn Ventress">>
+        //Fear of Father
+        She feels a lump start to grow in her throat. She tries to yell for help, but nothing comes out. She starts to run as the hallucination fizzles into the air. 
+->"It's one of your coworkers"
+        She moves closer to the apparition, confused. As she gets closer, the hallucination fizzles into the air.
+->"It looks completely unfamiliar"
+        She moves closer to the apparition, confused. As she gets closer, the hallucination fizzles into the air.
+===
+title: EvelynVentress12
+---
+She looks down at the floor of the maze and notices some small creatures crawling on the edges of the corridor. 
+->"It's tiny little people..."
+        <<reduce_fear "Evelyn Ventress">>
+        She looks closely at them and begins to laugh. What the hell is this place?!
+->"It's a swarm of spiders"
+        <<add_fear "Evelyn Ventress">>
+        //Fear of spiders
+        Evelyn jumps back. "Shit shit shit shit shit" She moves away from them as quick as possible. 
+->"It's a parade of ants"
+        She looks at them curiously. "What kind of ants are these? They should give some hint to where I am."
+->"It's a parade of beetles"
+        She looks at them curiously. "What kind of beetles are these? They should give some hint to where I am."
+===
+title: EvelynVentress13
+---
+She tries not to, but her mind starts to think about what is going to happen to her here.
+->"A monster is going to get you and torture you..."
+        She laughs at the idea of one of those cheesy monsters from an 80s horror movie coming after her. She ignores the thought.
+->"LOOK OUT BEHIND YOU"
+        She jumps and looks behind her only to find nothing. She laughs at the idea of one of those cheesy monsters from an 80s horror movie jumping out at her. She ignores the thought.
+->"Maybe you'll find others here."
+        <<reduce_fear "Evelyn Ventress">>
+        "I hope so..." She keeps searching.
+->"Nothing will happen. You'll just be here... alone..."
+        <<add_fear "Evelyn Ventress">>
+        //Fear of isolation
+        "Yeah... maybe" She tries to ignore the thought, but the thought of being stuck here alone sticks with her. 
+===
+title: EvelynVentress14
+---
+She looks up at the roof of the maze and notices something...
+->"The roof if leaking"
+        "Are we under water?" She is left more confused.
+->"Something is up there watching you"
+        <<add_fear "Evelyn Ventress">>
+        //Fear of being watched
+        "I have no proof of that..." She tries to ignore the thought, but she can't help but feel eyes following her. She constantly checks over her shoulder.
+->"The roof is caving in"
+        "Are we underground?" She is left more confused.
+->"Normal roof"
+        Okay
 ===
