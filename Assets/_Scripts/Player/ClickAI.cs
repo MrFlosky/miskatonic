@@ -275,7 +275,6 @@ public class ClickAI : MonoBehaviour
     /// </summary>
     public void EndConversation()
     {
-        Debug.LogWarning("HELLLOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
         PlayerController.Instance.clickedAI = false;
         _inConversation = false;
 
@@ -288,6 +287,7 @@ public class ClickAI : MonoBehaviour
         // Make player camera active
         if (playerCam != null)
         {
+            playerCam.enabled = true;
             playerCam.Priority = 20; 
         }
 

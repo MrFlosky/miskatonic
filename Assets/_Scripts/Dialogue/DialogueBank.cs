@@ -115,7 +115,6 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
     /// </summary>
     private void EndDialogue()
     {
-        Debug.LogWarning("END DIALOGUE!!!!!!!!!!!");
         dialgoueRunner.onDialogueComplete.RemoveListener(EndDialogue);
 
         // Events that need to happen when dialogue has ended. This
