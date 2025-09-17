@@ -46,7 +46,6 @@ public class ClickAI : MonoBehaviour
     [Header("UI")]
     public Button[] buttons;    // Buttons need to show/hide during dialogue
 
-
     private void Start()
     {
         S = this;
@@ -68,7 +67,7 @@ public class ClickAI : MonoBehaviour
     /// Handles left-clicking on AI to start conversation
     /// Perform raycast to detect AI, camera switch, trigger dialouge, and disable gameplay buttons
     /// 
-    /// <summary>
+    /// </summary>
     public void OnClick(InputAction.CallbackContext context)
     {
         if (_clickedAI || !TurnBasedSystem.IsPlayerTurn() || _inConversation) return;
@@ -141,7 +140,7 @@ public class ClickAI : MonoBehaviour
     /// Handle mouse scroll input to move the dolly camera along its path
     /// Disable if AI was clicked
     /// 
-    /// <summary>
+    /// </summary>
     public void OnScroll(InputAction.CallbackContext context)
     {
         if (_clickedAI) return;
@@ -162,7 +161,7 @@ public class ClickAI : MonoBehaviour
     /// Handle right-click input to preview AI movement paths by outlining titles
     /// Clear outlines when releasing right-click or clicking elsewhere
     /// 
-    /// <summary>
+    /// </summary>
     public void OnRightClick(InputAction.CallbackContext context)
     {
         rightClicking = true;
@@ -289,7 +288,7 @@ public class ClickAI : MonoBehaviour
     /// 
     /// Remove outlines from all currently highlighted tiles
     /// 
-    /// <summary>
+    /// </summary>
     private void ClearOutlines()
     {
         foreach (var outline in activeOutlines)
@@ -314,12 +313,18 @@ public class ClickAI : MonoBehaviour
 
 
     /// <summary>
-    /// Returns the camera back to its main state and some other stuff?
+    /// 
+    /// Ends the current conversation:
+    /// - Resets camera back to player
+    /// - Enable buttons
+    /// - Reset AI click state (clickedAI)
+    /// 
     /// </summary>
     public void EndConversation()
     {
         PlayerController.Instance.clickedAI = false;
         _inConversation = false;
+
         if (playerCam)
             playerCam.enabled = true;
         else
@@ -327,6 +332,7 @@ public class ClickAI : MonoBehaviour
             playerCam = GameManager.Instance.playerCam;
             playerCam.enabled = true;
         }
+
         activeCamera.gameObject.SetActive(false);
         activeCamera.enabled = false;
         activeCamera = playerCam;
@@ -339,10 +345,35 @@ public class ClickAI : MonoBehaviour
 
     private void Update()
     {
+        // Clear outlines unless hodling right-click in player's turn
         if (rightClicking && TurnBasedSystem.IsPlayerTurn()) return;
         ClearOutlines();
     }
 
+
+
+}
+
+public class AIHighlighter : MonoBehaviour
+{
+    [SerializeField] private Material outlineMaterial;
+    private List<Transform> activeOutlines = new List<Transform>();
+
+    public void HighlightPath(List<MazeCell> path, int tileSpeed)
+    {
+        
+    }
+
+    public void ClearOutlines()
+    {
+        foreach (var outline in activeOutlines)
+        {
+            var newMaterials = new Material[1];
+            newMaterials[0] = outline.GetComponent<MeshRenderer>().materials[0];
+            outline.GetComponent<MeshRenderer>().materials = newMaterials;
+        }
+        activeOutlines.Clear(); // Clear the list after disabling
+    }
 
 
 }
