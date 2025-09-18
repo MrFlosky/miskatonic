@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: test 1
+  m_Name: test 4
   m_Shader: {fileID: 4800000, guid: 9c1257f62511fe243bd66e83c7515d0f, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -29,6 +29,8 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Radius: 3.69
+    - _Q: 7.83
+    - _Radius: 3
+    - _Sigma: 2
     m_Colors: []
   m_BuildTextureStacks: []
