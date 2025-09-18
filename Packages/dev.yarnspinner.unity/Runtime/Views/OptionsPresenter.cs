@@ -351,12 +351,14 @@ namespace Yarn.Unity
             return completedTask;
         }
 
+
+        public GameObject Options;
         private OptionItem CreateNewOptionView()
         {
             var optionView = Instantiate(optionViewPrefab);
-
+            
             var targetTransform = canvasGroup != null ? canvasGroup.transform : this.transform;
-
+           
             if (optionView == null)
             {
                 throw new System.InvalidOperationException($"Can't create new option view: {nameof(optionView)} is null");
@@ -365,7 +367,7 @@ namespace Yarn.Unity
             optionView.transform.SetParent(targetTransform.transform, false);
             optionView.transform.SetAsLastSibling();
             optionView.gameObject.SetActive(false);
-
+            optionView.transform.SetParent(Options.transform);
             return optionView;
         }
     }
