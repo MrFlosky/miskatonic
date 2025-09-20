@@ -21,6 +21,8 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
     /// </summary>
     private Fear characterFear;
 
+    public Sprite CharacterSprite;
+
     // Number of total dialogues this character has.
     private int totalDialogues;
     // Numer of dialogues this character has LEFT
@@ -104,6 +106,7 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
         // whatever dialogue number that returns from the list
         int dialogueKey = unPlayedDialogues[listIndex];
         string yarnAcessStr = characterFullName + dialogueKey;
+        CharacterGameDialogue.CharacterSprite = CharacterSprite;
         dialgoueRunner.StartDialogue(yarnAcessStr);
 
         dialoguesRemaining -= 1;
