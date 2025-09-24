@@ -17,6 +17,8 @@ public class UIManagerLite : MonoBehaviour
     /// when a dialogue is complete. Doing that manually here.
     /// </summary>
     [SerializeField] private CanvasGroup evilCanvasGroup;
+    [SerializeField] private CanvasGroup lineAndOptionsCG;
+    [SerializeField] private CanvasGroup optionsPresenterCG;
 
 
     void Start()
@@ -30,6 +32,13 @@ public class UIManagerLite : MonoBehaviour
     {
         S.evilCanvasGroup.interactable = true;
         S.evilCanvasGroup.blocksRaycasts = true;
+
+        S.lineAndOptionsCG.interactable = true;
+        S.lineAndOptionsCG.blocksRaycasts = true;
+
+        S.optionsPresenterCG.interactable = true;
+        S.optionsPresenterCG.blocksRaycasts = true;
+        S.optionsPresenterCG.alpha = 1;
     }
 
     /// <summary>
@@ -39,5 +48,12 @@ public class UIManagerLite : MonoBehaviour
     {
         S.evilCanvasGroup.interactable = false;
         S.evilCanvasGroup.blocksRaycasts = false;
+
+        S.lineAndOptionsCG.interactable = false;
+        S.lineAndOptionsCG.blocksRaycasts = false;
+
+        S.optionsPresenterCG.interactable = false;
+        S.optionsPresenterCG.blocksRaycasts = false;
+        S.optionsPresenterCG.alpha = 0;
     }
 }

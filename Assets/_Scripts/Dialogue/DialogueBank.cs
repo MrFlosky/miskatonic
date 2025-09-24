@@ -35,6 +35,9 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
     // Track when a dialogue has already been initiated in a given turn
     public bool alreadyTalked = false;
 
+    // Character's respective sprite
+    [SerializeField] private Sprite characterSprite;
+
     void Start()
     {
         TurnBasedSystem.SubscribeAsObserver(this);
@@ -102,6 +105,9 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
         // whatever dialogue number that returns from the list
         int dialogueKey = unPlayedDialogues[listIndex];
         string yarnAcessStr = characterFullName + dialogueKey;
+
+        CharacterGameDialogue.CharacterSprite = characterSprite;
+        
         dialgoueRunner.StartDialogue(yarnAcessStr);
 
         dialoguesRemaining -= 1;

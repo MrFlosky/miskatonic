@@ -46,6 +46,8 @@ public class ClickAI : MonoBehaviour
     [Header("UI")]
     public Button[] buttons;    // Buttons need to show/hide during dialogue
 
+    [SerializeField] private AIClickOptions aiClickOptions;
+
     private void Start()
     {
         S = this;
@@ -128,6 +130,8 @@ public class ClickAI : MonoBehaviour
                     button.interactable = false;
                 }
 
+                // Show option panel instead of starting dialogue immediately
+                aiClickOptions.ShowOptions(dialogueBank);
 
 
             }
