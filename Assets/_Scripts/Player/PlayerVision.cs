@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public enum Direction { Up, Down, Left, Right }
+public enum Vision { Up, Down, Left, Right }
 public class PlayerVision : MonoBehaviour
 {
-    public Direction facing = Direction.Up;
+    public Vision facing = Vision.Up;
     public Vector2Int gridPos;
     public int visionRange = 3;
 
@@ -20,16 +20,16 @@ public class PlayerVision : MonoBehaviour
         {
             switch (facing)
             {
-                case Direction.Up:
+                case Vision.Up:
                     visible.Add(new Vector2Int(gridPos.x, gridPos.y + i));
                     break;
-                case Direction.Down:
+                case Vision.Down:
                     visible.Add(new Vector2Int(gridPos.x, gridPos.y -  i));
                     break;
-                case Direction.Left:
+                case Vision.Left:
                     visible.Add(new Vector2Int(gridPos.x - i, gridPos.y));
                     break;
-                case Direction.Right:
+                case Vision.Right:
                     visible.Add(new Vector2Int(gridPos.x + i, gridPos.y));
                     break;
             }
