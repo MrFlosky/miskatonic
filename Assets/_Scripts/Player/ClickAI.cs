@@ -11,57 +11,75 @@ using Yarn.Unity;
 
 
 /// <summary>
-/// NEEDS REFACTOR BADLY!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-/// This class is responsible for what happens upon clicking AI. Including:
-/// - Presenting dialogue
-/// - Camera transition
+/// 
+/// Handles interactions when player clicks on AI characters
+/// 
+/// Responsibilities:
+/// - Triggering dialouge with AI
+/// - Managing camrea trsnsitions between player camera and AI camera
+/// - Handling outline visualization for AI movement paths
+/// - Disabling/enabling UI buttons during conversations
+/// 
 /// </summary>
 public class ClickAI : MonoBehaviour
 {
-    public static ClickAI S;
+    public static ClickAI S; // rRference
 
-    public Camera mainCamera; // Reference to the camera, if null defaults to main camera
-    public CinemachineVirtualCamera playerCam;
-    public CinemachineVirtualCamera activeCamera;
+    [Header("Cameras")]
+    public Camera mainCamera; // Reference to the camera (defaults to main camera if null)
+    public CinemachineVirtualCamera playerCam;  // Player's default camera
+    public CinemachineVirtualCamera activeCamera;   // Currently active camera (AI or player)
 
-    private bool _inConversation;
+    private bool _inConversation;   // Tracks if a conversation is ongoing
+    public bool _clickedAI = false; // Track if the AI has been clicked.
 
-    public CinemachineTrackedDolly track;
+
+    [Header("Camera Dolly")]
+    public CinemachineTrackedDolly track;   // Dolly component used for camera path movement
     public float scrollSpeed = 1f; // Speed factor for scrolling
 
-    // Track if the AI has been clicked.
-    public bool _clickedAI = false;
+    [Header("Highlighting")]
+    private List<Transform> activeOutlines = new List<Transform>(); // List of current outlined tiles
+    private bool rightClicking = false; // Whether the player is right-clicking
+    [SerializeField] Material outlineMaterial;  // Material applied when highlighting tiles
 
-    private List<Transform> activeOutlines = new List<Transform>();
+    [Header("UI")]
+    public Button[] buttons;    // Buttons need to show/hide during dialogue
 
-    private bool rightClicking = false;
-
-    [SerializeField] Material outlineMaterial;
-
-    // buttons need to show/hide during dialogue
-    public Button[] buttons;
-
+    [SerializeField] private AIClickOptions aiClickOptions;
 
     private void Start()
     {
         S = this;
+
+        // Dafault to main camera if not assigned
         if (mainCamera == null)
         {
             mainCamera = Camera.main; // Use main camera if none specified
         }
 
+        // Set up initial active camera
         activeCamera = playerCam;
         track = playerCam.GetCinemachineComponent<CinemachineTrackedDolly>();
     }
 
+
+    /// <summary>
+    /// 
+    /// Handles left-clicking on AI to start conversation
+    /// Perform raycast to detect AI, camera switch, trigger dialouge, and disable gameplay buttons
+    /// 
+    /// </summary>
     public void OnClick(InputAction.CallbackContext context)
     {
         if (_clickedAI || !TurnBasedSystem.IsPlayerTurn() || _inConversation) return;
 
+        // Get moude position based on current input
         Vector2 mousePos = Vector2.zero;
-        mousePos = GameInput.Instance.GetActiveGameDevice() == GameInput.GameDevice.KeyboardMouse ? Mouse.current.position.ReadValue() : VirtualMouseUI.Instance.GetVirtualMousePosition();
-        
-
+        mousePos = GameInput.Instance.GetActiveGameDevice() == GameInput.GameDevice.KeyboardMouse 
+            ? Mouse.current.position.ReadValue() 
+            : VirtualMouseUI.Instance.GetVirtualMousePosition();
+         
         Ray ray = Camera.main.ScreenPointToRay(mousePos);
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
@@ -70,28 +88,28 @@ public class ClickAI : MonoBehaviour
             {
                 GameObject aiGameObj = hit.collider.gameObject;
                 DialogueBank dialogueBank = aiGameObj.GetComponent<DialogueBank>();
-                // If AI was already clicked, play notify dialogue
+                // No dialouge needed
                 if (dialogueBank.alreadyTalked)
                 {
                     dialogueBank.AlreadyTalked();
                     return;
                 }
 
-                // if ai out of dialogues, play notify diulogue. dont want anything more to happen. i.e. camera shift
+                // Prevent interaction if AI is out of dialouge
                 if (dialogueBank.GetRemainingDialogueCount() == 0)
                 {
                     dialogueBank.OutOfDialogues();
                     return;
                 }
 
-                // mark ai as already talked to, and fadeout their potrait
+                // Mark AI as talked and fade potrait
                 dialogueBank.alreadyTalked = true;
                 PortraitFade portraitFade = aiGameObj.GetComponent<PortraitFade>();
                 portraitFade.StartCoroutine(portraitFade.FadeOut());
 
 
 
-                // camera and sound effect
+                // Play SFX and swap camera
                 AudioManager.PlaySFX(SFXType.CharacterSelection);
                 _clickedAI = true;
                 PlayerController.Instance.clickedAI = _clickedAI;
@@ -105,19 +123,28 @@ public class ClickAI : MonoBehaviour
                 activeCamera = virtualCam;
                 playerCam.enabled = false;
 
-                // disable buttons 
+                // Disable interaction buttons during dialouge
                 foreach (var button in buttons)
                 {
                     Debug.Log(button.gameObject.name);
                     button.interactable = false;
                 }
 
+                // Show option panel instead of starting dialogue immediately
+                aiClickOptions.ShowOptions(dialogueBank);
 
 
             }
         }
     }
 
+
+    /// <summary>
+    /// 
+    /// Handle mouse scroll input to move the dolly camera along its path
+    /// Disable if AI was clicked
+    /// 
+    /// </summary>
     public void OnScroll(InputAction.CallbackContext context)
     {
         if (_clickedAI) return;
@@ -132,18 +159,29 @@ public class ClickAI : MonoBehaviour
         track.m_PathPosition += scrollAmount / 120 * scrollSpeed;
     }
 
+
+    /// <summary>
+    /// 
+    /// Handle right-click input to preview AI movement paths by outlining titles
+    /// Clear outlines when releasing right-click or clicking elsewhere
+    /// 
+    /// </summary>
     public void OnRightClick(InputAction.CallbackContext context)
     {
         rightClicking = true;
+
         if (_clickedAI || !TurnBasedSystem.IsPlayerTurn() || _inConversation)
         {
             ClearOutlines();
             return;
         }
 
-        var mousePos = GameInput.Instance.GetActiveGameDevice() == GameInput.GameDevice.KeyboardMouse ? Mouse.current.position.ReadValue() : VirtualMouseUI.Instance.GetVirtualMousePosition();
+        var mousePos = GameInput.Instance.GetActiveGameDevice() == GameInput.GameDevice.KeyboardMouse 
+            ? Mouse.current.position.ReadValue() 
+            : VirtualMouseUI.Instance.GetVirtualMousePosition();
 
         Ray ray = Camera.main.ScreenPointToRay(mousePos);
+
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
             if (hit.collider.CompareTag("AI"))
@@ -157,8 +195,8 @@ public class ClickAI : MonoBehaviour
                     {
                         // Clear any previously active outlines
                         ClearOutlines();
-
                         List<Transform> childWithTag = new List<Transform>();
+
                         for (int i = 0; i < Mathf.Min(agentNavigation.tileSpeed, agentNavigation.storedPath.Count); i++)
                         {
                             MazeCell cell = agentNavigation.storedPath[i];
@@ -173,6 +211,7 @@ public class ClickAI : MonoBehaviour
                             }
                         }
 
+                        // Apply outline material
                         foreach (var child in childWithTag)
                         {
                             var materials = child.GetComponent<MeshRenderer>().materials;
@@ -248,6 +287,12 @@ public class ClickAI : MonoBehaviour
         }
     }
 
+
+    /// <summary>
+    /// 
+    /// Remove outlines from all currently highlighted tiles
+    /// 
+    /// </summary>
     private void ClearOutlines()
     {
         foreach (var outline in activeOutlines)
@@ -272,12 +317,18 @@ public class ClickAI : MonoBehaviour
 
 
     /// <summary>
-    /// Returns the camera back to its main state and some other stuff?
+    /// 
+    /// Ends the current conversation:
+    /// - Resets camera back to player
+    /// - Enable buttons
+    /// - Reset AI click state (clickedAI)
+    /// 
     /// </summary>
     public void EndConversation()
     {
         PlayerController.Instance.clickedAI = false;
         _inConversation = false;
+
         if (playerCam)
             playerCam.enabled = true;
         else
@@ -285,6 +336,7 @@ public class ClickAI : MonoBehaviour
             playerCam = GameManager.Instance.playerCam;
             playerCam.enabled = true;
         }
+
         activeCamera.gameObject.SetActive(false);
         activeCamera.enabled = false;
         activeCamera = playerCam;
@@ -297,10 +349,37 @@ public class ClickAI : MonoBehaviour
 
     private void Update()
     {
+        // Clear outlines unless hodling right-click in player's turn
         if (rightClicking && TurnBasedSystem.IsPlayerTurn()) return;
         ClearOutlines();
     }
 
+
+
+}
+
+
+// This does not seem to be in use currently.
+public class AIHighlighter : MonoBehaviour
+{
+    [SerializeField] private Material outlineMaterial;
+    private List<Transform> activeOutlines = new List<Transform>();
+
+    public void HighlightPath(List<MazeCell> path, int tileSpeed)
+    {
+
+    }
+
+    public void ClearOutlines()
+    {
+        foreach (var outline in activeOutlines)
+        {
+            var newMaterials = new Material[1];
+            newMaterials[0] = outline.GetComponent<MeshRenderer>().materials[0];
+            outline.GetComponent<MeshRenderer>().materials = newMaterials;
+        }
+        activeOutlines.Clear(); // Clear the list after disabling
+    }
 
 
 }

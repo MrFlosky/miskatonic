@@ -41,7 +41,8 @@ public class AICamera : MonoBehaviour
         {
             AIFearMeter.StartUpSlider(thisAIsFear.GetFear(), thisAIsFear.GetFearThreshold());
             AIFearMeter.DisplayAIMeter();
-            dialogueBank.PlayRandomDialogue();
+            
+            //dialogueBank.PlayRandomDialogue();
 
 
             // Reset the flag to ensure it only triggers once per blend
