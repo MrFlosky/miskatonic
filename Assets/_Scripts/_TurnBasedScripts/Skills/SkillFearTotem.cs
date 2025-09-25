@@ -9,6 +9,7 @@ public class SkillFearTotem : Skill
     public GameObject fearObj;
     Transform fearObjTrans;
     bool canPlace=true;
+    public int roundsLast;
     
     private SkillsCollection skillsUI;
 
@@ -27,6 +28,7 @@ public class SkillFearTotem : Skill
 
     private void Start()
     {
+        
         enabled = false;
     }
 
@@ -76,11 +78,13 @@ public class SkillFearTotem : Skill
 
                 newTotem.transform.position = newPos;
                 FearTotemEffect fearTotemEff = newTotem.GetComponent<FearTotemEffect>();
+                
                 //placeholder randomization. Fix with way of changing number manually later
                 fearTotemEff.targetInt = Random.Range(0, 3);
-
                 //for testing, delete later
                 fearTotemEff.sightFear = 200;
+
+                TurnBasedSystem.DestroyAfterRounds destroyInstance = new TurnBasedSystem.DestroyAfterRounds(roundsLast, newTotem);
                 fearObj.SetActive(false);
                 canPlace = false;
                 this.enabled = false;

@@ -210,7 +210,11 @@ public class TurnBasedSystem : MonoBehaviour
         foreach (DestroyAfterRounds ob in S.destroyablesListOb)
         {
 
-            ob.GetObToDestroy().GetComponent<AOEEffect>().boxColl.enabled = true;
+            if (ob.GetObToDestroy().GetComponent<AOEEffect>()) 
+            {
+                ob.GetObToDestroy().GetComponent<AOEEffect>().boxColl.enabled = true; 
+            }
+
         }
     }
 
@@ -219,7 +223,10 @@ public class TurnBasedSystem : MonoBehaviour
         foreach (DestroyAfterRounds ob in S.destroyablesListOb)
         {
 
-            ob.GetObToDestroy().GetComponent<AOEEffect>().boxColl.enabled = false;
+            if (ob.GetObToDestroy().GetComponent<AOEEffect>()) 
+            {
+                ob.GetObToDestroy().GetComponent<AOEEffect>().boxColl.enabled = false;
+            }
         }
     }
 
