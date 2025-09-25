@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eed5864476f84ce4b85454db09ca4eaa, type: 3}
   m_Name: graph_0
   m_EditorClassIdentifier: 
-  AssetPath: Assets/Art/Materials/Miskatonic_HallFloor 2.sbsar
-  RawData: {fileID: 0}
+  AssetPath: Assets/Art/Textures/SBSARs/Miskatonic_HallFloor 2.sbsar
+  RawData: {fileID: -244192453324840774, guid: 17146dca6851a3247b47cf20c5f0ebb5, type: 3}
   Name: graph_0
   IsRoot: 1
   FlagedForDelete: 0
@@ -31,7 +31,7 @@ MonoBehaviour:
       Index: 0
       Type: 8
       Channel: baseColor
-    OutputTexture: {fileID: 0}
+    OutputTexture: {fileID: 2800000, guid: 4f6c21ea881466b4b94f72b27ba98ddb, type: 3}
     sRGB: 1
     IsVirtual: 0
     IsAlphaAssignable: 1
@@ -47,7 +47,7 @@ MonoBehaviour:
       Index: 1
       Type: 8
       Channel: normal
-    OutputTexture: {fileID: 0}
+    OutputTexture: {fileID: 2800000, guid: 585a7537f3f98b84cbb4dfca8ec3f28d, type: 3}
     sRGB: 0
     IsVirtual: 0
     IsAlphaAssignable: 0
@@ -79,7 +79,7 @@ MonoBehaviour:
       Index: 3
       Type: 8
       Channel: metallic
-    OutputTexture: {fileID: 0}
+    OutputTexture: {fileID: 2800000, guid: 611509d8fbf4d1a46a6a20f67e4658a1, type: 3}
     sRGB: 0
     IsVirtual: 0
     IsAlphaAssignable: 1
@@ -95,7 +95,7 @@ MonoBehaviour:
       Index: 4
       Type: 8
       Channel: height
-    OutputTexture: {fileID: 0}
+    OutputTexture: {fileID: 2800000, guid: de9455d1c01a33740abb0281a38075cd, type: 3}
     sRGB: 1
     IsVirtual: 0
     IsAlphaAssignable: 1
@@ -111,7 +111,7 @@ MonoBehaviour:
       Index: 5
       Type: 8
       Channel: ambientOcclusion
-    OutputTexture: {fileID: 0}
+    OutputTexture: {fileID: 2800000, guid: 1c819311e8206ff499535e06185cc899, type: 3}
     sRGB: 0
     IsVirtual: 0
     IsAlphaAssignable: 1
@@ -127,11 +127,11 @@ MonoBehaviour:
   IsRuntimeOnly: 0
   GenerateAllOutputs: 0
   GenerateAllMipmaps: 1
-  OutputMaterial: {fileID: 0}
+  OutputMaterial: {fileID: 2100000, guid: 9aa17633b00293b43bda47221d379947, type: 2}
   DefaultPreset: " <sbspreset pkgurl=\"pkg://Miskatonic_FloorWood\" label=\"\" >\n 
     <presetinput identifier=\"$outputsize\" uid=\"2901964957\" type=\"8\" value=\"10,10\"
     />\n </sbspreset>\n"
-  MaterialShader: 
+  MaterialShader: Standard
   RenderTextures: 0
   OutputRemaped: 0
   Presets: []
