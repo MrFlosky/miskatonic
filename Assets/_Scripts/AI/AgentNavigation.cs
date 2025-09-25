@@ -37,6 +37,10 @@ public class AgentNavigation : MonoBehaviour
     
     public int tileSpeed = 10;
 
+    //attached to the character object
+    TotemTracker totemTracker;
+
+
     private void Start()
     {
         // Initialize the dictionary with room reactions for this agent
@@ -55,6 +59,12 @@ public class AgentNavigation : MonoBehaviour
         {
             Debug.LogError("GameManager instance is null.");
         }
+        if (gameObject.GetComponent<TotemTracker>() != null)
+        {
+            totemTracker = gameObject.GetComponent<TotemTracker>();
+        }
+
+
     }
     
     private void Update()
@@ -117,6 +127,10 @@ public class AgentNavigation : MonoBehaviour
     {
         
         if (!isMoving || path.Count == 0) return;
+
+        //searches for a visible totem
+        totemTracker.LookForTotem();
+
 
         Vector3 currentPosition = transform.position;
         Vector3 targetPosition = destination;

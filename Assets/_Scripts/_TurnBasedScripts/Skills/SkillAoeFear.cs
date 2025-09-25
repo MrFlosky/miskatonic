@@ -60,6 +60,7 @@ public class SkillAoeFear : Skill
 
     public void OnClick(InputAction.CallbackContext context)
     {
+        
         Vector2 mousePos = Vector2.zero;
         mousePos = GameInput.Instance.GetActiveGameDevice() == GameInput.GameDevice.KeyboardMouse ? Mouse.current.position.ReadValue() : VirtualMouseUI.Instance.GetVirtualMousePosition();
         // Determine the rooms being selected for a switch

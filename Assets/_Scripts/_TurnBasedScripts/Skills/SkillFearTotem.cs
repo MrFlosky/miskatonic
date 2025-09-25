@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class SkillFearObject : Skill
+public class SkillFearTotem : Skill
 {
     public Camera mainCamera;
     public GameObject fearObj;
     Transform fearObjTrans;
-
+    bool canPlace=true;
     
     private SkillsCollection skillsUI;
 
@@ -18,9 +18,10 @@ public class SkillFearObject : Skill
         {
             mainCamera = Camera.main; // Use main camera if none specified
         }
-        fearObjTrans = fearObj.transform;
+        fearObjTrans = fearObj.GetComponent<Transform>();
         skillsUI = GetComponent<SkillsCollection>();
         skillSystem = GetComponent<SkillSystem>();
+        
     }
 
 
@@ -32,6 +33,7 @@ public class SkillFearObject : Skill
 
     private void Update()
     {
+        
         Vector2 mousePos = Vector2.zero;
         mousePos = GameInput.Instance.GetActiveGameDevice() == GameInput.GameDevice.KeyboardMouse ? Mouse.current.position.ReadValue() : VirtualMouseUI.Instance.GetVirtualMousePosition();
         // Bound object to being placed in maze
@@ -57,13 +59,37 @@ public class SkillFearObject : Skill
 
     public void OnClick(InputAction.CallbackContext context)
     {
+        print("clicked");
         Vector2 mousePos = Vector2.zero;
         mousePos = GameInput.Instance.GetActiveGameDevice() == GameInput.GameDevice.KeyboardMouse ? Mouse.current.position.ReadValue() : VirtualMouseUI.Instance.GetVirtualMousePosition();
-        // Determine the rooms being selected for a switch
+        
         Ray ray = skillSystem.GET_CAM().ScreenPointToRay(mousePos);
         RaycastHit hit;
-       if (Physics.Raycast(ray, out hit))
+        if (Physics.Raycast(ray, out hit))
         {
+            
+            if(canPlace && hit.transform.GetComponentInParent<MazeCellObject>() != null) 
+            {
+                print("clicked");
+                Vector3 newPos = fearObjTrans.position;
+                GameObject newTotem = Instantiate(fearObj);
+
+                newTotem.transform.position = newPos;
+                FearTotemEffect fearTotemEff = newTotem.GetComponent<FearTotemEffect>();
+                //placeholder randomization. Fix with way of changing number manually later
+                fearTotemEff.targetInt = Random.Range(0, 3);
+
+                //for testing, delete later
+                fearTotemEff.sightFear = 200;
+                fearObj.SetActive(false);
+                canPlace = false;
+                this.enabled = false;
+                skillsUI.ENABLE_BUTTONS();
+                EndSkill();
+
+
+
+            }
 
         }
 
@@ -76,7 +102,7 @@ public class SkillFearObject : Skill
 
         base.EndSkill();
         this.enabled = false;
-
+        canPlace = false;
         fearObj.SetActive(false);
        
 
@@ -87,9 +113,12 @@ public class SkillFearObject : Skill
     {
         if (skillSystem.GET_PTS() >= ptDeduction)
         {
+            
             base.ActivateSkill();
             enabled = true; // Enable the script allowing this skill to happen once.
             fearObj.SetActive(true);
+            canPlace = true;
+
            
         }
 

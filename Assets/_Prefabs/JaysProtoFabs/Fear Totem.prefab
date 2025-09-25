@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5299873973094655202}
   - component: {fileID: 8812892629221452965}
   m_Layer: 0
-  m_Name: Fear Object
+  m_Name: Fear Totem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -120,3 +120,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da26fb4d68219ed448798409ce3d6f32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sightFear: 20
+  targetInt: 0
