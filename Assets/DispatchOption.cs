@@ -6,4 +6,10 @@ public class DispatchOption : MonoBehaviour
 {
     public int DispatchCost = 1;
 
+    public virtual void ChooseOption()
+    {
+        CultistManager.Instance.OptionChosen();
+        // add effect functionality
+    }
+
 }
