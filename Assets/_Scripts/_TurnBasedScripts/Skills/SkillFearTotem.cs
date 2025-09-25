@@ -12,7 +12,8 @@ public class SkillFearTotem : Skill
     public int roundsLast;
     
     private SkillsCollection skillsUI;
-
+    
+    public InputAction TestAction;
     private void Awake()
     {
         if (mainCamera == null)
@@ -35,7 +36,7 @@ public class SkillFearTotem : Skill
 
     private void Update()
     {
-        
+        if (TestAction.IsPressed()) print("Test");
         Vector2 mousePos = Vector2.zero;
         mousePos = GameInput.Instance.GetActiveGameDevice() == GameInput.GameDevice.KeyboardMouse ? Mouse.current.position.ReadValue() : VirtualMouseUI.Instance.GetVirtualMousePosition();
         // Bound object to being placed in maze
@@ -61,7 +62,7 @@ public class SkillFearTotem : Skill
 
     public void OnClick(InputAction.CallbackContext context)
     {
-        print("clicked");
+        
         Vector2 mousePos = Vector2.zero;
         mousePos = GameInput.Instance.GetActiveGameDevice() == GameInput.GameDevice.KeyboardMouse ? Mouse.current.position.ReadValue() : VirtualMouseUI.Instance.GetVirtualMousePosition();
         
@@ -72,15 +73,16 @@ public class SkillFearTotem : Skill
             
             if(canPlace && hit.transform.GetComponentInParent<MazeCellObject>() != null) 
             {
-                print("clicked");
+               
                 Vector3 newPos = fearObjTrans.position;
                 GameObject newTotem = Instantiate(fearObj);
 
                 newTotem.transform.position = newPos;
                 FearTotemEffect fearTotemEff = newTotem.GetComponent<FearTotemEffect>();
                 
-                //placeholder randomization. Fix with way of changing number manually later
-                fearTotemEff.targetInt = Random.Range(0, 3);
+               //placeholder randomization. Fix with way of changing number manually later
+               fearTotemEff.targetInt = Random.Range(0, 3);
+                
                 //for testing, delete later
                 fearTotemEff.sightFear = 200;
 

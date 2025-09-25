@@ -31253,6 +31253,24 @@ MonoBehaviour:
   endTurnButton: {fileID: 840591864}
   mainCamera: {fileID: 0}
   fearObj: {fileID: 598578904}
+  roundsLast: 2
+  TestAction:
+    m_Name: Test
+    m_Type: 0
+    m_ExpectedControlType: Integer
+    m_Id: a00e013d-8d26-48e2-8c78-bdc7eda6bf6b
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 3c37aef7-88e6-4ae4-b339-87f0e016e88f
+      m_Path: 
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Test
+      m_Flags: 0
+    m_Flags: 0
 --- !u!1 &284802656
 GameObject:
   m_ObjectHideFlags: 0
