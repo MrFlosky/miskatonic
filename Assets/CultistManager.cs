@@ -1,17 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class CultistManager : MonoBehaviour
 {
     public static CultistManager Instance;
 
-    public List<GameObject> AvailableOptionPrefabs;
+    public GameObject[] AvailableOptionsStartList;
     private float optionOffset = 200f;
     private GameObject option1;
     private GameObject option2;
     private GameObject option3;
-    private List<GameObject> AvailableOptionsStartList;
+    private List<GameObject> AvailableOptionPrefabs = new List<GameObject>();
 
     public GameObject mainCanvas;
 
@@ -22,8 +24,13 @@ public class CultistManager : MonoBehaviour
 
     public GameObject hideOptionsButton;
     public GameObject showOptionsButton;
+    public GameObject rerollButton;
+
+    private TextMeshProUGUI rerollText;
 
     public int rerollsAvailable = 2;
+
+
 
     private void Awake()
     {
@@ -31,9 +38,9 @@ public class CultistManager : MonoBehaviour
         {
             Instance = this;
         }
-        AvailableOptionsStartList = AvailableOptionPrefabs;
+        rerollText = rerollButton.GetComponentInChildren<TextMeshProUGUI>();
+        rerollText.text = "Rerolls: " + rerollsAvailable;
     }
-
 
 
     public void PresentOptions()
@@ -46,20 +53,26 @@ public class CultistManager : MonoBehaviour
         fearMeter.SetActive(false);
 
         hideOptionsButton.SetActive(true);
+        rerollButton.SetActive(true);
 
         SpawnNewOptions();
-        
+
     }
 
 
     private void SpawnNewOptions()
     {
-        // If there are less than 3 missions to choose from left reset the list to what it was on game start
+
+        // If there are less than 3 missions to choose from left, reset the list to what it was on game start
         if (AvailableOptionPrefabs.Count < 3)
         {
-            AvailableOptionPrefabs = AvailableOptionsStartList;
+            ResetOptionsList();
         }
 
+        // Destroy anything still in the holder objects
+        if (option1 != null) Destroy(option1);
+        if (option2 != null) Destroy(option2);
+        if (option3 != null) Destroy(option3);
 
         // Create 3 random options from the list of available options
         int i = Random.Range(0, AvailableOptionPrefabs.Count);
@@ -77,7 +90,7 @@ public class CultistManager : MonoBehaviour
         AvailableOptionPrefabs.RemoveAt(i);
     }
 
-    
+
     public void HideOptions()
     {
         option1.SetActive(false);
@@ -88,6 +101,7 @@ public class CultistManager : MonoBehaviour
         fearMeter.SetActive(true);
 
         hideOptionsButton.SetActive(false);
+        rerollButton.SetActive(false);
         showOptionsButton.SetActive(true);
         // Call hiding animation here
     }
@@ -102,6 +116,7 @@ public class CultistManager : MonoBehaviour
         fearMeter.SetActive(false);
 
         hideOptionsButton.SetActive(true);
+        rerollButton.SetActive(true);
         showOptionsButton.SetActive(false);
         // Call popup animation here
     }
@@ -116,6 +131,7 @@ public class CultistManager : MonoBehaviour
         endTurnButton.SetActive(true);
         fearMeter.SetActive(true);
 
+        rerollButton.SetActive(false);
         hideOptionsButton.SetActive(false);
     }
 
@@ -125,7 +141,17 @@ public class CultistManager : MonoBehaviour
         {
             rerollsAvailable--;
             SpawnNewOptions();
+            rerollText.text = "Rerolls: " + rerollsAvailable;
         }
+    }
+
+    private void ResetOptionsList()
+    {
+        AvailableOptionPrefabs.Clear();
+        for (int i = 0; i < AvailableOptionsStartList.Length; i++)
+        {
+            AvailableOptionPrefabs.Add(AvailableOptionsStartList[i]);
+        }    
     }
 
 
