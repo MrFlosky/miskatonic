@@ -64655,6 +64655,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 170e0927d5ec4b343a2f4b761ac5b4eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  heartbeatMaxFear: 400
   heartbeat: {fileID: 803917256}
   mainTheme: {fileID: 1386921634}
 --- !u!1001 &699568596
@@ -88992,7 +88993,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &947781440
 RectTransform:
   m_ObjectHideFlags: 0
@@ -170343,7 +170344,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1787168684
 RectTransform:
   m_ObjectHideFlags: 0
@@ -205189,6 +205190,22 @@ PrefabInstance:
       propertyPath: fearArray.Array.data[3]
       value: 
       objectReference: {fileID: 1711399588}
+    - target: {fileID: 4329230583971179906, guid: e71a97cbe39edb84da728219de2caeef, type: 3}
+      propertyPath: aiFearThresholds.Array.data[0]
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 4329230583971179906, guid: e71a97cbe39edb84da728219de2caeef, type: 3}
+      propertyPath: aiFearThresholds.Array.data[1]
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 4329230583971179906, guid: e71a97cbe39edb84da728219de2caeef, type: 3}
+      propertyPath: aiFearThresholds.Array.data[2]
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 4329230583971179906, guid: e71a97cbe39edb84da728219de2caeef, type: 3}
+      propertyPath: aiFearThresholds.Array.data[3]
+      value: 400
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

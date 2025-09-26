@@ -11,6 +11,8 @@ using UnityEngine;
 public class Heartbeats : MonoBehaviour
 {
     public static Heartbeats S;
+    [Header("Used to scale how much heartbeat pitch increases with fear.")]
+    [SerializeField] int heartbeatMaxFear = 400;
     public AudioSource heartbeat;
     public AudioSource mainTheme;
     float heartbeatPitch;
@@ -44,11 +46,17 @@ public class Heartbeats : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// This used to update relative to the max individual fear of each character.
+    /// Keeping this as an option incase needed later on.
+    /// Since that is removed now, scaling relative to discrete value set here.
+    /// </summary>
     public void StartHeartbeat(int fear, int maxFear)
     {
         AudioManager.SmoothVolumeTransition(mainTheme.volume, mainTheme.volume / 2.5f);  // lower main theme volume so heartbeat better heard
 
-        S.maxFear = maxFear;
+        //S.maxFear = maxFear; old
+        S.maxFear = heartbeatMaxFear;
         S.heartbeatPitch = S.FearToHeartBeat(fear);
         S.heartbeat.pitch = S.heartbeatPitch;
         S.heartbeat.Play();
