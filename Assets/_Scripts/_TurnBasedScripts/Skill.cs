@@ -58,7 +58,15 @@ public class Skill : MonoBehaviour
     //  Called on fully exiting skill end turn!
     public virtual void EndSkill()
     {
-        endTurnButton.interactable = true;
+        // this means dealer was already DEALT with ahaha so we can
+        // turn on the end turn button on skill cancel. 
+        // dont gotta worry about this when dealer is already locking end turn.
+        if (UIManagerLite.DealerButtonIsActive() == false)
+        {
+            endTurnButton.interactable = true;
+            Debug.LogWarning("EFJEIWJ");
+        }
+
         PlayerController.Instance.SetActiveSkill(null);
         SkillsCollection.S.ENABLE_BUTTONS();
     }

@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6637159982325369106
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2972288969521307013}
+  - component: {fileID: 7338380066898904571}
+  m_Layer: 0
+  m_Name: Dispatch Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2972288969521307013
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6637159982325369106}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7338380066898904571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6637159982325369106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe785035e8c5fee47b2f2acda4b63e89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AvailableOptionsStartList:
+  - {fileID: 6533333329466154850, guid: d9315cc9683bc514e900177e6187b9ce, type: 3}
+  - {fileID: 6533333329466154850, guid: 9712d13c0b808444bbe1125177b61bd6, type: 3}
+  - {fileID: 6533333329466154850, guid: 29e7bcece49bcb0479bcf3496e337b3d, type: 3}
+  - {fileID: 6533333329466154850, guid: db9453165540be840adb118a2d954de6, type: 3}
+  - {fileID: 6533333329466154850, guid: 30087e7dac069524f8113b7ef144f43a, type: 3}
+  - {fileID: 6533333329466154850, guid: f27830634943d5d47a4838efaa63c4fa, type: 3}
+  - {fileID: 6533333329466154850, guid: 46d8c05da9a75dc4db6b0189f61249b3, type: 3}
+  mainCanvas: {fileID: 0}
+  profilesButton: {fileID: 0}
+  endTurnButton: {fileID: 0}
+  fearMeter: {fileID: 0}
+  hideOptionsButton: {fileID: 0}
+  showOptionsButton: {fileID: 0}
+  rerollButton: {fileID: 0}
+  rerollsAvailable: 2

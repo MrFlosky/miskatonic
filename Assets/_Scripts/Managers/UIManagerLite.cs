@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// This class is responsible for bandaid UI management.
@@ -19,6 +20,10 @@ public class UIManagerLite : MonoBehaviour
     [SerializeField] private CanvasGroup evilCanvasGroup;
     [SerializeField] private CanvasGroup lineAndOptionsCG;
     [SerializeField] private CanvasGroup optionsPresenterCG;
+
+    [SerializeField] private Button endTurnButton;
+    // button for starting mission dealer interaction
+    [SerializeField] private Button dealerButton;
 
 
     void Start()
@@ -55,5 +60,29 @@ public class UIManagerLite : MonoBehaviour
         S.optionsPresenterCG.interactable = false;
         S.optionsPresenterCG.blocksRaycasts = false;
         S.optionsPresenterCG.alpha = 0;
+    }
+
+    public static void DisableEndTurnButton()
+    {
+        S.endTurnButton.interactable = false;
+    }
+
+    public static void EnableEndTurnButton()
+    {
+        S.endTurnButton.interactable = true;
+    }
+
+    /// <summary>
+    /// Return if button is active or not, for use with skills
+    /// so theyre not allowing end turn button active when dealer
+    /// hasnt been DEALT with haha see what i did tehre ahhahaah
+    /// </summary>
+    public static bool DealerButtonIsActive()
+    {
+        if (S.dealerButton.IsActive())
+        {
+            return true;
+        }
+        return false;
     }
 }
