@@ -1,28 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-#if UNITY_EDITOR
-using UnityEditor.PackageManager;
-#endif
 using UnityEngine;
 using UnityEngine.UI;
 
 
-
+/// <summary>
+/// This class is responsible for point resource management.
+/// </summary>
 public class SkillSystem : MonoBehaviour
 {
-    /// The text that holds current points
-    public TextMeshProUGUI txt;
+    // All skills attached to this game object
+    private Skill[] skills;
 
     /// Camera used for detecting clicks. Defaults to main in scene.
     public Camera mainCam;
-
-    /// The number of available points the player has. Public for proto
-    [Header("Number of available points the player has")]
-    public int availablePts = 3;
     
     void Start()
     {
+        skills = GetComponents<Skill>();
         DISPLAY_PTS(); ///*** DEBUG
 
         if (mainCam == null)
@@ -31,38 +27,47 @@ public class SkillSystem : MonoBehaviour
         }
     }
 
-    public void DEDUCT_PT(int deduction)
+    public void DEDUCT_PT(int deduction, Skill skill)
     {
-        if(availablePts != 0)
+        if(skill.usagesRemaining != 0)
         {
-            availablePts -= deduction;
+            skill.usagesRemaining -= deduction;
             DISPLAY_PTS(); // Update text each deduction
         }
     }
 
-    public void ADD_PT(int addition)
+    public void ADD_PT(int addition, Skill skill)
     {
-        availablePts+=addition; // may need cap check here
+        skill.usagesRemaining += addition; // may need cap check here
         DISPLAY_PTS();
     }
     
-    public void SET_PT(int num)
+    public void SET_PT(int num, Skill skill)
     {
-        availablePts = num;
+        skill.usagesRemaining = num;
     }
 
     public void DISPLAY_PTS()
     {
-        txt.text = "Available Points: " + availablePts;
-        if(txt.IsActive() == false)
+        foreach (Skill skill in skills)
         {
-            txt.gameObject.SetActive(true);
+            TMP_Text txt = skill.usagesRemainTxt;
+            txt.text = "Available Points: " + skill.usagesRemaining;
+            if(txt.IsActive() == false)
+            {
+                txt.gameObject.SetActive(true);
+            }
         }
+
     }
 
     public void HIDE_PTS()
     {
-        txt.gameObject.SetActive(false);
+        foreach (Skill skill in skills)
+        {
+            TMP_Text txt = skill.usagesRemainTxt;
+            txt.gameObject.SetActive(false);
+        }
     }
 
     public Camera GET_CAM()
@@ -70,10 +75,10 @@ public class SkillSystem : MonoBehaviour
         return mainCam;
     }
 
-    public int GET_PTS()
-    {
-        return availablePts;
-    }
+    // public int GET_PTS()
+    // {
+    //     return availablePts;
+    // }
 
 
 }

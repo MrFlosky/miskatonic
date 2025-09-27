@@ -213,7 +213,7 @@ public class SkillBarrier : Skill
 
     public override void ActivateSkill()
     {
-        if (skillSystem.GET_PTS() >= ptDeduction)
+        if (usagesRemaining >= ptDeduction)
         {
             base.ActivateSkill();
             this.enabled = true;

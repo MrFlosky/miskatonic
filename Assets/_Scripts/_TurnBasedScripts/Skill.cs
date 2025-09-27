@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -11,8 +12,9 @@ using UnityEngine.UI;
 /// While PlayerTurn is responsible for displaying skill options by invoking function in 
 /// SkillsCollection.
 /// </summary>
-public class Skill : MonoBehaviour
+public abstract class Skill : MonoBehaviour
 {
+
     [Header("The point deduction associated with this skill")]
     public int ptDeduction = 1;
 
@@ -22,8 +24,14 @@ public class Skill : MonoBehaviour
     [Header("Event associated with this skill")]
     public UnityEvent skillEvent;
 
+    [Header("Number of usages player has remaining for this skill")]
+    public int usagesRemaining;
+
     // end turn button, just hangin out as a loose variable
     public Button endTurnButton;
+
+    // Text displaying usages remaining
+    public TextMeshProUGUI usagesRemainTxt;
 
 
     // For some reason the parent class, Skill, does not pass its reference to skillSystem as it should. Try
@@ -34,7 +42,7 @@ public class Skill : MonoBehaviour
     {
         skillSystem = GetComponent<SkillSystem>();
     }
-   
+
     /// <summary>
     /// Every skill can only be activated if the player has enough points.
     /// Upon activation, deduct its cost and invoke any event associated with
@@ -42,11 +50,11 @@ public class Skill : MonoBehaviour
     /// </summary>
     public virtual void ActivateSkill()
     {
-        if (skillSystem.GET_PTS() >= ptDeduction) // Check if the player has enough points
+        if (usagesRemaining >= ptDeduction) // Check if the player has enough points
         {
             AudioManager.PlaySFX(SFXType.ButtonSelection);
-            PlayerController.Instance.SetActiveSkill(this);
-            skillSystem.DEDUCT_PT(ptDeduction);
+            PlayerController.Instance.SetActiveSkill(this); // THIS IS CHILD INSTANCE ON base.ActivateSkill() call in children classes
+            skillSystem.DEDUCT_PT(ptDeduction, this);
             SkillsCollection.S.DISABLE_BUTTONS();
             endTurnButton.interactable = false;
             skillEvent.Invoke(); // Not using this for now
@@ -81,7 +89,7 @@ public class Skill : MonoBehaviour
         {
             PlayerController.Instance.SetActiveSkill(null);
             AudioManager.PlaySFX(SFXType.ButtonSelection);
-            skillSystem.ADD_PT(ptDeduction);
+            skillSystem.ADD_PT(ptDeduction, this);
             EndSkill();
         }
     }

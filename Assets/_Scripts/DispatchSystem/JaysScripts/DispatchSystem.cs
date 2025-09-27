@@ -41,7 +41,6 @@ public class DispatchSystem : MonoBehaviour, ITurnObserver
     {
         initiateCardDealerBStatic.gameObject.SetActive(false);
         dealerCanvasStatic.gameObject.SetActive(false);
-        //MissionCollection.S.HIDE_AVAILABLE_MISSIONS(); // this might be redundant
         UIManagerLite.EnableEndTurnButton();
     }
 

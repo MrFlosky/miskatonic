@@ -29,7 +29,7 @@ public class PlayerTurn : Turns, ITurnObserver
         turnText.text = "PLAYER TURN!";
         endTurnButton.SetActive(true);
         skillsUI.DISPLAY_SKILLS();
-        skillSystem.SET_PT(startingPoints);
+        //skillSystem.SET_PT(startingPoints); no longer needed with dispatch
         skillSystem.DISPLAY_PTS();
         GameManager.Instance.CHECK_ROUND_LOSE();
     }
