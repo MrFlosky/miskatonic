@@ -50,7 +50,6 @@ public class DispatchSystem : MonoBehaviour, ITurnObserver
     /// </summary>
     void ITurnObserver.PlayerTurnInitiated()
     {
-        
         initiateCardDealerButton.gameObject.SetActive(true);
     }
     void ITurnObserver.EnemyTurnInitiated()

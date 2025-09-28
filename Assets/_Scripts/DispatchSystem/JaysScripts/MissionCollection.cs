@@ -12,7 +12,7 @@ public class MissionCollection : MonoBehaviour
 {
     static public MissionCollection S;
 
-    [Header("All missions that may be presented to the play")]
+    [Header("All missions that may be presented to the player")]
     [SerializeField] private MissionData[] missionOptions;
     private List<Mission> availableMissions = new List<Mission>();
     private List<Mission> inProgressMissions = new List<Mission>();
@@ -21,10 +21,14 @@ public class MissionCollection : MonoBehaviour
     [SerializeField] private Canvas missionsCanvas;
     [SerializeField] private GameObject blankMissionCard;
 
+    // Needed for mission rewards, holding a static ref here.
+    [SerializeField] private GameObject skillObject;
+    static public GameObject skillObjectStatic;
+
     void Start()
     {
         S = this;
-
+        skillObjectStatic = skillObject;
         ProcessMissionData();
     }
 
@@ -76,9 +80,6 @@ public class MissionCollection : MonoBehaviour
         inProgressMissions.Clear();
     }
 
-
-
-
     /// <summary>
     /// Turn MissionData scriptable objects into Mission instances.
     /// </summary>
@@ -93,6 +94,8 @@ public class MissionCollection : MonoBehaviour
             availableMissions.Add(newMission);
         }
     }
+
+    
 
 
 }

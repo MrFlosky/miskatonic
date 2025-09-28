@@ -93,4 +93,13 @@ public abstract class Skill : MonoBehaviour
             EndSkill();
         }
     }
+
+    /// <summary>
+    /// Add to the number of usages available for this skill
+    /// </summary>
+    public void AddSkillUsage(int usage)
+    {
+        usagesRemaining += usage;
+        usagesRemainTxt.text = "Available Points: " + usagesRemaining;
+    }
 }

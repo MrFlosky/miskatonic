@@ -2,19 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Reward : MonoBehaviour
+/// <summary>
+/// This class is abstract, responsible for stating all attributes/functions all Rewards will have.
+/// </summary>
+public abstract class Reward : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
+    // Popup associated with being granted reward
+    [SerializeField] protected GameObject rewardPopupUI;
 
-    }
+    /// <summary>
+    /// Grant player reward for purchasing this mission.
+    /// </summary>
+    public abstract void GrantReward(); // derived children classes must implement abstract
 
-    // Update is called once per frame
-    void Update()
-    {
 
-    }
-    
-    
 }

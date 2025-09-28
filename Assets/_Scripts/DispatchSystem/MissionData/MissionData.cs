@@ -18,4 +18,9 @@ public class MissionData : ScriptableObject
     [Header("Turn Activation Time")]
     public int turnActivateTime;
 
+    [Header("Reward for purchasing this mission")]
+    public Reward reward;
+
+    [Header("If a skill reward, how many usages are given?")]
+    public int usages;
 }
