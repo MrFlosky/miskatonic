@@ -6,6 +6,7 @@ using UnityEngine;
 public class FearTotemEffect : MonoBehaviour
 {
     public bool seen = false;
+    
     public int sightFear;
     
     public int targetInt;
@@ -24,11 +25,6 @@ public class FearTotemEffect : MonoBehaviour
 
     }
 
-    public void TargetSighted()
-    {
-        if(seen) return;
-        seen = true;
-        
-    }
+   
 
 }

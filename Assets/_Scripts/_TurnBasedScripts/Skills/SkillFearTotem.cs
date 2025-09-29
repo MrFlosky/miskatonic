@@ -6,8 +6,8 @@ using UnityEngine.InputSystem;
 public class SkillFearTotem : Skill
 {
     public Camera mainCamera;
-    public GameObject fearObj;
-    Transform fearObjTrans;
+    public GameObject fearTotem;
+    Transform fearTotemTrans;
     bool canPlace=true;
     public int roundsLast;
     
@@ -20,7 +20,7 @@ public class SkillFearTotem : Skill
         {
             mainCamera = Camera.main; // Use main camera if none specified
         }
-        fearObjTrans = fearObj.GetComponent<Transform>();
+        fearTotemTrans = fearTotem.GetComponent<Transform>();
         skillsUI = GetComponent<SkillsCollection>();
         skillSystem = GetComponent<SkillSystem>();
         
@@ -50,7 +50,7 @@ public class SkillFearTotem : Skill
                
                 Vector3 newPosition = hit.transform.position;
                 
-                fearObjTrans.position = newPosition;
+                fearTotemTrans.position = newPosition;
 
             }
         }
@@ -74,8 +74,8 @@ public class SkillFearTotem : Skill
             if(canPlace && hit.transform.GetComponentInParent<MazeCellObject>() != null) 
             {
                
-                Vector3 newPos = fearObjTrans.position;
-                GameObject newTotem = Instantiate(fearObj);
+                Vector3 newPos = fearTotemTrans.position;
+                GameObject newTotem = Instantiate(fearTotem);
 
                 newTotem.transform.position = newPos;
                 FearTotemEffect fearTotemEff = newTotem.GetComponent<FearTotemEffect>();
@@ -87,7 +87,7 @@ public class SkillFearTotem : Skill
                 fearTotemEff.sightFear = 200;
 
                 TurnBasedSystem.DestroyAfterRounds destroyInstance = new TurnBasedSystem.DestroyAfterRounds(roundsLast, newTotem);
-                fearObj.SetActive(false);
+                fearTotem.SetActive(false);
                 canPlace = false;
                 this.enabled = false;
                 skillsUI.ENABLE_BUTTONS();
@@ -109,7 +109,7 @@ public class SkillFearTotem : Skill
         base.EndSkill();
         this.enabled = false;
         canPlace = false;
-        fearObj.SetActive(false);
+        fearTotem.SetActive(false);
        
 
     }
@@ -122,7 +122,7 @@ public class SkillFearTotem : Skill
             
             base.ActivateSkill();
             enabled = true; // Enable the script allowing this skill to happen once.
-            fearObj.SetActive(true);
+            fearTotem.SetActive(true);
             canPlace = true;
 
            
