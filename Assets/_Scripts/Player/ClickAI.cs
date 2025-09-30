@@ -199,7 +199,7 @@ public class ClickAI : MonoBehaviour
                         ClearOutlines();
                         List<Transform> childWithTag = new List<Transform>();
 
-                        for (int i = 0; i < Mathf.Min(agentNavigation.tileSpeed, agentNavigation.storedPath.Count); i++)
+                        for (int i = 0; i < Mathf.Min(agentNavigation.tilesPerTurn, agentNavigation.storedPath.Count); i++)
                         {
                             MazeCell cell = agentNavigation.storedPath[i];
                             if (MazeRenderer.Instance.cellGameObjects.TryGetValue(cell.position, out GameObject cellObject))
@@ -238,7 +238,7 @@ public class ClickAI : MonoBehaviour
                         ClearOutlines();
 
                         List<Transform> childWithTag = new List<Transform>();
-                        for (int i = 0; i < Mathf.Min(agentNavigation.tileSpeed, agentNavigation.path.Count); i++)
+                        for (int i = 0; i < Mathf.Min(agentNavigation.tilesPerTurn, agentNavigation.path.Count); i++)
                         {
                             MazeCell cell = agentNavigation.path[i];
                             if (MazeRenderer.Instance.cellGameObjects.TryGetValue(cell.position, out GameObject cellObject))

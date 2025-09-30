@@ -175,6 +175,8 @@ public class TurnBasedSystem : MonoBehaviour
         {
             observer.EnemyTurnInitiated();
         }
+
+        AgentManager.Instance.StartAgentTurn();
     }
 
     /// <summary>
