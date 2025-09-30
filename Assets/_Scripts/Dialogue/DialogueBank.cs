@@ -134,6 +134,7 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
     /// </summary>
     public void AlreadyTalked()
     {
+        CharacterGameDialogue.CharacterSprite = characterSprite;
         dialgoueRunner.StartDialogue("ClickedAlready");
     }
 
@@ -142,6 +143,7 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
     /// </summary>
     public void OutOfDialogues()
     {
+        CharacterGameDialogue.CharacterSprite = characterSprite;
         dialgoueRunner.StartDialogue("OutOfDialogue");
     }
 
@@ -162,6 +164,7 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
 
     public void FindKey()
     {
+        CharacterGameDialogue.CharacterSprite = characterSprite;
         dialgoueRunner.StartDialogue(characterFullName + "Key");
     }
 

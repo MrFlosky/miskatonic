@@ -6,19 +6,25 @@ using TheKiwiCoder;
 public class WaitForTurn : ActionNode
 {
     protected override void OnStart() {
-        // Initialization, if needed
+        // This runs when the node first activates
     }
 
     protected override void OnStop() {
-        // Clean up logic if needed
+        // Clean up if needed
     }
 
     protected override State OnUpdate() {
-        // Check if it's the player's turn (assuming you have a GameManager managing turns)
-        if (TurnBasedSystem.IsPlayerTurn() || context.agentNavigation.turnFinished) {
-            return State.Running; // Keep waiting while it's the player's turn
-        } else {
-            return State.Success; // Proceed when it's the agent's turn
+        // Keep waiting while it's the player's turn
+        if (TurnBasedSystem.IsPlayerTurn()) {
+            return State.Running; // Keep waiting
         }
+        
+        // Also keep waiting if this agent has already finished its turn
+        if (context.agentNavigation.turnFinished) {
+            return State.Running; // Keep waiting for other agents
+        }
+        
+        // It's agent turn time AND this agent hasn't taken its turn yet - proceed
+        return State.Success;
     }
 }

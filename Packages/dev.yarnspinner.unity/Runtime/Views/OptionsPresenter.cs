@@ -320,6 +320,15 @@ namespace Yarn.Unity
             // Wait for a selection to be made, or for the task to be completed.
             var completedTask = await selectedOptionCompletionSource.Task;
             completionCancellationSource.Cancel();
+            
+            // ADDED BY JAY: Bug fix for text overlap 
+            if (showsLastLine)
+            {
+                if (lastLineContainer != null)
+                {
+                    lastLineContainer.SetActive(false);
+                }
+            }
 
             // now one of the option items has been selected so we do cleanup
             if (canvasGroup != null)

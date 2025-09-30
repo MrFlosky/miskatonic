@@ -5,20 +5,42 @@ using TheKiwiCoder;
 
 public class SetDestination : ActionNode
 {
+    private bool destinationAttempted = false;
+    
     protected override void OnStart()
     {
-        // Check if the AI has a random destination set
-        if (context.agentNavigation.IsDestinationSet()) return;
+        destinationAttempted = false;
         
-        // If not, set a random destination
-        Vector2Int randomPosition = context.agentNavigation.GetRandomWalkableTile();
-        context.agentNavigation.SetDestination(randomPosition);
+        // Only set destination if one isn't already set and agent isn't moving
+        if (!context.agentNavigation.IsDestinationSet() && !context.agentNavigation.IsMoving())
+        {
+            Vector2Int randomPosition = context.agentNavigation.GetRandomWalkableTile();
+            Vector2Int currentPos = context.agentNavigation.WorldToGridPosition(context.agentNavigation.transform.position);
+            
+            // Only set destination if it's different from current position
+            if (randomPosition != currentPos)
+            {
+                context.agentNavigation.SetDestination(randomPosition);
+                destinationAttempted = true;
+            }
+            else
+            {
+                Debug.LogWarning($"Agent {context.gameObject.name}: Could not find different walkable tile");
+                destinationAttempted = false;
+            }
+        }
     }
 
-    protected override void OnStop() {}
+    protected override void OnStop() {
+        // Clean up if needed
+    }
 
     protected override State OnUpdate() {
-        // This node always succeeds after setting the position
+        if (!destinationAttempted)
+        {
+            return State.Failure; // Could not set a valid destination
+        }
+        
         return State.Success;
     }
 }
