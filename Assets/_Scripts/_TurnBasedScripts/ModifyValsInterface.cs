@@ -58,7 +58,7 @@ public class ModifyValsInterface : MonoBehaviour
     void Start()
     {
         pt.startingPoints = playerStartingPoints;
-        ss.availablePts = playerStartingPoints;
+        //ss.availablePts = playerStartingPoints; TODO: ADD BACK LATER WITH DISPATCH PER SKILL PTS
         aoe.perTurnFear = aoeFearAddedPerTurn;
         gm.roundsUntilDefeat = numberOfTOTALRoundsUntilDefeat;
         gm.winFear = totalFearToWin;
