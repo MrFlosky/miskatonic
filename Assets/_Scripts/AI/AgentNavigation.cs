@@ -24,6 +24,7 @@ public class AgentNavigation : MonoBehaviour
     private Stack<Vector2Int> pathHistory = new Stack<Vector2Int>();
     private List<String> visitedRooms = new List<String>();
     private Dictionary<Vector2Int, int> visitCount = new Dictionary<Vector2Int, int>();
+    private PlayerVision playerVision;
 
     public Vector3 destination;
 
@@ -66,6 +67,10 @@ public class AgentNavigation : MonoBehaviour
         {
             Debug.LogError("GameManager instance is null.");
         }
+
+        // Get PlayerVision component
+        playerVision = GetComponent<PlayerVision>();
+
     }
     
     private void Update()
@@ -181,6 +186,29 @@ public class AgentNavigation : MonoBehaviour
 
             if (path.Count > 0)
             {
+
+                Vector3 nextPos = GetWorldPosition(path[0].position);
+                Vector3 moveDir = (nextPos - transform.position).normalized;
+
+                // Determine facing direction for PlayerVision
+                if (playerVision != null)
+                {
+                    if (Mathf.Abs(moveDir.x) > Mathf.Abs(moveDir.z))
+                    {
+                        playerVision.facing = moveDir.x > 0 ? Vision.Right : Vision.Left;
+                    }
+                    else
+                    {
+                        playerVision.facing = moveDir.z > 0 ? Vision.Up : Vision.Down;
+                    }
+                }
+
+                // Update vision highlights
+                if (playerVision != null)
+                {
+                    playerVision.UpdateVision();
+                }
+
                 // Check if next cell is still walkable
                 MazeCell nextCell = path[0];
                 if (!IsWalkable(currentCell, nextCell))
