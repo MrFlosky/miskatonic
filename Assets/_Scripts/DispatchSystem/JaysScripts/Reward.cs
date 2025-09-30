@@ -9,7 +9,7 @@ using Unity.VisualScripting;
 /// </summary>
 public abstract class Reward : MonoBehaviour
 {
-    [SerializeField] protected string rewardName;
+    public string rewardName;
     // Popup associated with being granted reward
     [SerializeField] protected GameObject rewardPopupUI;
     protected TextMeshProUGUI rewardText;

@@ -100,6 +100,8 @@ public class Mission : MonoBehaviour
         //rewardObj.transform.SetParent(missionCardObj.transform); TODO: we need these to be outside mission card obj, organize later
         missionReward = rewardObj.GetComponent<Reward>();
 
+        transform.GetChild(6).GetComponent<TextMeshProUGUI>().text = "Reward: " + missionReward.rewardName;
+
         switch (missionReward)
         {
             case SkillReward skillReward:
