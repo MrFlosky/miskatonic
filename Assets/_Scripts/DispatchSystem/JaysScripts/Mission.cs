@@ -29,14 +29,18 @@ public class Mission : MonoBehaviour
     // Mission data associated with this mission
     private MissionData missionData;
 
+    // Reference to cultist point class
+    private CultistPoints cultistPointSystem;
+
     /// <summary>
     /// Initialize this mission with data from scriptable object passed
     /// from mission collection!
     /// </summary>
-    public void InitMission(MissionData data)
+    public void InitMission(MissionData data, CultistPoints cps)
     {
         missionData = data;
         missionCardObj = transform.gameObject;
+        cultistPointSystem = cps;
         InitUI(missionData);
         ProcessReward(missionData.reward);
 
@@ -52,20 +56,16 @@ public class Mission : MonoBehaviour
         cultistCost = transform.GetChild(3).GetComponent<TextMeshProUGUI>();
         timeCost = transform.GetChild(4).GetComponent<TextMeshProUGUI>();
         selectMissionButton = transform.GetChild(5).GetComponent<Button>();
-        selectMissionButton.onClick.AddListener(AttemptMissionSelect);
+        selectMissionButton.onClick.AddListener(MissionSelect);
 
         missionTitle.text = data.title;
         missionDescription.text = data.description;
 
-        // Add plus sign to cost if scriptobj data is positive, otherwise use signed int
-        if (data.cultistCost >= 0)
-        {
-            cultistCost.text = "+" + data.cultistCost.ToString() + " Cultists";
-        }
-        else
-        {
-            cultistCost.text = data.cultistCost.ToString() + " Cultists";
-        }
+        // always assume cultist cost is deduction, even if 0.
+        // handle cultist reward as reward obj
+        cultistCost.text = "-" + data.cultistCost.ToString() + " Cultists";
+        
+
 
         timeCost.text = "Time: " + data.turnActivateTime.ToString();
         missionCardObj.name = "Mission: " + missionTitle.text;
@@ -75,14 +75,14 @@ public class Mission : MonoBehaviour
     /// Later this will check for cultist cost before allowing
     /// the selection.
     /// </summary>
-    private void AttemptMissionSelect()
+    private void MissionSelect()
     {
-
-        missionReward.GrantReward();
+        if (cultistPointSystem.AttemptMissionPurchase(missionData.cultistCost))
+        {
+            missionReward.GrantReward();
+            DispatchSystem.DealingOver();
+        }
         
-
-
-        DispatchSystem.DealingOver();
     }
 
 
@@ -105,6 +105,10 @@ public class Mission : MonoBehaviour
             case SkillReward skillReward:
                 skillReward.InitSkill();
                 skillReward.SetUsages(missionData.usages);
+                break;
+            case RewardCultist rewardCultist:
+                rewardCultist.Init(cultistPointSystem);
+                rewardCultist.SetCultistsRewarded(missionData.cultistsGranted);
                 break;
             default:
                 // no skill reward given

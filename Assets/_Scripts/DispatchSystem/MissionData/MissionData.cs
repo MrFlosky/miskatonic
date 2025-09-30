@@ -23,4 +23,7 @@ public class MissionData : ScriptableObject
 
     [Header("If a skill reward, how many usages are given?")]
     public int usages;
+
+    [Header("If a cultist reward, how many are granted?")]
+    public int cultistsGranted;
 }

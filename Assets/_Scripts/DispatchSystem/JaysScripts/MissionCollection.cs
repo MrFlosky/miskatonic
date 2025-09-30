@@ -21,14 +21,18 @@ public class MissionCollection : MonoBehaviour
     [SerializeField] private Canvas missionsCanvas;
     [SerializeField] private GameObject blankMissionCard;
 
-    // Needed for mission rewards, holding a static ref here.
+    // Needed for mission rewards!
     [SerializeField] private GameObject skillObject;
     static public GameObject skillObjectStatic;
+
+    // Needed for initializing all missions
+    private CultistPoints cultistPointSystem;
 
     void Start()
     {
         S = this;
         skillObjectStatic = skillObject;
+        cultistPointSystem = GetComponent<CultistPoints>();
         ProcessMissionData();
     }
 
@@ -90,7 +94,7 @@ public class MissionCollection : MonoBehaviour
             GameObject newMissionObj = Instantiate(blankMissionCard);
             Mission newMission = newMissionObj.AddComponent<Mission>();
 
-            newMission.InitMission(md);
+            newMission.InitMission(md, cultistPointSystem);
             availableMissions.Add(newMission);
         }
     }
