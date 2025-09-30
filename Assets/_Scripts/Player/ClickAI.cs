@@ -130,6 +130,8 @@ public class ClickAI : MonoBehaviour
                     button.interactable = false;
                 }
 
+                UIManagerLite.DisableEndTurnButton(); // ugly
+
                 // Show option panel instead of starting dialogue immediately
                 aiClickOptions.ShowOptions(dialogueBank);
 
@@ -344,6 +346,12 @@ public class ClickAI : MonoBehaviour
         foreach (var button in buttons)
         {
             button.interactable = true;
+        }
+
+        // im sorry this is ugly
+        if (!UIManagerLite.DealerButtonIsActive())
+        {
+            UIManagerLite.EnableEndTurnButton();
         }
     }
 

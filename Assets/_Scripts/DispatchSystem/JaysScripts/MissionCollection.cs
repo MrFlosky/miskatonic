@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
 /// This class is responsible for managing the collection of missions, which includes:
 /// - Displaying/hiding missions
 /// - Shuffling missions
-/// - Processing mission data
+/// - Processing/initializing mission data 
 /// </summary>
 public class MissionCollection : MonoBehaviour
 {

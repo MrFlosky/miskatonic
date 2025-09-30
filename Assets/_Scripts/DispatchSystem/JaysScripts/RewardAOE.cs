@@ -8,4 +8,5 @@ public class RewardAOE : SkillReward
     {
         skill = MissionCollection.skillObjectStatic.GetComponent<SkillAoeFear>();
     }
+
 }

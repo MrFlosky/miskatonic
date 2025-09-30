@@ -97,7 +97,7 @@ public class Mission : MonoBehaviour
         GameObject rewardPrefab = reward.gameObject;
         // Instantiate prefab to get a instance we can work with
         GameObject rewardObj = Instantiate(rewardPrefab);
-        rewardObj.transform.SetParent(missionCardObj.transform);
+        //rewardObj.transform.SetParent(missionCardObj.transform); TODO: we need these to be outside mission card obj, organize later
         missionReward = rewardObj.GetComponent<Reward>();
 
         switch (missionReward)
@@ -115,6 +115,9 @@ public class Mission : MonoBehaviour
                 break;
 
         }
+
+        // at end, all mission rewards have ui that needs to be init
+        missionReward.InitRewardUI();
     }
 
 
