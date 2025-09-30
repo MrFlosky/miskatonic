@@ -38,6 +38,9 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
     // Character's respective sprite
     [SerializeField] private Sprite characterSprite;
 
+    //List of Fear to Reveal
+    public GameObject[] fears;
+
     void Start()
     {
         TurnBasedSystem.SubscribeAsObserver(this);
@@ -219,8 +222,16 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
     {
         characterFear.AddFear(fearReduce);
     }
+    [YarnCommand("discover_fear")]
+    public void discoverFear(int fearNum)
+    {
+        fears[fearNum].SetActive(true);
+    }
     #endregion
 
 
 
 }
+
+
+    
