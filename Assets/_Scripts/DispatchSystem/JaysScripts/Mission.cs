@@ -112,6 +112,9 @@ public class Mission : MonoBehaviour
                 rewardCultist.Init(cultistPointSystem);
                 rewardCultist.SetCultistsRewarded(missionData.cultistsGranted);
                 break;
+            case NarrativeReward narrativeReward:
+                narrativeReward.InitNarrativeClue(missionData.narrativeGranted);
+                break;
             default:
                 // no skill reward given
                 break;
