@@ -26,4 +26,7 @@ public class MissionData : ScriptableObject
 
     [Header("If a cultist reward, how many are granted?")]
     public int cultistsGranted;
+
+    [Header("If a narrative reward, what should it be?")]
+    public string narrativeGranted;
 }

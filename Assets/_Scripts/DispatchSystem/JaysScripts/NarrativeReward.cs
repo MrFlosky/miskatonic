@@ -5,6 +5,8 @@ using TMPro;
 
 public class NarrativeReward : Reward
 {
+    private string narrativeClue;
+
     public override void InitRewardUI()
     {
         this.enabled = false;
@@ -13,7 +15,8 @@ public class NarrativeReward : Reward
         rewardPopupUI.SetActive(false);
 
         rewardText = rewardPopupUI.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
-        rewardText.text = "Insert Narrative Clue Here";
+        //rewardText.text = "Insert Narrative Clue Here";
+        rewardText.text = narrativeClue;
     }
 
     public override void DisplayRewardMessage()
@@ -38,6 +41,11 @@ public class NarrativeReward : Reward
             rewardPopupUI.SetActive(false);
             this.enabled = false;
         }
+    }
+
+    public void InitNarrativeClue(string narrative)
+    {
+        narrativeClue = narrative;
     }
 
 
