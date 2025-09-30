@@ -12,18 +12,4 @@ public class NPCController : MonoBehaviour
         vision = GetComponent<PlayerVision>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        vision.gridPos = new Vector2Int(Mathf.RoundToInt(transform.position.x),
-                                        Mathf.RoundToInt(transform.position.y));
-
-        List<Vector2Int> cells = vision.GetVisibleCells();
-
-        foreach (var c in cells)
-        {
-            Debug.Log(gameObject.name + " sees " + c);
-        }
-
-    }
 }

@@ -37,6 +37,8 @@ public class AgentNavigation : MonoBehaviour
     
     public int tileSpeed = 10;
 
+    private PlayerVision playerVision;
+
     private void Start()
     {
         // Initialize the dictionary with room reactions for this agent
@@ -55,6 +57,9 @@ public class AgentNavigation : MonoBehaviour
         {
             Debug.LogError("GameManager instance is null.");
         }
+
+        // Get PlayerVision component
+        playerVision = GetComponent<PlayerVision>();
     }
     
     private void Update()
@@ -128,6 +133,7 @@ public class AgentNavigation : MonoBehaviour
         // Maintain the agent's y position
         transform.position = new Vector3(transform.position.x, mazeHeight, transform.position.z);
 
+
         // Check if we have reached the current target
         if (Vector3.Distance(currentPosition, targetPosition) < 0.1f)
         {
@@ -159,6 +165,28 @@ public class AgentNavigation : MonoBehaviour
             // Set the next destination if there are more steps in the path
             if (path.Count > 0)
             {
+                Vector3 nextPos = GetWorldPosition(path[0].position);
+                Vector3 moveDir = (nextPos - transform.position).normalized;
+
+                // Determine facing direction for PlayerVision
+                if (playerVision != null)
+                {
+                    if (Mathf.Abs(moveDir.x) > Mathf.Abs(moveDir.z))
+                    {
+                        playerVision.facing = moveDir.x > 0 ? Vision.Right : Vision.Left;
+                    }
+                    else
+                    {
+                        playerVision.facing = moveDir.z > 0 ? Vision.Up : Vision.Down;
+                    }
+                }
+
+                // Update vision highlights
+                if (playerVision != null)
+                {
+                    playerVision.UpdateVision();
+                }
+
                 destination = GetWorldPosition(path[0].position);
             }
             else

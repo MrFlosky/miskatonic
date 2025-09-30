@@ -21900,11 +21900,6 @@ MonoBehaviour:
   roomFloorMaterial: {fileID: 2100000, guid: a166c9720d356d3469587ea35c8cab2b, type: 2}
   roomWallMaterial: {fileID: 2100000, guid: 9ab1b140570b2a943b20a45ff2e6cea9, type: 2}
   roomType: Dungeon Room
---- !u!225 &202149525 stripped
-CanvasGroup:
-  m_CorrespondingSourceObject: {fileID: 2958262985454349543, guid: 52571f68872914e24837210513edea1d, type: 3}
-  m_PrefabInstance: {fileID: 2134085972}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &202554501
 GameObject:
   m_ObjectHideFlags: 0
@@ -46349,10 +46344,9 @@ MonoBehaviour:
   mainCamera: {fileID: 963053142}
   playerCam: {fileID: 1514457254}
   activeCamera: {fileID: 0}
-  evilCanvasGroup: {fileID: 202149525}
+  _clickedAI: 0
   track: {fileID: 0}
   scrollSpeed: 7.5
-  _clickedAI: 0
   outlineMaterial: {fileID: 2100000, guid: 8fe14b19fa94e5e4eb336afe7a1cbd9c, type: 2}
   buttons:
   - {fileID: 1173101070}
@@ -97280,6 +97274,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db457baa3aec82a408ee7c7299b920d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &804730734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 804730714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62b210efe7d072f41b67db9fd6a8e0b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  facing: 0
+  gridPos: {x: 0, y: 0}
+  visionRange: 3
+  outlineMaterial: {fileID: -905690159841262435, guid: 824538e331efab2498d0fca3423eab92, type: 3}
 --- !u!1 &804874978
 GameObject:
   m_ObjectHideFlags: 0
@@ -122465,7 +122475,7 @@ PrefabInstance:
     - target: {fileID: 324314345843380642, guid: 1f63311383113ad4e87b8005583f8ccc, type: 3}
       propertyPath: mazeGenerator
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 210008415}
     - target: {fileID: 861039569244902896, guid: 1f63311383113ad4e87b8005583f8ccc, type: 3}
       propertyPath: thoughts.Array.data[0]
       value: 
@@ -122706,6 +122716,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6579168539120367466, guid: 1f63311383113ad4e87b8005583f8ccc, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1616455648}
+    - targetCorrespondingSourceObject: {fileID: 6579168539120367466, guid: 1f63311383113ad4e87b8005583f8ccc, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1616455658}
   m_SourcePrefab: {fileID: 100100000, guid: 1f63311383113ad4e87b8005583f8ccc, type: 3}
 --- !u!1 &1015571558
 GameObject:
@@ -179947,7 +179960,7 @@ PrefabInstance:
     - target: {fileID: 3296753354727406183, guid: cfdc6b546d4860d49ae0820305f7a38d, type: 3}
       propertyPath: mazeGenerator
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 210008415}
     - target: {fileID: 5875064369423962649, guid: cfdc6b546d4860d49ae0820305f7a38d, type: 3}
       propertyPath: m_Name
       value: Evelyn Ventress
@@ -180116,6 +180129,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5875064369423962649, guid: cfdc6b546d4860d49ae0820305f7a38d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1955177856}
+    - targetCorrespondingSourceObject: {fileID: 5875064369423962649, guid: cfdc6b546d4860d49ae0820305f7a38d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1955177866}
   m_SourcePrefab: {fileID: 100100000, guid: cfdc6b546d4860d49ae0820305f7a38d, type: 3}
 --- !u!1 &1505115603 stripped
 GameObject:
@@ -182761,7 +182777,7 @@ PrefabInstance:
     - target: {fileID: 6096664654382364038, guid: e3eee655d87ceda4783f353d13a4af64, type: 3}
       propertyPath: mazeGenerator
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 210008415}
     - target: {fileID: 6169211446975190997, guid: e3eee655d87ceda4783f353d13a4af64, type: 3}
       propertyPath: brain
       value: 
@@ -182798,6 +182814,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4328944795887566300, guid: e3eee655d87ceda4783f353d13a4af64, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1711399587}
+    - targetCorrespondingSourceObject: {fileID: 4328944795887566300, guid: e3eee655d87ceda4783f353d13a4af64, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1711399589}
   m_SourcePrefab: {fileID: 100100000, guid: e3eee655d87ceda4783f353d13a4af64, type: 3}
 --- !u!1 &1527212140
 GameObject:
@@ -192157,6 +192176,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db457baa3aec82a408ee7c7299b920d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1616455658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1616455638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62b210efe7d072f41b67db9fd6a8e0b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  facing: 0
+  gridPos: {x: 0, y: 0}
+  visionRange: 3
+  outlineMaterial: {fileID: -905690159841262435, guid: 824538e331efab2498d0fca3423eab92, type: 3}
 --- !u!1 &1617134798
 GameObject:
   m_ObjectHideFlags: 0
@@ -203997,6 +204032,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db457baa3aec82a408ee7c7299b920d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1711399589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 551801733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62b210efe7d072f41b67db9fd6a8e0b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  facing: 1
+  gridPos: {x: 0, y: 0}
+  visionRange: 3
+  outlineMaterial: {fileID: -905690159841262435, guid: ff0ba68e057894f44a964a7a589c9bf5, type: 3}
 --- !u!1 &1711848304
 GameObject:
   m_ObjectHideFlags: 0
@@ -233866,6 +233917,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db457baa3aec82a408ee7c7299b920d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1955177866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1505115603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62b210efe7d072f41b67db9fd6a8e0b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  facing: 0
+  gridPos: {x: 0, y: 0}
+  visionRange: 3
+  outlineMaterial: {fileID: -905690159841262435, guid: 824538e331efab2498d0fca3423eab92, type: 3}
 --- !u!1 &1956012206
 GameObject:
   m_ObjectHideFlags: 0
@@ -236091,7 +236158,7 @@ PrefabInstance:
     - target: {fileID: 530265392745660750, guid: 6e15b47b7edc45e4e8fbbc5668b9cd9e, type: 3}
       propertyPath: mazeGenerator
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 210008415}
     - target: {fileID: 1016347774597143812, guid: 6e15b47b7edc45e4e8fbbc5668b9cd9e, type: 3}
       propertyPath: brain
       value: 
@@ -236284,6 +236351,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4497662663377860779, guid: 6e15b47b7edc45e4e8fbbc5668b9cd9e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 804730724}
+    - targetCorrespondingSourceObject: {fileID: 4497662663377860779, guid: 6e15b47b7edc45e4e8fbbc5668b9cd9e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 804730734}
   m_SourcePrefab: {fileID: 100100000, guid: 6e15b47b7edc45e4e8fbbc5668b9cd9e, type: 3}
 --- !u!1 &1973481688
 GameObject:

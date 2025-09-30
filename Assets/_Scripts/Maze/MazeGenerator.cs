@@ -771,6 +771,7 @@ public class MazeCell {
         bottomWall = rightWall = false;
 
     }
+
 }
 
 [System.Serializable]
