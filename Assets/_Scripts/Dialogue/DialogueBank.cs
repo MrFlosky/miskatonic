@@ -211,6 +211,7 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
     public void YarnAddFear()
     {
         characterFear.AddFear(fearAdd);
+        CultistPoints.AddPoint(); // grant cultist point on successful diagloue
     }
 
     [YarnCommand("reduce_fear")]

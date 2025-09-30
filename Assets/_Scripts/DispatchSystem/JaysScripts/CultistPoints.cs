@@ -6,6 +6,8 @@ using TMPro;
 
 public class CultistPoints : MonoBehaviour
 {
+    static private CultistPoints S;
+
     [SerializeField] private TextMeshProUGUI txt;
 
     // Number of available points player has
@@ -13,6 +15,7 @@ public class CultistPoints : MonoBehaviour
 
     void Start()
     {
+        S = this;
         UpdateText();
     }
 
@@ -39,6 +42,16 @@ public class CultistPoints : MonoBehaviour
     {
         cultistPoints += points;
         UpdateText();
+    }
+
+    /// <summary>
+    /// For classes that dont have direct ref to this class,
+    /// specifically Fear on each character
+    /// </summary>
+    static public void AddPoint()
+    {
+        S.cultistPoints += 1;
+        S.UpdateText();
     }
 
     /// <summary>

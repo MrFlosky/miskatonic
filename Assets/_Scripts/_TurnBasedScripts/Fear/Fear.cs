@@ -26,17 +26,17 @@ public class Fear : MonoBehaviour
     {
         // Check if would go over threshold
         // Add only what brings currentFear to threshold.
-        if(currentFear + add > fearThreshold)
+        if (currentFear + add > fearThreshold)
         {
-            FearMeter.INCREASE_METER(fearThreshold - currentFear); 
+            FearMeter.INCREASE_METER(fearThreshold - currentFear);
             currentFear = fearThreshold;
             AIFearMeter.UpdateSlider(currentFear);
         }
         else
         {
-        currentFear += add;
-        FearMeter.INCREASE_METER(add);
-        AIFearMeter.UpdateSlider(currentFear);
+            currentFear += add;
+            FearMeter.INCREASE_METER(add);
+            AIFearMeter.UpdateSlider(currentFear);
         }
         
     }
