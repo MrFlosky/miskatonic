@@ -61,6 +61,7 @@ public class ClickAI : MonoBehaviour
         // Set up initial active camera
         activeCamera = playerCam;
         track = playerCam.GetCinemachineComponent<CinemachineTrackedDolly>();
+        switchCamButton.onClick.AddListener(SwitchToCustomCamera);
     }
 
 
@@ -76,10 +77,10 @@ public class ClickAI : MonoBehaviour
 
         // Get moude position based on current input
         Vector2 mousePos = Vector2.zero;
-        mousePos = GameInput.Instance.GetActiveGameDevice() == GameInput.GameDevice.KeyboardMouse 
-            ? Mouse.current.position.ReadValue() 
+        mousePos = GameInput.Instance.GetActiveGameDevice() == GameInput.GameDevice.KeyboardMouse
+            ? Mouse.current.position.ReadValue()
             : VirtualMouseUI.Instance.GetVirtualMousePosition();
-         
+
         Ray ray = Camera.main.ScreenPointToRay(mousePos);
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
@@ -178,8 +179,8 @@ public class ClickAI : MonoBehaviour
             return;
         }
 
-        var mousePos = GameInput.Instance.GetActiveGameDevice() == GameInput.GameDevice.KeyboardMouse 
-            ? Mouse.current.position.ReadValue() 
+        var mousePos = GameInput.Instance.GetActiveGameDevice() == GameInput.GameDevice.KeyboardMouse
+            ? Mouse.current.position.ReadValue()
             : VirtualMouseUI.Instance.GetVirtualMousePosition();
 
         Ray ray = Camera.main.ScreenPointToRay(mousePos);
@@ -362,32 +363,76 @@ public class ClickAI : MonoBehaviour
         ClearOutlines();
     }
 
+    [SerializeField] CinemachineVirtualCamera storyboardCam;
+    [SerializeField] Button switchCamButton;
+    public void SwitchToCustomCamera()
+    {
+
+        // Disable whatever camera is currently active
+        if (activeCamera != null)
+        {
+            activeCamera.enabled = false;
+            activeCamera.gameObject.SetActive(false);
+        }
+
+        // Enable your new camera
+        storyboardCam.gameObject.SetActive(true);
+        storyboardCam.enabled = true;
+
+        // Track it as the active camera
+        activeCamera = storyboardCam;
+
+        switchCamButton.onClick.RemoveAllListeners(); // switch what function button calls
+        switchCamButton.onClick.AddListener(SwitchToPlayerCamera); // switch what function button calls
+    }
+
+    public void SwitchToPlayerCamera()
+    {
+
+        // Disable whatever camera is currently active
+        if (activeCamera != null)
+        {
+            activeCamera.enabled = false;
+            activeCamera.gameObject.SetActive(false);
+        }
+
+        // Enable the player camera
+        playerCam.gameObject.SetActive(true);
+        playerCam.enabled = true;
+
+        // Track it as the active camera
+        activeCamera = playerCam;
+
+        switchCamButton.onClick.RemoveAllListeners(); // switch what function button calls
+        switchCamButton.onClick.AddListener(SwitchToCustomCamera); // switch what function button calls
+    }
 
 
 }
 
 
 // This does not seem to be in use currently.
-public class AIHighlighter : MonoBehaviour
-{
-    [SerializeField] private Material outlineMaterial;
-    private List<Transform> activeOutlines = new List<Transform>();
+// public class AIHighlighter : MonoBehaviour
+// {
+//     [SerializeField] private Material outlineMaterial;
+//     private List<Transform> activeOutlines = new List<Transform>();
 
-    public void HighlightPath(List<MazeCell> path, int tileSpeed)
-    {
+//     public void HighlightPath(List<MazeCell> path, int tileSpeed)
+//     {
 
-    }
+//     }
 
-    public void ClearOutlines()
-    {
-        foreach (var outline in activeOutlines)
-        {
-            var newMaterials = new Material[1];
-            newMaterials[0] = outline.GetComponent<MeshRenderer>().materials[0];
-            outline.GetComponent<MeshRenderer>().materials = newMaterials;
-        }
-        activeOutlines.Clear(); // Clear the list after disabling
-    }
+//     public void ClearOutlines()
+//     {
+//         foreach (var outline in activeOutlines)
+//         {
+//             var newMaterials = new Material[1];
+//             newMaterials[0] = outline.GetComponent<MeshRenderer>().materials[0];
+//             outline.GetComponent<MeshRenderer>().materials = newMaterials;
+//         }
+//         activeOutlines.Clear(); // Clear the list after disabling
+//     }
 
 
-}
+
+// }

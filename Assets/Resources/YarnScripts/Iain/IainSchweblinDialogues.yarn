@@ -11,6 +11,7 @@ Iain slowly rises from the floor. He wipes his eyes, looking around the room. As
     The sudden change grabs Iain’s attention and he begins to collect his thoughts. He takes a deep breath a continues down the hallway, hand on the wall.
 -> Do nothing. Let his mind run in circles
     <<add_fear "Iain Schweblin">>
+    <<discover_fear "Iain Schweblin" 0>>
     //Overthinking
     He continues to hyperventilate. Eventually, he attempts to stand up, only to come crashing back to the floor. After several minutes, he tells himself he has to do something and starts to move down the hall.  
 ===
@@ -24,6 +25,7 @@ Iain was used to the silence of The Great Plains, but this place was different. 
     He looks around him only to find nothing. The sound was innoculous enough. He's glad to know the world is still turning. 
 ->Fill his head with the sounds of people talking all around him
     <<add_fear "Iain Schweblin">>
+    <<discover_fear "Iain Schweblin" 1>>
     //Fear of crowds
     Iain grabs his head. This isolation is starting to get to him, corrputing his mind. The voices slowly dissipate, but a the feeling that he could be losing it lingers. 
 ->Create a sharp ringing noise
@@ -41,6 +43,7 @@ As the minutes turn to hours, his mind goes to Grace. Did someone do this to him
     He remembers the way that she smiled at him whenever he walked in the door, and the way she gasped whenever he got her flowers. That can't be true. 
 ->Her soul has trapped you here. You failed to protect your wife when she needed you the most. You've been a neglectful father, careless with her children's childhoods. 
     <<add_fear "Iain Schweblin">>
+    <<discover_fear "Iain Schweblin" 2>>
     //Trauma from wife's death
     “I’m so sorry, Grace.” He holds back tears. 
 ===
@@ -55,6 +58,7 @@ Iain thinks deeply about what happened before he blacked out, trying to find any
     "This feels too real." He shakes the thought from his mind. 
 ->"The kids are still in the car."
     <<add_fear "Iain Schweblin">>
+    <<discover_fear "Iain Schweblin" 3>>
     //Fear of harm coming to his kids
     “Oh my god, THE KIDS” He goes into a frenzy. "What happened to the kids? Are they in here? Did someone notice that they were left there? How are they going to get back home?" He paces back and forth, sweating profusely.
 ===
@@ -71,6 +75,8 @@ The rows of brick melt into a hypnotic pattern as he walks down corridor after c
     "WOAH!" He laughs to himself a little after he regains his balance. "That wind must have come from somewhere!"
 ->Make him see holes in the appear in the wall
     <<add_fear "Iain Schweblin">>
+    <<discover_fear "Iain Schweblin" 4>>
+    //Trypopphobia
     He starts to sweat and his legs buckle. Something about the pattern feels so intimidating. He feels hopeless
 ===
 title: IainSchweblin5
@@ -84,6 +90,7 @@ A voice comes booming in from deeper in the maze. He can't make out what it's sa
     Iain stands facing the approaching noise, but it suddenly goes silent. He looks down the hallway and sees nothing. 
 ->"There is nothing here. You're going crazy."
     <<add_fear "Iain Schweblin">>
+    <<discover_fear "Iain Schweblin" 5>>
     //Fear of going mad
     Iain stops for a moment, looking back at the noise. He shakes his head. "God, I'm really losing it" He continues walking with his shoulders tensed. 
 ===
@@ -95,6 +102,7 @@ His legs start to buckle from the hours of walking.
         "Good idea" He sits down on the maze floor.
 ->Make him feel as if the room is swaying back and forth
         <<add_fear "Iain Schweblin">>
+        <<discover_fear "Iain Schweblin" 6>>
         //Fear of heights
         "Uhhh where am I? Are we high up somewhere!?" He starts to sweat. 
 ->Make him feel as if his legs no longer work
@@ -114,6 +122,7 @@ Iain starts to pick up the pace as the light in the hallway begins to dim. He sl
         "Huh, that's strange... ominous..." He keeps walking.
 ->Turn out the lights
         <<add_fear "Iain Schweblin">>
+        <<discover_fear "Iain Schweblin" 7>>
         //Fear of Darkness
         "Fuck fuck fuck fuck" He starts running down the hallway, trying to find light. The lights eventually flicker back on.
 ===
@@ -129,6 +138,7 @@ He looks down at the floor of the maze and notices some small creatures crawling
         "Hey little guys!" He waves at them.
 ->"It's a parade of beetles"
         <<add_fear "Iain Schweblin">>
+        <<discover_fear "Iain Schweblin" 8>>
         //Fear of beetles
         His heart starts to beat fast. His childhood fears start swarming back. He quickly moves away.
 ===
@@ -137,6 +147,7 @@ title: IainSchweblin9
 All of a sudden, while Iain is walking, he comes to the edge of a huge pit. He looks down at what could be in there.
 ->Filled with needles
         <<add_fear "Iain Schweblin">>
+        <<discover_fear "Iain Schweblin" 9>>
         //Fear of needles
         He jumps back. He feels as though the needles are penetrating his skin. As he runs in the other direction, the apparation disappears. 
 ->Filled with sewer water
@@ -151,13 +162,14 @@ title: IainSchweblin10
 As he walks down the hallway, Iain's mind starts to play tricks on him. He begins to hallucinate. "What is that?"
 ->A doctor with pale eyes and a large bag
         <<add_fear "Iain Schweblin">>
+        <<discover_fear "Iain Schweblin" 9>>
         //Fear of needles
         "Who is that" The doctor pulls a large needle out of his bag. "What the hell?!" As he walks backwards away from the figure, it dissolves into the wind.
 ->A shadowy man
         "Who is that" As he gets closer, the figure dissolves into the wind. 
 ->A large man with dark eyes
         "Who is that" As he gets closer, the figure dissolves into the wind. 
-->A dentist
+->A lawyer
         "What?!" As he gets closer, the figure dissolves into the wind.
 ===
 title: IainSchweblin11
@@ -169,6 +181,7 @@ Iain rests his back on the walls of the maze. He hears a sound echoing from furt
         "Who could that be?" He runs down the hallway to try to find the man. 
 ->The voice of a middle aged woman
         <<add_fear "Iain Schweblin">>
+        <<discover_fear "Iain Schweblin" 2>>
         //Trauma from Wife's Death
         "Grace?!" He runs down the hall. "How is she here? Am I dead?!"
 ->A bunch of small crackling sounds
@@ -183,6 +196,7 @@ As he walks from corridor to corridor, he begins to notice a sound coming from t
         "That's weird. Where am I?"
 ->It's the sound of children
         <<add_fear "Iain Schweblin">>
+        <<discover_fear "Iain Schweblin" 3>>
         //Fear of Harm Coming to his Kids
         "Charlie!! Maya!!" He punches at the wall. "Does this thing have them too?!"
 ->It's the sound of a dog barking
@@ -195,6 +209,7 @@ Iain looks up at the roof of the maze and starts to feel as though something is 
         "Who is that" Iain keeps walking, scratching his head at this strange thought. 
 ->"There's nothing there. You're going crazy."
         <<add_fear "Iain Schweblin">>
+        <<discover_fear "Iain Schweblin" 5>>
         //Fear of Going Mad
         Iain grabs his bald head, moving the skin around in circles. "Am I really going crazy?!" He starts to sweat profusely. 
 ->"The roofs leaking."
@@ -213,6 +228,7 @@ As Iain walks past rows and rows of bricks, he starts noticing a weird feeling o
         "Makes sense"
 ->"There are beetles crawling up your arm..."
         <<add_fear "Iain Schweblin">>
+        <<discover_fear "Iain Schweblin" 8>>
         //Fear of Beetles
         He starts swiping at his arms and releases a small yelp. He quickly realizes there are not beetles.
 ->"It's nothing"
