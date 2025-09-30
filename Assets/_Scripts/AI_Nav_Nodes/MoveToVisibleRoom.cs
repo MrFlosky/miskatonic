@@ -5,25 +5,42 @@ using TheKiwiCoder;
 
 public class MoveToVisibleRoom : ActionNode
 {
-    private Vector2Int roomPosition; // Store the found room position
-    private Vector2Int targetPosition;
+    private Vector2Int roomPosition;
+    private bool destinationSet;
     
     protected override void OnStart() {
-        // Find a visible unvisited room
         roomPosition = context.agentNavigation.CheckForRoom();
+        Vector2Int currentPos = context.agentNavigation.WorldToGridPosition(context.agentNavigation.transform.position);
 
-        if (roomPosition != context.agentNavigation.WorldToGridPosition(context.agentNavigation.transform.position))
+        // Only set destination if we found a different room
+        if (roomPosition != currentPos)
         {
             context.agentNavigation.SetRoomDestination(roomPosition);
+            destinationSet = true;
+        }
+        else
+        {
+            destinationSet = false;
         }
     }
 
-    protected override void OnStop() {}
+    protected override void OnStop() {
+        // Clean up if needed
+    }
 
     protected override State OnUpdate()
     {
-        // If no room is found, return failure (i.e., move to random movement)
-        return roomPosition == context.agentNavigation.WorldToGridPosition(context.agentNavigation.transform.position) ? State.Failure : State.Success;
-    }
+        if (!destinationSet)
+        {
+            return State.Failure; // No room found, proceed to random movement
+        }
 
+        // Check if we've reached our destination or are no longer moving
+        if (context.agentNavigation.HasReachedDestination())
+        {
+            return State.Success; // Successfully reached the room
+        }
+
+        return State.Running; // Still moving toward room
+    }
 }

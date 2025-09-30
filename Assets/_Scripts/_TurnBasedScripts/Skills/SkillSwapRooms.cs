@@ -195,6 +195,14 @@ public class SkillSwapRooms : Skill
         // Set the original materials back for the rooms
         SetRoomColor(room1Ob, beforeSelectMatFloor, beforeSelectMatWall);
         SetRoomColor(room2Ob, beforeSelectMatFloor, beforeSelectMatWall);
+        
+        // If it works it works :)
+        // Should prob cache the agents but will maybeee do later 
+        AgentNavigation[] agents = FindObjectsOfType<AgentNavigation>();
+        foreach (var agent in agents)
+        {
+            agent.OnRoomSwapped();
+        }
     }
 
 
