@@ -9,25 +9,45 @@ public class PauseMenu : MonoBehaviour
     public GameObject pauseMenu;
     public bool isPaused;
 
-    // Start is called before the first frame update
+    private PlayerInputActions inputActions;
+
+    private void Awake()
+    {
+        inputActions = new PlayerInputActions();
+    }
+
     void Start()
     {
         pauseMenu.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
+    // Subscribe to event that turns this menu on when this
+    // gameobject is enabled (startup initializer)
+    private void OnEnable()
     {
-        if (Keyboard.current.escapeKey.wasPressedThisFrame)
+        inputActions.UI.PauseMenu.performed += OnPauseToggle;
+        inputActions.Enable();
+    }
+
+
+    // Unsub to event that turns this menu on when this gameobject
+    // is disabled. ONLY HAVE HERE FOR CLEANUP WHEN SCENE UNLOADS
+    private void OnDisable()
+    {
+        inputActions.UI.PauseMenu.performed -= OnPauseToggle;
+        inputActions.Disable();
+    }
+
+    // actual function called on input event
+    private void OnPauseToggle(InputAction.CallbackContext context)
+    {
+        if (isPaused)
         {
-            if (isPaused)
-            {
-                ResumeGame();
-            }
-            else
-            { 
-                PauseGame();
-            }
+            ResumeGame();
+        }
+        else
+        {
+            PauseGame();
         }
     }
 
