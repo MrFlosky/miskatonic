@@ -164,7 +164,9 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
     }
     void ITurnObserver.EnemyTurnInitiated() { }
 
-
+    /// <summary>
+    /// Plays characters respective key dialogue, called once they've found their key
+    /// </summary>
     public void FindKey()
     {
         CharacterGameDialogue.CharacterSprite = characterSprite;
