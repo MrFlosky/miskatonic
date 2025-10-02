@@ -90,7 +90,6 @@ public class SkillAoeFear : Skill
  
         base.EndSkill();
         this.enabled = false;
-
         AOEOb.SetActive(false);
         canPlace = true;
 

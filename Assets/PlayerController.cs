@@ -71,6 +71,9 @@ public class PlayerController : MonoBehaviour
                 case SkillSwapRooms skillSwapRooms:
                     skillSwapRooms.OnClick(context);
                     break;
+                case SkillFearTotem skillFearTotem:
+                    skillFearTotem.OnClick(context);
+                    break;
             }
         }
 
