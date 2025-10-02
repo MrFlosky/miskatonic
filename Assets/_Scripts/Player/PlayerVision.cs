@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public enum Vision { Up, Down, Left, Right }
 public class PlayerVision : MonoBehaviour
 {
@@ -12,13 +11,14 @@ public class PlayerVision : MonoBehaviour
 
     [SerializeField] Material outlineMaterial;  // Material applied when highlighting tiles
 
-    //private List<Vector2Int> currentVisible = new List<Vector2Int>();
-
     private List<Vector2Int> currentVisible = new List<Vector2Int>();
     private MazeCellObject currentCell;
     private Dictionary<MeshRenderer, Material[]> originalMaterials
     = new Dictionary<MeshRenderer, Material[]>();
 
+    /// <summary>
+    /// Set up varibles for current position of AI
+    /// </summary>
     void Start()
     {
         // Try to get the MazeCellObject this player is standing on
@@ -35,50 +35,85 @@ public class PlayerVision : MonoBehaviour
         }
     }
 
-    void Update()
+    /// <summary>
+    /// Check if it is a wall block vision direction
+    /// </summary>
+    /// <param name="nextCell"></param>
+    /// <returns>
+    ///     true if there is
+    ///     otherwise, false
+    /// </returns>
+    public bool IsBlocked(MazeCell nextCell)
     {
-        // If this character is tied to a MazeCellObject, always sync grid position
-        if (currentCell != null)
+        bool result = true;
+        switch (facing)
         {
-            gridPos = new Vector2Int(currentCell.GetXCoord(), currentCell.GetYCoord());
-
+            case Vision.Up:
+                if (nextCell.topWall) return true;
+                else return false;
+            case Vision.Down:
+                if (nextCell.bottomWall) return true;
+                else return false;
+            case Vision.Left:
+                if (nextCell.leftWall) return true;
+                else return false;
+            case Vision.Right:
+                if (nextCell.rightWall) return true;
+                else return false;
         }
-        else
-        {
-            // fallback: find nearest cell from the maze
-            gridPos = FindNearestCellGrid(transform.position);
-            Debug.Log(gridPos.x);
-            Debug.Log(gridPos.y);
-        }
-
+        return result;
     }
 
+    /// <summary>
+    /// Get current vision of AI
+    /// Check if the sight is blocked by the wall
+    /// </summary>
+    /// <returns>
+    ///     list of current visible cell position
+    /// </returns>
     public List<Vector2Int> GetVisibleCells()
     {
         List<Vector2Int> visible = new List<Vector2Int>();
+        var agentNavigation = GetComponent<AgentNavigation>();
+        var gameManager = agentNavigation.gameManager;
 
         for (int i = 1; i <= visionRange; i++)
         {
+            MazeCell nextCell = new MazeCell(gridPos.x, gridPos.y);
             switch (facing)
             {
                 case Vision.Up:
                     visible.Add(new Vector2Int(gridPos.x, gridPos.y + i));
+                    nextCell = gameManager.centralMaze[gridPos.x, gridPos.y + i];
                     break;
                 case Vision.Down:
                     visible.Add(new Vector2Int(gridPos.x, gridPos.y - i));
+                    nextCell = gameManager.centralMaze[gridPos.x, gridPos.y - i];
                     break;
                 case Vision.Left:
                     visible.Add(new Vector2Int(gridPos.x - i, gridPos.y));
+                    nextCell = gameManager.centralMaze[gridPos.x - i, gridPos.y];
                     break;
                 case Vision.Right:
                     visible.Add(new Vector2Int(gridPos.x + i, gridPos.y));
+                    nextCell = gameManager.centralMaze[gridPos.x + i, gridPos.y];
                     break;
             }
+
+            if (IsBlocked(nextCell))
+                break; // stop vision at the wall
         }
 
         return visible;
     }
 
+    /// <summary>
+    /// Find the nearest cell object of the position
+    /// </summary>
+    /// <param name="worldPos"></param>
+    /// <returns>
+    ///     Position of the cell oject
+    /// </returns>
     private Vector2Int FindNearestCellGrid(Vector3 worldPos)
     {
         float best = float.MaxValue;
@@ -101,8 +136,14 @@ public class PlayerVision : MonoBehaviour
         return Vector2Int.zero;
     }
 
+    /// <summary>
+    /// Remove old vision's highlight 
+    /// Highlight the visible sight of AI on floor 
+    /// (so when AI come in a room, if the floor is not cell object, we cannot see the vision)
+    /// </summary>
     public void UpdateVision()
     {
+        gridPos = FindNearestCellGrid(transform.position);
         var agentNavigation = GetComponent<AgentNavigation>();
         var gameManager = agentNavigation.gameManager;
 
@@ -162,5 +203,23 @@ public class PlayerVision : MonoBehaviour
             }
         }
     }
+
+    /*void Update()
+    {
+        // If this character is tied to a MazeCellObject, always sync grid position
+        if (currentCell != null)
+        {
+            gridPos = new Vector2Int(currentCell.GetXCoord(), currentCell.GetYCoord());
+
+        }
+        else
+        {
+            // fallback: find nearest cell from the maze
+            gridPos = FindNearestCellGrid(transform.position);
+            Debug.Log(gridPos.x);
+            Debug.Log(gridPos.y);
+    }
+
+    }*/
 
 }
