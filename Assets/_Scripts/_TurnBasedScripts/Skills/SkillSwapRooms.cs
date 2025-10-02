@@ -22,11 +22,11 @@ public class SkillSwapRooms : Skill
     private GameObject rm2Obj;
     private bool switchCanOccur = false;
 
-    private PlayerInputActions inputActions;
+    //private PlayerInputActions inputActions;
 
     private void Awake()
     {
-        inputActions = new PlayerInputActions();
+        //inputActions = new PlayerInputActions();
         skillSystem = GetComponent<SkillSystem>();
     }
 
@@ -35,21 +35,21 @@ public class SkillSwapRooms : Skill
         enabled = false;
     }
 
-    private void OnEnable()
-    {
-        inputActions.Player.Click.performed += OnClick; // Subscribe to left-click action
-        inputActions.Player.RightClick.performed += OnRightClick; // Subscribe to right-click action
-        inputActions.Player.Confirm.performed += OnConfirm; // Subscribe to Enter key action
-        inputActions.Enable();
-    }
-
-    private void OnDisable()
-    {
-        inputActions.Player.Click.performed -= OnClick;
-        inputActions.Player.RightClick.performed -= OnRightClick;
-        inputActions.Player.Confirm.performed -= OnConfirm;
-        inputActions.Disable();
-    }
+    // Input subscription handled by PlayerContoller for all skills, useless here.
+    // private void OnEnable()
+    // {
+    //     inputActions.Player.Click.performed += OnClick; // Subscribe to left-click action
+    //     inputActions.Player.RightClick.performed += OnRightClick; // Subscribe to right-click action
+    //     inputActions.Player.Confirm.performed += OnConfirm; // Subscribe to Enter key action
+    //     inputActions.Enable();
+    // }
+    // private void OnDisable()
+    // {
+    //     inputActions.Player.Click.performed -= OnClick;
+    //     inputActions.Player.RightClick.performed -= OnRightClick;
+    //     inputActions.Player.Confirm.performed -= OnConfirm;
+    //     inputActions.Disable();
+    // }
 
 
     public void OnClick(InputAction.CallbackContext context)
@@ -82,14 +82,16 @@ public class SkillSwapRooms : Skill
 
     public void OnRightClick(InputAction.CallbackContext context)
     {
+        // I thought we needed one of these if statements but apparently not!
+
         // Ensure the action is only processed once when the right-click is performed
         // if (context.phase != InputActionPhase.Performed)
         //     return;
+        // if (inputActions.Player.RightClick.phase == InputActionPhase.Performed)
+        // {
+        //     return;
+        // }
 
-        if (inputActions.Player.RightClick.phase == InputActionPhase.Performed)
-        {
-            return;
-        }
         // Execute only one condition per right-click
         if (mRoomType2 != "None")
         {
