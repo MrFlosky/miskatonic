@@ -67,7 +67,6 @@ title: HaroldAuden4
         He laughs to himself a little. It is a waste of time to think about questions with no way to answer them. He figures the best way to find the way is to get out of this dump. 
 ->"You obviously didn’t pray enough."
         <<add_fear "Harold Auden">>
-        <<set $fearNum = 8>>
         <<discover_fear "Harold Auden" 8>>
         He laughs to himself a little, but this thought sticks with him It is a waste of time to think about questions with no way to answer them. He figures the best way to find the way is to get out of this dump. 
 ->"What God would bless you with heaven?"
@@ -134,7 +133,6 @@ Harold thinks back on how he got here. The book, the library, and everything goi
 title: HaroldAuden8
 ---
 "Is there a pattern here? Have I seen that scuff mark before?” Harold tries to figure out if he has made any progress.
-
 ->Let him investigate
         <<reduce_fear "Harold Auden">>
         Harold looks closer at the wall. He can’t seem to figure out if he has seen this area before, but it gives him the idea to take notes. He starts to focus on any small unique feature of each hallway, creating a list in his head to try to create some sort of mental map. 
