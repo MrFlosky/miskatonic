@@ -10,10 +10,10 @@ public class SkillFearTotem : Skill
     Transform fearTotemTrans;
     bool canPlace=true;
     public int roundsLast;
-    
+    private PlayerInputActions inputActions;
     private SkillsCollection skillsUI;
     
-    public InputAction TestAction;
+   
     private void Awake()
     {
         if (mainCamera == null)
@@ -23,20 +23,21 @@ public class SkillFearTotem : Skill
         fearTotemTrans = fearTotem.GetComponent<Transform>();
         skillsUI = GetComponent<SkillsCollection>();
         skillSystem = GetComponent<SkillSystem>();
-        
+        inputActions = new PlayerInputActions();
+
     }
 
 
     private void Start()
     {
-        
         enabled = false;
+        
     }
-
 
     private void Update()
     {
-        if (TestAction.IsPressed()) print("Test");
+        
+
         Vector2 mousePos = Vector2.zero;
         mousePos = GameInput.Instance.GetActiveGameDevice() == GameInput.GameDevice.KeyboardMouse ? Mouse.current.position.ReadValue() : VirtualMouseUI.Instance.GetVirtualMousePosition();
         // Bound object to being placed in maze
@@ -108,7 +109,7 @@ public class SkillFearTotem : Skill
 
         base.EndSkill();
         this.enabled = false;
-        canPlace = false;
+        canPlace = true;
         fearTotem.SetActive(false);
        
 
@@ -119,7 +120,7 @@ public class SkillFearTotem : Skill
     {
         if (usagesRemaining>= ptDeduction)
         {
-            
+            print("Activated");
             base.ActivateSkill();
             enabled = true; // Enable the script allowing this skill to happen once.
             fearTotem.SetActive(true);
