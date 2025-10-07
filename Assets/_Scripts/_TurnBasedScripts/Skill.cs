@@ -72,7 +72,6 @@ public abstract class Skill : MonoBehaviour
         if (UIManagerLite.DealerButtonIsActive() == false)
         {
             endTurnButton.interactable = true;
-            Debug.LogWarning("EFJEIWJ");
         }
 
         PlayerController.Instance.SetActiveSkill(null);

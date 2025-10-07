@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using CharacterData;
 using UnityEngine;
 using Yarn;
 using Yarn.Unity;
@@ -27,16 +28,18 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
     private int dialoguesRemaining;
 
     // MUST match the character's folder that holds their dialogues.
-    [SerializeField] private string characterFirstName;
-    [SerializeField] private string characterLastName;
+    [SerializeField] private CharacterData.Character character;
+    private string characterFirstName;
+    private string characterLastName;
+    
     // Need full name to adhere to accessing each yarn script
     private string characterFullName;
 
     // Track when a dialogue has already been initiated in a given turn
     public bool alreadyTalked = false;
 
-    // Character's respective sprite
-    [SerializeField] private Sprite characterSprite;
+    // Character's respective sprite. HANDLED BY CHAR GAME DIALOGUE
+    //[SerializeField] private Sprite characterSprite;
 
     //List of Fear to Reveal
     public GameObject[] fears;
@@ -51,7 +54,8 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
         dialgoueRunner.onDialogueStart.AddListener(UIManagerLite.EnableDialogueSettings);
         dialgoueRunner.onDialogueComplete.AddListener(UIManagerLite.DisableDialogueSettings);
 
-
+        characterFirstName = CharacterNames.GetFirstName(character);
+        characterLastName = CharacterNames.GetLastName(character);
         characterFullName = characterFirstName + characterLastName;
 
         LoadYarnDialogues();
@@ -69,7 +73,7 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
     /// </summary>
     void LoadYarnDialogues()
     {
-        string characterPath = $"YarnScripts/{characterFirstName}";
+        string characterPath = $"YarnScripts/{characterFirstName}/{characterFirstName}{characterLastName}Dialogues";
         TextAsset[] textAssets = Resources.LoadAll<TextAsset>(characterPath);
 
         if (textAssets.Length > 0 && textAssets[0] != null)
@@ -109,7 +113,7 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
         int dialogueKey = unPlayedDialogues[listIndex];
         string yarnAcessStr = characterFullName + dialogueKey;
 
-        CharacterGameDialogue.CharacterSprite = characterSprite;
+        CharacterGameDialogue.SetActivePortrait(character);
         
         dialgoueRunner.StartDialogue(yarnAcessStr);
 
@@ -137,7 +141,7 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
     /// </summary>
     public void AlreadyTalked()
     {
-        CharacterGameDialogue.CharacterSprite = characterSprite;
+        CharacterGameDialogue.SetActivePortrait(character);
         dialgoueRunner.StartDialogue("ClickedAlready");
     }
 
@@ -146,7 +150,7 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
     /// </summary>
     public void OutOfDialogues()
     {
-        CharacterGameDialogue.CharacterSprite = characterSprite;
+        CharacterGameDialogue.SetActivePortrait(character);
         dialgoueRunner.StartDialogue("OutOfDialogue");
     }
 
@@ -169,7 +173,7 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
     /// </summary>
     public void FindKey()
     {
-        CharacterGameDialogue.CharacterSprite = characterSprite;
+        CharacterGameDialogue.SetActivePortrait(character);
         dialgoueRunner.StartDialogue(characterFullName + "Key");
     }
 

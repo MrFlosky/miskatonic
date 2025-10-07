@@ -78157,10 +78157,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27488cd4dc3353e47b8e361e11c91cad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterFirstName: Iain
-  characterLastName: Schweblin
+  character: 1
   alreadyTalked: 0
-  characterSprite: {fileID: 21300000, guid: 950d89dd9c669b6468efb77ced3d3828, type: 3}
   fears:
   - {fileID: 767240832}
   - {fileID: 1383660040}
@@ -114527,7 +114525,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9c87eb9c7ef824748ad105dad97d2b5f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8995373f62a59a546963ac6d91cf4b18, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -133996,7 +133994,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d17c0df4c001e9e4db6a9e43055ca830, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f50879f05994980488a89da83ab19219, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -158372,10 +158370,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27488cd4dc3353e47b8e361e11c91cad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterFirstName: Harold
-  characterLastName: Auden
+  character: 0
   alreadyTalked: 0
-  characterSprite: {fileID: 21300000, guid: 8ac80f7751d23384dab41e055645284e, type: 3}
   fears:
   - {fileID: 1610321677}
   - {fileID: 1749390360}
@@ -169326,10 +169322,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27488cd4dc3353e47b8e361e11c91cad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterFirstName: Mackenzie
-  characterLastName: Joyce
+  character: 2
   alreadyTalked: 0
-  characterSprite: {fileID: 21300000, guid: fdf3576406d67034589daddc7a209788, type: 3}
   fears:
   - {fileID: 1487166602}
   - {fileID: 919355542}
@@ -184090,6 +184084,17 @@ MonoBehaviour:
   roomFloorMaterial: {fileID: 2100000, guid: a166c9720d356d3469587ea35c8cab2b, type: 2}
   roomWallMaterial: {fileID: 2100000, guid: 9ab1b140570b2a943b20a45ff2e6cea9, type: 2}
   roomType: Hallway
+--- !u!114 &1875594561 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7321222014871202089, guid: d690e9a53e6790b4e800a43ee1e8c52b, type: 3}
+  m_PrefabInstance: {fileID: 756217212}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bec29c0a230741bdac901dba8da47ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1876394384
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -185777,94 +185782,22 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fcbea12b95b612b4f8762e7bdcc06d85, type: 3}
---- !u!1 &1894611241
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1894611242}
-  - component: {fileID: 1894611244}
-  - component: {fileID: 1894611243}
-  - component: {fileID: 1894611245}
-  m_Layer: 0
-  m_Name: DispatchSystem
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1894611242
+--- !u!4 &1894611242 stripped
 Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 25697833670555970, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
+  m_PrefabInstance: {fileID: 5826883833670881061}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1894611241}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1763260650}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1894611243
+--- !u!114 &1894611244 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 3058035975926874513, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
+  m_PrefabInstance: {fileID: 5826883833670881061}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1894611241}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78f9efcdf7880b648be35c99ce162448, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  missionCards:
-  - missionData: {fileID: 11400000, guid: c689fe53b67c4134995688f9510bed22, type: 2}
-    cardCount: 2
-  - missionData: {fileID: 11400000, guid: 85f5ac1c7681f0140bb15b5d6ac1a79c, type: 2}
-    cardCount: 2
-  - missionData: {fileID: 11400000, guid: e1ec5a067880ad149b5e2f544d7c6ec6, type: 2}
-    cardCount: 2
-  - missionData: {fileID: 11400000, guid: 3f3f2bcf2ac1f0e4090a0724f640609c, type: 2}
-    cardCount: 2
-  - missionData: {fileID: 11400000, guid: 4fcc11043cad9b34da93f5ae339a98a1, type: 2}
-    cardCount: 2
-  missionsCanvas: {fileID: 22447393}
-  blankMissionCard: {fileID: 6533333329466154850, guid: 9712d13c0b808444bbe1125177b61bd6, type: 3}
-  skillObject: {fileID: 284654619}
---- !u!114 &1894611244
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1894611241}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9f0425151045c79499145a54df8cab5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initiateCardDealerButton: {fileID: 1367476238}
-  dealerCanvas: {fileID: 22447393}
---- !u!114 &1894611245
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1894611241}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e45c1dc8962327c45a158fa9c8dda501, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  txt: {fileID: 181481786}
-  cultistPoints: 3
 --- !u!1 &1895342998
 GameObject:
   m_ObjectHideFlags: 0
@@ -192450,10 +192383,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27488cd4dc3353e47b8e361e11c91cad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterFirstName: Evelyn
-  characterLastName: Ventress
+  character: 3
   alreadyTalked: 0
-  characterSprite: {fileID: 21300000, guid: 29e6a98590fb3f84b874560b0be5223a, type: 3}
   fears:
   - {fileID: 709662050}
   - {fileID: 279409318}
@@ -212538,6 +212469,111 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 250}
   m_SizeDelta: {x: 859.2748, y: 461.96}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1001 &5826883833670881061
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1763260650}
+    m_Modifications:
+    - target: {fileID: 25697833670555970, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 25697833670555970, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 25697833670555970, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 25697833670555970, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 25697833670555970, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 25697833670555970, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 25697833670555970, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 25697833670555970, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 25697833670555970, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 25697833670555970, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3058035975926874513, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
+      propertyPath: dealerCanvas
+      value: 
+      objectReference: {fileID: 22447393}
+    - target: {fileID: 3058035975926874513, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
+      propertyPath: initiateCardDealerButton
+      value: 
+      objectReference: {fileID: 1367476238}
+    - target: {fileID: 3687221193387592670, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
+      propertyPath: txt
+      value: 
+      objectReference: {fileID: 181481786}
+    - target: {fileID: 4862143045090446909, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
+      propertyPath: m_Name
+      value: DispatchSystem
+      objectReference: {fileID: 0}
+    - target: {fileID: 5592833437522147513, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
+      propertyPath: skillObject
+      value: 
+      objectReference: {fileID: 284654619}
+    - target: {fileID: 5592833437522147513, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
+      propertyPath: dealerCanvas
+      value: 
+      objectReference: {fileID: 22447393}
+    - target: {fileID: 5592833437522147513, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
+      propertyPath: missionCards.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5592833437522147513, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
+      propertyPath: missionCards.Array.data[4].cardCount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5592833437522147513, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
+      propertyPath: missionCards.Array.data[5].cardCount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5592833437522147513, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
+      propertyPath: missionCards.Array.data[6].cardCount
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5592833437522147513, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
+      propertyPath: missionCards.Array.data[5].missionData
+      value: 
+      objectReference: {fileID: 11400000, guid: a20a49cceaac8b64d8efeeb243efbda9, type: 2}
+    - target: {fileID: 5592833437522147513, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
+      propertyPath: missionCards.Array.data[6].missionData
+      value: 
+      objectReference: {fileID: 11400000, guid: db1e1cdc3f3c7514d83020e71c528d81, type: 2}
+    - target: {fileID: 6986799419869777753, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
+      propertyPath: dialogueRunner
+      value: 
+      objectReference: {fileID: 1875594561}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
 --- !u!1 &5954140776754037390
 GameObject:
   m_ObjectHideFlags: 0
