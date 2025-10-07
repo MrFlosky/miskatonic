@@ -57,6 +57,9 @@ public class PlayerController : MonoBehaviour
 
     private void OnClick(InputAction.CallbackContext context)
     {
+
+        
+
         // Use the currently active skill
         if (activeSkill != null && activeSkill.enabled)
         {
@@ -75,6 +78,9 @@ public class PlayerController : MonoBehaviour
                     skillFearTotem.OnClick(context);
                     break;
             }
+
+
+
         }
 
         // Forward the click input to the ClickAI script
