@@ -3,6 +3,14 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+
+[System.Serializable]
+public class MissionCardEntry
+{
+    public MissionData missionData;
+    public int cardCount;
+}
+
 /// <summary>
 /// This class is responsible for managing the collection of missions, which includes:
 /// - Displaying/hiding missions
@@ -13,8 +21,9 @@ public class MissionCollection : MonoBehaviour
 {
     static public MissionCollection S;
 
-    [Header("All missions that may be presented to the player")]
-    [SerializeField] private MissionData[] missionOptions;
+    [Header("All missions presented to the player and how many of each to add to pool")]
+    [SerializeField] private MissionCardEntry[] missionCards;
+
     private List<Mission> availableMissions = new List<Mission>();
     private List<Mission> inProgressMissions = new List<Mission>();
     private List<Mission> completedMissions = new List<Mission>();
@@ -87,20 +96,25 @@ public class MissionCollection : MonoBehaviour
 
     /// <summary>
     /// Turn MissionData scriptable objects into Mission instances.
+    /// Insert respective number of cards into pool.
     /// </summary>
     private void ProcessMissionData()
     {
-        foreach (MissionData md in missionOptions)
+        for (int i = 0; i < missionCards.Length; i++)
         {
-            GameObject newMissionObj = Instantiate(blankMissionCard);
-            Mission newMission = newMissionObj.AddComponent<Mission>();
+            int cardCount = missionCards[i].cardCount;
+            for (int j = 0; j < cardCount; j++)
+            {
+                GameObject newMissionObj = Instantiate(blankMissionCard);
+                Mission newMission = newMissionObj.AddComponent<Mission>();
 
-            newMission.InitMission(md, cultistPointSystem);
-            availableMissions.Add(newMission);
+                newMission.InitMission(missionCards[i].missionData, cultistPointSystem);
+                availableMissions.Add(newMission);
+            }
         }
     }
 
-    
+
 
 
 }

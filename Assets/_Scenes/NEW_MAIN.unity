@@ -185823,27 +185823,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78f9efcdf7880b648be35c99ce162448, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  missionOptions:
-  - {fileID: 11400000, guid: 85f5ac1c7681f0140bb15b5d6ac1a79c, type: 2}
-  - {fileID: 11400000, guid: e1ec5a067880ad149b5e2f544d7c6ec6, type: 2}
-  - {fileID: 11400000, guid: 3f3f2bcf2ac1f0e4090a0724f640609c, type: 2}
-  - {fileID: 11400000, guid: c689fe53b67c4134995688f9510bed22, type: 2}
-  - {fileID: 11400000, guid: 4fcc11043cad9b34da93f5ae339a98a1, type: 2}
-  - {fileID: 11400000, guid: 7aab7ba3f6c0c8c4fb036ce0387b59e9, type: 2}
-  - {fileID: 11400000, guid: 634216846d9ec08458d3c89c1573db8e, type: 2}
-  - {fileID: 11400000, guid: 891ceb81d153f4341a8d4980d8b22c0c, type: 2}
-  - {fileID: 11400000, guid: ecacdfa0ac8bb7d4290b968d832dc5ef, type: 2}
-  - {fileID: 11400000, guid: cc7deccd67f85f341887afdf687fbee9, type: 2}
-  - {fileID: 11400000, guid: 28787707cb57a4f4983b63b1087ddd75, type: 2}
-  - {fileID: 11400000, guid: 67fcb38ac719a344b881fbc506a7d820, type: 2}
-  - {fileID: 11400000, guid: c689fe53b67c4134995688f9510bed22, type: 2}
-  - {fileID: 11400000, guid: c689fe53b67c4134995688f9510bed22, type: 2}
-  - {fileID: 11400000, guid: c689fe53b67c4134995688f9510bed22, type: 2}
-  - {fileID: 11400000, guid: 85f5ac1c7681f0140bb15b5d6ac1a79c, type: 2}
-  - {fileID: 11400000, guid: e1ec5a067880ad149b5e2f544d7c6ec6, type: 2}
-  - {fileID: 11400000, guid: 3f3f2bcf2ac1f0e4090a0724f640609c, type: 2}
-  - {fileID: 11400000, guid: 3f3f2bcf2ac1f0e4090a0724f640609c, type: 2}
-  - {fileID: 11400000, guid: e1ec5a067880ad149b5e2f544d7c6ec6, type: 2}
+  missionCards:
+  - missionData: {fileID: 11400000, guid: c689fe53b67c4134995688f9510bed22, type: 2}
+    cardCount: 2
+  - missionData: {fileID: 11400000, guid: 85f5ac1c7681f0140bb15b5d6ac1a79c, type: 2}
+    cardCount: 2
+  - missionData: {fileID: 11400000, guid: e1ec5a067880ad149b5e2f544d7c6ec6, type: 2}
+    cardCount: 2
+  - missionData: {fileID: 11400000, guid: 3f3f2bcf2ac1f0e4090a0724f640609c, type: 2}
+    cardCount: 2
+  - missionData: {fileID: 11400000, guid: 4fcc11043cad9b34da93f5ae339a98a1, type: 2}
+    cardCount: 2
   missionsCanvas: {fileID: 22447393}
   blankMissionCard: {fileID: 6533333329466154850, guid: 9712d13c0b808444bbe1125177b61bd6, type: 3}
   skillObject: {fileID: 284654619}
@@ -213113,7 +213103,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: TotemObject
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2274262436656832406, guid: 41f48e9c4dfe7e7468fb368575cdf403, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
