@@ -1,0 +1,105 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4862143045090446909
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 25697833670555970}
+  - component: {fileID: 3058035975926874513}
+  - component: {fileID: 5592833437522147513}
+  - component: {fileID: 3687221193387592670}
+  - component: {fileID: 6986799419869777753}
+  m_Layer: 0
+  m_Name: DispatchSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &25697833670555970
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4862143045090446909}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3058035975926874513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4862143045090446909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f0425151045c79499145a54df8cab5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initiateCardDealerButton: {fileID: 0}
+  dealerCanvas: {fileID: 0}
+--- !u!114 &5592833437522147513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4862143045090446909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78f9efcdf7880b648be35c99ce162448, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  missionCards:
+  - missionData: {fileID: 11400000, guid: c689fe53b67c4134995688f9510bed22, type: 2}
+    cardCount: 2
+  - missionData: {fileID: 11400000, guid: 85f5ac1c7681f0140bb15b5d6ac1a79c, type: 2}
+    cardCount: 2
+  - missionData: {fileID: 11400000, guid: e1ec5a067880ad149b5e2f544d7c6ec6, type: 2}
+    cardCount: 2
+  - missionData: {fileID: 11400000, guid: 3f3f2bcf2ac1f0e4090a0724f640609c, type: 2}
+    cardCount: 2
+  - missionData: {fileID: 11400000, guid: a20a49cceaac8b64d8efeeb243efbda9, type: 2}
+    cardCount: 2
+  dealerCanvas: {fileID: 0}
+  blankMissionCard: {fileID: 6533333329466154850, guid: 9712d13c0b808444bbe1125177b61bd6, type: 3}
+  skillObject: {fileID: 0}
+  tracker: {fileID: 0}
+--- !u!114 &3687221193387592670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4862143045090446909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e45c1dc8962327c45a158fa9c8dda501, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  txt: {fileID: 0}
+  cultistPoints: 3
+--- !u!114 &6986799419869777753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4862143045090446909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4337ed58e849b24baf3892dad111583, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueRunner: {fileID: 0}

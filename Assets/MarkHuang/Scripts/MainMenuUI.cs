@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class MainMenuUI : MonoBehaviour
 {
-    
+    // our script generated from new input actions assets
     private PlayerInputActions inputActions;
 
     private void Awake()

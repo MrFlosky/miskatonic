@@ -138,6 +138,11 @@ public class ClickAI : MonoBehaviour
 
 
             }
+
+            else if (hit.collider.CompareTag("Book"))
+            {
+                hit.collider.GetComponent<Books>().ChangeBook();
+            }
         }
     }
 
@@ -278,6 +283,9 @@ public class ClickAI : MonoBehaviour
                 }
 
             }
+
+            
+
             else
             {
                 ClearOutlines();
@@ -365,6 +373,8 @@ public class ClickAI : MonoBehaviour
 
     [SerializeField] CinemachineVirtualCamera storyboardCam;
     [SerializeField] Button switchCamButton;
+
+
     public void SwitchToCustomCamera()
     {
 
@@ -386,6 +396,13 @@ public class ClickAI : MonoBehaviour
         switchCamButton.onClick.AddListener(SwitchToPlayerCamera); // switch what function button calls
     }
 
+
+     
+
+    /// <summary>
+    /// IMPORTANT NOTE: Camera movement is behaving in an odd way and I have not found the reason for it. 
+    /// The current code is a workaround that gets the camera to behave in the way that we need for now but this should be investiagted and fixed at some point.
+    /// </summary>
     public void SwitchToPlayerCamera()
     {
 

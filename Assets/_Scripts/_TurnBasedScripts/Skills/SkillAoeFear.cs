@@ -60,6 +60,9 @@ public class SkillAoeFear : Skill
 
     public void OnClick(InputAction.CallbackContext context)
     {
+                
+        Debug.LogWarning("Call Stack:\n" + System.Environment.StackTrace);
+
         Vector2 mousePos = Vector2.zero;
         mousePos = GameInput.Instance.GetActiveGameDevice() == GameInput.GameDevice.KeyboardMouse ? Mouse.current.position.ReadValue() : VirtualMouseUI.Instance.GetVirtualMousePosition();
         // Determine the rooms being selected for a switch
@@ -113,6 +116,8 @@ public class SkillAoeFear : Skill
     /// </summary>
     public void OnRightClick(InputAction.CallbackContext context)
     {
+        Debug.LogWarning("OnClick called!");
+        Debug.LogWarning("Call Stack:\n" + System.Environment.StackTrace);
         ExitInput();
     }
 
