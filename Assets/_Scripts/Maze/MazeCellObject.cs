@@ -7,6 +7,8 @@ public class MazeCellObject : MonoBehaviour
 {
     private int xCoord;
     private int yCoord;
+    // Totem check
+    public bool hasTotem = false;
 
     [SerializeField] GameObject topWall;
     [SerializeField] GameObject bottomWall;
