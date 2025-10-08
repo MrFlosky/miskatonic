@@ -81,8 +81,8 @@ public class SkillFearTotem : Skill
                 newTotem.transform.position = newPos;
                 FearTotemEffect fearTotemEff = newTotem.GetComponent<FearTotemEffect>();
                 
-               //placeholder randomization. Fix with way of changing number manually later
-               fearTotemEff.targetInt = Random.Range(0, 3);
+                //placeholder randomization. Fix with way of changing number manually later
+                fearTotemEff.targetInt = Random.Range(0, 3);
                 
                 //for testing, delete later
                 fearTotemEff.sightFear = 200;
@@ -94,7 +94,11 @@ public class SkillFearTotem : Skill
                 skillsUI.ENABLE_BUTTONS();
                 EndSkill();
 
-
+                MazeCellObject cell = hit.transform.GetComponentInParent<MazeCellObject>();
+                if (cell != null)
+                {
+                    cell.hasTotem = true;
+                }
 
             }
 
