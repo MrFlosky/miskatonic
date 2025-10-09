@@ -146,10 +146,12 @@ public class PlayerVision : MonoBehaviour
         gridPos = FindNearestCellGrid(transform.position);
         var agentNavigation = GetComponent<AgentNavigation>();
         var gameManager = agentNavigation.gameManager;
+        var fear = GetComponent<Fear>();
 
         // 1. Clear old highlights
         foreach (var pos in currentVisible)
         {
+            
             if (MazeRenderer.Instance.cellGameObjects.TryGetValue(pos, out GameObject cellObject))
             {
                 foreach (Transform child in cellObject.transform)
@@ -176,8 +178,24 @@ public class PlayerVision : MonoBehaviour
         // 3. Apply new highlights
         foreach (var pos in currentVisible)
         {
+            MazeCellObject cell = null ;
+
+            if (MazeRenderer.Instance.cellGameObjects.TryGetValue(gridPos, out GameObject cellGO))
+            {
+                cell = cellGO.GetComponent<MazeCellObject>();
+            }
+
+            if (cell && cell.hasTotem)
+            {
+                Debug.Log("There is totem in player vision");
+                
+                fear.AddFear(5);
+            }
+                
+
             if (MazeRenderer.Instance.cellGameObjects.TryGetValue(pos, out GameObject cellObject))
             {
+
                 foreach (Transform child in cellObject.transform)
                 {
                     var renderer = child.GetComponent<MeshRenderer>();
@@ -204,22 +222,5 @@ public class PlayerVision : MonoBehaviour
         }
     }
 
-    /*void Update()
-    {
-        // If this character is tied to a MazeCellObject, always sync grid position
-        if (currentCell != null)
-        {
-            gridPos = new Vector2Int(currentCell.GetXCoord(), currentCell.GetYCoord());
-
-        }
-        else
-        {
-            // fallback: find nearest cell from the maze
-            gridPos = FindNearestCellGrid(transform.position);
-            Debug.Log(gridPos.x);
-            Debug.Log(gridPos.y);
-    }
-
-    }*/
 
 }

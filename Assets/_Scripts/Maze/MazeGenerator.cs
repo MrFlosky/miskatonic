@@ -32,6 +32,11 @@ public class MazeGenerator : MonoBehaviour {
       
     public List<Room> rooms = new List<Room>();         // Sucessfully created room
 
+    [Header("Decoration Settings")]
+    [Range(0f, 1f)] public float wallPropChance = 0.2f;   // 20% chance per wall
+    public List<GameObject> wallProps;                    // assign in Inspector
+    public Transform propParent;                          // parent container for organization
+
     private void Start()
     {
         Instance = this;
@@ -82,6 +87,7 @@ public class MazeGenerator : MonoBehaviour {
             if (createdRoomCount == roomCount)
             {
                 UpdateAllOpposingWalls();
+                PlaceWallProps();
                 return maze;
             }
         
@@ -93,6 +99,7 @@ public class MazeGenerator : MonoBehaviour {
         // If we reached the maximum number of attempts and still failed, log an error
         Debug.LogError($"Failed to generate a maze with {roomCount} rooms after {maxAttempts} attempts.");
         UpdateAllOpposingWalls();
+        PlaceWallProps();
         return maze; // Return the last attempted maze (could be incomplete)
     }
 
@@ -712,8 +719,47 @@ public class MazeGenerator : MonoBehaviour {
                 }
             }
         }
+
     }
-    
+
+    public void PlaceWallProps()
+    {
+        if (wallProps == null || wallProps.Count == 0) return;
+
+        for (int x = 0; x < mazeWidth; x++)
+        {
+            for (int y = 0; y < mazeHeight; y++)
+            {
+                MazeCell cell = maze[x, y];
+
+                // Check each wall
+                if (cell.leftWall && Random.value < wallPropChance)
+                    SpawnWallProp(cell, Vector3.left);
+
+                if (cell.rightWall && Random.value < wallPropChance)
+                    SpawnWallProp(cell, Vector3.right);
+
+                if (cell.topWall && Random.value < wallPropChance)
+                    SpawnWallProp(cell, Vector3.forward);
+
+                if (cell.bottomWall && Random.value < wallPropChance)
+                    SpawnWallProp(cell, Vector3.back);
+            }
+        }
+    }
+
+    private void SpawnWallProp(MazeCell cell, Vector3 direction)
+    {
+        Vector3 worldPos = new Vector3(cell.x, 0, cell.y); // adjust Y for height
+        worldPos += direction * 0.5f;                      // move to wall surface
+
+        Quaternion rotation = Quaternion.LookRotation(direction);
+
+        GameObject prefab = wallProps[Random.Range(0, wallProps.Count)];
+        GameObject prop = Instantiate(prefab, worldPos + Vector3.up * 1.5f, rotation, propParent);
+    }
+
+
 }
 
 
