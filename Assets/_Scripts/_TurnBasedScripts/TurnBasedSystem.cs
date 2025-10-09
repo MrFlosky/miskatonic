@@ -205,14 +205,16 @@ public class TurnBasedSystem : MonoBehaviour
 
     #region  AOE and Barrier turn-based events
     /// <summary>
-    /// For aoe fear obs to activate their fear increase once per turn. called only here
+    /// For aoe fear obs ONLY to activate their fear increase once per turn. called only here
     /// </summary>
     void TriggerAOEFear()
     {
         foreach (DestroyAfterRounds ob in S.destroyablesListOb)
         {
-
-            ob.GetObToDestroy().GetComponent<AOEEffect>().boxColl.enabled = true;
+            if (ob.GetObToDestroy().GetComponent<AOEEffect>() != null)
+            {
+                ob.GetObToDestroy().GetComponent<AOEEffect>().boxColl.enabled = true;
+            }
         }
     }
 
@@ -220,8 +222,10 @@ public class TurnBasedSystem : MonoBehaviour
     {
         foreach (DestroyAfterRounds ob in S.destroyablesListOb)
         {
-
-            ob.GetObToDestroy().GetComponent<AOEEffect>().boxColl.enabled = false;
+            if (ob.GetObToDestroy().GetComponent<AOEEffect>() != null)
+            {
+                ob.GetObToDestroy().GetComponent<AOEEffect>().boxColl.enabled = false;
+            }
         }
     }
 
