@@ -26,6 +26,8 @@ public class Books: MonoBehaviour
 
         }
 
+        
+
         bookshelf.Booklist.Add(this);
 
       
