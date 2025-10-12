@@ -5,23 +5,39 @@ using TMPro;
 
 public class RewardCultist : Reward
 {
-    private int cultistsToReward;
-    private CultistPoints cultistPointSystem;
-
+    protected int cultistsToReward;
+    protected CultistPoints cultistPointSystem;
+    [SerializeField]
+    private bool WOM;
+    
     public void Init(CultistPoints cps)
     {
+        
         cultistPointSystem = cps;
+        
     }
 
     public void SetCultistsRewarded(int reward)
     {
+
         cultistsToReward = reward;
     }
 
     public override void GrantReward()
     {
+
+        if (WOM)
+        {
+            RewardWoM rewardWoM = RewardWoM.S;
+            rewardWoM.activated = true;
+            DisplayRewardMessage();
+            return;
+
+        }
+        print(cultistPointSystem);
         cultistPointSystem.AddPoints(cultistsToReward);
         DisplayRewardMessage();
+        
     }
 
     public override void InitRewardUI()
@@ -53,4 +69,6 @@ public class RewardCultist : Reward
             this.enabled = false;
         }
     }
+
+   
 }

@@ -48,7 +48,7 @@ public class TurnBasedSystem : MonoBehaviour
     List<DestroyAfterRounds> readyToDestroyTotem = new List<DestroyAfterRounds>();
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         S = this;
         roundsUntilDefeat = GameManager.Instance.GetRoundsTillDefeat();
