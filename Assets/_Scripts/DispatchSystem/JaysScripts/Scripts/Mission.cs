@@ -97,6 +97,7 @@ public class Mission : MonoBehaviour
         GameObject rewardPrefab = reward.gameObject;
         // Instantiate prefab to get a instance we can work with
         GameObject rewardObj = Instantiate(rewardPrefab);
+        //print(rewardPrefab.GetComponent<Reward>().enabled);
         //rewardObj.transform.SetParent(missionCardObj.transform); TODO: we need these to be outside mission card obj, organize later
         missionReward = rewardObj.GetComponent<Reward>();
 

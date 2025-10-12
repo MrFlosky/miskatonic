@@ -9,7 +9,9 @@ public class RewardCultist : Reward
     protected CultistPoints cultistPointSystem;
     [SerializeField]
     private bool WOM;
-    
+    [SerializeField]
+    GameObject test; 
+
     public void Init(CultistPoints cps)
     {
         
@@ -28,13 +30,15 @@ public class RewardCultist : Reward
 
         if (WOM)
         {
-            RewardWoM rewardWoM = RewardWoM.S;
-            rewardWoM.activated = true;
+          
             DisplayRewardMessage();
+            GameObject GO = Instantiate(test);
+            GO.GetComponent<RewardWoM>().activated = true;
+            
             return;
 
         }
-        print(cultistPointSystem);
+        
         cultistPointSystem.AddPoints(cultistsToReward);
         DisplayRewardMessage();
         
@@ -50,7 +54,7 @@ public class RewardCultist : Reward
         rewardText = rewardPopupUI.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
         rewardText.text = cultistsToReward.ToString() + " " + rewardName;
     }
-
+        
     public override void DisplayRewardMessage()
     {
         rewardPopupUI.SetActive(true);

@@ -6,38 +6,34 @@ using UnityEngine.UI;
 
 public class RewardWoM : RewardCultist, ITurnObserver
 {
-    public static RewardWoM S { get; private set; }
+   // public static RewardWoM S { get; private set; }
     public bool activated;
     public int maxGain;
     
-    
-    
 
 
-
-    private void Start() 
+    private void Start()
     {
         
-        if (S != null && S != this) Destroy(this);
-
-        if(S== null) S = this;
-
-        
-        
-        
+        TurnBasedSystem.SubscribeAsObserver(this);
     }
 
-    private void Update()
-    {
-        
-    }
+
+
 
     void ITurnObserver.PlayerTurnInitiated()
     {
+        if (!activated) return;
+        cultistPointSystem= CultistPoints.S;
+        int currentCult = cultistPointSystem.cultistPoints;
+        currentCult = Mathf.FloorToInt(currentCult / 10);
+        if(currentCult > maxGain) currentCult = maxGain;
 
-        cultistsToReward = Mathf.FloorToInt(cultistPointSystem.cultistPoints);
-        print(cultistsToReward);
+        cultistsToReward = currentCult;
+        Debug.LogError(cultistsToReward);
         GrantReward();
+
+        Debug.LogError(cultistPointSystem.cultistPoints);
     }
 
 
