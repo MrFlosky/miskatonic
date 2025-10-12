@@ -6,7 +6,7 @@ using TMPro;
 
 public class CultistPoints : MonoBehaviour
 {
-    static private CultistPoints S;
+    static public CultistPoints S { get; private set; }
 
     [SerializeField] private TextMeshProUGUI txt;
 
