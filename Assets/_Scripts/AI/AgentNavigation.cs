@@ -130,7 +130,17 @@ public class AgentNavigation : MonoBehaviour
     
     private void FollowPath()
     {
+ 
+        if (!isMoving || path.Count == 0)
+        {
+            playerVision.UpdateVision(false);
+        }
+        else
+        {
+            playerVision.UpdateVision(true);
+        }
         if (!isMoving || path.Count == 0) return;
+        
 
         Vector3 currentPosition = transform.position;
         Vector3 targetPosition = destination;
@@ -206,7 +216,8 @@ public class AgentNavigation : MonoBehaviour
                 // Update vision highlights
                 if (playerVision != null)
                 {
-                    playerVision.UpdateVision();
+                    Debug.Log("playerVision updated.");
+                    //playerVision.UpdateVision(true);
                 }
 
                 // Check if next cell is still walkable
@@ -220,7 +231,7 @@ public class AgentNavigation : MonoBehaviour
                     
                     if (path.Count == 0)
                     {
-                        Debug.LogWarning($"{gameObject.name}: Path blocked by walls and cannot recalculate");
+                        Debug.LogWarning($"{gameObject.name}: Path blocked by walls and cannot recalculate");           
                         StopMovement();
                         return;
                     }

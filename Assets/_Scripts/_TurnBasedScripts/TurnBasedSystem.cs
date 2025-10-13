@@ -44,6 +44,9 @@ public class TurnBasedSystem : MonoBehaviour
     List<DestroyAfterRounds> destroyablesListOb = new List<DestroyAfterRounds>();
     List<DestroyAfterRounds> readyToDestroyOb = new List<DestroyAfterRounds>();
 
+    List<DestroyAfterRounds> destroyablesListTotem = new List<DestroyAfterRounds>();
+    List<DestroyAfterRounds> readyToDestroyTotem = new List<DestroyAfterRounds>();
+
     // Start is called before the first frame update
     void Start()
     {
@@ -157,6 +160,16 @@ public class TurnBasedSystem : MonoBehaviour
             S.destroyablesListOb.Remove(destroy);
         }
 
+        foreach (DestroyAfterRounds destroyable in S.destroyablesListTotem)
+        {
+            destroyable.CheckTotemDestroy();
+        }
+
+        foreach (DestroyAfterRounds destroy in S.readyToDestroyTotem)
+        {
+            S.destroyablesListTotem.Remove(destroy);
+        }
+
     }
 
 
@@ -232,6 +245,7 @@ public class TurnBasedSystem : MonoBehaviour
         int destroyOnRound;
         GameObject obToDestroy;
         WallType wallType;
+        MazeCellObject cellTotem;
         public DestroyAfterRounds(int rounds, GameObject obj, WallType wT)
         {
             destroyOnRound = rounds + S.playerTurnCount;
@@ -253,6 +267,18 @@ public class TurnBasedSystem : MonoBehaviour
             S.destroyablesListOb.Add(this);
         }
 
+        /// <summary>
+        /// constructor for destroying totem fear
+        /// </summary>
+        public DestroyAfterRounds(int rounds, GameObject obj, MazeCellObject cell)
+        {
+            destroyOnRound = rounds + S.playerTurnCount;
+            obToDestroy = obj;
+            cell.hasTotem = true;
+            cellTotem = cell;
+            S.destroyablesListTotem.Add(this);
+        }
+
 
         public void CheckDestroy()
         {
@@ -263,6 +289,18 @@ public class TurnBasedSystem : MonoBehaviour
                 MazeGenerator.Instance.SetWallInternalState(cell.GetXCoord(), cell.GetYCoord(), wallType, false); // Deactivate this wall internally in the maze array
                 obToDestroy.SetActive(false); // need set active so can be reselected letter
                 S.readyToDestroy.Add(this);
+
+            }
+        }
+
+        public void CheckTotemDestroy()
+        {
+            if (destroyOnRound == S.playerTurnCount)
+            {
+                cellTotem.hasTotem = false;
+                obToDestroy.SetActive(false); // need set active so can be reselected letter
+                S.readyToDestroyTotem.Add(this);
+                Destroy(obToDestroy);
 
             }
         }

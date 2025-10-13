@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public enum Vision { Up, Down, Left, Right }
@@ -15,6 +16,9 @@ public class PlayerVision : MonoBehaviour
     private MazeCellObject currentCell;
     private Dictionary<MeshRenderer, Material[]> originalMaterials
     = new Dictionary<MeshRenderer, Material[]>();
+
+    private bool totemSeenInTurn = false;
+    private int totemFear = 0;
 
     /// <summary>
     /// Set up varibles for current position of AI
@@ -77,7 +81,7 @@ public class PlayerVision : MonoBehaviour
         var agentNavigation = GetComponent<AgentNavigation>();
         var gameManager = agentNavigation.gameManager;
 
-        for (int i = 1; i <= visionRange; i++)
+        for (int i = 0; i <= visionRange; i++)
         {
             MazeCell nextCell = new MazeCell(gridPos.x, gridPos.y);
             switch (facing)
@@ -141,7 +145,7 @@ public class PlayerVision : MonoBehaviour
     /// Highlight the visible sight of AI on floor 
     /// (so when AI come in a room, if the floor is not cell object, we cannot see the vision)
     /// </summary>
-    public void UpdateVision()
+    public void UpdateVision(bool turn)
     {
         gridPos = FindNearestCellGrid(transform.position);
         var agentNavigation = GetComponent<AgentNavigation>();
@@ -185,13 +189,20 @@ public class PlayerVision : MonoBehaviour
                 cell = cellGO.GetComponent<MazeCellObject>();
             }
 
-            if (cell && cell.hasTotem)
+            if (cell && cell.hasTotem && turn)
             {
-                Debug.Log("There is totem in player vision");
-                
-                fear.AddFear(5);
+               
+                Debug.LogWarning("There is totem in player vision");
+                totemSeenInTurn = true;
+                totemFear = cell.Totem;
             }
-                
+
+            if (!turn)
+            {
+                if (totemSeenInTurn) fear.AddFear(totemFear);
+                totemSeenInTurn = false;
+            }
+
 
             if (MazeRenderer.Instance.cellGameObjects.TryGetValue(pos, out GameObject cellObject))
             {
