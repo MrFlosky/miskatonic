@@ -6,7 +6,14 @@ using UnityEngine.UI;
 
 public class RewardWoM : RewardCultist, ITurnObserver
 {
-   // public static RewardWoM S { get; private set; }
+    /// <summary>
+    /// the game object this is attached to will add 1 cultist at the beginning of a players turn for every 10 cultists they have
+    /// 
+    /// activated ensures that the object must have been activated by the reward card
+    /// 
+    /// maxGain will create a cap on how many cultists can be gained i.e. limiting it to 3 per turn even if a player has 40 cultists 
+    /// </summary>
+
     public bool activated;
     public int maxGain;
     
@@ -14,7 +21,6 @@ public class RewardWoM : RewardCultist, ITurnObserver
 
     private void Start()
     {
-        
         TurnBasedSystem.SubscribeAsObserver(this);
     }
 
@@ -24,18 +30,19 @@ public class RewardWoM : RewardCultist, ITurnObserver
     void ITurnObserver.PlayerTurnInitiated()
     {
         if (!activated) return;
-        cultistPointSystem= CultistPoints.S;
+        cultistPointSystem = CultistPoints.S;
         int currentCult = cultistPointSystem.cultistPoints;
         currentCult = Mathf.FloorToInt(currentCult / 10);
-        if(currentCult > maxGain) currentCult = maxGain;
+        if (currentCult > maxGain) currentCult = maxGain;
 
         cultistsToReward = currentCult;
-        Debug.LogError(cultistsToReward);
+      
         GrantReward();
 
-        Debug.LogError(cultistPointSystem.cultistPoints);
     }
 
 
+
+    //unused
     void ITurnObserver.EnemyTurnInitiated() { }
 }

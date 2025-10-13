@@ -10,7 +10,7 @@ public class RewardCultist : Reward
     [SerializeField]
     private bool WOM;
     [SerializeField]
-    GameObject test; 
+    GameObject WOMObj; 
 
     public void Init(CultistPoints cps)
     {
@@ -25,14 +25,17 @@ public class RewardCultist : Reward
         cultistsToReward = reward;
     }
 
+
     public override void GrantReward()
     {
-
+        //checks to see if the card being activated is the word of mouth and runs a different process for that. 
+        //if we plan on having more persistent upgrades or things that don't just immediately add a flat amount of cultists we should look into creating a new system for that
         if (WOM)
         {
-          
+           
             DisplayRewardMessage();
-            GameObject GO = Instantiate(test);
+
+            GameObject GO = Instantiate(WOMObj);
             GO.GetComponent<RewardWoM>().activated = true;
             
             return;
@@ -40,6 +43,7 @@ public class RewardCultist : Reward
         }
         
         cultistPointSystem.AddPoints(cultistsToReward);
+        Debug.LogError(cultistPointSystem.cultistPoints);
         DisplayRewardMessage();
         
     }
@@ -55,6 +59,12 @@ public class RewardCultist : Reward
         rewardText.text = cultistsToReward.ToString() + " " + rewardName;
     }
         
+
+    /// <summary>
+    /// The display reward message will need altering to accomodate the word of mouth. 
+    /// 
+    /// Again if we plan to add more cards that are not just a immediate flat gain of cultists I'd reccomend us building a new function
+    /// </summary>
     public override void DisplayRewardMessage()
     {
         rewardPopupUI.SetActive(true);
