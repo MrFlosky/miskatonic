@@ -44,6 +44,9 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
     //List of Fear to Reveal
     public GameObject[] fears;
 
+    // Counter of how many fears the player has discovered, used by impressionable masses card
+    public int fearsDiscovered = 0;
+
     void Start()
     {
         TurnBasedSystem.SubscribeAsObserver(this);
@@ -232,6 +235,7 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
     public void discoverFear(int fearNum)
     {
         fears[fearNum].SetActive(true);
+        fearsDiscovered++;
     }
     #endregion
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using Unity.VisualScripting;
 
 /// <summary>
 /// This class is responsible for filling in the mission UI given a scriptable object
@@ -120,6 +121,10 @@ public class Mission : MonoBehaviour
             case SkillReward skillReward:
                 skillReward.InitSkill();
                 skillReward.SetUsages(missionData.usages);
+                break;
+            case RewardCultistMasses rewardCultistMasses:
+                rewardCultistMasses.Init(cultistPointSystem);
+                rewardCultistMasses.SetCultistsRewarded();
                 break;
             case RewardCultist rewardCultist:
                 rewardCultist.Init(cultistPointSystem);
