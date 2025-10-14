@@ -85,20 +85,23 @@ public class SkillFearTotem : Skill
                 fearTotemEff.targetInt = Random.Range(0, 3);
                 
                 //for testing, delete later
-                fearTotemEff.sightFear = 200;
+                //fearTotemEff.sightFear = 200;
 
-                TurnBasedSystem.DestroyAfterRounds destroyInstance = new TurnBasedSystem.DestroyAfterRounds(roundsLast, newTotem);
+                MazeCellObject cell = hit.transform.GetComponentInParent<MazeCellObject>();
+                if (cell != null)
+                {
+                    cell.hasTotem = true;
+                    cell.Totem = fearTotemEff.sightFear;
+                }
+
+                TurnBasedSystem.DestroyAfterRounds destroyInstance = new TurnBasedSystem.DestroyAfterRounds(roundsLast, newTotem, cell);
                 fearTotem.SetActive(false);
                 canPlace = false;
                 this.enabled = false;
                 skillsUI.ENABLE_BUTTONS();
                 EndSkill();
 
-                MazeCellObject cell = hit.transform.GetComponentInParent<MazeCellObject>();
-                if (cell != null)
-                {
-                    cell.hasTotem = true;
-                }
+                
 
             }
 
