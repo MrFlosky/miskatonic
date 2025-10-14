@@ -143,8 +143,14 @@ public class ClickAI : MonoBehaviour
             {
                 hit.collider.GetComponent<Books>().ChangeBook();
             }
+
+
         }
     }
+
+
+
+
 
 
     /// <summary>
