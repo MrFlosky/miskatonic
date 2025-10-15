@@ -48,6 +48,10 @@ public class ClickAI : MonoBehaviour
 
     [SerializeField] private AIClickOptions aiClickOptions;
 
+    // AI Camera currently active.
+    // Used for bust rotation function calls.
+    private AICamera activeAICam;
+
     private void Start()
     {
         S = this;
@@ -107,6 +111,12 @@ public class ClickAI : MonoBehaviour
                 dialogueBank.alreadyTalked = true;
                 PortraitFade portraitFade = aiGameObj.GetComponent<PortraitFade>();
                 portraitFade.StartCoroutine(portraitFade.FadeOut());
+
+                // Rotate bust
+                activeAICam = aiGameObj.transform.GetChild(0).GetComponent<AICamera>();
+                //GameObject aiCam = aiGameObj.transform.GetChild(0).gameObject;
+                //Debug.Log(aiCam.name);
+                activeAICam.RotBustToCam();
 
 
 
@@ -348,7 +358,7 @@ public class ClickAI : MonoBehaviour
             playerCam.enabled = true;
         }
 
-        activeCamera.gameObject.SetActive(false);
+        //activeCamera.gameObject.SetActive(false); dont think needed with below line
         activeCamera.enabled = false;
         activeCamera = playerCam;
 
@@ -362,6 +372,10 @@ public class ClickAI : MonoBehaviour
         {
             UIManagerLite.EnableEndTurnButton();
         }
+
+        activeAICam.ResetBustRotation();
+
+
     }
 
     private void Update()

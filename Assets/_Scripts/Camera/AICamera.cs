@@ -12,86 +12,107 @@ public class AICamera : MonoBehaviour
     [SerializeField] private CinemachineBrain brain;
     [SerializeField] private GameObject _canvas;
     [SerializeField] private GameObject CharacterBust;
-    [SerializeField] private float flipSteps = 60;
-    [SerializeField] private float flipDuration = 2;
-    private Quaternion CharacterFacingRotation;
-    private bool didRotate = false;
+    [SerializeField] private float flipDuration = 2f;
+    
     private Quaternion initialRotation;
-    private Vector3 relativePos;
-    private DialogueBank dialogueBank;
-    private ICinemachineCamera mainCamera;
+    private Quaternion targetRotation;
     
+    private bool isRotating = false;
+    private bool isRotatingToTarget = true;
+    private float rotationTimer = 0f;
     
-
-
     /// <summary>
     /// AI Camera is responsible for setting the AI's fear
     /// slider with the AI's current fear upon starting a convo.
     /// </summary>
     private Fear thisAIsFear;
-
     private bool isWaitingForBlend = false;
 
     private void Awake()
     {
-        dialogueBank = transform.parent.GetComponent<DialogueBank>();
         thisAIsFear = transform.parent.GetComponent<Fear>();
         if (Camera.main != null) brain = Camera.main.GetComponent<CinemachineBrain>();
-        mainCamera = brain.ActiveVirtualCamera;
+        
+        // Store initial rotation on awake
+        if (CharacterBust != null)
+        {
+            initialRotation = CharacterBust.transform.rotation;
+        }
     }
 
     private void Update()
-    {       
-;
+    {
         // Start checking for blend completion only if the blend is in progress
         if (!isWaitingForBlend && brain.IsBlending)
         {
             isWaitingForBlend = true; // Start tracking the blend
-            
-        }       
+        }
 
         // After blending is done, enable the ai's fear meter and start the dialogue
         if (isWaitingForBlend && !brain.IsBlending)
         {
-            //rotate the character bust            
-            if (!didRotate)
-            {
-                StartCoroutine(RotateBust());
-                didRotate = true;
-            } else
-            {
-                CharacterBust.transform.rotation = initialRotation;
-            }
-
-
             AIFearMeter.StartUpSlider(thisAIsFear.GetFear(), thisAIsFear.GetFearThreshold());
             AIFearMeter.DisplayAIMeter();
-            
+
             //dialogueBank.PlayRandomDialogue();
 
             // Reset the flag to ensure it only triggers once per blend
             isWaitingForBlend = false;
         }
+
+        if (isRotating)
+        {
+            HandleRotation();
+        }
     }
 
-    IEnumerator RotateBust()
+    /// <summary>
+    /// Call this to start rotating the character bust towards the camera
+    /// </summary>
+    public void RotBustToCam()
     {
-        //Finding Rotation of Bust
-        relativePos = this.transform.position - CharacterBust.transform.position;
-        Quaternion CharacterFacingRotation = Quaternion.LookRotation(relativePos, Vector3.up);
+        if (CharacterBust == null) return;
+        
+        // Calculate target rotation
+        Vector3 relativePos = this.transform.position - CharacterBust.transform.position;
+        targetRotation = Quaternion.LookRotation(relativePos, Vector3.up);
+        
+        isRotating = true;
+        isRotatingToTarget = true;
+        rotationTimer = 0f;
+    }
 
-        initialRotation = CharacterBust.transform.rotation;
+    /// <summary>
+    /// Call this to reset the character bust back to its initial rotation
+    /// </summary>
+    public void ResetBustRotation()
+    {
 
-        for (int i = 0; i <= flipSteps; i++)
+        if (CharacterBust == null) return;
+        
+        isRotating = true;
+        isRotatingToTarget = false;
+        rotationTimer = 0f;
+    }
+
+    private void HandleRotation()
+    {
+        Debug.LogWarning("HANDLING ROT");
+        rotationTimer += Time.deltaTime;
+        float t = Mathf.Clamp01(rotationTimer / flipDuration);
+        
+        if (isRotatingToTarget)
         {
-            CharacterBust.transform.rotation = Quaternion.Slerp(initialRotation, CharacterFacingRotation, (i / flipSteps));
-            yield return new WaitForSeconds(flipDuration / flipSteps);
+            CharacterBust.transform.rotation = Quaternion.Slerp(initialRotation, targetRotation, t);
         }
-        yield return new WaitForSeconds(2);
-        for (int i = 0; i <= flipSteps; i++)
+        else
         {
-            CharacterBust.transform.rotation = Quaternion.Slerp(CharacterFacingRotation, initialRotation, (i / flipSteps));
-            yield return new WaitForSeconds(flipDuration / flipSteps);
+            CharacterBust.transform.rotation = Quaternion.Slerp(targetRotation, initialRotation, t);
+        }
+        
+        if (t >= 1f)
+        {
+            isRotating = false;
         }
     }
 }

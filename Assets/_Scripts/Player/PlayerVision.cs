@@ -18,7 +18,7 @@ public class PlayerVision : MonoBehaviour
     = new Dictionary<MeshRenderer, Material[]>();
 
     private bool totemSeenInTurn = false;
-    private int totemFear = 0;
+    private int totemFear = 100;
 
     /// <summary>
     /// Set up varibles for current position of AI
