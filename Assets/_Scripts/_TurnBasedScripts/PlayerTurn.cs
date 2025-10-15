@@ -27,10 +27,13 @@ public class PlayerTurn : Turns, ITurnObserver
     void ITurnObserver.PlayerTurnInitiated()
     {
         turnText.text = "PLAYER TURN!";
-        endTurnButton.SetActive(true);
-        skillsUI.DISPLAY_SKILLS();
+
+        UIManagerLite.TransitionToState(UIManagerLite.GameState.BoardBase);
+        //endTurnButton.SetActive(true); //OLD UI
+        //skillsUI.DISPLAY_SKILLS(); //OLD UI
+        
         //skillSystem.SET_PT(startingPoints); no longer needed with dispatch
-        skillSystem.DISPLAY_PTS();
+         //skillSystem.DISPLAY_PTS(); //OLD UI
         GameManager.Instance.CHECK_ROUND_LOSE();
     }
 

@@ -132,13 +132,17 @@ public class ClickAI : MonoBehaviour
                 playerCam.enabled = false;
 
                 // Disable interaction buttons during dialouge
-                foreach (var button in buttons)
-                {
-                    Debug.Log(button.gameObject.name);
-                    button.interactable = false;
-                }
+                // foreach (var button in buttons)
+                // {
+                //     Debug.Log(button.gameObject.name);
+                //     button.interactable = false;
+                // }
 
-                UIManagerLite.DisableEndTurnButton(); // ugly
+                // UIManagerLite.DisableEndTurnButton(); // ugly
+
+                UIManagerLite.TransitionToState(UIManagerLite.GameState.Dialogue);
+
+
 
                 
 
@@ -356,16 +360,18 @@ public class ClickAI : MonoBehaviour
 
         activeCamera = playerCam;
 
-        foreach (var button in buttons)
-        {
-            button.interactable = true;
-        }
+        // foreach (var button in buttons)
+        // {
+        //     button.interactable = true;
+        // }
 
-        // im sorry this is ugly
-        if (!UIManagerLite.DealerButtonIsActive())
-        {
-            UIManagerLite.EnableEndTurnButton();
-        }
+        // // im sorry this is ugly
+        // if (!UIManagerLite.DealerButtonIsActive())
+        // {
+        //     UIManagerLite.EnableEndTurnButton();
+        // }
+
+        UIManagerLite.TransitionToState(UIManagerLite.GameState.BoardBase);
 
         // upon ending conversation, reset bust rotation
         // also handle setting gameobject back to inactive after done within funct
