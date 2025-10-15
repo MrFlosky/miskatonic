@@ -107,8 +107,7 @@ public class ClickAI : MonoBehaviour
                     return;
                 }
 
-                // Mark AI as talked and fade potrait
-                dialogueBank.alreadyTalked = true;
+                // fade potrait
                 PortraitFade portraitFade = aiGameObj.GetComponent<PortraitFade>();
                 portraitFade.StartCoroutine(portraitFade.FadeOut());
 
@@ -116,6 +115,7 @@ public class ClickAI : MonoBehaviour
                 activeAICam = aiGameObj.transform.GetChild(0).GetComponent<AICamera>();
                 //GameObject aiCam = aiGameObj.transform.GetChild(0).gameObject;
                 //Debug.Log(aiCam.name);
+                activeAICam.enabled = true;
                 activeAICam.RotBustToCam();
 
 
@@ -357,8 +357,6 @@ public class ClickAI : MonoBehaviour
             playerCam.enabled = true;
         }
 
-        //activeCamera.gameObject.SetActive(false); dont think needed with below line
-        activeCamera.enabled = false;
         activeCamera = playerCam;
 
         foreach (var button in buttons)
@@ -372,6 +370,8 @@ public class ClickAI : MonoBehaviour
             UIManagerLite.EnableEndTurnButton();
         }
 
+        // upon ending conversation, reset bust rotation
+        // also handle setting gameobject back to inactive after done within funct
         activeAICam.ResetBustRotation();
 
 

@@ -13,6 +13,7 @@ public class AICamera : MonoBehaviour
     [SerializeField] private GameObject _canvas;
     [SerializeField] private GameObject CharacterBust;
     [SerializeField] private float flipDuration = 2f;
+    private DialogueBank dialogueBank;
     
     private Quaternion initialRotation;
     private Quaternion targetRotation;
@@ -30,6 +31,7 @@ public class AICamera : MonoBehaviour
 
     private void Awake()
     {
+        dialogueBank = transform.parent.GetComponent<DialogueBank>();
         thisAIsFear = transform.parent.GetComponent<Fear>();
         if (Camera.main != null) brain = Camera.main.GetComponent<CinemachineBrain>();
         
@@ -48,15 +50,16 @@ public class AICamera : MonoBehaviour
             isWaitingForBlend = true; // Start tracking the blend
         }
 
-        // After blending is done, enable the ai's fear meter and start the dialogue
-        if (isWaitingForBlend && !brain.IsBlending)
+        // After blending and rotating is done, start the dialogue
+        if (isWaitingForBlend && !brain.IsBlending && !isRotating) 
         {
             AIFearMeter.StartUpSlider(thisAIsFear.GetFear(), thisAIsFear.GetFearThreshold());
             AIFearMeter.DisplayAIMeter();
-            
-            dialogueBank.PlayRandomDialogue();
 
-            // Reset the flag to ensure it only triggers once per blend
+            dialogueBank.PlayRandomDialogue();
+            dialogueBank.alreadyTalked = true;
+
+            // blending happens for both the zoom and zoom out transition i think
             isWaitingForBlend = false;
         }
 
@@ -70,9 +73,7 @@ public class AICamera : MonoBehaviour
     /// Call this to start rotating the character bust towards the camera
     /// </summary>
     public void RotBustToCam()
-    {
-        if (CharacterBust == null) return;
-        
+    {   
         // Calculate target rotation
         Vector3 relativePos = this.transform.position - CharacterBust.transform.position;
         targetRotation = Quaternion.LookRotation(relativePos, Vector3.up);
@@ -86,10 +87,7 @@ public class AICamera : MonoBehaviour
     /// Call this to reset the character bust back to its initial rotation
     /// </summary>
     public void ResetBustRotation()
-    {
-
-        if (CharacterBust == null) return;
-        
+    {   
         isRotating = true;
         isRotatingToTarget = false;
         rotationTimer = 0f;
@@ -97,7 +95,6 @@ public class AICamera : MonoBehaviour
 
     private void HandleRotation()
     {
-        Debug.LogWarning("HANDLING ROT");
         rotationTimer += Time.deltaTime;
         float t = Mathf.Clamp01(rotationTimer / flipDuration);
         
@@ -109,10 +106,17 @@ public class AICamera : MonoBehaviour
         {
             CharacterBust.transform.rotation = Quaternion.Slerp(targetRotation, initialRotation, t);
         }
-        
+
         if (t >= 1f)
         {
+            // in case where rotating back to initial, turn this object off
+            // so update stops being checked
+            if (!isRotatingToTarget)
+            {
+                gameObject.SetActive(false);
+            }
             isRotating = false;
         }
+        
     }
 }
