@@ -109,7 +109,7 @@ public class AICamera : MonoBehaviour
 
         if (t >= 1f)
         {
-            // in case where rotating back to initial, turn this object off
+            // in case where completed rotating back to initial, turn this object off
             // so update stops being checked
             if (!isRotatingToTarget)
             {

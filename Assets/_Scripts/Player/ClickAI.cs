@@ -113,9 +113,6 @@ public class ClickAI : MonoBehaviour
 
                 // Rotate bust
                 activeAICam = aiGameObj.transform.GetChild(0).GetComponent<AICamera>();
-                //GameObject aiCam = aiGameObj.transform.GetChild(0).gameObject;
-                //Debug.Log(aiCam.name);
-                activeAICam.enabled = true;
                 activeAICam.RotBustToCam();
 
 
