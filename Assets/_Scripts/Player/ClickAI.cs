@@ -46,7 +46,7 @@ public class ClickAI : MonoBehaviour
     [Header("UI")]
     public Button[] buttons;    // Buttons need to show/hide during dialogue
 
-    [SerializeField] private AIClickOptions aiClickOptions;
+    
 
     // AI Camera currently active.
     // Used for bust rotation function calls.
@@ -143,8 +143,7 @@ public class ClickAI : MonoBehaviour
 
                 UIManagerLite.DisableEndTurnButton(); // ugly
 
-                // Show option panel instead of starting dialogue immediately
-                aiClickOptions.ShowOptions(dialogueBank);
+                
 
 
             }

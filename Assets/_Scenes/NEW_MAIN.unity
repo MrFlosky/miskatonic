@@ -36364,7 +36364,6 @@ MonoBehaviour:
   - {fileID: 1173101070}
   - {fileID: 1766835026}
   - {fileID: 1908654607}
-  aiClickOptions: {fileID: 1778454198}
   storyboardCam: {fileID: 582375211}
   switchCamButton: {fileID: 1023750463}
 --- !u!4 &394672286
@@ -72383,6 +72382,18 @@ PrefabInstance:
       propertyPath: m_Spacing
       value: 25
       objectReference: {fileID: 0}
+    - target: {fileID: 1945857182500634142, guid: d690e9a53e6790b4e800a43ee1e8c52b, type: 3}
+      propertyPath: m_ChildAlignment
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2290489808707875654, guid: d690e9a53e6790b4e800a43ee1e8c52b, type: 3}
+      propertyPath: m_Name
+      value: OptionPanel (diasabled)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2290489808707875654, guid: d690e9a53e6790b4e800a43ee1e8c52b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2958938136321125201, guid: d690e9a53e6790b4e800a43ee1e8c52b, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -72446,6 +72457,26 @@ PrefabInstance:
     - target: {fileID: 5798738744814297939, guid: d690e9a53e6790b4e800a43ee1e8c52b, type: 3}
       propertyPath: m_text
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5798738744814297939, guid: d690e9a53e6790b4e800a43ee1e8c52b, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 5b915f831aacd3649af76d10b953082e, type: 2}
+    - target: {fileID: 5798738744814297939, guid: d690e9a53e6790b4e800a43ee1e8c52b, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6897504189495081901, guid: d690e9a53e6790b4e800a43ee1e8c52b, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 5b915f831aacd3649af76d10b953082e, type: 2}
+    - target: {fileID: 6897504189495081901, guid: d690e9a53e6790b4e800a43ee1e8c52b, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 7064889032853163465, guid: 5b915f831aacd3649af76d10b953082e, type: 2}
+    - target: {fileID: 6897504189495081901, guid: d690e9a53e6790b4e800a43ee1e8c52b, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7330297959739031079, guid: d690e9a53e6790b4e800a43ee1e8c52b, type: 3}
       propertyPath: m_Alpha
@@ -175665,17 +175696,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fcbea12b95b612b4f8762e7bdcc06d85, type: 3}
---- !u!114 &1778454198 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2281032746283681269, guid: d690e9a53e6790b4e800a43ee1e8c52b, type: 3}
-  m_PrefabInstance: {fileID: 756217212}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 148c3bf209bc4b74b9d232d8cc04560b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1778698150 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6552313161999677569, guid: 7e3f6f673624fb648a2fc0b31c271fff, type: 3}
