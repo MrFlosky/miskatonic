@@ -4239,6 +4239,55 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6611894102565543534, guid: fcbea12b95b612b4f8762e7bdcc06d85, type: 3}
   m_PrefabInstance: {fileID: 1707666331}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &40201755
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 40201757}
+  - component: {fileID: 40201756}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &40201756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 40201755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 253a1ed3ec8ac6845bdc9d41af0f41a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rewardName: 
+  rewardPopupUI: {fileID: 535822309}
+  timeToDissapear: 5
+  activated: 1
+  maxGain: 3
+--- !u!4 &40201757
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 40201755}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 32.379707, y: -10.508717, z: -0.444726}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &40543462 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3910238404974811713, guid: fcbea12b95b612b4f8762e7bdcc06d85, type: 3}
@@ -50877,6 +50926,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 535221258}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &535822309 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6776040561362004261, guid: 258613a3680e6444fad35e0b8f6f428d, type: 3}
+  m_PrefabInstance: {fileID: 1675195324}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &537203252 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7682984578296859911, guid: 6c3d94bacfd3625428f1c24bddee899b, type: 3}
@@ -214695,3 +214749,4 @@ SceneRoots:
   - {fileID: 735793336}
   - {fileID: 1092468817315025671}
   - {fileID: 4265376459947321210}
+  - {fileID: 40201757}

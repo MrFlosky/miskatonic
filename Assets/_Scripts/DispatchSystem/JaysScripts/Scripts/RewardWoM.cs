@@ -16,21 +16,32 @@ public class RewardWoM : RewardCultist, ITurnObserver
 
     public bool activated;
     public int maxGain;
-    
+    CultistPoints cps;
 
+    private void Awake()
+    {
+        activated = true;
+        
+    }
 
     private void Start()
     {
         maxGain = 3;
         TurnBasedSystem.SubscribeAsObserver(this);
+
+
+
+       
     }
 
 
     public override void GrantReward()
     {
-        print(cultistPointSystem.cultistPoints);
+
+        if (!activated) return;
         cultistsToReward= Mathf.FloorToInt(cultistPointSystem.cultistPoints/10);
         if(cultistsToReward> maxGain) cultistsToReward=maxGain;
+        Debug.LogError(cultistsToReward);
         base.GrantReward();
 
     }

@@ -15,7 +15,7 @@ public class CultistPoints : MonoBehaviour
 
     
     // Number of available points player has
-    [SerializeField] private int cultistPoints;
+    [SerializeField] public int cultistPoints { get; private set; }
     
 
     void Start()
