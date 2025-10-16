@@ -15,13 +15,16 @@ public class RewardCultistMasses : Reward
 
     public void SetCultistsRewarded()
     {
-        // ONLY DIFFERENT FUNCTION FROM RewardCultist
-
+        // get cultist number from gamemanager instead of from mission data
+        cultistsToReward = GameManager.Instance.fearsDiscovered;
+        Debug.LogWarning("Fears discovered: " + cultistsToReward);
         
     }
 
     public override void GrantReward()
     {
+        // Call this again to update 
+        SetCultistsRewarded();
         cultistPointSystem.AddPoints(cultistsToReward);
         DisplayRewardMessage();
     }

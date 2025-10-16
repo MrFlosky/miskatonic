@@ -27,7 +27,8 @@ public class GameManager : MonoBehaviour
     bool won = false;
     public CinemachineVirtualCamera playerCam;
     public GameObject endTurnButton; // Needs to be destroyed seperately for win/lose
-
+    // Counter of how many fears the player has discovered, used by impressionable masses card
+    public int fearsDiscovered = 0;
 
     // Editable variables.
     [Header("The amount of culminated fear needed to win game")]
