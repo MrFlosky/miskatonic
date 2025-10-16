@@ -20,9 +20,7 @@ public class FearTotemEffect : MonoBehaviour
     public int targetInt;
     private void Start()
     {
-        //placeholder sight fear value   
-        sightFear = 20;
-        
+
     }
 
 

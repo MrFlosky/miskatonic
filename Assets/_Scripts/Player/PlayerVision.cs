@@ -17,7 +17,7 @@ public class PlayerVision : MonoBehaviour
     private Dictionary<MeshRenderer, Material[]> originalMaterials
     = new Dictionary<MeshRenderer, Material[]>();
 
-    private bool totemSeenInTurn = false;
+    public List<MazeCellObject> totemCell = new List<MazeCellObject>();
     private int totemFear = 0;
 
     /// <summary>
@@ -184,23 +184,24 @@ public class PlayerVision : MonoBehaviour
         {
             MazeCellObject cell = null ;
 
-            if (MazeRenderer.Instance.cellGameObjects.TryGetValue(gridPos, out GameObject cellGO))
+            if (MazeRenderer.Instance.cellGameObjects.TryGetValue(pos, out GameObject cellGO))
             {
                 cell = cellGO.GetComponent<MazeCellObject>();
             }
 
-            if (cell && cell.hasTotem && turn)
+            if (cell && cell.hasTotem)
             {
                
                 Debug.LogWarning("There is totem in player vision");
-                totemSeenInTurn = true;
-                totemFear = cell.Totem;
+                if (!totemCell.Contains(cell)) {
+                    fear.AddFear(cell.Totem);
+                    totemCell.Add(cell);
+                }
             }
 
             if (!turn)
             {
-                if (totemSeenInTurn) fear.AddFear(totemFear);
-                totemSeenInTurn = false;
+                totemCell.Clear();
             }
 
 

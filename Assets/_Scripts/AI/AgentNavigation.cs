@@ -130,15 +130,7 @@ public class AgentNavigation : MonoBehaviour
     
     private void FollowPath()
     {
- 
-        if (!isMoving || path.Count == 0)
-        {
-            playerVision.UpdateVision(false);
-        }
-        else
-        {
-            playerVision.UpdateVision(true);
-        }
+
         if (!isMoving || path.Count == 0) return;
         
 
@@ -217,7 +209,7 @@ public class AgentNavigation : MonoBehaviour
                 if (playerVision != null)
                 {
                     Debug.Log("playerVision updated.");
-                    //playerVision.UpdateVision(true);
+                    playerVision.UpdateVision(true);
                 }
 
                 // Check if next cell is still walkable
@@ -292,6 +284,9 @@ public class AgentNavigation : MonoBehaviour
         
         path.Clear();
         isMoving = false;
+
+        //playerVision.totemCell.Clear();
+        playerVision.UpdateVision(false);
        
         gameObject.GetComponent<DialogueBank>().alreadyTalked = false;
     }
