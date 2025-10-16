@@ -18,6 +18,10 @@ public class FearTotemEffect : MonoBehaviour
     
     //should corrispoind with an int on the target
     public int targetInt;
+    private void Start()
+    {
+
+    }
 
 
    public void TotemSeen()
