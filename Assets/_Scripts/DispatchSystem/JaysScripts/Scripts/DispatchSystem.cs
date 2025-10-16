@@ -17,7 +17,7 @@ public class DispatchSystem : MonoBehaviour , ITurnObserver
 
     void Start()
     {
-        // TurnBasedSystem.SubscribeAsObserver(this);
+        TurnBasedSystem.SubscribeAsObserver(this);
     }
 
     /// <summary>

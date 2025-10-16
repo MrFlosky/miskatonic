@@ -391,9 +391,11 @@ public class ClickAI : MonoBehaviour
     [SerializeField] Button switchCamButton;
 
 
+    /// <summary>
+    /// Switch to camera for story board
+    /// </summary>
     public void SwitchToCustomCamera()
     {
-
         // Disable whatever camera is currently active
         if (activeCamera != null)
         {
@@ -410,14 +412,15 @@ public class ClickAI : MonoBehaviour
 
         switchCamButton.onClick.RemoveAllListeners(); // switch what function button calls
         switchCamButton.onClick.AddListener(SwitchToPlayerCamera); // switch what function button calls
+
+        UIManagerLite.TransitionToState(UIManagerLite.GameState.Storyboard);
     }
 
 
-     
+
 
     /// <summary>
-    /// IMPORTANT NOTE: Camera movement is behaving in an odd way and I have not found the reason for it. 
-    /// The current code is a workaround that gets the camera to behave in the way that we need for now but this should be investiagted and fixed at some point.
+    /// Switch back to player camera from story board
     /// </summary>
     public void SwitchToPlayerCamera()
     {
@@ -438,6 +441,8 @@ public class ClickAI : MonoBehaviour
 
         switchCamButton.onClick.RemoveAllListeners(); // switch what function button calls
         switchCamButton.onClick.AddListener(SwitchToCustomCamera); // switch what function button calls
+
+        UIManagerLite.TransitionToState(UIManagerLite.GameState.BoardBase);
     }
 
 

@@ -57,7 +57,7 @@ public class UIManagerLite : MonoBehaviour
         currentState = GameState.BoardBase; // Default starting state
     }
 
-    // ===== STATE MACHINE METHODS =====
+    #region State Machine Methods
     
     private void SetupTransitions()
     {
@@ -132,7 +132,7 @@ public class UIManagerLite : MonoBehaviour
         GameState previousState = S.currentState;
         
         // Exit current state (knows where it's going TO)
-        ExitState(S.currentState, newState);
+        //ExitState(S.currentState, newState);
         
         // Change state
         S.currentState = newState;
@@ -171,7 +171,8 @@ public class UIManagerLite : MonoBehaviour
                     {
                         DisableEndTurnButton();
                         S.dealerButton.gameObject.SetActive(true);
-                    } else
+                    }
+                    else
                     {
                         EnableEndTurnButton();
                     }
@@ -195,13 +196,21 @@ public class UIManagerLite : MonoBehaviour
                     {
                         EnableEndTurnButton();
                     }
-                    
+
                     S.skillUICollection.ENABLE_BUTTONS();
 
                 }
                 else if (fromState == GameState.Storyboard)
                 {
-                    Debug.Log("Cutscene ended, back to board");
+                    Debug.Log("Storyboard ended, back to game board");
+                    if (!DispatchSystem.dealerDealtWith)
+                    {
+                        S.dealerButton.gameObject.SetActive(true);
+                    }
+                    S.endTurnButton.gameObject.SetActive(true);
+                    S.skillPointUICollection.DISPLAY_PTS();
+                    S.skillUICollection.DISPLAY_SKILLS();
+
 
                 }
                 else if (fromState == GameState.EnemyTurn)
@@ -233,7 +242,7 @@ public class UIManagerLite : MonoBehaviour
                 break;
 
             case GameState.Dialogue:
-            
+
                 if (fromState == GameState.BoardBase)
                 {
                     Debug.Log("Dialogue triggered");
@@ -247,12 +256,12 @@ public class UIManagerLite : MonoBehaviour
                 break;
 
             case GameState.SkillInUse:
-                
+
                 if (fromState == GameState.BoardBase)
                 {
                     Debug.Log("Skill activated");
 
-                    if(!DispatchSystem.dealerDealtWith)
+                    if (!DispatchSystem.dealerDealtWith)
                     {
                         S.dealerButton.interactable = false;
                     }
@@ -265,13 +274,20 @@ public class UIManagerLite : MonoBehaviour
                 break;
 
             case GameState.Storyboard:
-                DisableEndTurnButton();
+
 
                 if (fromState == GameState.BoardBase)
                 {
-                    Debug.Log("Combat paused for cutscene");
-                    // Save combat state
-                    // Fade out combat UI
+                    Debug.Log("Coming from board, to storyboard");
+
+                    if (!DispatchSystem.dealerDealtWith)
+                    {
+                        S.dealerButton.gameObject.SetActive(false);
+                    }
+                    S.endTurnButton.gameObject.SetActive(false);
+                    S.skillPointUICollection.HIDE_PTS();
+                    S.skillUICollection.HIDE_SKILLS();
+
                 }
                 break;
 
@@ -290,90 +306,95 @@ public class UIManagerLite : MonoBehaviour
                 break;
         }
     }
+    
+    #endregion
 
+    
+    /// NOT IN USE:
+    /// I don't think we'll need this functionality of state machine - jay
     /// <summary>
     /// Exit a state with context of where we're going to
     /// </summary>
-    private static void ExitState(GameState state, GameState toState)
-    {
-        switch (state)
-        {
-            case GameState.BoardBase:
-                // Different cleanup based on where we're going
-                if (toState == GameState.Dealer)
-                {
-                    Debug.Log("Opening dealer interface...");
-                    // Dim board UI
-                }
-                else if (toState == GameState.Dialogue)
-                {
-                    Debug.Log("Pausing board for dialogue");
-                    // Keep board visible but disabled
-                }
-                else if (toState == GameState.SkillInUse)
-                {
-                    Debug.Log("Executing skill...");
-                    // Lock in player's action
-                }
-                else if (toState == GameState.Storyboard)
-                {
-                    Debug.Log("Transitioning to cutscene");
-                    // Fade out all combat UI
-                }
-                else if (toState == GameState.EnemyTurn)
-                {
-                    Debug.Log("Ending player turn, enemy's turn starting");
-                    // Lock player input
-                    // Commit any pending actions
-                }
-                break;
+    // private static void ExitState(GameState state, GameState toState)
+    // {
+    //     switch (state)
+    //     {
+    //         case GameState.BoardBase:
+    //             // Different cleanup based on where we're going
+    //             if (toState == GameState.Dealer)
+    //             {
+    //                 Debug.Log("Opening dealer interface...");
+    //                 // Dim board UI
+    //             }
+    //             else if (toState == GameState.Dialogue)
+    //             {
+    //                 Debug.Log("Pausing board for dialogue");
+    //                 // Keep board visible but disabled
+    //             }
+    //             else if (toState == GameState.SkillInUse)
+    //             {
+    //                 Debug.Log("Executing skill...");
+    //                 // Lock in player's action
+    //             }
+    //             else if (toState == GameState.Storyboard)
+    //             {
+    //                 Debug.Log("Transitioning to cutscene");
+    //                 // Fade out all combat UI
+    //             }
+    //             else if (toState == GameState.EnemyTurn)
+    //             {
+    //                 Debug.Log("Ending player turn, enemy's turn starting");
+    //                 // Lock player input
+    //                 // Commit any pending actions
+    //             }
+    //             break;
                 
-            case GameState.Dealer:
-                if (toState == GameState.BoardBase)
-                {
-                    Debug.Log("Closing dealer interface");
-                    // Hide dealer UI
-                    // Apply any purchases/changes
-                }
-                break;
+    //         case GameState.Dealer:
+    //             if (toState == GameState.BoardBase)
+    //             {
+    //                 Debug.Log("Closing dealer interface");
+    //                 // Hide dealer UI
+    //                 // Apply any purchases/changes
+    //             }
+    //             break;
                 
-            case GameState.Dialogue:
-                DisableDialogueSettings();
+    //         case GameState.Dialogue:
+    //             DisableDialogueSettings();
                 
-                if (toState == GameState.BoardBase)
-                {
-                    Debug.Log("Dialogue ending, resume board");
-                    // Quick fade out
-                }
-                break;
+    //             if (toState == GameState.BoardBase)
+    //             {
+    //                 Debug.Log("Dialogue ending, resume board");
+    //                 // Quick fade out
+    //             }
+    //             break;
                 
-            case GameState.SkillInUse:
-                if (toState == GameState.BoardBase)
-                {
-                    Debug.Log("Skill effect complete");
-                    // Unlock player input
-                    // Show skill results
-                }
-                break;
+    //         case GameState.SkillInUse:
+    //             if (toState == GameState.BoardBase)
+    //             {
+    //                 Debug.Log("Skill effect complete");
+    //                 // Unlock player input
+    //                 // Show skill results
+    //             }
+    //             break;
                 
-            case GameState.Storyboard:
-                if (toState == GameState.BoardBase)
-                {
-                    Debug.Log("Cutscene complete, resume gameplay");
-                    // Fade in combat UI
-                }
-                break;
+    //         case GameState.Storyboard:
+    //             if (toState == GameState.BoardBase)
+    //             {
+    //                 Debug.Log("Cutscene complete, resume gameplay");
+    //                 // Fade in combat UI
+    //             }
+    //             break;
                 
-            case GameState.EnemyTurn:
-                if (toState == GameState.BoardBase)
-                {
-                    Debug.Log("Enemy turn complete");
-                    // Stop enemy AI
-                    // Hide "Enemy Turn" indicator
-                }
-                break;
-        }
-    }
+    //         case GameState.EnemyTurn:
+    //             if (toState == GameState.BoardBase)
+    //             {
+    //                 Debug.Log("Enemy turn complete");
+    //                 // Stop enemy AI
+    //                 // Hide "Enemy Turn" indicator
+    //             }
+    //             break;
+    //     }
+    // }
 
     public static GameState GetCurrentState()
     {
@@ -419,6 +440,9 @@ public class UIManagerLite : MonoBehaviour
         S.optionsPresenterCG.alpha = 0;
     }
 
+    /// <summary>
+    /// these were originally in wrappers to be called by other classes
+    /// </summary>
     public static void DisableEndTurnButton()
     {
         S.endTurnButton.interactable = false;
@@ -427,19 +451,5 @@ public class UIManagerLite : MonoBehaviour
     public static void EnableEndTurnButton()
     {
         S.endTurnButton.interactable = true;
-    }
-
-    /// <summary>
-    /// Return if button is active or not, for use with skills
-    /// so theyre not allowing end turn button active when dealer
-    /// hasnt been DEALT with haha see what i did tehre ahhahaah
-    /// </summary>
-    public static bool DealerButtonIsActive()
-    {
-        if (S.dealerButton.IsActive())
-        {
-            return true;
-        }
-        return false;
     }
 }
