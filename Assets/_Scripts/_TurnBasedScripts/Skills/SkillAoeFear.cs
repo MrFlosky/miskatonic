@@ -12,7 +12,6 @@ public class SkillAoeFear : Skill
     Transform obTrans;
     bool canPlace = true;
 
-    private SkillsCollection skillsUI;
 
     void Awake()
     {
@@ -21,7 +20,6 @@ public class SkillAoeFear : Skill
             mainCamera = Camera.main; // Use main camera if none specified
         }
         obTrans = AOEOb.GetComponent<Transform>();
-        skillsUI = GetComponent<SkillsCollection>();
         skillSystem = GetComponent<SkillSystem>();
     }
 
@@ -61,8 +59,6 @@ public class SkillAoeFear : Skill
     public void OnClick(InputAction.CallbackContext context)
     {
                 
-        Debug.LogWarning("Call Stack:\n" + System.Environment.StackTrace);
-
         Vector2 mousePos = Vector2.zero;
         mousePos = GameInput.Instance.GetActiveGameDevice() == GameInput.GameDevice.KeyboardMouse ? Mouse.current.position.ReadValue() : VirtualMouseUI.Instance.GetVirtualMousePosition();
         // Determine the rooms being selected for a switch
@@ -81,7 +77,6 @@ public class SkillAoeFear : Skill
                 AOEOb.SetActive(false);
                 canPlace = false;
                 this.enabled = false;
-                skillsUI.ENABLE_BUTTONS();
                 EndSkill();
             }
         }

@@ -46,7 +46,11 @@ public class ClickAI : MonoBehaviour
     [Header("UI")]
     public Button[] buttons;    // Buttons need to show/hide during dialogue
 
-    [SerializeField] private AIClickOptions aiClickOptions;
+    
+
+    // AI Camera currently active.
+    // Used for bust rotation function calls.
+    private AICamera activeAICam;
 
     private void Start()
     {
@@ -103,10 +107,13 @@ public class ClickAI : MonoBehaviour
                     return;
                 }
 
-                // Mark AI as talked and fade potrait
-                dialogueBank.alreadyTalked = true;
+                // fade potrait
                 PortraitFade portraitFade = aiGameObj.GetComponent<PortraitFade>();
                 portraitFade.StartCoroutine(portraitFade.FadeOut());
+
+                // Rotate bust
+                activeAICam = aiGameObj.transform.GetChild(0).GetComponent<AICamera>();
+                activeAICam.RotBustToCam();
 
 
 
@@ -125,16 +132,19 @@ public class ClickAI : MonoBehaviour
                 playerCam.enabled = false;
 
                 // Disable interaction buttons during dialouge
-                foreach (var button in buttons)
-                {
-                    Debug.Log(button.gameObject.name);
-                    button.interactable = false;
-                }
+                // foreach (var button in buttons)
+                // {
+                //     Debug.Log(button.gameObject.name);
+                //     button.interactable = false;
+                // }
 
-                UIManagerLite.DisableEndTurnButton(); // ugly
+                // UIManagerLite.DisableEndTurnButton(); // ugly
 
-                // Show option panel instead of starting dialogue immediately
-                aiClickOptions.ShowOptions(dialogueBank);
+                UIManagerLite.TransitionToState(UIManagerLite.GameState.Dialogue);
+
+
+
+                
 
 
             }
@@ -348,20 +358,26 @@ public class ClickAI : MonoBehaviour
             playerCam.enabled = true;
         }
 
-        activeCamera.gameObject.SetActive(false);
-        activeCamera.enabled = false;
         activeCamera = playerCam;
 
-        foreach (var button in buttons)
-        {
-            button.interactable = true;
-        }
+        // foreach (var button in buttons)
+        // {
+        //     button.interactable = true;
+        // }
 
-        // im sorry this is ugly
-        if (!UIManagerLite.DealerButtonIsActive())
-        {
-            UIManagerLite.EnableEndTurnButton();
-        }
+        // // im sorry this is ugly
+        // if (!UIManagerLite.DealerButtonIsActive())
+        // {
+        //     UIManagerLite.EnableEndTurnButton();
+        // }
+
+        UIManagerLite.TransitionToState(UIManagerLite.GameState.BoardBase);
+
+        // upon ending conversation, reset bust rotation
+        // also handle setting gameobject back to inactive after done within funct
+        activeAICam.ResetBustRotation();
+
+
     }
 
     private void Update()
@@ -375,9 +391,11 @@ public class ClickAI : MonoBehaviour
     [SerializeField] Button switchCamButton;
 
 
+    /// <summary>
+    /// Switch to camera for story board
+    /// </summary>
     public void SwitchToCustomCamera()
     {
-
         // Disable whatever camera is currently active
         if (activeCamera != null)
         {
@@ -394,14 +412,15 @@ public class ClickAI : MonoBehaviour
 
         switchCamButton.onClick.RemoveAllListeners(); // switch what function button calls
         switchCamButton.onClick.AddListener(SwitchToPlayerCamera); // switch what function button calls
+
+        UIManagerLite.TransitionToState(UIManagerLite.GameState.Storyboard);
     }
 
 
-     
+
 
     /// <summary>
-    /// IMPORTANT NOTE: Camera movement is behaving in an odd way and I have not found the reason for it. 
-    /// The current code is a workaround that gets the camera to behave in the way that we need for now but this should be investiagted and fixed at some point.
+    /// Switch back to player camera from story board
     /// </summary>
     public void SwitchToPlayerCamera()
     {
@@ -422,6 +441,16 @@ public class ClickAI : MonoBehaviour
 
         switchCamButton.onClick.RemoveAllListeners(); // switch what function button calls
         switchCamButton.onClick.AddListener(SwitchToCustomCamera); // switch what function button calls
+
+        UIManagerLite.TransitionToState(UIManagerLite.GameState.BoardBase);
+    }
+
+    /// <summary>
+    /// bit ugly
+    /// </summary>
+    public void SetAICam(AICamera aicam)
+    {
+        activeAICam = aicam;
     }
 
 

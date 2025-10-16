@@ -47,7 +47,7 @@ public class PortraitFade : MonoBehaviour, ITurnObserver
 
             portraitColor.a = alpha;
             Portrait.color = portraitColor;
-            print(Portrait.color.a);
+//            print(Portrait.color.a);
 
 
 
