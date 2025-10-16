@@ -6,17 +6,16 @@ using TMPro;
 
 public class CultistPoints : MonoBehaviour
 {
-    /// <summary> Lyn's changes
-    /// Made cultist points and singleton public so they could be checked by my reward word of mouth script
-    /// </summary>
+   ///
+   ///undid changes
 
-    static public CultistPoints S { get; private set; }
+    static private CultistPoints S;
 
     [SerializeField] private TextMeshProUGUI txt;
 
     
     // Number of available points player has
-    [SerializeField] public int cultistPoints {  get; private set; }
+    [SerializeField] private int cultistPoints;
     
 
     void Start()

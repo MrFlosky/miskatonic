@@ -7,10 +7,7 @@ public class RewardCultist : Reward
 {
     protected int cultistsToReward;
     protected CultistPoints cultistPointSystem;
-    [SerializeField]
-    private bool WOM;
-    [SerializeField]
-    GameObject WOMObj; 
+    //undid changes
 
     public void Init(CultistPoints cps)
     {
@@ -28,22 +25,10 @@ public class RewardCultist : Reward
 
     public override void GrantReward()
     {
-        //checks to see if the card being activated is the word of mouth and runs a different process for that. 
-        //if we plan on having more persistent upgrades or things that don't just immediately add a flat amount of cultists we should look into creating a new system for that
-        if (WOM)
-        {
-           
-            DisplayRewardMessage();
-
-            GameObject GO = Instantiate(WOMObj);
-            GO.GetComponent<RewardWoM>().activated = true;
-            
-            return;
-
-        }
+        
         
         cultistPointSystem.AddPoints(cultistsToReward);
-        Debug.LogError(cultistPointSystem.cultistPoints);
+        
         DisplayRewardMessage();
         
     }

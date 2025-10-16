@@ -21,21 +21,25 @@ public class RewardWoM : RewardCultist, ITurnObserver
 
     private void Start()
     {
+        maxGain = 3;
         TurnBasedSystem.SubscribeAsObserver(this);
     }
 
 
+    public override void GrantReward()
+    {
+        print(cultistPointSystem.cultistPoints);
+        cultistsToReward= Mathf.FloorToInt(cultistPointSystem.cultistPoints/10);
+        if(cultistsToReward> maxGain) cultistsToReward=maxGain;
+        base.GrantReward();
+
+    }
 
 
     void ITurnObserver.PlayerTurnInitiated()
     {
-        if (!activated) return;
-        cultistPointSystem = CultistPoints.S;
-        int currentCult = cultistPointSystem.cultistPoints;
-        currentCult = Mathf.FloorToInt(currentCult / 10);
-        if (currentCult > maxGain) currentCult = maxGain;
-
-        cultistsToReward = currentCult;
+        
+        
       
         GrantReward();
 
