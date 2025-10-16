@@ -41,6 +41,7 @@ public class UIManagerLite : MonoBehaviour
     [SerializeField] private Button endTurnButton;
     [SerializeField] private Button dealerButton; // button for starting mission dealer interaction
     [SerializeField] private Button storyboardButton;
+    [SerializeField] private Button[] potraitButtons;
 
     // Responsible for all relevant UI functions for skills
     [SerializeField] private SkillsCollection skillUICollection;
@@ -218,6 +219,7 @@ public class UIManagerLite : MonoBehaviour
                     S.endTurnButton.gameObject.SetActive(true);
                     S.skillPointUICollection.DISPLAY_PTS();
                     S.skillUICollection.DISPLAY_SKILLS();
+                    S.EnablePortraitButtons();
 
 
                 }
@@ -308,6 +310,7 @@ public class UIManagerLite : MonoBehaviour
                     S.endTurnButton.gameObject.SetActive(false);
                     S.skillPointUICollection.HIDE_PTS();
                     S.skillUICollection.HIDE_SKILLS();
+                    S.DisablePortaitButtons();
 
                 }
                 break;
@@ -462,6 +465,22 @@ public class UIManagerLite : MonoBehaviour
         S.optionsPresenterCG.interactable = false;
         S.optionsPresenterCG.blocksRaycasts = false;
         S.optionsPresenterCG.alpha = 0;
+    }
+
+    void DisablePortaitButtons()
+    {
+        foreach (Button b in potraitButtons)
+        {
+            b.interactable = false;
+        }
+    }
+    
+    void EnablePortraitButtons()
+    {
+        foreach(Button b in potraitButtons)
+        {
+            b.interactable = true;
+        }
     }
 
     /// <summary>
