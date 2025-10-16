@@ -69,9 +69,20 @@ public class SkillsCollection : MonoBehaviour
 
     public void DEACTIVATE_SKILLS()
     {
-        foreach(Skill skill in S.skillList)
+        foreach (Skill skill in S.skillList)
         {
             skill.EndSkill();
+        }
+    }
+    
+    /// <summary>
+    /// Calls end skill without UI manager transition to board base
+    /// </summary>
+    public void DEACTIVATE_SKILLS_NAKED()
+    {
+        foreach(Skill skill in S.skillList)
+        {
+            skill.EndSkillNaked();
         }
     }
 

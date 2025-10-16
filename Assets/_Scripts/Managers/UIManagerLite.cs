@@ -24,9 +24,10 @@ public class UIManagerLite : MonoBehaviour
     }
 
     private GameState currentState;
+    // Contains key, value where key is state and value is all states that key is allowed to transition to.
     private Dictionary<GameState, List<GameState>> allowedTransitions;
     
-    // ===== UI REFERENCES =====
+    #region UI References
     /// <summary>
     /// Component attached to new dialogue system's line presenter.
     /// For wahtever reason, it does not automatically turn off block raycasts and interactable
@@ -47,6 +48,7 @@ public class UIManagerLite : MonoBehaviour
 
     // Canvases
     [SerializeField] private Canvas dealerCanvas;
+    #endregion
 
     void Start()
     {
@@ -74,8 +76,8 @@ public class UIManagerLite : MonoBehaviour
             },
             { 
                 GameState.Dealer, 
-                new List<GameState> 
-                { 
+                new List<GameState>
+                {
                     GameState.BoardBase
                 } 
             },
@@ -88,8 +90,8 @@ public class UIManagerLite : MonoBehaviour
             },
             { 
                 GameState.SkillInUse, 
-                new List<GameState> 
-                { 
+                new List<GameState>
+                {
                     GameState.BoardBase
                 } 
             },
@@ -165,8 +167,6 @@ public class UIManagerLite : MonoBehaviour
                 else if (fromState == GameState.Dialogue)
                 {
                     Debug.Log("Dialogue ended, back to board");
-
-                    Debug.Log("Dealer interaction complete, back to board");
                     if (!DispatchSystem.dealerDealtWith) // only set dealer button active if not yet dealt with
                     {
                         DisableEndTurnButton();
@@ -185,14 +185,24 @@ public class UIManagerLite : MonoBehaviour
                 else if (fromState == GameState.SkillInUse)
                 {
                     Debug.Log("Skill effect complete, back to board");
-                    // Process skill results
-                    // Check for combos/chain effects
+
+                    if (!DispatchSystem.dealerDealtWith) // only set dealer button active if not yet dealt with
+                    {
+                        DisableEndTurnButton();
+                        S.dealerButton.interactable = true;
+                    }
+                    else
+                    {
+                        EnableEndTurnButton();
+                    }
+                    
+                    S.skillUICollection.ENABLE_BUTTONS();
+
                 }
                 else if (fromState == GameState.Storyboard)
                 {
                     Debug.Log("Cutscene ended, back to board");
-                    // Start combat music
-                    // Update board based on cutscene events
+
                 }
                 else if (fromState == GameState.EnemyTurn)
                 {
@@ -209,16 +219,15 @@ public class UIManagerLite : MonoBehaviour
 
 
             case GameState.Dealer:
-                DisableEndTurnButton();
-
                 if (fromState == GameState.BoardBase)
                 {
+                    DisableEndTurnButton();
                     Debug.Log("Entering dealer interaction");
                     S.dealerCanvas.gameObject.SetActive(true);
 
                     S.storyboardButton.gameObject.SetActive(false);
                     S.endTurnButton.gameObject.SetActive(false);
-                    S.skillUICollection.DEACTIVATE_SKILLS();
+                    //S.skillUICollection.DEACTIVATE_SKILLS_NAKED();
                     S.skillUICollection.DISABLE_BUTTONS();
                 }
                 break;
@@ -232,17 +241,24 @@ public class UIManagerLite : MonoBehaviour
                     S.dealerButton.gameObject.SetActive(false);
                     S.storyboardButton.gameObject.SetActive(false);
                     S.endTurnButton.gameObject.SetActive(false);
-                    S.skillUICollection.DEACTIVATE_SKILLS(); // ends any skill currently in use
+                    S.skillUICollection.DEACTIVATE_SKILLS_NAKED(); // ends any skill currently in use
                     S.skillUICollection.DISABLE_BUTTONS();
                 }
                 break;
 
             case GameState.SkillInUse:
-                DisableEndTurnButton();
-
+                
                 if (fromState == GameState.BoardBase)
                 {
                     Debug.Log("Skill activated");
+
+                    if(!DispatchSystem.dealerDealtWith)
+                    {
+                        S.dealerButton.interactable = false;
+                    }
+                    DisableEndTurnButton();
+                    S.skillUICollection.DISABLE_BUTTONS();
+
                     // Play skill animation
                     // Lock player input
                 }
@@ -267,7 +283,7 @@ public class UIManagerLite : MonoBehaviour
                     Debug.Log("Enemy turn starting");
                     S.storyboardButton.gameObject.SetActive(false);
                     S.endTurnButton.gameObject.SetActive(false);
-                    S.skillUICollection.DEACTIVATE_SKILLS();
+                    S.skillUICollection.DEACTIVATE_SKILLS_NAKED();
                     S.skillUICollection.HIDE_SKILLS();
                     S.skillPointUICollection.HIDE_PTS();
                 }

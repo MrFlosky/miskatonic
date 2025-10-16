@@ -55,27 +55,34 @@ public abstract class Skill : MonoBehaviour
             AudioManager.PlaySFX(SFXType.ButtonSelection);
             PlayerController.Instance.SetActiveSkill(this); // THIS IS CHILD INSTANCE ON base.ActivateSkill() call in children classes
             skillSystem.DEDUCT_PT(ptDeduction, this);
-            SkillsCollection.S.DISABLE_BUTTONS();
+
+            UIManagerLite.TransitionToState(UIManagerLite.GameState.SkillInUse);
+            //SkillsCollection.S.DISABLE_BUTTONS(); old ui
             endTurnButton.interactable = false;
             skillEvent.Invoke(); // Not using this for now
             // Stuff that happens when skill is activated!
         }
     }
 
-    // Each skill must perform different functions to end itself.
-    //  Called on fully exiting skill end turn!
+    /// <summary>
+    /// Each skill must perform different functions to end itself.
+    /// Called on fully exiting skill end turn!
+    /// This version is called upon exiting input, and transitions UI game state.
+    /// </summary>
     public virtual void EndSkill()
     {
-        // this means dealer was already DEALT with ahaha so we can
-        // turn on the end turn button on skill cancel. 
-        // dont gotta worry about this when dealer is already locking end turn.
-        if (UIManagerLite.DealerButtonIsActive() == false)
-        {
-            endTurnButton.interactable = true;
-        }
-
         PlayerController.Instance.SetActiveSkill(null);
-        SkillsCollection.S.ENABLE_BUTTONS();
+
+        UIManagerLite.TransitionToState(UIManagerLite.GameState.BoardBase);
+
+    }
+    
+    /// <summary>
+    /// End skill without transition UI game state! 
+    /// </summary>
+    public virtual void EndSkillNaked()
+    {
+        PlayerController.Instance.SetActiveSkill(null);
     }
 
     /// <summary>

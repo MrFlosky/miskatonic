@@ -12,6 +12,7 @@ public class AICamera : MonoBehaviour
     [SerializeField] private CinemachineBrain brain;
     [SerializeField] private GameObject _canvas;
     [SerializeField] private GameObject CharacterBust;
+    [Header("Increase time bust rotation takes in seconds")]
     [SerializeField] private float flipDuration = 2f;
     private DialogueBank dialogueBank;
     

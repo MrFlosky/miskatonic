@@ -80,7 +80,7 @@ public class AgentNavigation : MonoBehaviour
         if (visitedRooms.Count == 0) return;
 
         string roomInfo = string.Join(", ", visitedRooms);
-        Debug.Log(gameObject.name + "'s Visited Rooms: " + roomInfo);
+//        Debug.Log(gameObject.name + "'s Visited Rooms: " + roomInfo);
     }
 
     public void SetDestination(Vector2Int target) {
