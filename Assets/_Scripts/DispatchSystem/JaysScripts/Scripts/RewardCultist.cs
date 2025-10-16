@@ -5,12 +5,14 @@ using TMPro;
 
 public class RewardCultist : Reward
 {
-    private int cultistsToReward;
-    private CultistPoints cultistPointSystem;
+    protected int cultistsToReward;
+    protected CultistPoints cultistPointSystem;
 
     public void Init(CultistPoints cps)
     {
+        
         cultistPointSystem = cps;
+        print(cultistPointSystem.gameObject.name);
     }
 
     public void SetCultistsRewarded(int reward)

@@ -11,10 +11,13 @@ public class CultistPoints : MonoBehaviour
     [SerializeField] private TextMeshProUGUI txt;
 
     // Number of available points player has
-    [SerializeField] private int cultistPoints = 0;
+    [SerializeField] public int cultistPoints { get; private set; }
 
     void Start()
     {
+        //for testing
+        cultistPoints = 33;
+
         S = this;
         UpdateText();
     }
