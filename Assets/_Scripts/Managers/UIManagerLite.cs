@@ -151,8 +151,13 @@ public class UIManagerLite : MonoBehaviour
     {
         switch (state)
         {
+            // ==================================================================================
+            // ENTERING: BoardBase (Central Hub State)
+            // ==================================================================================
             case GameState.BoardBase:
                 // Different behavior based on where we came from
+                
+                // TRANSITION: Dealer → BoardBase
                 if (fromState == GameState.Dealer)
                 {
                     Debug.Log("Dealer interaction complete, back to board");
@@ -164,6 +169,7 @@ public class UIManagerLite : MonoBehaviour
                     S.endTurnButton.gameObject.SetActive(true);
                     S.skillUICollection.ENABLE_BUTTONS();
                 }
+                // TRANSITION: Dialogue → BoardBase
                 else if (fromState == GameState.Dialogue)
                 {
                     Debug.Log("Dialogue ended, back to board");
@@ -183,6 +189,7 @@ public class UIManagerLite : MonoBehaviour
 
 
                 }
+                // TRANSITION: SkillInUse → BoardBase
                 else if (fromState == GameState.SkillInUse)
                 {
                     Debug.Log("Skill effect complete, back to board");
@@ -200,6 +207,7 @@ public class UIManagerLite : MonoBehaviour
                     S.skillUICollection.ENABLE_BUTTONS();
 
                 }
+                // TRANSITION: Storyboard → BoardBase
                 else if (fromState == GameState.Storyboard)
                 {
                     Debug.Log("Storyboard ended, back to game board");
@@ -213,6 +221,7 @@ public class UIManagerLite : MonoBehaviour
 
 
                 }
+                // TRANSITION: EnemyTurn → BoardBase
                 else if (fromState == GameState.EnemyTurn)
                 {
                     Debug.Log("Enemy turn ended, your turn now!");
@@ -226,8 +235,12 @@ public class UIManagerLite : MonoBehaviour
                 break;
 
 
-
+            // ==================================================================================
+            // ENTERING: Dealer
+            // ==================================================================================
             case GameState.Dealer:
+                
+                // TRANSITION: BoardBase → Dealer
                 if (fromState == GameState.BoardBase)
                 {
                     DisableEndTurnButton();
@@ -241,8 +254,12 @@ public class UIManagerLite : MonoBehaviour
                 }
                 break;
 
+            // ==================================================================================
+            // ENTERING: Dialogue
+            // ==================================================================================
             case GameState.Dialogue:
 
+                // TRANSITION: BoardBase → Dialogue
                 if (fromState == GameState.BoardBase)
                 {
                     Debug.Log("Dialogue triggered");
@@ -255,8 +272,12 @@ public class UIManagerLite : MonoBehaviour
                 }
                 break;
 
+            // ==================================================================================
+            // ENTERING: SkillInUse
+            // ==================================================================================
             case GameState.SkillInUse:
 
+                // TRANSITION: BoardBase → SkillInUse
                 if (fromState == GameState.BoardBase)
                 {
                     Debug.Log("Skill activated");
@@ -267,15 +288,15 @@ public class UIManagerLite : MonoBehaviour
                     }
                     DisableEndTurnButton();
                     S.skillUICollection.DISABLE_BUTTONS();
-
-                    // Play skill animation
-                    // Lock player input
                 }
                 break;
 
+            // ==================================================================================
+            // ENTERING: Storyboard
+            // ==================================================================================
             case GameState.Storyboard:
 
-
+                // TRANSITION: BoardBase → Storyboard
                 if (fromState == GameState.BoardBase)
                 {
                     Debug.Log("Coming from board, to storyboard");
@@ -291,9 +312,12 @@ public class UIManagerLite : MonoBehaviour
                 }
                 break;
 
+            // ==================================================================================
+            // ENTERING: EnemyTurn
+            // ==================================================================================
             case GameState.EnemyTurn:
 
-
+                // TRANSITION: BoardBase → EnemyTurn
                 if (fromState == GameState.BoardBase)
                 {
                     Debug.Log("Enemy turn starting");
