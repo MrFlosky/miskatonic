@@ -445,6 +445,14 @@ public class ClickAI : MonoBehaviour
         UIManagerLite.TransitionToState(UIManagerLite.GameState.BoardBase);
     }
 
+    /// <summary>
+    /// bit ugly
+    /// </summary>
+    public void SetAICam(AICamera aicam)
+    {
+        activeAICam = aicam;
+    }
+
 
 }
 
