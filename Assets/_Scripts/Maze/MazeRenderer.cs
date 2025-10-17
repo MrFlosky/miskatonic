@@ -159,7 +159,8 @@ public class MazeRenderer : MonoBehaviour
                             case ("Bedroom"):
                                 bedroomCam = Instantiate(roomVirtualCamera, new Vector3(x * CellSize + cameraOffsets.x, 0f + cameraOffsets.y, y * CellSize + cameraOffsets.z),
                                 new Quaternion(0 + rotationCameraOffsets.x, 0 + rotationCameraOffsets.y, 0 + rotationCameraOffsets.z, 0 + rotationCameraOffsets.w), 
-                                instantiatedRooms[roomType]);                                
+                                instantiatedRooms[roomType]);
+                                //bedroomCam.GetComponent<CinemachineVirtualCamera>().LookAt = this.transform.Find(roomType);
                                 break;
                             case ("Library"):
                                 libraryCam = Instantiate(roomVirtualCamera, new Vector3(x * CellSize + cameraOffsets.x, 0f + cameraOffsets.y, y * CellSize + cameraOffsets.z),
