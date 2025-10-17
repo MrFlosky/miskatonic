@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class RewardCultistMasses : Reward
+public class RewardCultistMasses : RewardCultist
 {
     private int cultistsToReward;
     private CultistPoints cultistPointSystem;
+
 
     public void Init(CultistPoints cps)
     {
@@ -17,8 +18,6 @@ public class RewardCultistMasses : Reward
     {
         // get cultist number from gamemanager instead of from mission data
         cultistsToReward = GameManager.Instance.fearsDiscovered;
-        Debug.LogWarning("Fears discovered: " + cultistsToReward);
-        
     }
 
     public override void GrantReward()
@@ -44,6 +43,7 @@ public class RewardCultistMasses : Reward
     {
         rewardPopupUI.SetActive(true);
         timeElapsed = 0;
+        rewardText.text = cultistsToReward.ToString() + " " + rewardName;
         this.enabled = true;
     }
 
