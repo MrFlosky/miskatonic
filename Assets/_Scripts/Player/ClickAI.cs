@@ -175,6 +175,7 @@ public class ClickAI : MonoBehaviour
                         {
                             bedCam.gameObject.SetActive(true);
                             bedCam.enabled = true;
+                            Debug.LogWarning(activeCamera);
                         }
                         activeCamera = bedCam;
                         playerCam.enabled = false;     
@@ -187,6 +188,7 @@ public class ClickAI : MonoBehaviour
                         {
                             libCam.gameObject.SetActive(true);
                             libCam.enabled = true;
+                            Debug.LogWarning(activeCamera);
                         }
                         activeCamera = libCam;
                         playerCam.enabled = false;
@@ -199,6 +201,7 @@ public class ClickAI : MonoBehaviour
                         {
                             dinCam.gameObject.SetActive(true);
                             dinCam.enabled = true;
+                            Debug.LogWarning(activeCamera);
                         }
                         activeCamera = dinCam;
                         playerCam.enabled = false;
@@ -211,6 +214,7 @@ public class ClickAI : MonoBehaviour
                         {
                             dunCam.gameObject.SetActive(true);
                             dunCam.enabled = true;
+                            Debug.LogWarning(activeCamera);
                         }
                         activeCamera = dunCam;
                         playerCam.enabled = false;
@@ -223,6 +227,7 @@ public class ClickAI : MonoBehaviour
                         {
                             ritCam.gameObject.SetActive(true);
                             ritCam.enabled = true;
+                            Debug.LogWarning(activeCamera);
                         }
                         activeCamera = ritCam;
                         playerCam.enabled = false;
@@ -235,6 +240,7 @@ public class ClickAI : MonoBehaviour
                         {
                             cemCam.gameObject.SetActive(true);
                             cemCam.enabled = true;
+                            Debug.LogWarning(activeCamera);
                         }
                         activeCamera = cemCam;
                         playerCam.enabled = false;
@@ -479,10 +485,11 @@ public class ClickAI : MonoBehaviour
         {
             if (Keyboard.current.bKey.wasPressedThisFrame)
             {
+                activeCamera.enabled = false;
                 isSnooping = false;
                 playerCam.enabled = true;
-                activeCamera = playerCam;
-                Debug.LogWarning(isSnooping);
+                activeCamera = playerCam;  
+                activeCamera.enabled = true;
             }
         }
     }
