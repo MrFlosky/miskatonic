@@ -158399,9 +158399,14 @@ MonoBehaviour:
     prefab: {fileID: 2553638031960425763, guid: 61948e313a2e96a44ae0194762977b0f, type: 3}
   CellSize: 2
   roomVirtualCamera: {fileID: 984817019829716969, guid: cd41ca371592bca469f52043847d8cd4, type: 3}
-  cameraOffsets: {x: 4.11, y: 6.73, z: -12.57}
+  cameraOffsets: {x: 3.9, y: 6.73, z: -12.57}
   rotationCameraOffsets: {x: 0.32556814, y: 0, z: 0, w: 0.94551855}
-  roomCameras: []
+  bedroomCam: {fileID: 0}
+  cemeteryCam: {fileID: 0}
+  diningCam: {fileID: 0}
+  libraryCam: {fileID: 0}
+  dungeonCam: {fileID: 0}
+  ritualCam: {fileID: 0}
 --- !u!114 &1604857008
 MonoBehaviour:
   m_ObjectHideFlags: 0
