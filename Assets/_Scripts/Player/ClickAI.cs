@@ -1,12 +1,13 @@
+using Cinemachine;
+using DialogueEditor;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Cinemachine;
-using DialogueEditor;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using UnityEngine.Windows.WebCam;
 using Yarn.Unity;
 
 
@@ -50,6 +51,7 @@ public class ClickAI : MonoBehaviour
     public GameObject Maze; //grabbing the Maze itself
 
     private bool isSnooping = false; //check if the player is currently looking in a room
+    public CinemachineVirtualCamera roomCamera; //Current Room Camera
 
 
 
@@ -97,6 +99,8 @@ public class ClickAI : MonoBehaviour
         {
             if (hit.collider.CompareTag("AI"))
             {
+                
+
                 GameObject aiGameObj = hit.collider.gameObject;
                 DialogueBank dialogueBank = aiGameObj.GetComponent<DialogueBank>();
                 // No dialouge needed
@@ -131,6 +135,9 @@ public class ClickAI : MonoBehaviour
 
                 if (virtualCam)
                 {
+                    //bug fix for incosistent camera misalignment bug
+                    roomCamera.enabled = false;
+
                     virtualCam.gameObject.SetActive(true);
                     virtualCam.enabled = true;
                 }
@@ -160,93 +167,53 @@ public class ClickAI : MonoBehaviour
                 hit.collider.GetComponent<Books>().ChangeBook();
             }
 
-
+            //Check is tile is a room
             else if (hit.collider.gameObject.GetComponentInParent<MazeCellObject>().roomType != "Hallway")
             {
-                isSnooping = true;
-                
-                switch (hit.collider.gameObject.GetComponentInParent<MazeCellObject>().roomType)
+                if (roomCamera)
                 {
-                    //camera blend on room click
-                    case "Bedroom":
-                        var bedCam = Maze.gameObject.GetComponent<MazeRenderer>().bedroomCam;
-
-                        if (bedCam)
-                        {
-                            bedCam.gameObject.SetActive(true);
-                            bedCam.enabled = true;
-                            Debug.LogWarning(activeCamera);
-                        }
-                        activeCamera = bedCam;
-                        playerCam.enabled = false;     
-                        
-                        break;
-                    case "Library":
-                        var libCam = Maze.gameObject.GetComponent<MazeRenderer>().libraryCam;
-
-                        if (libCam)
-                        {
-                            libCam.gameObject.SetActive(true);
-                            libCam.enabled = true;
-                            Debug.LogWarning(activeCamera);
-                        }
-                        activeCamera = libCam;
-                        playerCam.enabled = false;
-
-                        break;
-                    case "Dining Room":
-                        var dinCam = Maze.gameObject.GetComponent<MazeRenderer>().diningCam;
-
-                        if (dinCam)
-                        {
-                            dinCam.gameObject.SetActive(true);
-                            dinCam.enabled = true;
-                            Debug.LogWarning(activeCamera);
-                        }
-                        activeCamera = dinCam;
-                        playerCam.enabled = false;
-
-                        break;
-                    case "Dungeon":
-                        var dunCam = Maze.gameObject.GetComponent<MazeRenderer>().dungeonCam;
-
-                        if (dunCam)
-                        {
-                            dunCam.gameObject.SetActive(true);
-                            dunCam.enabled = true;
-                            Debug.LogWarning(activeCamera);
-                        }
-                        activeCamera = dunCam;
-                        playerCam.enabled = false;
-
-                        break;
-                    case "Ritual Room":
-                        var ritCam = Maze.gameObject.GetComponent<MazeRenderer>().ritualCam;
-
-                        if (ritCam)
-                        {
-                            ritCam.gameObject.SetActive(true);
-                            ritCam.enabled = true;
-                            Debug.LogWarning(activeCamera);
-                        }
-                        activeCamera = ritCam;
-                        playerCam.enabled = false;
-
-                        break;
-                    case "Cemetery":
-                        var cemCam = Maze.gameObject.GetComponent<MazeRenderer>().cemeteryCam;
-
-                        if (cemCam)
-                        {
-                            cemCam.gameObject.SetActive(true);
-                            cemCam.enabled = true;
-                            Debug.LogWarning(activeCamera);
-                        }
-                        activeCamera = cemCam;
-                        playerCam.enabled = false;
-
-                        break;
+                    roomCamera.enabled = false;
                 }
+                if (hit.collider.gameObject.GetComponentInParent<MazeCellObject>().roomType != null)
+                {
+                    isSnooping = true;
+                    //Set the room camera to the room type being clicked
+                    switch (hit.collider.gameObject.GetComponentInParent<MazeCellObject>().roomType)
+                    {                        
+                        //camera blend on room click
+                        case "Bedroom":
+                            roomCamera = Maze.gameObject.GetComponent<MazeRenderer>().bedroomCam;
+                            break;
+                        case "Library":
+                            roomCamera = Maze.gameObject.GetComponent<MazeRenderer>().libraryCam;
+                            break;
+                        case "Dining Room":
+                            roomCamera = Maze.gameObject.GetComponent<MazeRenderer>().diningCam;
+                            break;
+                        case "Dungeon":
+                            roomCamera = Maze.gameObject.GetComponent<MazeRenderer>().dungeonCam;
+                            break;
+                        case "Ritual Room":
+                            roomCamera = Maze.gameObject.GetComponent<MazeRenderer>().ritualCam;
+                            break;
+                        case "Cemetery":
+                            roomCamera = Maze.gameObject.GetComponent<MazeRenderer>().cemeteryCam;
+                            break;
+                    }
+
+                    //Blend Camera
+                    if (roomCamera)
+                    {
+                        if (roomCamera.enabled == false)
+                        {
+                            roomCamera.gameObject.SetActive(true);
+                            roomCamera.enabled = true;
+                            Debug.LogWarning(activeCamera);
+                        }                        
+                    }
+                    activeCamera = roomCamera;
+                    playerCam.enabled = false;
+                }            
             }
         }
     }
@@ -481,7 +448,7 @@ public class ClickAI : MonoBehaviour
         if (rightClicking && TurnBasedSystem.IsPlayerTurn()) return;
         ClearOutlines();
 
-        if (isSnooping)
+        if (isSnooping && !_inConversation)
         {
             if (Keyboard.current.bKey.wasPressedThisFrame)
             {
