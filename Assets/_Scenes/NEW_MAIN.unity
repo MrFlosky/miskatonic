@@ -2305,7 +2305,7 @@ MonoBehaviour:
   floor: {fileID: 194271270}
   roomFloorMaterial: {fileID: 2100000, guid: a166c9720d356d3469587ea35c8cab2b, type: 2}
   roomWallMaterial: {fileID: 2100000, guid: 9ab1b140570b2a943b20a45ff2e6cea9, type: 2}
-  roomType: Ghost Room
+  roomType: Cemetery
 --- !u!1 &19920937 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3910238404974811713, guid: fcbea12b95b612b4f8762e7bdcc06d85, type: 3}
@@ -9675,7 +9675,7 @@ MonoBehaviour:
   floor: {fileID: 7850814}
   roomFloorMaterial: {fileID: 2100000, guid: a166c9720d356d3469587ea35c8cab2b, type: 2}
   roomWallMaterial: {fileID: 2100000, guid: 9ab1b140570b2a943b20a45ff2e6cea9, type: 2}
-  roomType: Ghost Room
+  roomType: Cemetery
 --- !u!1001 &101084920
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10258,7 +10258,7 @@ MonoBehaviour:
   floor: {fileID: 1349115982}
   roomFloorMaterial: {fileID: 2100000, guid: a166c9720d356d3469587ea35c8cab2b, type: 2}
   roomWallMaterial: {fileID: 2100000, guid: 9ab1b140570b2a943b20a45ff2e6cea9, type: 2}
-  roomType: Ghost Room
+  roomType: Cemetery
 --- !u!1 &105146569 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7682984578296859911, guid: 6c3d94bacfd3625428f1c24bddee899b, type: 3}
@@ -30861,6 +30861,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2929379512928880963, guid: 7e3f6f673624fb648a2fc0b31c271fff, type: 3}
   m_PrefabInstance: {fileID: 1309490884}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &332502979
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 332502980}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &332502980
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 332502979}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 496335663}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &332533134
 GameObject:
   m_ObjectHideFlags: 0
@@ -38656,7 +38687,7 @@ MonoBehaviour:
   floor: {fileID: 747957834}
   roomFloorMaterial: {fileID: 2100000, guid: a166c9720d356d3469587ea35c8cab2b, type: 2}
   roomWallMaterial: {fileID: 2100000, guid: 9ab1b140570b2a943b20a45ff2e6cea9, type: 2}
-  roomType: Ghost Room
+  roomType: Cemetery
 --- !u!1 &414351959 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3910238404974811713, guid: fcbea12b95b612b4f8762e7bdcc06d85, type: 3}
@@ -42087,7 +42118,7 @@ MonoBehaviour:
   floor: {fileID: 1960868953}
   roomFloorMaterial: {fileID: 2100000, guid: a166c9720d356d3469587ea35c8cab2b, type: 2}
   roomWallMaterial: {fileID: 2100000, guid: 9ab1b140570b2a943b20a45ff2e6cea9, type: 2}
-  roomType: Ghost Room
+  roomType: Cemetery
 --- !u!1 &447187134
 GameObject:
   m_ObjectHideFlags: 0
@@ -42210,7 +42241,7 @@ MonoBehaviour:
   floor: {fileID: 914481110}
   roomFloorMaterial: {fileID: 2100000, guid: a166c9720d356d3469587ea35c8cab2b, type: 2}
   roomWallMaterial: {fileID: 2100000, guid: 9ab1b140570b2a943b20a45ff2e6cea9, type: 2}
-  roomType: Ghost Room
+  roomType: Cemetery
 --- !u!1001 &447910778
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -47742,6 +47773,38 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2929379512928880963, guid: 7e3f6f673624fb648a2fc0b31c271fff, type: 3}
   m_PrefabInstance: {fileID: 1702375906}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &496335662
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 496335663}
+  m_Layer: 0
+  m_Name: RoomCameras
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &496335663
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 496335662}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 332502980}
+  m_Father: {fileID: 666848950}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &496409329
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -50032,7 +50095,7 @@ GameObject:
   m_Component:
   - component: {fileID: 525353213}
   m_Layer: 0
-  m_Name: Study
+  m_Name: Library
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -52356,7 +52419,7 @@ MonoBehaviour:
   floor: {fileID: 1239847091}
   roomFloorMaterial: {fileID: 2100000, guid: a166c9720d356d3469587ea35c8cab2b, type: 2}
   roomWallMaterial: {fileID: 2100000, guid: 9ab1b140570b2a943b20a45ff2e6cea9, type: 2}
-  roomType: Ghost Room
+  roomType: Cemetery
 --- !u!1 &553209322 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7682984578296859911, guid: 6c3d94bacfd3625428f1c24bddee899b, type: 3}
@@ -57946,7 +58009,7 @@ MonoBehaviour:
   floor: {fileID: 673495384}
   roomFloorMaterial: {fileID: 2100000, guid: a166c9720d356d3469587ea35c8cab2b, type: 2}
   roomWallMaterial: {fileID: 2100000, guid: 9ab1b140570b2a943b20a45ff2e6cea9, type: 2}
-  roomType: Ghost Room
+  roomType: Cemetery
 --- !u!1 &597458530 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7682984578296859911, guid: 6c3d94bacfd3625428f1c24bddee899b, type: 3}
@@ -61188,7 +61251,7 @@ MonoBehaviour:
   floor: {fileID: 1075064398}
   roomFloorMaterial: {fileID: 2100000, guid: a166c9720d356d3469587ea35c8cab2b, type: 2}
   roomWallMaterial: {fileID: 2100000, guid: 9ab1b140570b2a943b20a45ff2e6cea9, type: 2}
-  roomType: Ghost Room
+  roomType: Cemetery
 --- !u!1 &634517442 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4196248637664730121, guid: 773e711b1ac9352408b1c3e8d37a1f73, type: 3}
@@ -64067,6 +64130,7 @@ Transform:
   - {fileID: 1514457255}
   - {fileID: 582375214}
   - {fileID: 2068375664}
+  - {fileID: 496335663}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &667312391 stripped
@@ -78879,6 +78943,7 @@ MonoBehaviour:
   gridPos: {x: 0, y: 0}
   visionRange: 4
   outlineMaterial: {fileID: -905690159841262435, guid: 824538e331efab2498d0fca3423eab92, type: 3}
+  totemCell: []
 --- !u!1 &804805056 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7682984578296859911, guid: 6c3d94bacfd3625428f1c24bddee899b, type: 3}
@@ -84003,7 +84068,7 @@ MonoBehaviour:
   floor: {fileID: 575183742}
   roomFloorMaterial: {fileID: 2100000, guid: a166c9720d356d3469587ea35c8cab2b, type: 2}
   roomWallMaterial: {fileID: 2100000, guid: 9ab1b140570b2a943b20a45ff2e6cea9, type: 2}
-  roomType: Ghost Room
+  roomType: Cemetery
 --- !u!1001 &866377821
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -87629,7 +87694,7 @@ MonoBehaviour:
   floor: {fileID: 2003128165}
   roomFloorMaterial: {fileID: 2100000, guid: a166c9720d356d3469587ea35c8cab2b, type: 2}
   roomWallMaterial: {fileID: 2100000, guid: 9ab1b140570b2a943b20a45ff2e6cea9, type: 2}
-  roomType: Ghost Room
+  roomType: Cemetery
 --- !u!1001 &902808612
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -93229,7 +93294,7 @@ MonoBehaviour:
   floor: {fileID: 346441710}
   roomFloorMaterial: {fileID: 2100000, guid: a166c9720d356d3469587ea35c8cab2b, type: 2}
   roomWallMaterial: {fileID: 2100000, guid: 9ab1b140570b2a943b20a45ff2e6cea9, type: 2}
-  roomType: Ghost Room
+  roomType: Cemetery
 --- !u!1 &950815928 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7682984578296859911, guid: 6c3d94bacfd3625428f1c24bddee899b, type: 3}
@@ -109451,7 +109516,7 @@ MonoBehaviour:
   floor: {fileID: 1597343129}
   roomFloorMaterial: {fileID: 2100000, guid: a166c9720d356d3469587ea35c8cab2b, type: 2}
   roomWallMaterial: {fileID: 2100000, guid: 9ab1b140570b2a943b20a45ff2e6cea9, type: 2}
-  roomType: Ghost Room
+  roomType: Cemetery
 --- !u!1001 &1100364732
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -114095,7 +114160,7 @@ MonoBehaviour:
   floor: {fileID: 351212465}
   roomFloorMaterial: {fileID: 2100000, guid: a166c9720d356d3469587ea35c8cab2b, type: 2}
   roomWallMaterial: {fileID: 2100000, guid: 9ab1b140570b2a943b20a45ff2e6cea9, type: 2}
-  roomType: Ghost Room
+  roomType: Cemetery
 --- !u!1 &1147783170 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3910238404974811713, guid: fcbea12b95b612b4f8762e7bdcc06d85, type: 3}
@@ -128559,7 +128624,7 @@ MonoBehaviour:
   floor: {fileID: 346180926}
   roomFloorMaterial: {fileID: 2100000, guid: a166c9720d356d3469587ea35c8cab2b, type: 2}
   roomWallMaterial: {fileID: 2100000, guid: 9ab1b140570b2a943b20a45ff2e6cea9, type: 2}
-  roomType: Ghost Room
+  roomType: Cemetery
 --- !u!1001 &1299015794
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -133878,7 +133943,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1356888776}
   m_Layer: 0
-  m_Name: Armory
+  m_Name: Dining Room
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -150463,7 +150528,7 @@ MonoBehaviour:
   floor: {fileID: 555047226}
   roomFloorMaterial: {fileID: 2100000, guid: a166c9720d356d3469587ea35c8cab2b, type: 2}
   roomWallMaterial: {fileID: 2100000, guid: 9ab1b140570b2a943b20a45ff2e6cea9, type: 2}
-  roomType: Ghost Room
+  roomType: Cemetery
 --- !u!1001 &1533121980
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -151518,7 +151583,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1542532253}
   m_Layer: 0
-  m_Name: Ghost Room
+  m_Name: Cemetery
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -151537,12 +151602,12 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1246706358}
   - {fileID: 1696031483}
   - {fileID: 413499900}
   - {fileID: 902483915}
   - {fileID: 864682329}
   - {fileID: 950781931}
-  - {fileID: 1246706358}
   - {fileID: 1826974960}
   - {fileID: 1656992950}
   - {fileID: 1298534357}
@@ -158382,17 +158447,17 @@ MonoBehaviour:
   mazeGenerator: {fileID: 1604857008}
   MazeCellPrefab: {fileID: 7997579413770395666, guid: e1b864d8cf8d9af4b903ba1600940c64, type: 3}
   roomPrefabPairs:
-  - roomType: Ghost Room
+  - roomType: Cemetery
     prefab: {fileID: 2411195266707403110, guid: 5b11f29045d7e7244b7baf29552ff10b, type: 3}
   - roomType: Ritual Room
     prefab: {fileID: 3494529443918049726, guid: 138c24dd9c1ae5c43ac1bfc961a85db5, type: 3}
-  - roomType: Study
+  - roomType: Library
     prefab: {fileID: 6770681998623607796, guid: 476f9329474a21d4aa4bf27476dbe79e, type: 3}
-  - roomType: Armory
+  - roomType: Dining Room
     prefab: {fileID: 3331464260193901386, guid: d0726bef5ab956042a2a255e9769f7d9, type: 3}
-  - roomType: Dungeon Room
+  - roomType: Dungeon
     prefab: {fileID: 2242943741013215061, guid: 361b5b54e358bdc4d945af23540f9680, type: 3}
-  - roomType: Hidden Treasure Room
+  - roomType: Bedroom
     prefab: {fileID: 2553638031960425763, guid: 61948e313a2e96a44ae0194762977b0f, type: 3}
   CellSize: 2
 --- !u!114 &1604857008
@@ -159251,7 +159316,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1613988910}
   m_Layer: 0
-  m_Name: Hidden Treasure Room
+  m_Name: Bedroom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -159636,6 +159701,7 @@ MonoBehaviour:
   gridPos: {x: 0, y: 0}
   visionRange: 4
   outlineMaterial: {fileID: -905690159841262435, guid: 824538e331efab2498d0fca3423eab92, type: 3}
+  totemCell: []
 --- !u!1 &1616643099 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7682984578296859911, guid: 6c3d94bacfd3625428f1c24bddee899b, type: 3}
@@ -159856,7 +159922,7 @@ MonoBehaviour:
   floor: {fileID: 881351122}
   roomFloorMaterial: {fileID: 2100000, guid: a166c9720d356d3469587ea35c8cab2b, type: 2}
   roomWallMaterial: {fileID: 2100000, guid: 9ab1b140570b2a943b20a45ff2e6cea9, type: 2}
-  roomType: Ghost Room
+  roomType: Cemetery
 --- !u!1 &1619736155 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4196248637664730121, guid: 773e711b1ac9352408b1c3e8d37a1f73, type: 3}
@@ -164422,7 +164488,7 @@ MonoBehaviour:
   floor: {fileID: 87439448}
   roomFloorMaterial: {fileID: 2100000, guid: a166c9720d356d3469587ea35c8cab2b, type: 2}
   roomWallMaterial: {fileID: 2100000, guid: 9ab1b140570b2a943b20a45ff2e6cea9, type: 2}
-  roomType: Ghost Room
+  roomType: Cemetery
 --- !u!1001 &1657523843
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -169026,7 +169092,7 @@ MonoBehaviour:
   floor: {fileID: 840604228}
   roomFloorMaterial: {fileID: 2100000, guid: a166c9720d356d3469587ea35c8cab2b, type: 2}
   roomWallMaterial: {fileID: 2100000, guid: 9ab1b140570b2a943b20a45ff2e6cea9, type: 2}
-  roomType: Ghost Room
+  roomType: Cemetery
 --- !u!1 &1695552683 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4196248637664730121, guid: 773e711b1ac9352408b1c3e8d37a1f73, type: 3}
@@ -169095,7 +169161,7 @@ MonoBehaviour:
   floor: {fileID: 989355849}
   roomFloorMaterial: {fileID: 2100000, guid: a166c9720d356d3469587ea35c8cab2b, type: 2}
   roomWallMaterial: {fileID: 2100000, guid: 9ab1b140570b2a943b20a45ff2e6cea9, type: 2}
-  roomType: Ghost Room
+  roomType: Cemetery
 --- !u!1001 &1696088187
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -170639,6 +170705,7 @@ MonoBehaviour:
   gridPos: {x: 0, y: 0}
   visionRange: 4
   outlineMaterial: {fileID: -905690159841262435, guid: 824538e331efab2498d0fca3423eab92, type: 3}
+  totemCell: []
 --- !u!1 &1712710940 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4196248637664730121, guid: 773e711b1ac9352408b1c3e8d37a1f73, type: 3}
@@ -180199,7 +180266,7 @@ MonoBehaviour:
   floor: {fileID: 320051045}
   roomFloorMaterial: {fileID: 2100000, guid: a166c9720d356d3469587ea35c8cab2b, type: 2}
   roomWallMaterial: {fileID: 2100000, guid: 9ab1b140570b2a943b20a45ff2e6cea9, type: 2}
-  roomType: Ghost Room
+  roomType: Cemetery
 --- !u!1001 &1826993520
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -184080,7 +184147,7 @@ MonoBehaviour:
   floor: {fileID: 122107063}
   roomFloorMaterial: {fileID: 2100000, guid: a166c9720d356d3469587ea35c8cab2b, type: 2}
   roomWallMaterial: {fileID: 2100000, guid: 9ab1b140570b2a943b20a45ff2e6cea9, type: 2}
-  roomType: Ghost Room
+  roomType: Cemetery
 --- !u!1 &1860260686 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3910238404974811713, guid: fcbea12b95b612b4f8762e7bdcc06d85, type: 3}
@@ -193860,6 +193927,7 @@ MonoBehaviour:
   gridPos: {x: 0, y: 0}
   visionRange: 4
   outlineMaterial: {fileID: -905690159841262435, guid: 824538e331efab2498d0fca3423eab92, type: 3}
+  totemCell: []
 --- !u!1 &1955968982 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6552313161999677569, guid: 7e3f6f673624fb648a2fc0b31c271fff, type: 3}
@@ -194719,7 +194787,7 @@ MonoBehaviour:
   floor: {fileID: 506869031}
   roomFloorMaterial: {fileID: 2100000, guid: a166c9720d356d3469587ea35c8cab2b, type: 2}
   roomWallMaterial: {fileID: 2100000, guid: 9ab1b140570b2a943b20a45ff2e6cea9, type: 2}
-  roomType: Ghost Room
+  roomType: Cemetery
 --- !u!1001 &1966373279
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -205825,7 +205893,7 @@ MonoBehaviour:
   floor: {fileID: 369461498}
   roomFloorMaterial: {fileID: 2100000, guid: a166c9720d356d3469587ea35c8cab2b, type: 2}
   roomWallMaterial: {fileID: 2100000, guid: 9ab1b140570b2a943b20a45ff2e6cea9, type: 2}
-  roomType: Ghost Room
+  roomType: Cemetery
 --- !u!1 &2078456918
 GameObject:
   m_ObjectHideFlags: 0
@@ -211200,7 +211268,7 @@ MonoBehaviour:
   floor: {fileID: 1646395828}
   roomFloorMaterial: {fileID: 2100000, guid: a166c9720d356d3469587ea35c8cab2b, type: 2}
   roomWallMaterial: {fileID: 2100000, guid: 9ab1b140570b2a943b20a45ff2e6cea9, type: 2}
-  roomType: Ghost Room
+  roomType: Cemetery
 --- !u!1 &2129946594 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6552313161999677569, guid: 7e3f6f673624fb648a2fc0b31c271fff, type: 3}
@@ -213159,7 +213227,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2097464551850606839
 RectTransform:
   m_ObjectHideFlags: 0
@@ -213175,9 +213243,9 @@ RectTransform:
   - {fileID: 2497671452409753730}
   m_Father: {fileID: 1924050401}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 215, y: -40}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &2114411769966949209
@@ -213195,9 +213263,9 @@ RectTransform:
   - {fileID: 6111718289120555053}
   m_Father: {fileID: 1924050401}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 302.5, y: -40}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2214219413561834781
@@ -213404,9 +213472,9 @@ RectTransform:
   - {fileID: 1285990048749052345}
   m_Father: {fileID: 1924050401}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 40, y: -40}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &4243812472131871112
@@ -214531,9 +214599,9 @@ RectTransform:
   - {fileID: 6485257862782333914}
   m_Father: {fileID: 1924050401}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 127.5, y: -40}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &7255666942695117534
