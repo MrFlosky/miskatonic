@@ -70,7 +70,7 @@ public class MazeGenerator : MonoBehaviour {
         
             // Create all room types
             _roomTypes = new List<string> {
-                "Study", "Dungeon Room", "Armory", "Ghost Room", "Ritual Room", "Hidden Treasure Room"
+                "Library", "Dungeon", "Dining Room", "Cemetery", "Ritual Room", "Bedroom"
             };
         
             // Try to create the specified number of rooms
