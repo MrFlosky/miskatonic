@@ -1,5 +1,8 @@
+using Cinemachine;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Experimental.AI;
 using Random = UnityEngine.Random;
 
 /// <summary>
@@ -35,7 +38,7 @@ public class MazeGenerator : MonoBehaviour {
     [Header("Decoration Settings")]
     [Range(0f, 1f)] public float wallPropChance = 0.2f;   // 20% chance per wall
     public List<GameObject> wallProps;                    // assign in Inspector
-    public Transform propParent;                          // parent container for organization
+    public Transform propParent;                         // parent container for organization    
 
     private void Start()
     {
@@ -329,7 +332,7 @@ public class MazeGenerator : MonoBehaviour {
         int farRightX = startX + Mathf.CeilToInt(xLength / 2);
 
         int farBottomY = startY - Mathf.RoundToInt(yLength / 2);
-        int farTopY = startY + Mathf.CeilToInt(yLength / 2);
+        int farTopY = startY + Mathf.CeilToInt(yLength / 2);        
 
         bool success = true;
         int tries = 0;
@@ -425,7 +428,7 @@ public class MazeGenerator : MonoBehaviour {
 
         // Remove room type from list and add to rooms
         _roomTypes.RemoveAt(rnd);
-        rooms.Add(newRoom);
+        rooms.Add(newRoom);        
 
         return true; // Room successfully created
     }
