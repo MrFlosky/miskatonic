@@ -153,6 +153,7 @@ public class MazeRenderer : MonoBehaviour
                         // Instantiate the corner prefab at this location
                         Instantiate(cornerPrefab, new Vector3(x * CellSize, 0f, y * CellSize), Quaternion.identity, instantiatedRooms[roomType]);
 
+                        //Adding room Cameras
                         switch(roomType)
                         {
                             case ("Bedroom"):
