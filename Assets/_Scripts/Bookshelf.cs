@@ -5,6 +5,11 @@ using UnityEngine.InputSystem;
 
 public class Bookshelf : MonoBehaviour
 {
+    /// <summary>
+    /// This script keeps track of all the collected books and handles the logic for clicking on books or page turners
+    /// 
+    /// currently no way to add new books
+    /// </summary>
     public static Bookshelf S { get; private set; }
 
     //Keeps track of all the books in game

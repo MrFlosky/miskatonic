@@ -5,11 +5,17 @@ using UnityEngine;
 
 public class OpenBook : MonoBehaviour
 {
+    /// <summary>
+    /// Handles the logic for changing pages
+    /// 
+    /// The open book object must be active when the scene starts to ensure that the list of pages and page turners is properly populated.
+    /// It will deactivate on start.
+    /// </summary>
 
     public List<GameObject> pageTurners = new List<GameObject>();
     public List<GameObject> storyPanels = new List<GameObject>();
 
-    public GameObject firstPage, lastPage;
+    private GameObject firstPage, lastPage;
     public GameObject activePage;
     void Start()
     {

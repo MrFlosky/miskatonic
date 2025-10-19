@@ -7,14 +7,14 @@ using UnityEngine.UI;
 
 public class Books: MonoBehaviour
 {
+    /// <summary>
+    /// This script handles logic for changing books
+    /// 
+    /// </summary>
 
     public GameObject openBook;
-    
-    
     public Bookshelf bookshelf;
  
-
-
     private void Start()
     {
         bookshelf = Bookshelf.S;
@@ -33,7 +33,7 @@ public class Books: MonoBehaviour
     }
 
 
-    // activats the enabled page and deactivates all other book pages
+    // changes which book is open for the player and sets the first page as the current active page
     public void ChangeBook()
     {
         OpenBook OB =openBook.GetComponent<OpenBook>();

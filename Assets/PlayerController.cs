@@ -97,7 +97,7 @@ public class PlayerController : MonoBehaviour
         //Lyn's note to self: COME UP WITH SOME VARIABLE TO CHECK SO THIS ISNT RUNNING EVERY TIME!!!
         if (true)
         {
-            print("T");
+            
             bookshelf.OnClick(context);
         }
     }
