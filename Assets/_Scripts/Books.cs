@@ -37,7 +37,7 @@ public class Books: MonoBehaviour
     public void ChangeBook()
     {
         OpenBook OB =openBook.GetComponent<OpenBook>();
-
+        if (OB.gameObject.activeSelf) return;
         foreach(var BK in bookshelf.Booklist)
         {
             

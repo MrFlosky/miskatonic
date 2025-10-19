@@ -46,7 +46,7 @@ public class Bookshelf : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit))
         {
-            print(hit.collider.gameObject.name);
+            
             if (hit.collider.CompareTag("Book"))
             {
 

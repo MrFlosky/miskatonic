@@ -31,12 +31,17 @@ public class OpenBook : MonoBehaviour
         firstPage = storyPanels[0];
         int listCount = storyPanels.Count-1;
         lastPage = storyPanels[listCount];
+        gameObject.SetActive(false);
     }
 
     public void NextPage()
     {
+      
         if (lastPage.activeSelf) return;
+        int pageNumber = storyPanels.IndexOf(activePage);
         activePage.SetActive(false);
+        storyPanels[pageNumber + 1].SetActive(true);
+        activePage = storyPanels[pageNumber + 1];
         
         
 
@@ -45,6 +50,10 @@ public class OpenBook : MonoBehaviour
     public void PreviousPage()
     {
         if (firstPage.activeSelf) return;
+        int pageNumber = storyPanels.IndexOf(activePage);
+        activePage.SetActive(false);
+        storyPanels[pageNumber - 1].SetActive(true);
+        activePage = storyPanels[pageNumber - 1];
         
     }
 
