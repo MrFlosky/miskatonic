@@ -52,6 +52,7 @@ public class Books: MonoBehaviour
             page.SetActive(false);
         }
         OB.storyPanels[0].SetActive(true);
+        OB.activePage = OB.storyPanels[0];
         
         
        

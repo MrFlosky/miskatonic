@@ -5,7 +5,8 @@ using UnityEngine;
 public class BookTurner : MonoBehaviour
 {
     OpenBook OB;
-    bool turnRight;
+    [SerializeField]
+    bool nextPage;
     void Start()
     {
         OB = GetComponentInParent<OpenBook>();
@@ -15,12 +16,12 @@ public class BookTurner : MonoBehaviour
     public void TurnThePage()
     {
 
-        if (turnRight)
+        if (nextPage)
         {
-            OB.turnRight();
+            OB.NextPage();
         }
 
-        else OB.turnLeft();
+        else OB.PreviousPage();
 
     }
 
