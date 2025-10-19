@@ -12,7 +12,7 @@ public class RewardCultist : Reward
     {
         
         cultistPointSystem = cps;
-        print(cultistPointSystem.gameObject.name);
+        
     }
 
     public void SetCultistsRewarded(int reward)

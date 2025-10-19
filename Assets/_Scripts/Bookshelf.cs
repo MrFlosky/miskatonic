@@ -5,16 +5,20 @@ using UnityEngine.InputSystem;
 
 public class Bookshelf : MonoBehaviour
 {
-    public static Bookshelf S {  get; private set; }
+    public static Bookshelf S { get; private set; }
 
     //Keeps track of all the books in game
-    public List<Books> Booklist= new List<Books>();
+    public List<Books> Booklist = new List<Books>();
 
-    
+    Camera mainCamera;
+
+
 
     private void Awake()
     {
-        if(S != null && S != this)
+        if (mainCamera == null) mainCamera = Camera.main;
+
+        if (S != null && S != this)
         {
             Destroy(this);
         }
@@ -25,7 +29,32 @@ public class Bookshelf : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        
+    }
 
+    public void OnClick(InputAction.CallbackContext context)
+    {
+              
+
+        Vector2 mousePos = Vector2.zero;
+        mousePos = GameInput.Instance.GetActiveGameDevice() == GameInput.GameDevice.KeyboardMouse
+            ? Mouse.current.position.ReadValue()
+            : VirtualMouseUI.Instance.GetVirtualMousePosition();
+        Ray ray = Camera.main.ScreenPointToRay(mousePos);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit))
+        {
+           
+            if (hit.collider.CompareTag("Book"))
+            {
+                print("clcik book");
+                hit.collider.GetComponent<Books>().ChangeBook();
+            }
+        }
+
+    }
 
 }
 

@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class Books: MonoBehaviour
 {
 
-    public GameObject paper;
+    public GameObject openBook;
     
     
     public Bookshelf bookshelf;
@@ -20,9 +20,9 @@ public class Books: MonoBehaviour
         bookshelf = Bookshelf.S;
 
 
-        if (paper == null)
+        if (openBook == null)
         {
-            Debug.LogError(gameObject.name + " has no paper assigned.");
+            Debug.LogError(gameObject.name + " has no openBook assigned. Assign an openBook in the inspector");
 
         }
 
@@ -36,16 +36,24 @@ public class Books: MonoBehaviour
     // activats the enabled page and deactivates all other book pages
     public void ChangeBook()
     {
-        
+        OpenBook OB =openBook.GetComponent<OpenBook>();
 
         foreach(var BK in bookshelf.Booklist)
         {
             
-            BK.paper.SetActive(false);
+            BK.openBook.SetActive(false);
            
         }
-       
-        paper.SetActive(true);
+
+        openBook.SetActive(true);
+
+        foreach(GameObject page in OB.storyPanels)
+        {
+            page.SetActive(false);
+        }
+        OB.storyPanels[0].SetActive(true);
+        
+        
        
         
 

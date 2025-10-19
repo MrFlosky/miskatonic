@@ -10,7 +10,7 @@ public class SkillFearTotem : Skill
     Transform fearTotemTrans;
     bool canPlace=true;
     public int roundsLast;
-    private PlayerInputActions inputActions;
+  
     private SkillsCollection skillsUI;
     
    
@@ -23,7 +23,7 @@ public class SkillFearTotem : Skill
         fearTotemTrans = fearTotem.GetComponent<Transform>();
         skillsUI = GetComponent<SkillsCollection>();
         skillSystem = GetComponent<SkillSystem>();
-        inputActions = new PlayerInputActions();
+       
 
     }
 
