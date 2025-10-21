@@ -27,7 +27,7 @@ public class MissionCollection : MonoBehaviour
     [SerializeField] private MissionCardEntry[] missionCards;
 
     private List<Mission> availableMissions = new List<Mission>();
-    private List<Mission> inProgressMissions = new List<Mission>();
+    private List<Mission> discardedMissions = new List<Mission>();
     private List<Mission> completedMissions = new List<Mission>();
 
     [SerializeField] private Canvas dealerCanvas;
@@ -68,7 +68,7 @@ public class MissionCollection : MonoBehaviour
 
             int randomMissionIndex = Random.Range(0, totalMissionsAvailable); // exclusive upper bound
             chosenMission = availableMissions[randomMissionIndex];
-            inProgressMissions.Add(chosenMission);
+            discardedMissions.Add(chosenMission);
             availableMissions.RemoveAt(randomMissionIndex);
 
             // Display randomly chosen mission with offsets on mission canvas
@@ -78,7 +78,27 @@ public class MissionCollection : MonoBehaviour
         }
 
         // TEMPORARY FOR PROTO!!!!!!!!!!
-        TempAddMissionsBack();
+        //TempAddMissionsBack();
+    }
+
+    /// <summary>
+    /// Check if not enough cards to display (3) from available missions and if so,
+    /// perform a shuffle with discarded missions.
+    /// </summary>
+    public void ShuffleCheck()
+    {
+        if(availableMissions.Count < 3)
+        {
+            Debug.LogWarning("SHUFFLE INTIATED");
+            // loop backwards bc we removing elements from collection
+            for(int i = discardedMissions.Count - 1; i >= 0; i--)
+            {
+                Mission mission = discardedMissions[i];
+                availableMissions.Add(mission);
+                discardedMissions.RemoveAt(i);
+            }
+        }
+        
     }
 
     public void HIDE_AVAILABLE_MISSIONS()
@@ -91,13 +111,13 @@ public class MissionCollection : MonoBehaviour
 
 
     /// <summary>
-    /// Until this system gets built further out, we not really using missions in progress
+    /// (DEBUG FUNCTION) Until this system gets built further out, we not really using missions in progress
     /// or missions completed for anything. Only displaying random missions each turn.
     /// </summary>
     private void TempAddMissionsBack()
     {
-        availableMissions.AddRange(inProgressMissions);
-        inProgressMissions.Clear();
+        availableMissions.AddRange(discardedMissions);
+        discardedMissions.Clear();
     }
 
     /// <summary>

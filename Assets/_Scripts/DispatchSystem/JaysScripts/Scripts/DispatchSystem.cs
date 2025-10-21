@@ -28,7 +28,9 @@ public class DispatchSystem : MonoBehaviour , ITurnObserver
         //dealerCanvas.gameObject.SetActive(true);
         UIManagerLite.TransitionToState(UIManagerLite.GameState.Dealer);
 
+        
         MissionCollection.S.DISPLAY_AVAILABLE_MISSIONS();
+        MissionCollection.S.ShuffleCheck(); // shuffle second so new pool ready on next turn
     }
 
     // <summary>
