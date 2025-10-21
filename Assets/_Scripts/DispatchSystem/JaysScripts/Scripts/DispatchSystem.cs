@@ -41,6 +41,9 @@ public class DispatchSystem : MonoBehaviour , ITurnObserver
     {
         UIManagerLite.TransitionToState(UIManagerLite.GameState.BoardBase);
         dealerDealtWith = true;
+        MissionCollection.S.HIDE_ALL_MISSIONS();
+
+
         //initiateCardDealerBStatic.gameObject.SetActive(false);
         //dealerCanvasStatic.gameObject.SetActive(false);
         //UIManagerLite.EnableEndTurnButton();

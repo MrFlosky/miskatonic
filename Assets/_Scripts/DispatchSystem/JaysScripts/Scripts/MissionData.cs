@@ -15,6 +15,9 @@ public class MissionData : ScriptableObject
     [Header("Cultist Cost")]
     public int cultistCost;
 
+    [Header("Removed from pool for rest of game after play?")]
+    public bool oneTimeUse;
+
     [Header("Turn Activation Time")]
     public int turnActivateTime;
 

@@ -251,6 +251,7 @@ public class UIManagerLite : MonoBehaviour
 
                     S.storyboardButton.gameObject.SetActive(false);
                     S.endTurnButton.gameObject.SetActive(false);
+                    S.dealerButton.gameObject.SetActive(false);
                     //S.skillUICollection.DEACTIVATE_SKILLS_NAKED();
                     S.skillUICollection.DISABLE_BUTTONS();
                 }

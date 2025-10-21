@@ -33,6 +33,11 @@ public class Mission : MonoBehaviour
     private CultistPoints cultistPointSystem;
 
     /// <summary>
+    /// Whether this card stays in card play pool after being selected.
+    /// </summary>
+    private bool oneTimeUse;
+
+    /// <summary>
     /// Initialize this mission with data from scriptable object passed
     /// from mission collection!
     /// </summary>
@@ -41,9 +46,10 @@ public class Mission : MonoBehaviour
         missionData = data;
         missionCardObj = transform.gameObject;
         cultistPointSystem = cps;
+        oneTimeUse = data.oneTimeUse;
+
         InitUI(missionData);
         ProcessReward(missionData.reward);
-
     }
 
     /// <summary>
@@ -72,8 +78,7 @@ public class Mission : MonoBehaviour
     }
 
     /// <summary>
-    /// Later this will check for cultist cost before allowing
-    /// the selection.
+    /// Upon clicking this mission, activate it if user has enough cultist points.
     /// </summary>
     private void MissionSelect()
     {
@@ -81,6 +86,14 @@ public class Mission : MonoBehaviour
         {
             missionReward.GrantReward();
             DispatchSystem.DealingOver();
+
+            // if card is a one time use only, remove it from pool
+            if(oneTimeUse)
+            {
+                Debug.LogWarning("CARD REMOVED FROM POOL");
+                MissionCollection.S.RemoveCardFromPool(this);
+                //Destroy(this.gameObject);
+            }
         }
         
     }
@@ -123,6 +136,14 @@ public class Mission : MonoBehaviour
 
         // at end, all mission rewards have ui that needs to be init
         missionReward.InitRewardUI();
+    }
+
+    /// <summary>
+    /// Return if this mission is only a one time use or not
+    /// </summary>
+    public bool IsOneTimeUse()
+    {
+        return oneTimeUse;
     }
 
 

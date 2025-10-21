@@ -61,6 +61,9 @@ public class MissionCollection : MonoBehaviour
     {
         // Generate random index, grab that mission from available mission list,
         // then remove it from there. Add to in progress missions.
+
+        Debug.LogWarning(availableMissions.Count + "Cards remaining in the pool");
+
         for (int i = 0; i < 3; i++)
         {
             Mission chosenMission = null;
@@ -68,6 +71,7 @@ public class MissionCollection : MonoBehaviour
 
             int randomMissionIndex = Random.Range(0, totalMissionsAvailable); // exclusive upper bound
             chosenMission = availableMissions[randomMissionIndex];
+
             discardedMissions.Add(chosenMission);
             availableMissions.RemoveAt(randomMissionIndex);
 
@@ -75,6 +79,7 @@ public class MissionCollection : MonoBehaviour
             GameObject missionObj = chosenMission.gameObject;
             missionObj.transform.SetParent(dealerCanvas.transform);
             missionObj.GetComponent<RectTransform>().anchoredPosition = new Vector2(offsets[i], -100);
+            missionObj.SetActive(true);
         }
 
         // TEMPORARY FOR PROTO!!!!!!!!!!
@@ -87,18 +92,36 @@ public class MissionCollection : MonoBehaviour
     /// </summary>
     public void ShuffleCheck()
     {
-        if(availableMissions.Count < 3)
+        if (availableMissions.Count < 3)
         {
             Debug.LogWarning("SHUFFLE INTIATED");
             // loop backwards bc we removing elements from collection
-            for(int i = discardedMissions.Count - 1; i >= 0; i--)
+            for (int i = discardedMissions.Count - 1; i >= 0; i--)
             {
                 Mission mission = discardedMissions[i];
                 availableMissions.Add(mission);
                 discardedMissions.RemoveAt(i);
             }
         }
+
+    }
+    
+    /// <summary>
+    /// Set all mission game objects active state to false.
+    /// Called once dealing is over, so on a new deal old missions are no longer
+    /// displayed (missions objects never destroyed and are reused).
+    /// </summary>
+    public void HIDE_ALL_MISSIONS()
+    {
+        foreach (Mission m in availableMissions)
+        {
+            m.gameObject.SetActive(false);
+        }    
         
+        foreach(Mission m in discardedMissions)
+        {
+            m.gameObject.SetActive(false);
+        }    
     }
 
     public void HIDE_AVAILABLE_MISSIONS()
@@ -107,6 +130,15 @@ public class MissionCollection : MonoBehaviour
         {
             mission.gameObject.SetActive(false);
         }
+    }
+    
+    /// <summary>
+    /// Removes given card from play pool for rest of game.
+    /// Used for one time use missions.
+    /// </summary>
+    public void RemoveCardFromPool(Mission mission)
+    {
+        availableMissions.Remove(mission);
     }
 
 
@@ -136,8 +168,10 @@ public class MissionCollection : MonoBehaviour
 
                 newMission.InitMission(missionCards[i].missionData, cultistPointSystem);
                 availableMissions.Add(newMission);
+                
             }
         }
+        Debug.LogWarning(availableMissions.Count);
     }
 
 

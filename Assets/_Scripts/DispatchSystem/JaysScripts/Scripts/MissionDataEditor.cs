@@ -19,6 +19,7 @@ public class MissionDataEditor : Editor
         EditorGUILayout.PropertyField(serializedObject.FindProperty("description"));
         EditorGUILayout.PropertyField(serializedObject.FindProperty("cultistCost"));
         EditorGUILayout.PropertyField(serializedObject.FindProperty("turnActivateTime"));
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("oneTimeUse"));
         EditorGUILayout.PropertyField(serializedObject.FindProperty("reward"));
 
         // Conditional fields based on reward type

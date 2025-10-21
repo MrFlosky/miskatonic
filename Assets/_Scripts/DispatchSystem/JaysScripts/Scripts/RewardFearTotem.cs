@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FearTotemReward : SkillReward
+public class RewardFearTotem : SkillReward
 {
     public override void InitSkill()
     {
