@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using NUnit.Framework;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -11,12 +12,18 @@ using UnityEngine.UI;
 /// Skills will be responsible for activating themselves upon being their button being clicked.  
 /// While PlayerTurn is responsible for displaying skill options by invoking function in 
 /// SkillsCollection.
+/// 
+/// For the update with skill unlocks, clicking the button should allow player to use skill
+/// so long as they have enough cultist points. Unlocking is handled by SkillUnlockReward.
 /// </summary>
 public abstract class Skill : MonoBehaviour
 {
 
-    [Header("The point deduction associated with this skill")]
-    public int ptDeduction = 1;
+    /// <summary>
+    /// Number of usage points deducted upon skill being used.
+    /// </summary>
+    //[Header("The point deduction associated with this skill")]
+    protected int usageDeduction = 1;
 
     [Header("The selectable image associated with this skill")]
     public Button skillButton;
@@ -24,6 +31,10 @@ public abstract class Skill : MonoBehaviour
     [Header("Event associated with this skill")]
     public UnityEvent skillEvent;
 
+    /// <summary>
+    /// Im keeping this variable with update to unlocks so that
+    /// awarding usages is still supported.
+    /// </summary>
     [Header("Number of usages player has remaining for this skill")]
     public int usagesRemaining;
 
@@ -32,6 +43,11 @@ public abstract class Skill : MonoBehaviour
 
     // Text displaying usages remaining
     public TextMeshProUGUI usagesRemainTxt;
+
+    /// <summary>
+    /// Text displaying how many cultists required to use this skill
+    /// </summary>
+    public TextMeshProUGUI cultistCostTxt;
 
     [Header("Number of cultists required to purchase a usage of this skill")]
     [SerializeField] private int cultistCost;
@@ -58,11 +74,14 @@ public abstract class Skill : MonoBehaviour
     /// </summary>
     public virtual void ActivateSkill()
     {
-        if (usagesRemaining >= ptDeduction) // Check if the player has enough points
+        if (usagesRemaining >= usageDeduction) // Check if the player has enough points
         {
             AudioManager.PlaySFX(SFXType.ButtonSelection);
             PlayerController.Instance.SetActiveSkill(this); // THIS IS CHILD INSTANCE ON base.ActivateSkill() call in children classes
-            skillSystem.DEDUCT_PT(ptDeduction, this);
+
+            // this should auto work with exit input, bc attempting to rebuy a skill after exiting will also re-increase 
+            // usages
+            usagesRemaining -= usageDeduction;
 
             UIManagerLite.TransitionToState(UIManagerLite.GameState.SkillInUse);
             //SkillsCollection.S.DISABLE_BUTTONS(); old ui
@@ -75,29 +94,34 @@ public abstract class Skill : MonoBehaviour
     /// <summary>
     /// Upon clicking button associated with this skill,
     /// attempt to purchase a usage for it.
+    /// 
+    /// TODO: THIS SHOULD ALSO ALLOW FOR SKIP PURCHASE AND USAGE OF SKILL IF PLAYER HAS USAGES
+    /// FROM SKILL USAGE REWARD CARDS
     /// </summary>
     public virtual void AttemptPurchase()
     {
         if (CultistPoints.GetPoints() >= cultistCost)
         {
             CultistPoints.DeductPonts(cultistCost);
-
-            if(!unlocked)
-            {
-                UnlockSkill();
-            }
-
             AddSkillUsage(1);
+            ActivateSkill();
         }
     }
 
     /// <summary>
     /// Called once upon player unlocking this skill.
+    /// Sets skill button to active and interactable.
     /// </summary>
-    private void UnlockSkill()
+    public void UnlockSkill()
     {
+        
         unlocked = true;
+        skillButton.gameObject.SetActive(true);
+        // usagesRemainTxt.gameObject.SetActive(true);
         skillButton.interactable = true;
+
+        cultistCostTxt.gameObject.SetActive(true);
+        UpdateCultistCostText();
     }
 
     /// <summary>
@@ -111,6 +135,14 @@ public abstract class Skill : MonoBehaviour
         }
         return false;
     }    
+
+    /// <summary>
+    /// Return whether or not this skill has been unlocked.
+    /// </summary>
+    public bool IsUnlocked()
+    {
+        return unlocked;
+    }
 
 
     /// <summary>
@@ -143,7 +175,7 @@ public abstract class Skill : MonoBehaviour
         {
             PlayerController.Instance.SetActiveSkill(null);
             AudioManager.PlaySFX(SFXType.ButtonSelection);
-            skillSystem.ADD_PT(ptDeduction, this);
+            CultistPoints.AddPointsStatic(cultistCost); // refund cultists if player exits skill usage
             EndSkill();
         }
     }
@@ -155,5 +187,13 @@ public abstract class Skill : MonoBehaviour
     {
         usagesRemaining += usage;
         usagesRemainTxt.text = "X " + usagesRemaining;
+    }
+
+    /// <summary>
+    /// Update text for cultist cost.
+    /// </summary>
+    private void UpdateCultistCostText()
+    {
+        cultistCostTxt.text = "Cost: " + cultistCost;
     }
 }

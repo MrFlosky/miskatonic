@@ -3,21 +3,27 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using TMPro;
+using Unity.VisualScripting;
 
 public class CultistPoints : MonoBehaviour
 {
     static private CultistPoints S;
 
+    /// <summary>
+    /// Text displayed in DealerCanvas
+    /// </summary>
     [SerializeField] private TextMeshProUGUI txt;
 
+    /// <summary>
+    /// Mini displayerd on TurnCanvas
+    /// </summary>
+    [SerializeField] private TextMeshProUGUI babyTxt;
+
     // Number of available points player has
-    [SerializeField] public int cultistPoints { get; private set; }
+    [SerializeField] public int cultistPoints;
 
     void Start()
     {
-        //for testing
-        cultistPoints = 33;
-
         S = this;
         UpdateText();
     }
@@ -57,6 +63,12 @@ public class CultistPoints : MonoBehaviour
         S.UpdateText();
     }
 
+    static public void AddPointsStatic(int points)
+    {
+        S.cultistPoints += points;
+        S.UpdateText();
+    }
+
     /// <summary>
     /// Get number of cultist points available.
     /// </summary>
@@ -71,6 +83,7 @@ public class CultistPoints : MonoBehaviour
     static public void DeductPonts(int points)
     {
         S.cultistPoints -= points;
+        S.UpdateText();
     }
 
     /// <summary>
@@ -79,5 +92,6 @@ public class CultistPoints : MonoBehaviour
     private void UpdateText()
     {
         txt.text = "Cultist Points: " + cultistPoints;
+        babyTxt.text = "Cultists: " + cultistPoints;
     }
 }

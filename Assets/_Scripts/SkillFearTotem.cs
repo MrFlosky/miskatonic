@@ -125,7 +125,7 @@ public class SkillFearTotem : Skill
 
     public override void ActivateSkill()
     {
-        if (usagesRemaining>= ptDeduction)
+        if (usagesRemaining>= usageDeduction)
         {
             print("Activated");
             base.ActivateSkill();

@@ -138,7 +138,11 @@ public class MissionCollection : MonoBehaviour
     /// </summary>
     public void RemoveCardFromPool(Mission mission)
     {
+        // Make sure to remove from both! Safe to call
+        // remove even if not present in list.
         availableMissions.Remove(mission);
+        discardedMissions.Remove(mission);
+
     }
 
 

@@ -13,8 +13,7 @@ public class SkillsCollection : MonoBehaviour
 {
     static public SkillsCollection S;
     /// Collection of Skill objects.
-    List<Skill> skillList;
-    
+    List<Skill> skillList;    
 
     // Start is called before the first frame update
     void Start()
@@ -39,7 +38,11 @@ public class SkillsCollection : MonoBehaviour
     {
         foreach(Skill skill in S.skillList)
         {
-            skill.skillButton.gameObject.SetActive(true);
+            if (skill.IsUnlocked())
+            {
+                skill.skillButton.gameObject.SetActive(true);
+                skill.cultistCostTxt.gameObject.SetActive(true);
+            }
         }
     }
 
@@ -48,6 +51,7 @@ public class SkillsCollection : MonoBehaviour
         foreach (Skill skill in S.skillList)
         {
             skill.skillButton.gameObject.SetActive(false);
+            skill.cultistCostTxt.gameObject.SetActive(false);
         }
     }
 
@@ -58,7 +62,7 @@ public class SkillsCollection : MonoBehaviour
     {
         foreach(Skill skill in S.skillList)
         {
-            if (skill.HasUsages())
+            if (skill.IsUnlocked())
             {
                 skill.skillButton.interactable = true;
             }

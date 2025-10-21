@@ -128,6 +128,9 @@ public class Mission : MonoBehaviour
             case NarrativeReward narrativeReward:
                 narrativeReward.InitNarrativeClue(missionData.character);
                 break;
+            case UnlockReward unlockReward:
+                unlockReward.InitSkill();
+                break;
             default:
                 // no skill reward given
                 break;

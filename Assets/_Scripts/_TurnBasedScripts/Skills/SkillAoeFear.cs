@@ -96,7 +96,7 @@ public class SkillAoeFear : Skill
 
     public override void ActivateSkill()
     {
-        if(usagesRemaining >= ptDeduction)
+        if(usagesRemaining >= usageDeduction)
         {
             base.ActivateSkill(); // uses child instance members but parents function
             enabled = true; // Enable the script allowing this skill to happen once.

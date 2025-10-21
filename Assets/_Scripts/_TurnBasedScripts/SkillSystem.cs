@@ -32,14 +32,16 @@ public class SkillSystem : MonoBehaviour
         if(skill.usagesRemaining != 0)
         {
             skill.usagesRemaining -= deduction;
-            DISPLAY_PTS(); // Update text each deduction
+
+            //DISPLAY_PTS(); // Update text each deduction TODO
         }
     }
 
     public void ADD_PT(int addition, Skill skill)
     {
         skill.usagesRemaining += addition; // may need cap check here
-        DISPLAY_PTS();
+
+        //DISPLAY_PTS(); TODO
     }
     
     public void SET_PT(int num, Skill skill)
@@ -49,13 +51,17 @@ public class SkillSystem : MonoBehaviour
 
     public void DISPLAY_PTS()
     {
+        return; // TODO SEE SKILL CLASS
         foreach (Skill skill in skills)
         {
-            TMP_Text txt = skill.usagesRemainTxt;
-            txt.text = "X " + skill.usagesRemaining;
-            if(txt.IsActive() == false)
+            if (skill.IsUnlocked())
             {
-                txt.gameObject.SetActive(true);
+                TMP_Text txt = skill.usagesRemainTxt;
+                txt.text = "X " + skill.usagesRemaining;
+                if (txt.IsActive() == false)
+                {
+                    txt.gameObject.SetActive(true);
+                }
             }
         }
 
@@ -63,6 +69,7 @@ public class SkillSystem : MonoBehaviour
 
     public void HIDE_PTS()
     {
+        return; // TODO
         foreach (Skill skill in skills)
         {
             TMP_Text txt = skill.usagesRemainTxt;
