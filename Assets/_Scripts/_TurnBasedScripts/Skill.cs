@@ -33,6 +33,14 @@ public abstract class Skill : MonoBehaviour
     // Text displaying usages remaining
     public TextMeshProUGUI usagesRemainTxt;
 
+    [Header("Number of cultists required to purchase a usage of this skill")]
+    [SerializeField] private int cultistCost;
+
+    /// <summary>
+    /// Whether or not this skill has been unlocked by the player via the dispatch system.
+    /// </summary>
+    private bool unlocked = false;
+
 
     // For some reason the parent class, Skill, does not pass its reference to skillSystem as it should. Try
     // debugging in various way but this my best fix. Simply calling get component again to get skillSystem.
@@ -65,6 +73,47 @@ public abstract class Skill : MonoBehaviour
     }
 
     /// <summary>
+    /// Upon clicking button associated with this skill,
+    /// attempt to purchase a usage for it.
+    /// </summary>
+    public virtual void AttemptPurchase()
+    {
+        if (CultistPoints.GetPoints() >= cultistCost)
+        {
+            CultistPoints.DeductPonts(cultistCost);
+
+            if(!unlocked)
+            {
+                UnlockSkill();
+            }
+
+            AddSkillUsage(1);
+        }
+    }
+
+    /// <summary>
+    /// Called once upon player unlocking this skill.
+    /// </summary>
+    private void UnlockSkill()
+    {
+        unlocked = true;
+        skillButton.interactable = true;
+    }
+
+    /// <summary>
+    /// Return whether or not this skill has any usages remaining.
+    /// </summary>
+    public bool HasUsages()
+    {
+        if (usagesRemaining > 0)
+        {
+            return true;
+        }
+        return false;
+    }    
+
+
+    /// <summary>
     /// Each skill must perform different functions to end itself.
     /// Called on fully exiting skill end turn!
     /// This version is called upon exiting input, and transitions UI game state.
@@ -72,7 +121,6 @@ public abstract class Skill : MonoBehaviour
     public virtual void EndSkill()
     {
         PlayerController.Instance.SetActiveSkill(null);
-
         UIManagerLite.TransitionToState(UIManagerLite.GameState.BoardBase);
 
     }
@@ -106,6 +154,6 @@ public abstract class Skill : MonoBehaviour
     public void AddSkillUsage(int usage)
     {
         usagesRemaining += usage;
-        usagesRemainTxt.text = "Available Points: " + usagesRemaining;
+        usagesRemainTxt.text = "X " + usagesRemaining;
     }
 }

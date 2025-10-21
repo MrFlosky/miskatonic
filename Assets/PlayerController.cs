@@ -77,6 +77,9 @@ public class PlayerController : MonoBehaviour
                 case SkillFearTotem skillFearTotem:
                     skillFearTotem.OnClick(context);
                     break;
+                case SkillBarrier skillBarrier:
+                    skillBarrier.OnClick(context);
+                    break;
             }
 
 

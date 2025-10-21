@@ -25850,6 +25850,7 @@ MonoBehaviour:
   usagesRemaining: 1
   endTurnButton: {fileID: 840591864}
   usagesRemainTxt: {fileID: 2022695651}
+  cultistCost: 0
   roundsLast: 3
   mainCamera: {fileID: 0}
   AOEOb: {fileID: 1977298795}
@@ -25873,6 +25874,7 @@ MonoBehaviour:
   usagesRemaining: 1
   endTurnButton: {fileID: 840591864}
   usagesRemainTxt: {fileID: 1886929474}
+  cultistCost: 0
   selectedMat: {fileID: 2100000, guid: 2b6c9665030987d489f37a1b0dffc975, type: 2}
   roundsLast: 3
 --- !u!114 &284654624 stripped
@@ -25922,6 +25924,7 @@ MonoBehaviour:
   usagesRemaining: 1
   endTurnButton: {fileID: 840591864}
   usagesRemainTxt: {fileID: 2121437058}
+  cultistCost: 0
   mainCamera: {fileID: 0}
   fearTotem: {fileID: 1584031899}
   roundsLast: 2
@@ -55948,7 +55951,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 7ae529fa0d6a55647bc0bd8b9be2d9bb, type: 3}
     - target: {fileID: 2890454296880115788, guid: 4a21b8b42a2a421469be6ae7e951bd3a, type: 3}
       propertyPath: m_text
-      value: 'Available Pts:'
+      value: X
       objectReference: {fileID: 0}
     - target: {fileID: 2890454296880115788, guid: 4a21b8b42a2a421469be6ae7e951bd3a, type: 3}
       propertyPath: m_fontSize
@@ -78877,11 +78880,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fc511e9ff0adfa48a0cbc0766548750, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  facing: 0
-  gridPos: {x: 0, y: 0}
-  visionRange: 4
-  outlineMaterial: {fileID: -905690159841262435, guid: 824538e331efab2498d0fca3423eab92, type: 3}
-  totemCell: []
 --- !u!1 &804805056 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7682984578296859911, guid: 6c3d94bacfd3625428f1c24bddee899b, type: 3}
@@ -157864,7 +157862,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Available Pts:'
+  m_text: X
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5b915f831aacd3649af76d10b953082e, type: 2}
   m_sharedMaterial: {fileID: 7064889032853163465, guid: 5b915f831aacd3649af76d10b953082e, type: 2}
@@ -159645,11 +159643,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fc511e9ff0adfa48a0cbc0766548750, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  facing: 0
-  gridPos: {x: 0, y: 0}
-  visionRange: 4
-  outlineMaterial: {fileID: -905690159841262435, guid: 824538e331efab2498d0fca3423eab92, type: 3}
-  totemCell: []
 --- !u!1 &1616643099 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7682984578296859911, guid: 6c3d94bacfd3625428f1c24bddee899b, type: 3}
@@ -170649,11 +170642,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fc511e9ff0adfa48a0cbc0766548750, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  facing: 0
-  gridPos: {x: 0, y: 0}
-  visionRange: 4
-  outlineMaterial: {fileID: -905690159841262435, guid: 824538e331efab2498d0fca3423eab92, type: 3}
-  totemCell: []
 --- !u!1 &1712710940 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4196248637664730121, guid: 773e711b1ac9352408b1c3e8d37a1f73, type: 3}
@@ -186208,7 +186196,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Available Pts:'
+  m_text: X
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5b915f831aacd3649af76d10b953082e, type: 2}
   m_sharedMaterial: {fileID: 7064889032853163465, guid: 5b915f831aacd3649af76d10b953082e, type: 2}
@@ -193871,11 +193859,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fc511e9ff0adfa48a0cbc0766548750, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  facing: 0
-  gridPos: {x: 0, y: 0}
-  visionRange: 4
-  outlineMaterial: {fileID: -905690159841262435, guid: 824538e331efab2498d0fca3423eab92, type: 3}
-  totemCell: []
 --- !u!1 &1955968982 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6552313161999677569, guid: 7e3f6f673624fb648a2fc0b31c271fff, type: 3}
@@ -210283,7 +210266,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Available Pts:'
+  m_text: X
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5b915f831aacd3649af76d10b953082e, type: 2}
   m_sharedMaterial: {fileID: 7064889032853163465, guid: 5b915f831aacd3649af76d10b953082e, type: 2}

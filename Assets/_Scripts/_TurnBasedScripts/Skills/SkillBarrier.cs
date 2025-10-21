@@ -19,16 +19,11 @@ public class SkillBarrier : Skill
     private int lastWallIndex;
     private bool canCycle = false;
     private int cycleCount = 0;
-
     private Transform cellHit;
 
-    private PlayerInputActions inputActions;
 
     private void Awake()
     {
-        // For some reason the parent class, Skill, does not pass its reference to skillSystem as it should. Try
-        // debugging in various way but this my best fix. Simply calling get component again to get skillSystem.
-        inputActions = new PlayerInputActions();
         skillSystem = GetComponent<SkillSystem>();
     }
 
@@ -39,23 +34,7 @@ public class SkillBarrier : Skill
         enabled = false;
     }
 
-    private void OnEnable()
-    {
-        inputActions.Player.Click.performed += OnClick;
-        inputActions.Player.Confirm.performed += OnConfirm;
-        inputActions.Player.RightClick.performed += OnRightClick; // Right-click for canceling
-        inputActions.Enable();
-    }
-
-    private void OnDisable()
-    {
-        inputActions.Player.Click.performed -= OnClick;
-        inputActions.Player.Confirm.performed -= OnConfirm;
-        inputActions.Player.RightClick.performed -= OnRightClick;
-        inputActions.Disable();
-    }
-
-    private void OnClick(InputAction.CallbackContext context)
+    public void OnClick(InputAction.CallbackContext context)
     {
         if (!canCycle)
         {
@@ -98,18 +77,13 @@ public class SkillBarrier : Skill
 
             MazeGenerator.Instance.SetWallInternalState(x, y, wT, true);
             TurnBasedSystem.DestroyAfterRounds destroyInstance = new TurnBasedSystem.DestroyAfterRounds(roundsLast, confirmedWall.gameObject, wT);
-            ResetValues();
-            EndSkill();
+            
+            base.EndSkill(); // test
         }
     }
 
     public void OnRightClick(InputAction.CallbackContext context)
     {
-        // Double processing fix
-        if (inputActions.Player.RightClick.phase == InputActionPhase.Performed)
-        {
-            return;
-        }
         // If a cell is selected, cancel the selection
         if (canCycle)
         {
@@ -127,25 +101,27 @@ public class SkillBarrier : Skill
             // If no cell is selected, end the skill
             Debug.Log("No cell selected, ending skill");
             base.ExitInput();
-            EndSkill();
-   
         }
+
+    }
+
+    /// <summary>
+    /// Calling this keeps causing newfound errors, not sure why.
+    /// but it seems useless anyways?
+    /// </summary>
+    // public override void EndSkill()
+    // {
+    //     base.EndSkill();
         
-    }
-
-    public override void EndSkill()
-    {
-        base.EndSkill();
-        this.enabled = false;
-
-        // If player ends turn without confirming wall.
-        if (canCycle)
-        {
-            mInactiveWalls[lastWallIndex].gameObject.SetActive(false);
-        }
-        ResetValues();
-        ExitInput();
-    }
+    //     // If player ends turn without confirming wall.
+    //     if (canCycle)
+    //     {
+    //         mInactiveWalls[lastWallIndex].gameObject.SetActive(false);
+    //     }
+    //     ResetValues();
+    //     ExitInput();
+    //     this.enabled = false;
+    // }
 
     private void GetPossibleBarrierWalls(Transform cell)
     {

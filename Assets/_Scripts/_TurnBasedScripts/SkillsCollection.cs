@@ -45,17 +45,23 @@ public class SkillsCollection : MonoBehaviour
 
     public void HIDE_SKILLS()
     {
-        foreach(Skill skill in S.skillList)
+        foreach (Skill skill in S.skillList)
         {
             skill.skillButton.gameObject.SetActive(false);
         }
     }
 
+    /// <summary>
+    /// Turn all skill buttons to interactable if they have usages.
+    /// </summary>
     public void ENABLE_BUTTONS()
     {
         foreach(Skill skill in S.skillList)
         {
-            skill.skillButton.interactable = true;
+            if (skill.HasUsages())
+            {
+                skill.skillButton.interactable = true;
+            }
         }
     }
 

@@ -58,6 +58,22 @@ public class CultistPoints : MonoBehaviour
     }
 
     /// <summary>
+    /// Get number of cultist points available.
+    /// </summary>
+    static public int GetPoints()
+    {
+        return S.cultistPoints;
+    }
+
+    /// <summary>
+    /// Deduct given number of usable cultist points.
+    /// </summary>
+    static public void DeductPonts(int points)
+    {
+        S.cultistPoints -= points;
+    }
+
+    /// <summary>
     /// Updates text to reflect new cultist point balance
     /// </summary>
     private void UpdateText()

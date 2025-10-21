@@ -111,8 +111,6 @@ public class SkillAoeFear : Skill
     /// </summary>
     public void OnRightClick(InputAction.CallbackContext context)
     {
-        Debug.LogWarning("OnClick called!");
-        Debug.LogWarning("Call Stack:\n" + System.Environment.StackTrace);
         ExitInput();
     }
 

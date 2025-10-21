@@ -52,7 +52,7 @@ public class SkillSystem : MonoBehaviour
         foreach (Skill skill in skills)
         {
             TMP_Text txt = skill.usagesRemainTxt;
-            txt.text = "Available Points: " + skill.usagesRemaining;
+            txt.text = "X " + skill.usagesRemaining;
             if(txt.IsActive() == false)
             {
                 txt.gameObject.SetActive(true);
