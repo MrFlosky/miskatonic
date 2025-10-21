@@ -34,6 +34,7 @@ public class MazeRenderer : MonoBehaviour
     public Vector3 cameraOffsets;
     public Quaternion rotationCameraOffsets;
 
+    //Camera assigned to each room
     public CinemachineVirtualCamera bedroomCam;
     public CinemachineVirtualCamera cemeteryCam;
     public CinemachineVirtualCamera diningCam;

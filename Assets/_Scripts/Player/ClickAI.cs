@@ -136,8 +136,11 @@ public class ClickAI : MonoBehaviour
                 if (virtualCam)
                 {
                     //bug fix for incosistent camera misalignment bug
-                    roomCamera.enabled = false;
-
+                    if (roomCamera != null)
+                    {
+                        roomCamera.enabled = false;
+                    }
+                    
                     virtualCam.gameObject.SetActive(true);
                     virtualCam.enabled = true;
                 }
@@ -208,7 +211,6 @@ public class ClickAI : MonoBehaviour
                         {
                             roomCamera.gameObject.SetActive(true);
                             roomCamera.enabled = true;
-                            Debug.LogWarning(activeCamera);
                         }                        
                     }
                     activeCamera = roomCamera;
