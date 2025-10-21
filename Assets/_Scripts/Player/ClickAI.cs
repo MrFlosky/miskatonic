@@ -1,12 +1,13 @@
+using Cinemachine;
+using DialogueEditor;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Cinemachine;
-using DialogueEditor;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using UnityEngine.Windows.WebCam;
 using Yarn.Unity;
 
 
@@ -46,7 +47,13 @@ public class ClickAI : MonoBehaviour
     [Header("UI")]
     public Button[] buttons;    // Buttons need to show/hide during dialogue
 
-    
+    [Header("Room")]
+    public GameObject Maze; //grabbing the Maze itself
+
+    private bool isSnooping = false; //check if the player is currently looking in a room
+    public CinemachineVirtualCamera roomCamera; //Current Room Camera
+
+
 
     // AI Camera currently active.
     // Used for bust rotation function calls.
@@ -86,11 +93,14 @@ public class ClickAI : MonoBehaviour
             : VirtualMouseUI.Instance.GetVirtualMousePosition();
 
         Ray ray = Camera.main.ScreenPointToRay(mousePos);
+
+        
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
-
             if (hit.collider.CompareTag("AI"))
             {
+                
+
                 GameObject aiGameObj = hit.collider.gameObject;
                 DialogueBank dialogueBank = aiGameObj.GetComponent<DialogueBank>();
                 // No dialouge needed
@@ -125,6 +135,9 @@ public class ClickAI : MonoBehaviour
 
                 if (virtualCam)
                 {
+                    //bug fix for incosistent camera misalignment bug
+                    roomCamera.enabled = false;
+
                     virtualCam.gameObject.SetActive(true);
                     virtualCam.enabled = true;
                 }
@@ -144,7 +157,7 @@ public class ClickAI : MonoBehaviour
 
 
 
-                
+
 
 
             }
@@ -152,6 +165,55 @@ public class ClickAI : MonoBehaviour
             else if (hit.collider.CompareTag("Book"))
             {
                 hit.collider.GetComponent<Books>().ChangeBook();
+            }
+
+            //Check is tile is a room
+            else if (hit.collider.gameObject.GetComponentInParent<MazeCellObject>().roomType != "Hallway")
+            {
+                if (roomCamera)
+                {
+                    roomCamera.enabled = false;
+                }
+                if (hit.collider.gameObject.GetComponentInParent<MazeCellObject>().roomType != null)
+                {
+                    isSnooping = true;
+                    //Set the room camera to the room type being clicked
+                    switch (hit.collider.gameObject.GetComponentInParent<MazeCellObject>().roomType)
+                    {                        
+                        //camera blend on room click
+                        case "Bedroom":
+                            roomCamera = Maze.gameObject.GetComponent<MazeRenderer>().bedroomCam;
+                            break;
+                        case "Library":
+                            roomCamera = Maze.gameObject.GetComponent<MazeRenderer>().libraryCam;
+                            break;
+                        case "Dining Room":
+                            roomCamera = Maze.gameObject.GetComponent<MazeRenderer>().diningCam;
+                            break;
+                        case "Dungeon":
+                            roomCamera = Maze.gameObject.GetComponent<MazeRenderer>().dungeonCam;
+                            break;
+                        case "Ritual Room":
+                            roomCamera = Maze.gameObject.GetComponent<MazeRenderer>().ritualCam;
+                            break;
+                        case "Cemetery":
+                            roomCamera = Maze.gameObject.GetComponent<MazeRenderer>().cemeteryCam;
+                            break;
+                    }
+
+                    //Blend Camera
+                    if (roomCamera)
+                    {
+                        if (roomCamera.enabled == false)
+                        {
+                            roomCamera.gameObject.SetActive(true);
+                            roomCamera.enabled = true;
+                            Debug.LogWarning(activeCamera);
+                        }                        
+                    }
+                    activeCamera = roomCamera;
+                    playerCam.enabled = false;
+                }            
             }
         }
     }
@@ -385,6 +447,18 @@ public class ClickAI : MonoBehaviour
         // Clear outlines unless hodling right-click in player's turn
         if (rightClicking && TurnBasedSystem.IsPlayerTurn()) return;
         ClearOutlines();
+
+        if (isSnooping && !_inConversation)
+        {
+            if (Keyboard.current.bKey.wasPressedThisFrame)
+            {
+                activeCamera.enabled = false;
+                isSnooping = false;
+                playerCam.enabled = true;
+                activeCamera = playerCam;  
+                activeCamera.enabled = true;
+            }
+        }
     }
 
     [SerializeField] CinemachineVirtualCamera storyboardCam;

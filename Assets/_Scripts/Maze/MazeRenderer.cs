@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using Cinemachine;
+using System;
 
 public class MazeRenderer : MonoBehaviour
 {
@@ -23,9 +25,21 @@ public class MazeRenderer : MonoBehaviour
     public float CellSize = 1f;
     
     private MazeCell[,] maze;
-    
+
+    public CinemachineVirtualCamera roomVirtualCamera;
+
     // Event to notify maze completion
     public event System.Action OnMazeGenerated;
+
+    public Vector3 cameraOffsets;
+    public Quaternion rotationCameraOffsets;
+
+    public CinemachineVirtualCamera bedroomCam;
+    public CinemachineVirtualCamera cemeteryCam;
+    public CinemachineVirtualCamera diningCam;
+    public CinemachineVirtualCamera libraryCam;
+    public CinemachineVirtualCamera dungeonCam;
+    public CinemachineVirtualCamera ritualCam;
 
     private void Start()
     {
@@ -138,6 +152,43 @@ public class MazeRenderer : MonoBehaviour
                     {
                         // Instantiate the corner prefab at this location
                         Instantiate(cornerPrefab, new Vector3(x * CellSize, 0f, y * CellSize), Quaternion.identity, instantiatedRooms[roomType]);
+
+                        //Adding room Cameras
+                        switch(roomType)
+                        {
+                            case ("Bedroom"):
+                                bedroomCam = Instantiate(roomVirtualCamera, new Vector3(x * CellSize + cameraOffsets.x, 0f + cameraOffsets.y, y * CellSize + cameraOffsets.z),
+                                new Quaternion(0 + rotationCameraOffsets.x, 0 + rotationCameraOffsets.y, 0 + rotationCameraOffsets.z, 0 + rotationCameraOffsets.w), 
+                                instantiatedRooms[roomType]);
+                                //bedroomCam.GetComponent<CinemachineVirtualCamera>().LookAt = this.transform.Find(roomType);
+                                break;
+                            case ("Library"):
+                                libraryCam = Instantiate(roomVirtualCamera, new Vector3(x * CellSize + cameraOffsets.x, 0f + cameraOffsets.y, y * CellSize + cameraOffsets.z),
+                                new Quaternion(0 + rotationCameraOffsets.x, 0 + rotationCameraOffsets.y, 0 + rotationCameraOffsets.z, 0 + rotationCameraOffsets.w),
+                                instantiatedRooms[roomType]);
+                                break;
+                            case ("Ritual Room"):
+                                ritualCam = Instantiate(roomVirtualCamera, new Vector3(x * CellSize + cameraOffsets.x, 0f + cameraOffsets.y, y * CellSize + cameraOffsets.z),
+                                new Quaternion(0 + rotationCameraOffsets.x, 0 + rotationCameraOffsets.y, 0 + rotationCameraOffsets.z, 0 + rotationCameraOffsets.w),
+                                instantiatedRooms[roomType]);
+                                break;
+                            case ("Dungeon"):
+                                dungeonCam = Instantiate(roomVirtualCamera, new Vector3(x * CellSize + cameraOffsets.x, 0f + cameraOffsets.y, y * CellSize + cameraOffsets.z),
+                                new Quaternion(0 + rotationCameraOffsets.x, 0 + rotationCameraOffsets.y, 0 + rotationCameraOffsets.z, 0 + rotationCameraOffsets.w),
+                                instantiatedRooms[roomType]);
+                                break;
+                            case ("Dining Room"):
+                                diningCam = Instantiate(roomVirtualCamera, new Vector3(x * CellSize + cameraOffsets.x, 0f + cameraOffsets.y, y * CellSize + cameraOffsets.z),
+                                new Quaternion(0 + rotationCameraOffsets.x, 0 + rotationCameraOffsets.y, 0 + rotationCameraOffsets.z, 0 + rotationCameraOffsets.w),
+                                instantiatedRooms[roomType]);
+                                break;
+                            case ("Cemetery"):
+                                cemeteryCam = Instantiate(roomVirtualCamera, new Vector3(x * CellSize + cameraOffsets.x, 0f + cameraOffsets.y, y * CellSize + cameraOffsets.z),
+                                new Quaternion(0 + rotationCameraOffsets.x, 0 + rotationCameraOffsets.y, 0 + rotationCameraOffsets.z, 0 + rotationCameraOffsets.w),
+                                instantiatedRooms[roomType]);
+                                break;                            
+                        }
+                                             
                     }
                 }
             }
