@@ -50,8 +50,11 @@ public class ClickAI : MonoBehaviour
     [Header("Room")]
     public GameObject Maze; //grabbing the Maze itself
 
+    [Header("Room Click Conditions")]
     private bool isSnooping = false; //check if the player is currently looking in a room
+    private bool isUsingSkill = false;
     public CinemachineVirtualCamera roomCamera; //Current Room Camera
+    
 
 
 
@@ -207,8 +210,18 @@ public class ClickAI : MonoBehaviour
                             break;
                     }
 
-                    //Blend Camera
-                    if (roomCamera)
+                    //Check if a skill is in use
+                    if (this.gameObject.GetComponent<PlayerController>().activeSkill != null)
+                    {
+                        isUsingSkill = true;
+                    }
+                    if (this.gameObject.GetComponent<PlayerController>().activeSkill == null)
+                    {
+                        isUsingSkill = false;
+                    }
+
+                    //Blend Camera if skill not in use
+                    if (roomCamera && !isUsingSkill)
                     {
                         if (roomCamera.enabled == false)
                         {
@@ -261,6 +274,19 @@ public class ClickAI : MonoBehaviour
         {
             ClearOutlines();
             return;
+        }
+
+        //Leave Room On Right Click
+        if (isSnooping && !_inConversation)
+        {
+            activeCamera.enabled = false;
+            isSnooping = false;
+            playerCam.enabled = true;
+            if (activeCamera.enabled)
+            {
+                activeCamera = playerCam;
+                activeCamera.enabled = true;
+            }
         }
 
         var mousePos = GameInput.Instance.GetActiveGameDevice() == GameInput.GameDevice.KeyboardMouse
@@ -453,19 +479,7 @@ public class ClickAI : MonoBehaviour
     {
         // Clear outlines unless hodling right-click in player's turn
         if (rightClicking && TurnBasedSystem.IsPlayerTurn()) return;
-        ClearOutlines();
-
-        if (isSnooping && !_inConversation)
-        {
-            if (Keyboard.current.bKey.wasPressedThisFrame)
-            {
-                activeCamera.enabled = false;
-                isSnooping = false;
-                playerCam.enabled = true;
-                activeCamera = playerCam;  
-                activeCamera.enabled = true;
-            }
-        }
+        ClearOutlines();           
     }
 
     [SerializeField] CinemachineVirtualCamera storyboardCam;
