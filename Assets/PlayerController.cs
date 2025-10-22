@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     public Skill activeSkill; // Reference to the currently active skill
     public bool clickedAI = false;
 
+    private Bookshelf bookshelf;
     private void Awake()
     {
         // Ensure there is only one instance of PlayerController
@@ -23,6 +24,7 @@ public class PlayerController : MonoBehaviour
 
         inputActions = new PlayerInputActions();
         clickAI = GetComponent<ClickAI>(); // Assumes ClickAI is on the same GameObject
+        bookshelf = Bookshelf.S;
     }
 
     private void OnEnable()
@@ -90,6 +92,13 @@ public class PlayerController : MonoBehaviour
         if (clickAI != null && activeSkill == null)
         {
             clickAI.OnClick(context);
+        }
+
+        //Lyn's note to self: COME UP WITH SOME VARIABLE TO CHECK SO THIS ISNT RUNNING EVERY TIME!!!
+        if (true)
+        {
+            
+            bookshelf.OnClick(context);
         }
     }
 

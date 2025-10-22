@@ -84,7 +84,7 @@ public class ClickAI : MonoBehaviour
     /// </summary>
     public void OnClick(InputAction.CallbackContext context)
     {
-        if (_clickedAI || !TurnBasedSystem.IsPlayerTurn() || _inConversation) return;
+       // if (_clickedAI || !TurnBasedSystem.IsPlayerTurn() || _inConversation) return;
 
         // Get moude position based on current input
         Vector2 mousePos = Vector2.zero;
@@ -97,6 +97,8 @@ public class ClickAI : MonoBehaviour
         
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
+
+            
             if (hit.collider.CompareTag("AI"))
             {
                 
@@ -167,6 +169,7 @@ public class ClickAI : MonoBehaviour
 
             else if (hit.collider.CompareTag("Book"))
             {
+               
                 hit.collider.GetComponent<Books>().ChangeBook();
             }
 
@@ -217,6 +220,8 @@ public class ClickAI : MonoBehaviour
                     playerCam.enabled = false;
                 }            
             }
+            
+
         }
     }
 
