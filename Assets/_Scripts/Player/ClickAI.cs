@@ -31,7 +31,7 @@ public class ClickAI : MonoBehaviour
     public CinemachineVirtualCamera playerCam;  // Player's default camera
     public CinemachineVirtualCamera activeCamera;   // Currently active camera (AI or player)
 
-    private bool _inConversation;   // Tracks if a conversation is ongoing
+    public bool _inConversation;   // Tracks if a conversation is ongoing
     public bool _clickedAI = false; // Track if the AI has been clicked.
 
 

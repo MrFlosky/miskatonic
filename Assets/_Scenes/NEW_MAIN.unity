@@ -5312,6 +5312,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 551801733}
+  playerControls: {fileID: 394672283}
 --- !u!114 &50212753
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36570,6 +36571,7 @@ MonoBehaviour:
   mainCamera: {fileID: 963053142}
   playerCam: {fileID: 1514457254}
   activeCamera: {fileID: 0}
+  _inConversation: 0
   _clickedAI: 0
   track: {fileID: 0}
   scrollSpeed: 7.5
@@ -37737,6 +37739,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 804730714}
+  playerControls: {fileID: 394672283}
 --- !u!114 &406023394
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -73098,6 +73101,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5352065457701456847, guid: d690e9a53e6790b4e800a43ee1e8c52b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5360219497394162665, guid: d690e9a53e6790b4e800a43ee1e8c52b, type: 3}
       propertyPath: m_Interactable
       value: 0
@@ -73122,6 +73129,10 @@ PrefabInstance:
       propertyPath: m_fontAsset
       value: 
       objectReference: {fileID: 11400000, guid: 5b915f831aacd3649af76d10b953082e, type: 2}
+    - target: {fileID: 6897504189495081901, guid: d690e9a53e6790b4e800a43ee1e8c52b, type: 3}
+      propertyPath: m_overflowMode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6897504189495081901, guid: d690e9a53e6790b4e800a43ee1e8c52b, type: 3}
       propertyPath: m_sharedMaterial
       value: 
@@ -142468,6 +142479,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 1616455638}
+  playerControls: {fileID: 394672283}
 --- !u!114 &1447978263
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150961,6 +150973,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 1505115603}
+  playerControls: {fileID: 394672283}
 --- !u!114 &1532758010
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -215025,11 +215038,11 @@ PrefabInstance:
     - target: {fileID: 5592833437522147513, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
       propertyPath: missionCards.Array.data[4].missionData
       value: 
-      objectReference: {fileID: 11400000, guid: c689fe53b67c4134995688f9510bed22, type: 2}
+      objectReference: {fileID: 11400000, guid: 9dcca08ee1047394d82ea0c57d3b21db, type: 2}
     - target: {fileID: 5592833437522147513, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
       propertyPath: missionCards.Array.data[5].missionData
       value: 
-      objectReference: {fileID: 11400000, guid: 9dcca08ee1047394d82ea0c57d3b21db, type: 2}
+      objectReference: {fileID: 11400000, guid: f2dc8488c9c486e4c96a56384bd9e7ec, type: 2}
     - target: {fileID: 5592833437522147513, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
       propertyPath: missionCards.Array.data[6].missionData
       value: 

@@ -15,6 +15,8 @@ public class PortraitDialogue : MonoBehaviour
     AICamera aiCam;
     // AI object with dialogue bank and ai cam
     [SerializeField] GameObject character;
+    [SerializeField] GameObject playerControls;
+
     private DialogueBank DB;
     private void Start()
     {
@@ -39,28 +41,31 @@ public class PortraitDialogue : MonoBehaviour
             return;
         }
 
-        DB.alreadyTalked = true;
-        PortraitFade portraitFade = character.GetComponent<PortraitFade>();
-        portraitFade.StartCoroutine(portraitFade.FadeOut());
-
-        ClickAI.S.SetAICam(aiCam);
-        aiCam.RotBustToCam();
-
-
-        AudioManager.PlaySFX(SFXType.CharacterSelection);
-
-
-        ClickAI.S._clickedAI = true;
-        var virtualCam = DB.gameObject.GetComponentInChildren<CinemachineVirtualCamera>(true);
-        if (virtualCam)
+        if(playerControls.GetComponent<ClickAI>()._inConversation == false)
         {
-            virtualCam.gameObject.SetActive(true);
-            virtualCam.enabled = true;
-        }
-        ClickAI.S.activeCamera = virtualCam;
-        ClickAI.S.playerCam.enabled = false;
+            DB.alreadyTalked = true;
+            PortraitFade portraitFade = character.GetComponent<PortraitFade>();
+            portraitFade.StartCoroutine(portraitFade.FadeOut());
 
-        UIManagerLite.TransitionToState(UIManagerLite.GameState.Dialogue);
+            ClickAI.S.SetAICam(aiCam);
+            aiCam.RotBustToCam();
+
+
+            AudioManager.PlaySFX(SFXType.CharacterSelection);
+
+
+            ClickAI.S._clickedAI = true;
+            var virtualCam = DB.gameObject.GetComponentInChildren<CinemachineVirtualCamera>(true);
+            if (virtualCam)
+            {
+                virtualCam.gameObject.SetActive(true);
+                virtualCam.enabled = true;
+            }
+            ClickAI.S.activeCamera = virtualCam;
+            ClickAI.S.playerCam.enabled = false;
+
+            UIManagerLite.TransitionToState(UIManagerLite.GameState.Dialogue);
+        }
     }
 
 
