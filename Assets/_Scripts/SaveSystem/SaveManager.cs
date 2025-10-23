@@ -71,6 +71,8 @@ public class SaveManager : MonoBehaviour
         // Add to our list of available saves
         SaveDisplayData d = new SaveDisplayData(saveName, System.DateTime.Now.ToString(), TurnBasedSystem.GET_TURN_COUNT().ToString());
         AddSave(d);
+
+        DebugSaveInfo();
     }
 
 
@@ -127,7 +129,13 @@ public class SaveManager : MonoBehaviour
     }
 
 
-
+    private void DebugSaveInfo()
+    {
+        foreach (SaveDisplayData s in saves)
+        {
+            Debug.LogWarning("Found save of name: " + s.name + ".\nDate: " + s.date + ".\nTurn Number: " + s.turnNum + ".");
+        }
+    }
 
 
 
@@ -154,10 +162,12 @@ public class SaveManager : MonoBehaviour
             FileStream stream = new FileStream(path, FileMode.Open);
             List<SaveDisplayData> ls = bf.Deserialize(stream) as List<SaveDisplayData>;
             saves = ls;
+            DebugSaveInfo();
         }
         else
         {
             Debug.Log("No save information found!");
+            saves = new List<SaveDisplayData>();
         }
         
 

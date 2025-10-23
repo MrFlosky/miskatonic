@@ -16,4 +16,8 @@ public class SaveDisplayData
         _date = date;
         _turnNum = turnNum;
     }
+
+    public string name { get { return _name; } }
+    public string date { get { return _date; } }
+    public string turnNum { get { return _turnNum; } }
 }
