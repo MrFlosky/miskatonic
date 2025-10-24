@@ -77,11 +77,16 @@ public class SkillBarrier : Skill
 
             MazeGenerator.Instance.SetWallInternalState(x, y, wT, true);
             TurnBasedSystem.DestroyAfterRounds destroyInstance = new TurnBasedSystem.DestroyAfterRounds(roundsLast, confirmedWall.gameObject, wT);
-            
-            base.EndSkill(); // test
+
+            ResetValues();
+            EndSkill(); 
         }
     }
 
+    /// <summary>
+    /// Called up player right clicking to cancel their current barrier selection and or exiting
+    /// this selected skill entirely if they double right click.
+    /// </summary>
     public void OnRightClick(InputAction.CallbackContext context)
     {
         // If a cell is selected, cancel the selection
@@ -94,13 +99,12 @@ public class SkillBarrier : Skill
             }
             AudioManager.PlaySFX(SFXType.MouseButtonHit);
             ResetValues(); // Reset values for the current selection
-            //inputActions.Player.RightClick.Disable(); // Double Processing Fix(For our purposes anyways, as it is still doing the call twice)
         }
         else
         {
-            // If no cell is selected, end the skill
+            // If no cell is selected, end the skill and refund points
             Debug.Log("No cell selected, ending skill");
-            base.ExitInput();
+            ExitInProgress();
         }
 
     }
@@ -109,19 +113,14 @@ public class SkillBarrier : Skill
     /// Calling this keeps causing newfound errors, not sure why.
     /// but it seems useless anyways?
     /// </summary>
-    // public override void EndSkill()
-    // {
-    //     base.EndSkill();
-        
-    //     // If player ends turn without confirming wall.
-    //     if (canCycle)
-    //     {
-    //         mInactiveWalls[lastWallIndex].gameObject.SetActive(false);
-    //     }
-    //     ResetValues();
-    //     ExitInput();
-    //     this.enabled = false;
-    // }
+    public override void EndSkill()
+    {
+        base.EndSkill();
+        // If player ends turn without confirming wall
+        // (this is now impossible bc end turn button goes inactive)
+        if (canCycle){ mInactiveWalls[lastWallIndex].gameObject.SetActive(false);} 
+        this.enabled = false;
+    }
 
     private void GetPossibleBarrierWalls(Transform cell)
     {

@@ -141,7 +141,7 @@ public class SkillFearTotem : Skill
 
     public void OnRightClick(InputAction.CallbackContext context)
     {
-        ExitInput();
+        ExitInProgress();
     }
 
 }

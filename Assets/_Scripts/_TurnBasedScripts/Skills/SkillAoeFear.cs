@@ -111,7 +111,7 @@ public class SkillAoeFear : Skill
     /// </summary>
     public void OnRightClick(InputAction.CallbackContext context)
     {
-        ExitInput();
+        ExitInProgress();
     }
 
 

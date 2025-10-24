@@ -147,14 +147,12 @@ public abstract class Skill : MonoBehaviour
 
     /// <summary>
     /// Each skill must perform different functions to end itself.
-    /// Called on fully exiting skill end turn!
-    /// This version is called upon exiting input, and transitions UI game state.
+    /// Called upon fully exiting skill usage (right click reverse or confirm) and transitions UI game state.
     /// </summary>
     public virtual void EndSkill()
     {
         PlayerController.Instance.SetActiveSkill(null);
         UIManagerLite.TransitionToState(UIManagerLite.GameState.BoardBase);
-
     }
     
     /// <summary>
@@ -166,12 +164,12 @@ public abstract class Skill : MonoBehaviour
     }
 
     /// <summary>
-    /// Exit any skill on right click only if they are in middle of a skill.
+    /// Exit any skill on right click only IF they are in MIDDLE of a skill.
     /// i.e., the buttons are not interactable. Give them their spent points back.
     /// </summary>
-    protected virtual void ExitInput()
+    protected virtual void ExitInProgress()
     {
-        if (!skillButton.interactable) // Check if the button is not interactable
+        if (!skillButton.interactable) // trick to see if in middle of skill usage
         {
             PlayerController.Instance.SetActiveSkill(null);
             AudioManager.PlaySFX(SFXType.ButtonSelection);

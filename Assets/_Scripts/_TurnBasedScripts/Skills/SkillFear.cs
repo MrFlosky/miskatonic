@@ -35,7 +35,7 @@ public class SkillFear : Skill
 
     private void Update()
     {
-        base.ExitInput();
+        base.ExitInProgress();
     }
 
     public void OnClick(InputAction.CallbackContext context)
