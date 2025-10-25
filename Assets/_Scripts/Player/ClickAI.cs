@@ -170,14 +170,14 @@ public class ClickAI : MonoBehaviour
 
             }
 
-            else if (hit.collider.CompareTag("Book"))
+           /* else if (hit.collider.CompareTag("Book"))
             {
                
                 hit.collider.GetComponent<Books>().ChangeBook();
-            }
+            }*/
 
             //Check is tile is a room
-            else if (hit.collider.gameObject.GetComponentInParent<MazeCellObject>().roomType != "Hallway")
+            else if (hit.collider.gameObject.GetComponentInParent<MazeCellObject>() != null &&hit.collider.gameObject.GetComponentInParent<MazeCellObject>().roomType != "Hallway")
             {
                 if (roomCamera)
                 {
