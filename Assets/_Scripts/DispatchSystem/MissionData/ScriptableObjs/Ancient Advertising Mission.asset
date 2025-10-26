@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 95ccb6b6e7296c546b4c934070f5b23a, type: 3}
-  m_Name: Cultist Per Turn Mission
+  m_Name: Ancient Advertising Mission
   m_EditorClassIdentifier: 
   title: Ancient Advertising
-  description: Post an ad for your cult, gaining a cultist now and for the next five
-    turns
+  description: Post an ad for your cult, gaining a cultist at the start of the next
+    five turns.
   cultistCost: 0
-  turnActivateTime: 5
-  reward: {fileID: -1759589401170617721, guid: d134918125ba00f42bac091027e569ad, type: 3}
+  turnActivateTime: 0
+  reward: {fileID: -2937684972890083319, guid: 4cf9b144b231deb4388e11bee215a30a, type: 3}
   usages: 0
   cultistsGranted: 1
   character: 0

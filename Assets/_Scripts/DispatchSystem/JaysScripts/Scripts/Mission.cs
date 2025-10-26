@@ -122,10 +122,14 @@ public class Mission : MonoBehaviour
                 skillReward.InitSkill();
                 skillReward.SetUsages(missionData.usages);
                 break;
-            // case RewardCultistMasses rewardCultistMasses:
-            //     rewardCultistMasses.Init(cultistPointSystem);
-            //     rewardCultistMasses.SetCultistsRewarded();
-            //     break;
+            case RewardAdvertising rewardAdvertising:
+                rewardAdvertising.Init(cultistPointSystem);
+                rewardAdvertising.SetCultistsRewarded(missionData.cultistsGranted);
+                break;
+            case RewardCultistMasses rewardCultistMasses:
+                rewardCultistMasses.Init(cultistPointSystem);
+                rewardCultistMasses.SetCultistsRewarded();
+                break;
             case RewardCultist rewardCultist:
                 rewardCultist.Init(cultistPointSystem);
                 rewardCultist.SetCultistsRewarded(missionData.cultistsGranted);
