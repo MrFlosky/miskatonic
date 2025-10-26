@@ -14,7 +14,7 @@ public class RewardCultistMasses : RewardCultist
         this.cps = cps;
     }
 
-    public void SetCultistsRewarded()
+    public void SetCultists()
     {
         // get cultist number from characterFears instead of from mission data
         cultistsToRewardTotal = CharacterFears.Instance.totalFearsDiscovered;
@@ -23,7 +23,7 @@ public class RewardCultistMasses : RewardCultist
     public override void GrantReward()
     {
         // Call this again to update 
-        SetCultistsRewarded();
+        SetCultists();
         cps.AddPoints(cultistsToRewardTotal);
         DisplayRewardMessage();
     }

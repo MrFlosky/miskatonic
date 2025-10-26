@@ -128,7 +128,7 @@ public class Mission : MonoBehaviour
                 break;
             case RewardCultistMasses rewardCultistMasses:
                 rewardCultistMasses.Init(cultistPointSystem);
-                rewardCultistMasses.SetCultistsRewarded();
+                rewardCultistMasses.SetCultists();
                 break;
             case RewardCultist rewardCultist:
                 rewardCultist.Init(cultistPointSystem);

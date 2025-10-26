@@ -22,7 +22,11 @@ public class CharacterFears : MonoBehaviour
 
     void Awake()
     {
-        if (Instance == null) Instance = this;
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else Debug.LogError("Two Character Fears in scene!");
 
         hFearsActivated = new bool[hFearTexts.Length];
         eFearsActivated = new bool[eFearTexts.Length];
