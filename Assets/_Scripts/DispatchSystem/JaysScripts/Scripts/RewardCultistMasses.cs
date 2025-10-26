@@ -5,26 +5,26 @@ using UnityEngine;
 
 public class RewardCultistMasses : RewardCultist
 {
-    private int cultistsToReward;
-    private CultistPoints cultistPointSystem;
+    private int cultistsToRewardTotal;
+    private CultistPoints cps;
 
 
     public void Init(CultistPoints cps)
     {
-        cultistPointSystem = cps;
+        this.cps = cps;
     }
 
     public void SetCultistsRewarded()
     {
-        // get cultist number from gamemanager instead of from mission data
-        cultistsToReward = GameManager.Instance.fearsDiscovered;
+        // get cultist number from characterFears instead of from mission data
+        cultistsToRewardTotal = CharacterFears.Instance.totalFearsDiscovered;
     }
 
     public override void GrantReward()
     {
         // Call this again to update 
         SetCultistsRewarded();
-        cultistPointSystem.AddPoints(cultistsToReward);
+        cps.AddPoints(cultistsToRewardTotal);
         DisplayRewardMessage();
     }
 
@@ -36,14 +36,14 @@ public class RewardCultistMasses : RewardCultist
         rewardPopupUI.SetActive(false);
 
         rewardText = rewardPopupUI.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
-        rewardText.text = cultistsToReward.ToString() + " " + rewardName;
+        rewardText.text = cultistsToRewardTotal.ToString() + " " + rewardName;
     }
 
     public override void DisplayRewardMessage()
     {
         rewardPopupUI.SetActive(true);
         timeElapsed = 0;
-        rewardText.text = cultistsToReward.ToString() + " " + rewardName;
+        rewardText.text = cultistsToRewardTotal.ToString() + " " + rewardName;
         this.enabled = true;
     }
 

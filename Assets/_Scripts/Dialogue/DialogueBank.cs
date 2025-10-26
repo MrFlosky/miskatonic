@@ -41,8 +41,8 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
     // Character's respective sprite. HANDLED BY CHAR GAME DIALOGUE
     //[SerializeField] private Sprite characterSprite;
 
-    //List of Fear to Reveal
-    public GameObject[] fears;
+    //List of Fear to Reveal. NOW HANDLED BY CHARACTERFEARS
+    //public GameObject[] fears;
 
     
 
@@ -233,8 +233,7 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
     [YarnCommand("discover_fear")]
     public void discoverFear(int fearNum)
     {
-        fears[fearNum].SetActive(true);
-        GameManager.Instance.fearsDiscovered++;
+        CharacterFears.Instance.DiscoverFear(character, fearNum);
     }
     #endregion
 

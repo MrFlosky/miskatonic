@@ -27080,6 +27080,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 610981278450333476, guid: 6c3d94bacfd3625428f1c24bddee899b, type: 3}
   m_PrefabInstance: {fileID: 782041144}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &301698133 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6553428539309393534, guid: bb1074ffb16792e4a9319b6d2e820294, type: 3}
+  m_PrefabInstance: {fileID: 567978362}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &302429560
 GameObject:
   m_ObjectHideFlags: 0
@@ -54087,13 +54092,72 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6553428539309393534, guid: bb1074ffb16792e4a9319b6d2e820294, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 567978364}
   m_SourcePrefab: {fileID: 100100000, guid: bb1074ffb16792e4a9319b6d2e820294, type: 3}
 --- !u!224 &567978363 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4950557666849229629, guid: bb1074ffb16792e4a9319b6d2e820294, type: 3}
   m_PrefabInstance: {fileID: 567978362}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &567978364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 301698133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8305cad6eee285a4fab8050c2b8851e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  totalFearsDiscovered: 0
+  hFearTexts:
+  - {fileID: 1610321677}
+  - {fileID: 1749390360}
+  - {fileID: 2111040904}
+  - {fileID: 1083744033}
+  - {fileID: 263680614}
+  - {fileID: 2124356996}
+  - {fileID: 1384273496}
+  - {fileID: 720470294}
+  - {fileID: 195243508}
+  eFearTexts:
+  - {fileID: 709662050}
+  - {fileID: 279409318}
+  - {fileID: 885713880}
+  - {fileID: 1445636652}
+  - {fileID: 251036916}
+  - {fileID: 1111285425}
+  - {fileID: 181209592}
+  - {fileID: 916312893}
+  - {fileID: 1797579862}
+  - {fileID: 1771290708}
+  iFearTexts:
+  - {fileID: 767240832}
+  - {fileID: 1383660040}
+  - {fileID: 2001292964}
+  - {fileID: 990223749}
+  - {fileID: 885616289}
+  - {fileID: 447211131}
+  - {fileID: 1264647189}
+  - {fileID: 884436619}
+  - {fileID: 1499395029}
+  - {fileID: 16395671}
+  mFearTexts:
+  - {fileID: 1487166602}
+  - {fileID: 919355542}
+  - {fileID: 1003360976}
+  - {fileID: 192011915}
+  - {fileID: 1755370713}
+  - {fileID: 1318609653}
+  - {fileID: 1943567095}
+  - {fileID: 182267379}
+  - {fileID: 76829022}
+  - {fileID: 312867602}
 --- !u!1001 &568796004
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -78879,6 +78943,7 @@ MonoBehaviour:
   gridPos: {x: 0, y: 0}
   visionRange: 4
   outlineMaterial: {fileID: -905690159841262435, guid: 824538e331efab2498d0fca3423eab92, type: 3}
+  totemCell: []
 --- !u!1 &804805056 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7682984578296859911, guid: 6c3d94bacfd3625428f1c24bddee899b, type: 3}
@@ -105389,7 +105454,6 @@ MonoBehaviour:
   CellSize: 0
   playerCam: {fileID: 1514457254}
   endTurnButton: {fileID: 0}
-  fearsDiscovered: 0
   winFear: 400
   roundsUntilDefeat: 30
 --- !u!4 &1061810803
@@ -159637,6 +159701,7 @@ MonoBehaviour:
   gridPos: {x: 0, y: 0}
   visionRange: 4
   outlineMaterial: {fileID: -905690159841262435, guid: 824538e331efab2498d0fca3423eab92, type: 3}
+  totemCell: []
 --- !u!1 &1616643099 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7682984578296859911, guid: 6c3d94bacfd3625428f1c24bddee899b, type: 3}
@@ -170640,6 +170705,7 @@ MonoBehaviour:
   gridPos: {x: 0, y: 0}
   visionRange: 4
   outlineMaterial: {fileID: -905690159841262435, guid: 824538e331efab2498d0fca3423eab92, type: 3}
+  totemCell: []
 --- !u!1 &1712710940 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4196248637664730121, guid: 773e711b1ac9352408b1c3e8d37a1f73, type: 3}
@@ -193861,6 +193927,7 @@ MonoBehaviour:
   gridPos: {x: 0, y: 0}
   visionRange: 4
   outlineMaterial: {fileID: -905690159841262435, guid: 824538e331efab2498d0fca3423eab92, type: 3}
+  totemCell: []
 --- !u!1 &1955968982 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6552313161999677569, guid: 7e3f6f673624fb648a2fc0b31c271fff, type: 3}
