@@ -28,7 +28,6 @@ public class GameManager : MonoBehaviour
     public CinemachineVirtualCamera playerCam;
     public GameObject endTurnButton; // Needs to be destroyed seperately for win/lose
 
-
     // Editable variables.
     [Header("The amount of culminated fear needed to win game")]
     public int winFear = 100;
