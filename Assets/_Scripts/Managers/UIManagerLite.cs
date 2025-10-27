@@ -40,6 +40,7 @@ public class UIManagerLite : MonoBehaviour
     // Buttons
     [SerializeField] private Button endTurnButton;
     [SerializeField] private Button dealerButton; // button for starting mission dealer interaction
+    [SerializeField] private Button rerollButton; // button for rerolling cards
     [SerializeField] private Button storyboardButton;
     [SerializeField] private Button[] potraitButtons;
 

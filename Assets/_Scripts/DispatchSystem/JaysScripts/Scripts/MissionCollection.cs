@@ -131,6 +131,17 @@ public class MissionCollection : MonoBehaviour
             mission.gameObject.SetActive(false);
         }
     }
+
+    /// <summary>
+    /// During dealer interaction, player has option to reroll
+    /// the cards presented to them. Called by DispatchSystem.
+    /// </summary>
+    public void Reroll()
+    {
+        HIDE_ALL_MISSIONS();
+        ShuffleCheck(); // must do or else will drain card pool
+        DISPLAY_AVAILABLE_MISSIONS();
+    }
     
     /// <summary>
     /// Removes given card from play pool for rest of game.

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,9 +12,21 @@ public class DispatchSystem : MonoBehaviour , ITurnObserver
 
     // true if player chose mission this turn, false if they didnt
     static public bool dealerDealtWith = false;
-    // Canvas that holds dealer canvas with cards
-    [SerializeField] private Canvas dealerCanvas;
 
+    /// <summary>
+    /// Text for reroll, including number left.
+    /// </summary>
+    [SerializeField] private TextMeshProUGUI rerollTxt;
+
+    /// <summary>
+    /// Number of rerolls available to player.
+    /// </summary>
+    int rerolls = 1;
+
+    void Awake()
+    {
+        rerollTxt.text = "Rerolls x" + rerolls;
+    }
 
     void Start()
     {
@@ -25,10 +38,9 @@ public class DispatchSystem : MonoBehaviour , ITurnObserver
     /// </summary>
     public void DealCards()
     {
-        //dealerCanvas.gameObject.SetActive(true);
         UIManagerLite.TransitionToState(UIManagerLite.GameState.Dealer);
 
-        
+
         MissionCollection.S.DISPLAY_AVAILABLE_MISSIONS();
         MissionCollection.S.ShuffleCheck(); // shuffle second so new pool ready on next turn
     }
@@ -42,11 +54,20 @@ public class DispatchSystem : MonoBehaviour , ITurnObserver
         UIManagerLite.TransitionToState(UIManagerLite.GameState.BoardBase);
         dealerDealtWith = true;
         MissionCollection.S.HIDE_ALL_MISSIONS();
+    }
 
-
-        //initiateCardDealerBStatic.gameObject.SetActive(false);
-        //dealerCanvasStatic.gameObject.SetActive(false);
-        //UIManagerLite.EnableEndTurnButton();
+    /// <summary>
+    /// Called upon reroll button press.
+    /// </summary>
+    public void Reroll()
+    {
+        if(rerolls > 0)
+        {
+            rerolls -= 1;
+            MissionCollection.S.Reroll();
+            rerollTxt.text = "Rerolls x" + rerolls;
+        }
+        
     }
 
     /// <summary>
@@ -56,6 +77,10 @@ public class DispatchSystem : MonoBehaviour , ITurnObserver
     void ITurnObserver.PlayerTurnInitiated()
     {
         dealerDealtWith = false;
+
+        // add reroll and update text
+        rerolls = 1;
+        rerollTxt.text = "Rerolls x" + rerolls;
         //initiateCardDealerButton.gameObject.SetActive(true);
     }
     void ITurnObserver.EnemyTurnInitiated()
