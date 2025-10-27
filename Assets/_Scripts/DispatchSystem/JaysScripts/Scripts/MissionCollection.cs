@@ -59,6 +59,8 @@ public class MissionCollection : MonoBehaviour
     /// </summary>
     public void DISPLAY_AVAILABLE_MISSIONS()
     {
+
+        ShuffleCheck();
         // Generate random index, grab that mission from available mission list,
         // then remove it from there. Add to in progress missions.
 

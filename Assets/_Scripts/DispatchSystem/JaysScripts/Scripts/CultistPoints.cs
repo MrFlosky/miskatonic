@@ -22,6 +22,7 @@ public class CultistPoints : MonoBehaviour
     // Number of available points player has
     [SerializeField] public int cultistPoints;
 
+
     void Start()
     {
         S = this;
@@ -38,6 +39,22 @@ public class CultistPoints : MonoBehaviour
         {
             cultistPoints -= cost;
             UpdateText();
+            return true;
+        }
+
+        return false;
+    }
+
+    /// <summary>
+    /// Called by DispatchSystem. Returns true if player has enough cps to 
+    /// buy another reroll (only called if this ability was unlocked).
+    /// </summary>
+    static public bool AttemptRerollPurchase(int cost)
+    {
+        if (S.cultistPoints >= cost)
+        {
+            S.cultistPoints -= cost;
+            S.UpdateText();
             return true;
         }
 
