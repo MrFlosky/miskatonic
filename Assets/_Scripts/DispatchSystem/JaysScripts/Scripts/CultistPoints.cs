@@ -5,6 +5,13 @@ using UnityEngine;
 using TMPro;
 using Unity.VisualScripting;
 
+/// <summary>
+/// This class is responsible for managing cultist points used to purchase
+/// skill usages and rerolls.
+/// 
+/// Note: Skills dont have an attempt purchase funct, but rather manually use the add/deduct.
+/// This is done bc can cancel skill to readd pts and to keep that add/ded usage consistent.
+/// </summary>
 public class CultistPoints : MonoBehaviour
 {
     static private CultistPoints S;
