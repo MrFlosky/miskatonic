@@ -1,7 +1,9 @@
-using UnityEngine;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Collections.Generic;
+using UnityEngine;
 
 /// <summary>
 /// Handles save data by writing/reading data to/from individual binary files, as well as managing a unique binary file that holds information about all the saves managed
@@ -16,13 +18,15 @@ public class SaveManager : MonoBehaviour
     /*
     TODO:
         High Prio
+        - Loading save data into scene (LoadManager)
         - Save/Load UIs
         - Reading map base and changes made to the map (barriers placed/walls destroyed)
         - Reading ability unlocks
         - Reading dispatch deck state
         - Reading fears discovered
         - Reading dialogue info? (idk if its based on turns or previous dialogue)
-        - Loading save data into scene
+        - Reading turn counts (ai turn count, player turn count, etc.)
+
 
         Med Prio
         - Warn user when a save will be overwritten
@@ -97,8 +101,12 @@ public class SaveManager : MonoBehaviour
         PlayerData data = formatter.Deserialize(stream) as PlayerData;
         stream.Close();
 
-        // Load this data into a new scene and then open it [WIP]
-        // This is the hard part lol
+
+        // Send to LoadManager and then load/reload the scene
+        LoadManager.S.playerDataToLoad = data;
+        SceneController.Instance.LoadScene("NEW_MAIN");
+
+
 
     }
 
