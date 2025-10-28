@@ -43,6 +43,7 @@ public class UIManagerLite : MonoBehaviour
     [SerializeField] private Button rerollButton; // button for rerolling cards
     [SerializeField] private Button storyboardButton;
     [SerializeField] private Button[] potraitButtons;
+    [SerializeField] private GameObject portraitOb; // holds all potraits and text
 
     // Responsible for all relevant UI functions for skills
     [SerializeField] private SkillsCollection skillUICollection;
@@ -188,6 +189,7 @@ public class UIManagerLite : MonoBehaviour
                     S.storyboardButton.gameObject.SetActive(true);
                     S.endTurnButton.gameObject.SetActive(true);
                     S.skillUICollection.ENABLE_BUTTONS();
+                    S.portraitOb.SetActive(true);
 
 
                 }
@@ -220,8 +222,8 @@ public class UIManagerLite : MonoBehaviour
                     S.endTurnButton.gameObject.SetActive(true);
                     S.skillPointUICollection.DISPLAY_PTS();
                     S.skillUICollection.DISPLAY_SKILLS();
-                    S.EnablePortraitButtons();
-
+                    //S.EnablePortraitButtons();
+                    S.portraitOb.SetActive(true);
 
                 }
                 // TRANSITION: EnemyTurn → BoardBase
@@ -234,6 +236,7 @@ public class UIManagerLite : MonoBehaviour
                     S.endTurnButton.gameObject.SetActive(true);
                     S.skillUICollection.DISPLAY_SKILLS();
                     S.skillPointUICollection.DISPLAY_PTS();
+                    S.portraitOb.SetActive(true);
                 }
                 break;
 
@@ -273,6 +276,7 @@ public class UIManagerLite : MonoBehaviour
                     S.endTurnButton.gameObject.SetActive(false);
                     S.skillUICollection.DEACTIVATE_SKILLS_NAKED(); // ends any skill currently in use
                     S.skillUICollection.DISABLE_BUTTONS();
+                    S.portraitOb.SetActive(false);
                 }
                 break;
 
@@ -312,7 +316,8 @@ public class UIManagerLite : MonoBehaviour
                     S.endTurnButton.gameObject.SetActive(false);
                     S.skillPointUICollection.HIDE_PTS();
                     S.skillUICollection.HIDE_SKILLS();
-                    S.DisablePortaitButtons();
+                    //S.DisablePortaitButtons();
+                    S.portraitOb.SetActive(false);
 
                 }
                 break;
@@ -331,6 +336,7 @@ public class UIManagerLite : MonoBehaviour
                     S.skillUICollection.DEACTIVATE_SKILLS_NAKED();
                     S.skillUICollection.HIDE_SKILLS();
                     S.skillPointUICollection.HIDE_PTS();
+                    S.portraitOb.SetActive(false);
                 }
                 break;
         }
