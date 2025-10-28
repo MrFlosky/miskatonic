@@ -51,6 +51,13 @@ public class TurnBasedSystem : MonoBehaviour
     void Start()
     {
         S = this;
+        if (LoadManager.S.playerDataToLoad != null)
+        {
+            PlayerData pd = LoadManager.S.playerDataToLoad;
+            roundsUntilDefeat = GameManager.Instance.GetRoundsTillDefeat() - pd.turn;
+            // also need to save
+        }
+        
         roundsUntilDefeat = GameManager.Instance.GetRoundsTillDefeat();
         //S.txt.text = "Total Turns: " + S.totalTurnCount + "\n" + "Player Turns: " + S.playerTurnCount + "\n" + "AI Turns: " + S.aiTurnCount; ///***DEBUG
         S.txt.text = "Turns Left: " + (S.roundsUntilDefeat / 2 - S.aiTurnCount);
