@@ -3,6 +3,7 @@ using DialogueEditor;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -101,10 +102,10 @@ public class ClickAI : MonoBehaviour
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
 
-            
+
             if (hit.collider.CompareTag("AI"))
             {
-                
+
 
                 GameObject aiGameObj = hit.collider.gameObject;
                 DialogueBank dialogueBank = aiGameObj.GetComponent<DialogueBank>();
@@ -145,7 +146,7 @@ public class ClickAI : MonoBehaviour
                     {
                         roomCamera.enabled = false;
                     }
-                    
+
                     virtualCam.gameObject.SetActive(true);
                     virtualCam.enabled = true;
                 }
@@ -163,81 +164,82 @@ public class ClickAI : MonoBehaviour
 
                 UIManagerLite.TransitionToState(UIManagerLite.GameState.Dialogue);
 
-
-
-
-
-
             }
 
-           /* else if (hit.collider.CompareTag("Book"))
-            {
-               
-                hit.collider.GetComponent<Books>().ChangeBook();
-            }*/
+            /* else if (hit.collider.CompareTag("Book"))
+             {
+
+                 hit.collider.GetComponent<Books>().ChangeBook();
+             }*/
 
             //Check is tile is a room
-            else if (hit.collider.gameObject.GetComponentInParent<MazeCellObject>() != null &&hit.collider.gameObject.GetComponentInParent<MazeCellObject>().roomType != "Hallway")
+            else if (hit.collider.gameObject.GetComponentInParent<MazeCellObject>() != null && hit.collider.gameObject.GetComponentInParent<MazeCellObject>().roomType != "Hallway")
             {
-                if (roomCamera)
+                if (Keyboard.current.leftShiftKey.isPressed)
                 {
-                    roomCamera.enabled = false;
+                    cameraRoomManagement(hit);
                 }
-                if (hit.collider.gameObject.GetComponentInParent<MazeCellObject>().roomType != null)
-                {
-                    isSnooping = true;
-                    //Set the room camera to the room type being clicked
-                    switch (hit.collider.gameObject.GetComponentInParent<MazeCellObject>().roomType)
-                    {                        
-                        //camera blend on room click
-                        case "Bedroom":
-                            roomCamera = Maze.gameObject.GetComponent<MazeRenderer>().bedroomCam;
-                            break;
-                        case "Library":
-                            roomCamera = Maze.gameObject.GetComponent<MazeRenderer>().libraryCam;
-                            break;
-                        case "Dining Room":
-                            roomCamera = Maze.gameObject.GetComponent<MazeRenderer>().diningCam;
-                            break;
-                        case "Dungeon":
-                            roomCamera = Maze.gameObject.GetComponent<MazeRenderer>().dungeonCam;
-                            break;
-                        case "Ritual Room":
-                            roomCamera = Maze.gameObject.GetComponent<MazeRenderer>().ritualCam;
-                            break;
-                        case "Cemetery":
-                            roomCamera = Maze.gameObject.GetComponent<MazeRenderer>().cemeteryCam;
-                            break;
-                    }
-
-                    //Check if a skill is in use
-                    if (this.gameObject.GetComponent<PlayerController>().activeSkill != null)
-                    {
-                        isUsingSkill = true;
-                    }
-                    if (this.gameObject.GetComponent<PlayerController>().activeSkill == null)
-                    {
-                        isUsingSkill = false;
-                    }
-
-                    //Blend Camera if skill not in use
-                    if (roomCamera && !isUsingSkill)
-                    {
-                        if (roomCamera.enabled == false)
-                        {
-                            roomCamera.gameObject.SetActive(true);
-                            roomCamera.enabled = true;
-                        }                        
-                    }
-                    activeCamera = roomCamera;
-                    playerCam.enabled = false;
-                }            
             }
-            
-
         }
     }
 
+    private void cameraRoomManagement(RaycastHit Room)
+    {
+        if (roomCamera)
+        {
+            roomCamera.enabled = false;
+        }
+        if (Room.collider.gameObject.GetComponentInParent<MazeCellObject>().roomType != null)
+        {
+            isSnooping = true;
+            //Set the room camera to the room type being clicked
+            switch (Room.collider.gameObject.GetComponentInParent<MazeCellObject>().roomType)
+            {
+                //camera blend on room click
+                case "Bedroom":
+                    roomCamera = Maze.gameObject.GetComponent<MazeRenderer>().bedroomCam;
+                    break;
+                case "Library":
+                    roomCamera = Maze.gameObject.GetComponent<MazeRenderer>().libraryCam;
+                    break;
+                case "Dining Room":
+                    roomCamera = Maze.gameObject.GetComponent<MazeRenderer>().diningCam;
+                    break;
+                case "Dungeon":
+                    roomCamera = Maze.gameObject.GetComponent<MazeRenderer>().dungeonCam;
+                    break;
+                case "Ritual Room":
+                    roomCamera = Maze.gameObject.GetComponent<MazeRenderer>().ritualCam;
+                    break;
+                case "Cemetery":
+                    roomCamera = Maze.gameObject.GetComponent<MazeRenderer>().cemeteryCam;
+                    break;
+            }
+
+            //Check if a skill is in use
+            if (this.gameObject.GetComponent<PlayerController>().activeSkill != null)
+            {
+                isUsingSkill = true;
+            }
+            if (this.gameObject.GetComponent<PlayerController>().activeSkill == null)
+            {
+                isUsingSkill = false;
+            }
+
+            //Blend Camera if skill not in use
+            if (roomCamera && !isUsingSkill)
+            {
+                if (roomCamera.enabled == false)
+                {
+                    roomCamera.gameObject.SetActive(true);
+                    roomCamera.enabled = true;
+                }
+            }
+            activeCamera = roomCamera;
+            playerCam.enabled = false;
+        
+    }
+}
 
     /// <summary>
     /// 
@@ -479,7 +481,8 @@ public class ClickAI : MonoBehaviour
     {
         // Clear outlines unless hodling right-click in player's turn
         if (rightClicking && TurnBasedSystem.IsPlayerTurn()) return;
-        ClearOutlines();           
+        ClearOutlines();
+        
     }
 
     [SerializeField] CinemachineVirtualCamera storyboardCam;

@@ -18,6 +18,8 @@ public class NarrativeRewardTracker : MonoBehaviour
     private Dictionary<Character, List<int>> characterClueDialogues = new Dictionary<Character, List<int>>();
     [SerializeField] DialogueRunner dialogueRunner;
 
+    public int listIndex = 0;
+
 
     void Start()
     {
@@ -28,15 +30,15 @@ public class NarrativeRewardTracker : MonoBehaviour
     /// Play random dialogue for given character,
     /// then remove that dialogue index as a possibility.
     /// </summary>
-    public void PlayRandomDialogue(Character chara)
+    public void PlayDialogue(Character chara)
     {
         // Check if any clues remaining first
         if (characterClueDialogues[chara].Count == 0)
         {
             OutOfDialogues(chara);
             return;
-        }
-        int listIndex = UnityEngine.Random.Range(0, characterClueDialogues[chara].Count);
+        }        
+
         // access the dialogue at the random index, then play and remove
         // whatever dialogue number that returns from the list
         int dialogueKey = characterClueDialogues[chara][listIndex];

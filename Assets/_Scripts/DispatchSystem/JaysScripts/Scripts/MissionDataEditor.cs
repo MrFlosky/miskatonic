@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using UnityEditor;
 
 /// <summary>
@@ -43,3 +44,4 @@ public class MissionDataEditor : Editor
         serializedObject.ApplyModifiedProperties();
     }
 }
+#endif

@@ -38,7 +38,7 @@ public class NarrativeReward : Reward
 
     public override void GrantReward()
     {
-        tracker.PlayRandomDialogue(characterTarget);
+        tracker.PlayDialogue(characterTarget);
     }
 
     // only on when enabled
