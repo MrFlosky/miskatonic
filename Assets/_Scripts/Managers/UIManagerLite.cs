@@ -132,6 +132,8 @@ public class UIManagerLite : MonoBehaviour
         // Check if transition is allowed
         if (!CanTransition(newState))
         {
+            //Debug.Log($"Called from:\n{System.Environment.StackTrace}");
+
             Debug.LogWarning($"Cannot transition from {S.currentState} to {newState}");
             return false;
         }

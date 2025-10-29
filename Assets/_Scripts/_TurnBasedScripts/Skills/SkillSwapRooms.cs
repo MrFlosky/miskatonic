@@ -112,9 +112,8 @@ public class SkillSwapRooms : Skill
             AudioManager.PlaySFX(SFXType.MouseButtonHit);
             return;
         }
-        base.ExitInProgress();
-        EndSkill();
 
+        base.ExitInProgress();
     }
 
 

@@ -18,9 +18,9 @@ using Yarn.Unity;
 /// 
 /// Responsibilities:
 /// - Triggering dialouge with AI
+/// - Room viewing
 /// - Managing camrea trsnsitions between player camera and AI camera
 /// - Handling outline visualization for AI movement paths
-/// - Disabling/enabling UI buttons during conversations
 /// 
 /// </summary>
 public class ClickAI : MonoBehaviour
