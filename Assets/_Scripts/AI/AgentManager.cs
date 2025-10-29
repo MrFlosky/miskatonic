@@ -11,7 +11,7 @@ public class AgentManager : MonoBehaviour
     
     [SerializeField] private float turnTimeout = 60f; // Maximum time for all agents to complete turns
     private float turnStartTime;
-    private bool agentTurnInProgress = false;
+    private bool agentTurnInProgress;
 
     private void Start()
     {
@@ -42,10 +42,22 @@ public class AgentManager : MonoBehaviour
             Debug.Log("Not all agents finished yet");
             return;
         }
-        
+    
         // All agents finished, start player turn
         Debug.Log("All agents finished - starting player turn");
         agentTurnInProgress = false;
+    
+        if (LureManager.Instance != null)
+        {
+            LureManager.Instance.DecreaseLureDuration();
+        }
+    
+        if (PathCoordinator.Instance != null)
+        {
+            PathCoordinator.Instance.ClearAllReservations();
+            Debug.Log("Cleared agent paths after turn completion");
+        }
+    
         TurnBasedSystem.StartPlayerTurn();
     }
     
@@ -55,12 +67,27 @@ public class AgentManager : MonoBehaviour
         Debug.Log("Starting agent turns");
         agentTurnInProgress = true;
         turnStartTime = Time.time;
-        
-        // Reset all agents for their turn
+    
+        if (PathVisualizer.Instance != null && PathVisualizer.Instance.ArePathsVisible())
+        {
+            Debug.Log("Hiding path visualization as agent turn starts");
+            PathVisualizer.Instance.HidePaths();
+        }
+    
         foreach (var agent in agents)
         {
             agent.turnFinished = false;
+            agent.ResetTurnMovement();
             Debug.Log($"{agent.name}: turnFinished reset to false");
+        }
+    
+        if (PathCoordinator.Instance != null)
+        {
+            PathCoordinator.Instance.CoordinateAgentPaths(agents);
+        }
+        else
+        {
+            Debug.LogError("PathCoordinator not found!");
         }
     }
     

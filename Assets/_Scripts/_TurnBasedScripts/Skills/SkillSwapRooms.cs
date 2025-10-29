@@ -204,6 +204,8 @@ public class SkillSwapRooms : Skill
         {
             agent.OnRoomSwapped();
         }
+        
+        MapChangeEvents.InvokeRoomsSwapped();
     }
 
 

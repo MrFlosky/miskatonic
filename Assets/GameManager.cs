@@ -77,26 +77,100 @@ public class GameManager : MonoBehaviour
     {
         if(TurnBasedSystem.GET_TURN_COUNT() == roundsUntilDefeat && TurnBasedSystem.IsPlayerTurn())
         {
-            // Gameover
             Lose("Summon opening missed");
         }
     }
 
-    
-    private bool CHECK_GOAL_ROOM_LOSE()
+    /// <summary>
+    /// Check if all agents are in the ritual room with their keys
+    /// </summary>
+    private bool CHECK_RITUAL_ROOM_LOSE()
     {
-        // check if all agents foundGoal bool is true
-        // PARAM => WHAT IS RETURNED
-        return agentGoalRoom.Values.All(foundGoal => foundGoal);
+        bool allHaveKeys = agentGoalRoom.Values.All(foundGoal => foundGoal);
+        
+        if (!allHaveKeys)
+        {
+            return false;
+        }
+        
+        int agentsInRitualRoom = 0;
+        int totalAgents = agentGoalRoom.Count;
+        
+        foreach (var agent in agentGoalRoom.Keys)
+        {
+            if (IsAgentInRitualRoom(agent))
+            {
+                agentsInRitualRoom++;
+            }
+        }
+        
+        if (agentsInRitualRoom == totalAgents && totalAgents > 0)
+        {
+            Debug.Log($"All {totalAgents} agents are in Ritual Room with their keys!");
+            return true;
+        }
+        
+        if (agentsInRitualRoom > 0)
+        {
+            Debug.Log($"Ritual Room Progress: {agentsInRitualRoom}/{totalAgents} agents present (all have keys)");
+        }
+        
+        return false;
     }
-
-
+    
+    /// <summary>
+    /// Check if a specific agent is currently in the Ritual Room
+    /// </summary>
+    private bool IsAgentInRitualRoom(AgentNavigation agent)
+    {
+        if (agent == null || centralMaze == null)
+        {
+            return false;
+        }
+        
+        // Get agent's current grid position
+        Vector2Int agentPos = agent.WorldToGridPosition(agent.transform.position);
+        
+        // Check bounds
+        if (agentPos.x < 0 || agentPos.x >= centralMaze.GetLength(0) ||
+            agentPos.y < 0 || agentPos.y >= centralMaze.GetLength(1))
+        {
+            return false;
+        }
+        
+        MazeCell currentCell = centralMaze[agentPos.x, agentPos.y];
+        
+        return currentCell.roomTile && currentCell.roomType == "Ritual Room";
+    }
+    
+    /// <summary>
+    /// Get count of agents currently in ritual room
+    /// </summary>
+    public int GetAgentsInRitualRoomCount()
+    {
+        int count = 0;
+        foreach (var agent in agentGoalRoom.Keys)
+        {
+            if (IsAgentInRitualRoom(agent))
+            {
+                count++;
+            }
+        }
+        return count;
+    }
+    
+    /// <summary>
+    /// Get count of agents with keys (for UI/debugging)
+    /// </summary>
+    public int GetAgentsWithKeysCount()
+    {
+        return agentGoalRoom.Values.Count(hasKey => hasKey);
+    }
 
     public bool CheckAgentGoal(AgentNavigation ag)
     {
         if (agentGoalRoom[ag] == true)
         {
-
             return true;
         }
         return false;
@@ -202,7 +276,10 @@ public class GameManager : MonoBehaviour
     private void LateUpdate()
     {
         DisplayAgentsGoalStatus();
-        if (CHECK_GOAL_ROOM_LOSE())
-            Lose("Humans conquered fear");
+        
+        if (CHECK_RITUAL_ROOM_LOSE())
+        {
+            Lose("Ritual completed - humans conquered fear");
+        }
     }
 }

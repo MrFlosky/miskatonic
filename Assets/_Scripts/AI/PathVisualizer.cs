@@ -1,0 +1,182 @@
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PathVisualizer : MonoBehaviour
+{
+    public static PathVisualizer Instance;
+    
+    [SerializeField] private GameObject pathMarkerPrefab;
+    [SerializeField] private float markerHeight = 0.6f;
+    
+    [SerializeField] private Color[] agentColors = 
+    {
+        new Color(1f, 0f, 0f, 0.5f),     // Red
+        new Color(0f, 1f, 0f, 0.5f),     // Green
+        new Color(0f, 0f, 1f, 0.5f),     // Blue
+        new Color(1f, 1f, 0f, 0.5f)      // Yellow
+    };
+    
+    private Dictionary<AgentNavigation, List<GameObject>> visualizedPaths = new();
+    private bool pathsVisible;
+    
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+    
+    private void OnEnable()
+    {
+        MapChangeEvents.OnMapChanged += HandleMapChanged;
+    }
+
+    private void OnDisable()
+    {
+        MapChangeEvents.OnMapChanged -= HandleMapChanged;
+    }
+
+    private void OnDestroy()
+    {
+        MapChangeEvents.OnMapChanged -= HandleMapChanged;
+    }
+
+    private void HandleMapChanged()
+    {
+        if (pathsVisible)
+        {
+            HidePaths();
+            ShowPaths();
+        }
+    }
+    
+    public bool ArePathsVisible()
+    {
+        return pathsVisible;
+    }
+    
+    public void ShowPaths()
+    {
+        if (PathCoordinator.Instance == null)
+        {
+            Debug.LogWarning("PathCoordinator.Instance is null");
+            return;
+        }
+        
+        if (GameManager.Instance == null)
+        {
+            Debug.LogWarning("GameManager.Instance is null");
+            return;
+        }
+        
+        if (AgentManager.Instance == null)
+        {
+            Debug.LogWarning("AgentManager.Instance is null");
+            return;
+        }
+
+        HidePaths();
+        
+        if (TurnBasedSystem.IsPlayerTurn())
+        {
+            PathCoordinator.Instance.CoordinateAgentPaths(AgentManager.Instance.agents);
+        }
+        
+        var allPaths = PathCoordinator.Instance.GetAllPlannedPaths();
+        
+        if (allPaths.Count == 0)
+        {
+            return;
+        }
+        
+        int colorIndex = 0;
+        
+        foreach (var kvp in allPaths)
+        {
+            AgentNavigation agent = kvp.Key;
+            List<(Vector2Int position, int timeStep)> path = kvp.Value;
+            
+            if (path.Count == 0) 
+            {
+                continue;
+            }
+            
+            Color agentColor = agentColors[colorIndex % agentColors.Length];
+            colorIndex++;
+            
+            List<GameObject> markers = new List<GameObject>();
+            
+            for (int i = 0; i < path.Count; i++)
+            {
+                var (position, timeStep) = path[i];
+                Vector3 worldPos = GetWorldPosition(position);
+                GameObject marker = Instantiate(pathMarkerPrefab, worldPos, Quaternion.identity, transform);
+                
+                Renderer renderer = marker.GetComponent<Renderer>();
+                if (renderer != null)
+                {
+                    Material mat = new Material(renderer.material);
+                    mat.color = agentColor;
+                    renderer.material = mat;
+                }
+                
+                float scale = Mathf.Lerp(0.6f, 0.3f, (float)i / Mathf.Max(1, path.Count - 1));
+                marker.transform.localScale = Vector3.one * scale;
+                
+                markers.Add(marker);
+            }
+            
+            visualizedPaths[agent] = markers;
+        }
+        
+        pathsVisible = true;
+    }
+    
+    public void HidePaths()
+    {
+        foreach (var markers in visualizedPaths.Values)
+        {
+            foreach (var marker in markers)
+            {
+                if (marker != null)
+                {
+                    Destroy(marker);
+                }
+            }
+        }
+        
+        visualizedPaths.Clear();
+        pathsVisible = false;
+        
+        if (TurnBasedSystem.IsPlayerTurn() && PathCoordinator.Instance != null)
+        {
+            PathCoordinator.Instance.ClearAllReservations();
+        }
+    }
+    
+    public void TogglePaths()
+    {
+        if (pathsVisible)
+        {
+            HidePaths();
+        }
+        else
+        {
+            ShowPaths();
+        }
+    }
+    
+    private Vector3 GetWorldPosition(Vector2Int gridPosition)
+    {
+        return new Vector3(
+            gridPosition.x * GameManager.Instance.CellSize, 
+            markerHeight, 
+            gridPosition.y * GameManager.Instance.CellSize
+        );
+    }
+}
