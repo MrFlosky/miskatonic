@@ -1,18 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class SkillRenovation : MonoBehaviour
+using UnityEngine.InputSystem;
+public class SkillRenovation : Skill
 {
-    // Start is called before the first frame update
-    void Start()
+    public void OnClick(InputAction.CallbackContext context)
     {
-        
-    }
+        print("gere");
 
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

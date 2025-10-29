@@ -88,6 +88,9 @@ public class PlayerController : MonoBehaviour
                 case SkillLure skillLure:
                     skillLure.OnClick(context);
                     break;
+                case SkillRenovation skillRenovation:
+                    skillRenovation.OnClick(context);
+                    break;
             }
 
 
