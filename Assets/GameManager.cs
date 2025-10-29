@@ -128,19 +128,41 @@ public class GameManager : MonoBehaviour
             return false;
         }
         
-        // Get agent's current grid position
         Vector2Int agentPos = agent.WorldToGridPosition(agent.transform.position);
         
-        // Check bounds
         if (agentPos.x < 0 || agentPos.x >= centralMaze.GetLength(0) ||
             agentPos.y < 0 || agentPos.y >= centralMaze.GetLength(1))
         {
             return false;
         }
-        
+    
         MazeCell currentCell = centralMaze[agentPos.x, agentPos.y];
         
-        return currentCell.roomTile && currentCell.roomType == "Ritual Room";
+        if (currentCell.roomTile && currentCell.roomType == "Ritual Room")
+        {
+            return IsStandingSpot(agentPos, "Ritual Room");
+        }
+    
+        return false;
+    }
+    
+    private bool IsStandingSpot(Vector2Int position, string roomType)
+    {
+        List<Room> allRooms = GetRooms();
+    
+        foreach (Room room in allRooms)
+        {
+            if (room.roomType == roomType)
+            {
+                if (room.standingSpots != null && room.standingSpots.Contains(position))
+                {
+                    return true;
+                }
+                break;
+            }
+        }
+    
+        return false;
     }
     
     /// <summary>

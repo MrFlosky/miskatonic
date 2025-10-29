@@ -124,9 +124,7 @@ public class AgentNavigation : MonoBehaviour
     
     private void FollowPath()
     {
-
         if (!isMoving || path.Count == 0) return;
-        
 
         Vector3 currentPosition = transform.position;
         Vector3 targetPosition = destination;
@@ -143,7 +141,7 @@ public class AgentNavigation : MonoBehaviour
             FreeCell(previousGrid);
 
             path.RemoveAt(0);
-            tilesMoved++; // Increment tiles moved counter
+            tilesMoved++;
 
             Vector2Int gridPosition = WorldToGridPosition(transform.position);
             MazeCell currentCell = gameManager.centralMaze[gridPosition.x, gridPosition.y];
@@ -154,25 +152,32 @@ public class AgentNavigation : MonoBehaviour
             visitCount[gridPosition]++;
 
             string roomType = currentCell.roomType;
-
-            // Check if we've reached a room tile that we haven't visited
+            
             if (!IsRoomVisited(roomType) && currentCell.roomTile)
             {
-                MarkRoomAsVisited(roomType);
-                EnterRoom(roomType);
-                StopMovement();
-                return;
+                if (IsStandingSpot(gridPosition, roomType))
+                {
+                    Debug.Log($"{gameObject.name}: Reached designated standing spot at {gridPosition} in {roomType} - entering room");
+                    MarkRoomAsVisited(roomType);
+                    EnterRoom(roomType);
+                    StopMovement();
+                    return;
+                }
+                else
+                {
+                    Debug.Log($"{gameObject.name}: Passing through {roomType} at {gridPosition} (not a standing spot)");
+                }
             }
             
-            // Update current room tracking
             if (currentCell.roomTile && currentRoom != currentCell.roomType)
             {
-                EnterRoom(roomType);
+                currentRoom = currentCell.roomType;
             }
             else if (currentCell.roomType == "Hallway")
+            {
                 currentRoom = null;
-
-            // Check if we've moved the maximum tiles for this turn
+            }
+            
             if (HasMovedMaxTiles())
             {
                 Debug.Log($"{gameObject.name}: Moved {tilesMoved} tiles this turn - pausing");
@@ -181,11 +186,9 @@ public class AgentNavigation : MonoBehaviour
 
             if (path.Count > 0)
             {
-
                 Vector3 nextPos = GetWorldPosition(path[0].position);
                 Vector3 moveDir = (nextPos - transform.position).normalized;
-
-                // Determine facing direction for PlayerVision
+                
                 if (playerVision != null)
                 {
                     if (Mathf.Abs(moveDir.x) > Mathf.Abs(moveDir.z))
@@ -198,43 +201,18 @@ public class AgentNavigation : MonoBehaviour
                     }
                 }
 
-                // Update vision highlights
                 if (playerVision != null)
                 {
                     Debug.Log("playerVision updated.");
                     playerVision.UpdateVision(true);
                 }
-
-                // Check if next cell is still walkable
+                
                 MazeCell nextCell = path[0];
                 if (!IsWalkable(currentCell, nextCell))
                 {
-                    // Path is blocked by walls, need to recalculate
-                    Vector2Int targetPos = path[path.Count - 1].position;
-                    path.Clear();
-                    path = FindPath(gridPosition, targetPos);
-                    
-                    if (path.Count == 0)
-                    {
-                        Debug.LogWarning($"{gameObject.name}: Path blocked by walls and cannot recalculate");           
-                        StopMovement();
-                        return;
-                    }
-                }
-                // Check if next cell is occupied by another agent (only for hallways, not rooms)
-                else if (!nextCell.roomTile && IsCellOccupiedByOther(nextCell.position))
-                {
-                    // Hallway is blocked by another agent, need to recalculate
-                    Vector2Int targetPos = path[^1].position;
-                    path.Clear();
-                    path = FindPath(gridPosition, targetPos);
-                    
-                    if (path.Count == 0)
-                    {
-                        Debug.LogWarning($"{gameObject.name}: Path blocked by agent and cannot recalculate");
-                        StopMovement();
-                        return;
-                    }
+                    Debug.LogError($"{gameObject.name}: Path blocked by walls during movement - stopping");
+                    StopMovement();
+                    return;
                 }
                 
                 ReserveNextCell();
@@ -245,6 +223,25 @@ public class AgentNavigation : MonoBehaviour
                 StopMovement();
             }
         }
+    }
+    
+    private bool IsStandingSpot(Vector2Int position, string roomType)
+    {
+        List<Room> allRooms = GameManager.Instance.GetRooms();
+        
+        foreach (Room room in allRooms)
+        {
+            if (room.roomType == roomType)
+            {
+                if (room.standingSpots != null && room.standingSpots.Contains(position))
+                {
+                    return true;
+                }
+                break;
+            }
+        }
+        
+        return false;
     }
     
     public void ReserveNextCell()
@@ -346,7 +343,7 @@ public class AgentNavigation : MonoBehaviour
             {
                 if (closedSet.Contains(neighbor)) continue;
                 
-                if (neighbor != targetCell && !neighbor.roomTile && IsCellOccupiedByOther(neighbor.position))
+                if (neighbor != targetCell && IsCellOccupiedByOther(neighbor.position))
                     continue;
 
                 float tentativeGScore = gScore[current] + 1;
@@ -801,12 +798,12 @@ public class AgentNavigation : MonoBehaviour
             foreach (MazeCell neighbor in GetNeighbors(current))
             {
                 if (closedSet.Contains(neighbor)) continue;
-                
+    
                 if (!IsWalkable(current, neighbor)) continue;
-                
+    
                 int neighborTime = currentTime + 1;
                 
-                if (neighbor != targetCell && !neighbor.roomTile)
+                if (neighbor != targetCell)
                 {
                     if (PathCoordinator.Instance != null && 
                         PathCoordinator.Instance.IsCellReservedAtTime(neighbor.position, neighborTime, this))
@@ -814,8 +811,8 @@ public class AgentNavigation : MonoBehaviour
                         continue;
                     }
                 }
-                
-                if (neighbor != targetCell && !neighbor.roomTile && IsCellOccupiedByOther(neighbor.position))
+    
+                if (neighbor != targetCell && IsCellOccupiedByOther(neighbor.position))
                 {
                     continue;
                 }

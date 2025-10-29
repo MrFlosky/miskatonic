@@ -320,17 +320,16 @@ public class MazeGenerator : MonoBehaviour {
     /// </summary>
     /// <param name="maze"></param>
     /// <returns></returns>
-    public bool CreateRoom(MazeCell[,] maze)
+   public bool CreateRoom(MazeCell[,] maze)
     {
-        int xLength = Random.Range(roomXSizeMin, roomXSizeMax); // get random x size of room
-        int yLength = Random.Range(roomYSizeMin, roomYSizeMax); // get random y size of room
+        int xLength = Random.Range(roomXSizeMin, roomXSizeMax);
+        int yLength = Random.Range(roomYSizeMin, roomYSizeMax);
 
         int startX = Random.Range(Mathf.RoundToInt(xLength / 2), mazeWidth - Mathf.RoundToInt(xLength / 2));
         int startY = Random.Range(Mathf.RoundToInt(yLength / 2), mazeHeight - Mathf.RoundToInt(yLength / 2));
 
         int farLeftX = startX - Mathf.RoundToInt(xLength / 2);
         int farRightX = startX + Mathf.CeilToInt(xLength / 2);
-
         int farBottomY = startY - Mathf.RoundToInt(yLength / 2);
         int farTopY = startY + Mathf.CeilToInt(yLength / 2);        
 
@@ -353,7 +352,6 @@ public class MazeGenerator : MonoBehaviour {
             }
             if (success) break;
             
-            // Try new dimensions and starting position
             xLength = Random.Range(roomXSizeMin, roomXSizeMax);
             yLength = Random.Range(roomYSizeMin, roomYSizeMax);
             startX = Random.Range(Mathf.RoundToInt(xLength / 2), mazeWidth - Mathf.RoundToInt(xLength / 2));
@@ -366,9 +364,8 @@ public class MazeGenerator : MonoBehaviour {
             tries++;
         }
 
-        if (!success) return false; // Failed to place the room
+        if (!success) return false;
 
-        // Create the room
         var rnd = Random.Range(0, _roomTypes.Count);
         Room newRoom = new Room(_roomTypes[rnd]);
         
@@ -399,6 +396,50 @@ public class MazeGenerator : MonoBehaviour {
                 newRoom.AddTile(selectedCell.position);
             }
         }
+        
+        int centerX = (farLeftX + farRightX) / 2;
+        int centerY = (farBottomY + farTopY) / 2;
+        
+        List<Vector2Int> standingSpots = new List<Vector2Int>();
+        
+        // Try to create 4 spots in a plus pattern around center
+        Vector2Int northSpot = new Vector2Int(centerX, centerY + 1);
+        Vector2Int southSpot = new Vector2Int(centerX, centerY - 1);
+        Vector2Int eastSpot = new Vector2Int(centerX + 1, centerY);
+        Vector2Int westSpot = new Vector2Int(centerX - 1, centerY);
+        
+        // Add spots if they're within room bounds
+        if (northSpot.y <= farTopY && northSpot.y >= farBottomY)
+            standingSpots.Add(northSpot);
+        
+        if (southSpot.y >= farBottomY && southSpot.y <= farTopY)
+            standingSpots.Add(southSpot);
+        
+        if (eastSpot.x <= farRightX && eastSpot.x >= farLeftX)
+            standingSpots.Add(eastSpot);
+        
+        if (westSpot.x >= farLeftX && westSpot.x <= farRightX)
+            standingSpots.Add(westSpot);
+        
+        // Fallback: if room is too small (< 4 spots), add center and corners
+        if (standingSpots.Count < 4)
+        {
+            Vector2Int center = new Vector2Int(centerX, centerY);
+            if (!standingSpots.Contains(center))
+                standingSpots.Add(center);
+            
+            // Add corners as backup
+            if (standingSpots.Count < 4)
+            {
+                standingSpots.Add(new Vector2Int(farLeftX, farBottomY));
+                standingSpots.Add(new Vector2Int(farRightX, farTopY));
+                standingSpots.Add(new Vector2Int(farLeftX, farTopY));
+                standingSpots.Add(new Vector2Int(farRightX, farBottomY));
+            }
+        }
+        
+        newRoom.SetStandingSpots(standingSpots);
+        Debug.Log($"Created room '{_roomTypes[rnd]}' at center ({centerX}, {centerY}) with {standingSpots.Count} standing spots");
 
         // Create entrances
         if (farLeftX > 0)
@@ -426,11 +467,10 @@ public class MazeGenerator : MonoBehaviour {
             maze[entranceX, farTopY + 1].bottomWall = false;
         }
 
-        // Remove room type from list and add to rooms
         _roomTypes.RemoveAt(rnd);
         rooms.Add(newRoom);        
 
-        return true; // Room successfully created
+        return true;
     }
     
     public MazeCell[,] GenerateValidMaze()
@@ -824,14 +864,22 @@ public class MazeCell {
 
 [System.Serializable]
 public class Room {
-    public List<Vector2Int> tilesInRoom;        // Postion of tiles in the room
+    public List<Vector2Int> tilesInRoom;        // Position of tiles in the room
     public string roomType;                     // The room type
+    public List<Vector2Int> standingSpots;      // Designated standing spots (4 positions around center)
+    
     public Room(string roomType) {
         this.roomType = roomType;
         tilesInRoom = new List<Vector2Int>();
+        standingSpots = new List<Vector2Int>();
     }
 
     public void AddTile(Vector2Int tilePosition) {
         tilesInRoom.Add(tilePosition);
+    }
+    
+    public void SetStandingSpots(List<Vector2Int> spots) {
+        standingSpots = spots;
+        Debug.Log($"Room '{roomType}' standing spots set: {string.Join(", ", spots)}");
     }
 }

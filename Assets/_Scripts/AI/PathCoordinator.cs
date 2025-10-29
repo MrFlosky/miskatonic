@@ -102,10 +102,18 @@ public class PathCoordinator : MonoBehaviour
         if (LureManager.Instance == null || !LureManager.Instance.IsLureActive())
         {
             MazeCell currentCell = agent.gameManager.centralMaze[currentPos.x, currentPos.y];
+            
             if (currentCell.roomTile && !agent.IsRoomVisited(currentCell.roomType))
             {
-                Debug.Log($"{agent.name}: Already in unvisited room, no path needed");
-                return;
+                if (IsStandingSpot(currentPos, currentCell.roomType))
+                {
+                    Debug.Log($"{agent.name}: Already at standing spot in unvisited room, no path needed");
+                    return;
+                }
+                else
+                {
+                    Debug.Log($"{agent.name}: In {currentCell.roomType} but not at standing spot - generating path to standing spot");
+                }
             }
         }
         
@@ -130,6 +138,25 @@ public class PathCoordinator : MonoBehaviour
         {
             Debug.LogWarning($"{agent.name}: No valid path found to {target}");
         }
+    }
+        
+    private bool IsStandingSpot(Vector2Int position, string roomType)
+    {
+        List<Room> allRooms = GameManager.Instance.GetRooms();
+        
+        foreach (Room room in allRooms)
+        {
+            if (room.roomType == roomType)
+            {
+                if (room.standingSpots != null && room.standingSpots.Contains(position))
+                {
+                    return true;
+                }
+                break;
+            }
+        }
+        
+        return false;
     }
     
     private void ReservePath(AgentNavigation agent, List<MazeCell> path)
@@ -308,67 +335,54 @@ public class PathCoordinator : MonoBehaviour
     
     private Vector2Int FindRoomInteriorTile(AgentNavigation agent, string roomType)
     {
-        MazeCell[,] maze = GameManager.Instance.centralMaze;
-        int width = agent.mazeGenerator.mazeWidth;
-        int height = agent.mazeGenerator.mazeHeight;
-        Vector2Int agentPos = agent.WorldToGridPosition(agent.transform.position);
-        
-        List<(Vector2Int position, float distance, bool isInterior)> candidates = new();
-        
-        for (int x = 0; x < width; x++)
+        Room targetRoom = null;
+        foreach (Room room in GameManager.Instance.GetRooms())
         {
-            for (int y = 0; y < height; y++)
+            if (room.roomType == roomType)
             {
-                MazeCell cell = maze[x, y];
-                if (cell.roomTile && cell.roomType == roomType)
-                {
-                    Vector2Int pos = new Vector2Int(x, y);
-                    
-                    if (IsDestinationReserved(pos, agent))
-                        continue;
-                    
-                    float distance = Vector2Int.Distance(agentPos, pos);
-                    
-                    bool isInterior = IsInteriorRoomTile(maze, x, y, roomType);
-                    
-                    candidates.Add((pos, distance, isInterior));
-                }
+                targetRoom = room;
+                break;
             }
         }
-        
-        if (candidates.Count == 0)
+
+        if (targetRoom == null)
         {
-            Debug.LogWarning($"{agent.name}: Could not find any available tiles in '{roomType}'");
+            Debug.LogWarning($"{agent.name}: Could not find room '{roomType}'");
             return Vector2Int.zero;
         }
-        
-        candidates.Sort((a, b) =>
-        {
-            if (a.isInterior != b.isInterior)
-                return b.isInterior.CompareTo(a.isInterior);
-            return a.distance.CompareTo(b.distance);
-        });
-        
-        return candidates[0].position;
-    }
     
-    private bool IsInteriorRoomTile(MazeCell[,] maze, int x, int y, string roomType)
-    {
-        int width = maze.GetLength(0);
-        int height = maze.GetLength(1);
+        if (targetRoom.standingSpots == null || targetRoom.standingSpots.Count == 0)
+        {
+            Debug.LogWarning($"{agent.name}: Room '{roomType}' has no standing spots defined!");
+            return Vector2Int.zero;
+        }
 
-        int sameRoomNeighbors = 0;
-        
-        if (x > 0 && maze[x - 1, y].roomTile && maze[x - 1, y].roomType == roomType)
-            sameRoomNeighbors++;
-        if (x < width - 1 && maze[x + 1, y].roomTile && maze[x + 1, y].roomType == roomType)
-            sameRoomNeighbors++;
-        if (y > 0 && maze[x, y - 1].roomTile && maze[x, y - 1].roomType == roomType)
-            sameRoomNeighbors++;
-        if (y < height - 1 && maze[x, y + 1].roomTile && maze[x, y + 1].roomType == roomType)
-            sameRoomNeighbors++;
+        Vector2Int agentPos = agent.WorldToGridPosition(agent.transform.position);
+        List<(Vector2Int position, float distance)> sortedSpots = new();
 
-        return sameRoomNeighbors >= 2;
+        foreach (Vector2Int spot in targetRoom.standingSpots)
+        {
+            if (IsDestinationReserved(spot, agent))
+            {
+                Debug.Log($"{agent.name}: Standing spot {spot} in '{roomType}' is already reserved");
+                continue;
+            }
+    
+            float distance = Vector2Int.Distance(agentPos, spot);
+            sortedSpots.Add((spot, distance));
+        }
+
+        if (sortedSpots.Count == 0)
+        {
+            Debug.LogWarning($"{agent.name}: All standing spots in '{roomType}' are reserved");
+            return Vector2Int.zero;
+        }
+    
+        sortedSpots.Sort((a, b) => a.distance.CompareTo(b.distance));
+
+        Debug.Log($"{agent.name}: Targeting standing spot {sortedSpots[0].position} in '{roomType}' (distance: {sortedSpots[0].distance:F2})");
+
+        return sortedSpots[0].position;
     }
     
     private Vector2Int FindTargetForAgent(AgentNavigation agent)
