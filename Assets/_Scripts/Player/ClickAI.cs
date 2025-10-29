@@ -314,6 +314,8 @@ public class ClickAI : MonoBehaviour
     /// </summary>
     public void EndConversation()
     {
+        if (UIManagerLite.GetCurrentState() != UIManagerLite.GameState.Dialogue) return; // for win con, only execute this code if in dialogue
+
         PlayerController.Instance.clickedAI = false;
         _inConversation = false;
 
