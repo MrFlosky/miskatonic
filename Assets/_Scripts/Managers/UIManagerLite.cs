@@ -217,6 +217,7 @@ public class UIManagerLite : MonoBehaviour
                     }
 
                     S.skillUICollection.ENABLE_BUTTONS();
+                    S.EnablePortraitButtons();
 
                 }
                 // TRANSITION: Storyboard → BoardBase
@@ -307,6 +308,7 @@ public class UIManagerLite : MonoBehaviour
                     }
                     DisableEndTurnButton();
                     S.skillUICollection.DISABLE_BUTTONS();
+                    S.DisablePortaitButtons();
                 }
                 break;
 

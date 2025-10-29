@@ -55,7 +55,7 @@ public class ClickAI : MonoBehaviour
     private bool isSnooping = false; //check if the player is currently looking in a room
     private bool isUsingSkill = false;
     public CinemachineVirtualCamera roomCamera; //Current Room Camera
-    
+
 
 
 
@@ -89,7 +89,9 @@ public class ClickAI : MonoBehaviour
     public void OnClick(InputAction.CallbackContext context)
     {
         // do NOT allow any click events here if clicked on an ai, in convo, or its the enemy turn
-       if (_clickedAI || TurnBasedSystem.IsAITurn() || _inConversation) return;
+        //if (_clickedAI || TurnBasedSystem.IsAITurn() || _inConversation) return; //this was the long working version.
+        UIManagerLite.GameState gameState = UIManagerLite.GetCurrentState();
+        if (gameState != UIManagerLite.GameState.BoardBase) return; // not allowed to perform any click actions on board/ai if not in boardbase
 
         // Get moude position based on current input
         Vector2 mousePos = Vector2.zero;
