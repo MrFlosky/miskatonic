@@ -17,8 +17,12 @@ public class PlayerVision : MonoBehaviour
     private Dictionary<MeshRenderer, Material[]> originalMaterials
     = new Dictionary<MeshRenderer, Material[]>();
 
+    // Fear Totem skill
     public List<MazeCellObject> totemCell = new List<MazeCellObject>();
     private int totemFear = 0;
+
+    public bool isPsychosis = false;
+
 
     /// <summary>
     /// Set up varibles for current position of AI
@@ -83,26 +87,34 @@ public class PlayerVision : MonoBehaviour
 
         for (int i = 0; i <= visionRange; i++)
         {
-            MazeCell nextCell = new MazeCell(gridPos.x, gridPos.y);
+            
+            int newX = gridPos.x;
+            int newY = gridPos.y;
+
             switch (facing)
             {
                 case Vision.Up:
-                    visible.Add(new Vector2Int(gridPos.x, gridPos.y + i));
-                    nextCell = gameManager.centralMaze[gridPos.x, gridPos.y + i];
+                    newY = gridPos.y + i;
                     break;
                 case Vision.Down:
-                    visible.Add(new Vector2Int(gridPos.x, gridPos.y - i));
-                    nextCell = gameManager.centralMaze[gridPos.x, gridPos.y - i];
+                    newY = gridPos.y - i;
                     break;
                 case Vision.Left:
-                    visible.Add(new Vector2Int(gridPos.x - i, gridPos.y));
-                    nextCell = gameManager.centralMaze[gridPos.x - i, gridPos.y];
+                    newX = gridPos.x - i;
                     break;
                 case Vision.Right:
-                    visible.Add(new Vector2Int(gridPos.x + i, gridPos.y));
-                    nextCell = gameManager.centralMaze[gridPos.x + i, gridPos.y];
+                    newX = gridPos.x + i;
                     break;
             }
+
+            if (newX < 0 || newX >= gameManager.centralMaze.GetLength(0) ||
+                newY < 0 || newY >= gameManager.centralMaze.GetLength(1))
+            {
+                break; // Out of maze bounds, stop vision
+            }
+
+            MazeCell nextCell = new MazeCell(newX, newY);
+            visible.Add(new Vector2Int(newX, newY));
 
             if (IsBlocked(nextCell))
                 break; // stop vision at the wall
