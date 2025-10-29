@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices.WindowsRuntime;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -57,7 +58,14 @@ public class ClickAI : MonoBehaviour
     public CinemachineVirtualCamera roomCamera; //Current Room Camera
 
 
-
+    /// <summary>
+    /// Vars for checking for double click. Used for room zooming
+    /// </summary>
+    private bool singleClicked = false;
+    private bool doubleClickCheck = false;
+    private bool doubleClicked = false;
+    private float doubleClickWindow = 0.5f; // window user has to perform double click before being treated as single click
+    private float timeElapsed = 0.0f;
 
     // AI Camera currently active.
     // Used for bust rotation function calls.
@@ -92,9 +100,13 @@ public class ClickAI : MonoBehaviour
         //if (_clickedAI || TurnBasedSystem.IsAITurn() || _inConversation) return; //this was the long working version.
         UIManagerLite.GameState gameState = UIManagerLite.GetCurrentState();
         if (gameState != UIManagerLite.GameState.BoardBase) return; // not allowed to perform any click actions on board/ai if not in boardbase
+        CheckForDoubleClick();
 
-        // Get moude position based on current input
-        Vector2 mousePos = Vector2.zero;
+
+
+
+            // Get moude position based on current input
+            Vector2 mousePos = Vector2.zero;
         mousePos = GameInput.Instance.GetActiveGameDevice() == GameInput.GameDevice.KeyboardMouse
             ? Mouse.current.position.ReadValue()
             : VirtualMouseUI.Instance.GetVirtualMousePosition();
@@ -178,7 +190,7 @@ public class ClickAI : MonoBehaviour
             //Check is tile is a room
             else if (hit.collider.gameObject.GetComponentInParent<MazeCellObject>() != null && hit.collider.gameObject.GetComponentInParent<MazeCellObject>().roomType != "Hallway")
             {
-                if (Keyboard.current.leftShiftKey.isPressed)
+                if (doubleClicked)
                 {
                     cameraRoomManagement(hit);
                 }
@@ -482,6 +494,22 @@ public class ClickAI : MonoBehaviour
 
     private void Update()
     {
+       if (doubleClickCheck)
+        {
+            timeElapsed += Time.deltaTime;
+
+            // reset for fresh clicks if timed out after making first click.
+            // fixes bug where player makes first click, waits too long, then goes in for a double click
+            if (timeElapsed > doubleClickWindow)
+            {
+                //Debug.Log("<color=red>TIMEOUT - Resetting for fresh clicks</color>");
+                singleClicked = false;
+                doubleClickCheck = false;
+                doubleClicked = false;
+                timeElapsed = 0f;
+            }
+        }
+
         // Clear outlines unless hodling right-click in player's turn
         if (rightClicking && TurnBasedSystem.IsPlayerTurn()) return;
         ClearOutlines();
@@ -552,6 +580,34 @@ public class ClickAI : MonoBehaviour
     public void SetAICam(AICamera aicam)
     {
         activeAICam = aicam;
+    }
+
+    /// <summary>
+    /// Checks if a double click has been performed, used for room clicking.
+    /// </summary>
+    private void CheckForDoubleClick()
+    {
+        // if first click, mark this as potential d-click
+        if (!singleClicked)
+        {
+            singleClicked = true;
+            doubleClicked = false;
+            doubleClickCheck = true;
+            timeElapsed = 0.0f;
+            //Debug.Log($"<color=cyan>FIRST CLICK - singleClicked: {singleClicked}, timeElapsed reset</color>");
+        } else
+        {
+            //Debug.Log($"<color=yellow>SECOND CLICK - singleClicked: {singleClicked} -> false, timeElapsed: {timeElapsed}</color>"); 
+            singleClicked = false;    
+        }
+
+        if (timeElapsed <= doubleClickWindow && !singleClicked)
+        {
+            doubleClicked = true;
+            doubleClickCheck = false;
+            timeElapsed = 0.0f;
+            //Debug.Log("DOUBLE CLICK!");
+        } 
     }
 
 
