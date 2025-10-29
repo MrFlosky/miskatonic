@@ -9,22 +9,64 @@ public class AgentManager : MonoBehaviour
     
     public AgentNavigation[] agents;
     
-    [SerializeField] private float turnTimeout = 60f; // Maximum time for all agents to complete turns
+    [SerializeField] private float turnTimeout = 60f;
     private float turnStartTime;
     private bool agentTurnInProgress;
 
-    private void Start()
+    private void Awake()
     {
         Instance = this;
+    }
+
+    private void Start()
+    {
         if (agents.Length == 0)
         {
             agents = FindObjectsOfType<AgentNavigation>();
         }
     }
     
+    private void OnEnable()
+    {
+        MapChangeEvents.OnMapChanged += HandleMapChanged;
+    }
+
+    private void OnDisable()
+    {
+        MapChangeEvents.OnMapChanged -= HandleMapChanged;
+    }
+
+    private void OnDestroy()
+    {
+        MapChangeEvents.OnMapChanged -= HandleMapChanged;
+    }
+
+    private void HandleMapChanged()
+    {
+        if (!TurnBasedSystem.IsPlayerTurn())
+        {
+            return;
+        }
+
+        Debug.Log("Map changed - recalculating agent paths");
+        
+        if (PathCoordinator.Instance != null)
+        {
+            PathCoordinator.Instance.CoordinateAgentPaths(agents);
+            
+            if (PathVisualizer.Instance != null && PathVisualizer.Instance.ArePathsVisible())
+            {
+                PathVisualizer.Instance.RefreshPaths();
+            }
+        }
+        else
+        {
+            Debug.LogError("PathCoordinator not found during map change!");
+        }
+    }
+    
     private void Update()
     {
-        // Check for stuck agents during their turn
         if (agentTurnInProgress)
         {
             if (Time.time - turnStartTime > turnTimeout)
@@ -43,7 +85,6 @@ public class AgentManager : MonoBehaviour
             return;
         }
     
-        // All agents finished, start player turn
         Debug.Log("All agents finished - starting player turn");
         agentTurnInProgress = false;
     
@@ -63,7 +104,6 @@ public class AgentManager : MonoBehaviour
     
     public void StartAgentTurn()
     {
-        // Called when player turn ends and agent turns begin
         Debug.Log("Starting agent turns");
         agentTurnInProgress = true;
         turnStartTime = Time.time;
@@ -105,7 +145,6 @@ public class AgentManager : MonoBehaviour
     private void ForceEndAgentTurn()
     {
         Debug.LogWarning("Forcing all agents to end their turns");
-        // Force all agents to finish their turns
         foreach (var agent in agents)
         {
             if (!agent.turnFinished)

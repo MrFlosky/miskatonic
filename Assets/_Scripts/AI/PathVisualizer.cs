@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PathVisualizer : MonoBehaviour
 {
@@ -30,7 +32,15 @@ public class PathVisualizer : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    
+
+    private void Update()
+    {
+        if (Keyboard.current.pKey.wasPressedThisFrame)
+        {
+            TogglePaths();
+        }
+    }
+
     private void OnEnable()
     {
         MapChangeEvents.OnMapChanged += HandleMapChanged;
@@ -48,11 +58,7 @@ public class PathVisualizer : MonoBehaviour
 
     private void HandleMapChanged()
     {
-        if (pathsVisible)
-        {
-            HidePaths();
-            ShowPaths();
-        }
+        RefreshPaths();
     }
     
     public bool ArePathsVisible()
@@ -106,12 +112,22 @@ public class PathVisualizer : MonoBehaviour
                 continue;
             }
             
+            int tilesToShow;
+            if (agent.tilesPerTurn > 0)
+            {
+                tilesToShow = Mathf.Min(agent.tilesPerTurn, path.Count);
+            }
+            else
+            {
+                tilesToShow = path.Count;
+            }
+            
             Color agentColor = agentColors[colorIndex % agentColors.Length];
             colorIndex++;
             
             List<GameObject> markers = new List<GameObject>();
             
-            for (int i = 0; i < path.Count; i++)
+            for (int i = 0; i < tilesToShow; i++)
             {
                 var (position, timeStep) = path[i];
                 Vector3 worldPos = GetWorldPosition(position);
@@ -125,7 +141,7 @@ public class PathVisualizer : MonoBehaviour
                     renderer.material = mat;
                 }
                 
-                float scale = Mathf.Lerp(0.6f, 0.3f, (float)i / Mathf.Max(1, path.Count - 1));
+                float scale = Mathf.Lerp(0.6f, 0.3f, (float)i / Mathf.Max(1, tilesToShow - 1));
                 marker.transform.localScale = Vector3.one * scale;
                 
                 markers.Add(marker);
@@ -169,6 +185,18 @@ public class PathVisualizer : MonoBehaviour
         {
             ShowPaths();
         }
+    }
+    
+    public void RefreshPaths()
+    {
+        if (!pathsVisible)
+        {
+            return;
+        }
+    
+        Debug.Log("Refreshing path visualization after map change");
+        HidePaths();
+        ShowPaths();
     }
     
     private Vector3 GetWorldPosition(Vector2Int gridPosition)
