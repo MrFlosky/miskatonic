@@ -51,6 +51,10 @@ public class UIManagerLite : MonoBehaviour
 
     // Canvases
     [SerializeField] private Canvas dealerCanvas;
+
+    // Script that manages model highlighting
+    [SerializeField] private OutlineHighlight outlineManager;
+
     #endregion
 
     void Start()
@@ -171,6 +175,8 @@ public class UIManagerLite : MonoBehaviour
                     S.storyboardButton.gameObject.SetActive(true);
                     S.endTurnButton.gameObject.SetActive(true);
                     S.skillUICollection.ENABLE_BUTTONS();
+
+                    S.outlineManager.ResumeOutlining();
                 }
                 // TRANSITION: Dialogue → BoardBase
                 else if (fromState == GameState.Dialogue)
@@ -191,7 +197,7 @@ public class UIManagerLite : MonoBehaviour
                     S.skillUICollection.ENABLE_BUTTONS();
                     S.portraitOb.SetActive(true);
 
-
+                    S.outlineManager.ResumeOutlining();
                 }
                 // TRANSITION: SkillInUse → BoardBase
                 else if (fromState == GameState.SkillInUse)
@@ -222,9 +228,9 @@ public class UIManagerLite : MonoBehaviour
                     S.endTurnButton.gameObject.SetActive(true);
                     S.skillPointUICollection.DISPLAY_PTS();
                     S.skillUICollection.DISPLAY_SKILLS();
-                    //S.EnablePortraitButtons();
                     S.portraitOb.SetActive(true);
-
+                    
+                    S.outlineManager.ResumeOutlining();
                 }
                 // TRANSITION: EnemyTurn → BoardBase
                 else if (fromState == GameState.EnemyTurn)
@@ -256,8 +262,9 @@ public class UIManagerLite : MonoBehaviour
                     S.storyboardButton.gameObject.SetActive(false);
                     S.endTurnButton.gameObject.SetActive(false);
                     S.dealerButton.gameObject.SetActive(false);
-                    //S.skillUICollection.DEACTIVATE_SKILLS_NAKED();
                     S.skillUICollection.DISABLE_BUTTONS();
+
+                    S.outlineManager.PauseOutlining();
                 }
                 break;
 
@@ -277,6 +284,8 @@ public class UIManagerLite : MonoBehaviour
                     S.skillUICollection.DEACTIVATE_SKILLS_NAKED(); // ends any skill currently in use
                     S.skillUICollection.DISABLE_BUTTONS();
                     S.portraitOb.SetActive(false);
+
+                    S.outlineManager.PauseOutlining();
                 }
                 break;
 
@@ -316,9 +325,9 @@ public class UIManagerLite : MonoBehaviour
                     S.endTurnButton.gameObject.SetActive(false);
                     S.skillPointUICollection.HIDE_PTS();
                     S.skillUICollection.HIDE_SKILLS();
-                    //S.DisablePortaitButtons();
                     S.portraitOb.SetActive(false);
 
+                    S.outlineManager.PauseOutlining();
                 }
                 break;
 

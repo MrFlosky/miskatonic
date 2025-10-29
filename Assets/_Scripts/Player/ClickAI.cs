@@ -33,7 +33,7 @@ public class ClickAI : MonoBehaviour
     public CinemachineVirtualCamera activeCamera;   // Currently active camera (AI or player)
 
     public bool _inConversation;   // Tracks if a conversation is ongoing
-    public bool _clickedAI = false; // Track if the AI has been clicked.
+    public bool _clickedAI = false; // Track if the AI has been clicked. Flips to false once convo started.
 
 
     [Header("Camera Dolly")]
@@ -88,7 +88,8 @@ public class ClickAI : MonoBehaviour
     /// </summary>
     public void OnClick(InputAction.CallbackContext context)
     {
-       // if (_clickedAI || !TurnBasedSystem.IsPlayerTurn() || _inConversation) return;
+        // do NOT allow any click events here if clicked on an ai, in convo, or its the enemy turn
+       if (_clickedAI || TurnBasedSystem.IsAITurn() || _inConversation) return;
 
         // Get moude position based on current input
         Vector2 mousePos = Vector2.zero;

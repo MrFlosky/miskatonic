@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     private PlayerInputActions inputActions;
     private ClickAI clickAI;
     public Skill activeSkill; // Reference to the currently active skill
-    public bool clickedAI = false;
+    public bool clickedAI = false; // this is nasty, mirrored variable in clickAI
 
     private Bookshelf bookshelf;
     private void Awake()
