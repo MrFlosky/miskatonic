@@ -596,7 +596,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4709965
 RectTransform:
   m_ObjectHideFlags: 0
@@ -19549,7 +19549,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &201358451
 RectTransform:
   m_ObjectHideFlags: 0
@@ -40282,6 +40282,7 @@ MonoBehaviour:
   visionRange: 3
   outlineMaterial: {fileID: 0}
   totemCell: []
+  isPsychosis: 0
 --- !u!114 &402037188
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43750,7 +43751,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 432852338}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 14bdf86582eb5254597379444e5947e8, type: 3}
   m_Name: 
@@ -54119,7 +54120,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 170e0927d5ec4b343a2f4b761ac5b4eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heartbeatMaxFear: 400
   heartbeat: {fileID: 716482139}
   mainTheme: {fileID: 1277137944}
 --- !u!1 &525540112
@@ -105117,6 +105117,7 @@ MonoBehaviour:
   visionRange: 3
   outlineMaterial: {fileID: 0}
   totemCell: []
+  isPsychosis: 0
 --- !u!114 &1057312894
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -120337,19 +120338,19 @@ PrefabInstance:
       objectReference: {fileID: 402037185}
     - target: {fileID: 4329230583971179906, guid: e71a97cbe39edb84da728219de2caeef, type: 3}
       propertyPath: aiFearThresholds.Array.data[0]
-      value: 400
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 4329230583971179906, guid: e71a97cbe39edb84da728219de2caeef, type: 3}
       propertyPath: aiFearThresholds.Array.data[1]
-      value: 400
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 4329230583971179906, guid: e71a97cbe39edb84da728219de2caeef, type: 3}
       propertyPath: aiFearThresholds.Array.data[2]
-      value: 400
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 4329230583971179906, guid: e71a97cbe39edb84da728219de2caeef, type: 3}
       propertyPath: aiFearThresholds.Array.data[3]
-      value: 400
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -151051,6 +151052,7 @@ MonoBehaviour:
   visionRange: 3
   outlineMaterial: {fileID: 0}
   totemCell: []
+  isPsychosis: 0
 --- !u!114 &1495534906
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172757,6 +172759,7 @@ MonoBehaviour:
   visionRange: 3
   outlineMaterial: {fileID: 0}
   totemCell: []
+  isPsychosis: 0
 --- !u!114 &1671090633
 MonoBehaviour:
   m_ObjectHideFlags: 0

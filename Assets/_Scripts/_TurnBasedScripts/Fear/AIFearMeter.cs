@@ -24,8 +24,17 @@ public class AIFearMeter : MonoBehaviour
         aiSlider = GetComponent<Slider>();
         heartbeats = transform.GetChild(0).GetComponent<Heartbeats>();
         visibleSlider = transform.GetChild(0).gameObject;
+    }
+
+    // After allowing ai fear meter and hearbeats to initialize in awake,
+    // turn off the meter and disable this script at start of game.
+    void Start()
+    {
+        S.visibleSlider.SetActive(false);
         S.enabled = false;
     }
+
+
 
     private float timeElapsed = 0f;
     public float sliderSpeed = 0.2f;
@@ -35,6 +44,7 @@ public class AIFearMeter : MonoBehaviour
         timeElapsed += Time.deltaTime;
         aiSlider.value = Mathf.Lerp(aiSlider.value, fear, timeElapsed * sliderSpeed);
 
+        // disable script once reached the fear value for given ai
         if (aiSlider.value == fear)
         {
             S.enabled = false;
