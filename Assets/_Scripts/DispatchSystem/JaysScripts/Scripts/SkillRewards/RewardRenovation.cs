@@ -7,6 +7,6 @@ public class RewardRenovation : SkillReward
 
     public override void InitSkill()
     {
-        skill = MissionCollection.skillObjectStatic.GetComponent<SkillSwapRooms>();
+        skill = MissionCollection.skillObjectStatic.GetComponent<SkillRenovation>();
     }
 }

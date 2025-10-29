@@ -58,6 +58,7 @@ public class AgentNavigation : MonoBehaviour
         roomFearEffects = new Dictionary<string, System.Action>();
         roomFearEffects[GetRoomName(FearRoom)] = IncreaseFear;
         roomFearEffects[GetRoomName(GoalRoom)] = DecreaseFear;
+        
     }
 
     private void Awake()
