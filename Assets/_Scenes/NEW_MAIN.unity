@@ -26952,13 +26952,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerDataToLoad:
-    turn: 0
+    totalTurn: 0
+    playerTurn: 0
+    aiTurn: 0
+    eventTurn: 0
+    roundsUntil: 0
+    randomStateBeforeMazeGen:
+      s0: 0
+      s1: 0
+      s2: 0
+      s3: 0
     cultists: 0
     fear: 0
     haroldPos: []
     iainPos: []
     mackenziePos: []
     evelynPos: []
+    haroldFear: 0
+    iainFear: 0
+    mackenzieFear: 0
+    evelynFear: 0
+    haroldRooms: []
+    iainRooms: []
+    mackenzieRooms: []
+    evelynRooms: []
 --- !u!4 &286081418
 Transform:
   m_ObjectHideFlags: 0
@@ -162270,6 +162287,11 @@ MonoBehaviour:
   wallPropChance: 0.2
   wallProps: []
   propParent: {fileID: 866589446}
+  startState:
+    s0: 0
+    s1: 0
+    s2: 0
+    s3: 0
 --- !u!4 &1604857009
 Transform:
   m_ObjectHideFlags: 0
@@ -201169,7 +201191,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1979223456}
   - component: {fileID: 1979223457}
-  - component: {fileID: 1979223458}
   m_Layer: 0
   m_Name: SaveManager
   m_TagString: Untagged
@@ -201204,26 +201225,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21602b56a593bb64da08082ac5a78df0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1979223458
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1979223455}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e13cb6c19cdc14442b2888269ecf35c3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerDataToLoad:
-    turn: 0
-    cultists: 0
-    fear: 0
-    haroldPos: []
-    iainPos: []
-    mackenziePos: []
-    evelynPos: []
 --- !u!1 &1979255612 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4196248637664730121, guid: 773e711b1ac9352408b1c3e8d37a1f73, type: 3}

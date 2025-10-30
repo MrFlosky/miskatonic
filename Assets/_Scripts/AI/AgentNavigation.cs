@@ -22,7 +22,7 @@ public class AgentNavigation : MonoBehaviour
     public bool turnFinished = false;
 
     private Stack<Vector2Int> pathHistory = new Stack<Vector2Int>();
-    private List<String> visitedRooms = new List<String>();
+    public List<string> visitedRooms = new List<string>();
     private Dictionary<Vector2Int, int> visitCount = new Dictionary<Vector2Int, int>();
     private PlayerVision playerVision;
 
@@ -34,7 +34,7 @@ public class AgentNavigation : MonoBehaviour
     private string currentRoom;
     private Dictionary<string, System.Action> roomFearEffects;
 
-    [SerializeField] private Fear agentFear;
+    [SerializeField] public Fear agentFear { get; private set; }
     
     [Header("Movement Per Turn")]
     [Tooltip("Number of tiles the agent can move per turn. Set to 0 for unlimited movement.")]

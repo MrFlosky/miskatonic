@@ -20,6 +20,32 @@ public class AgentManager : MonoBehaviour
         {
             agents = FindObjectsOfType<AgentNavigation>();
         }
+        if (LoadManager.S.loadData)
+        {
+            // Grab the positions of all agents.
+            PlayerData pd = LoadManager.S.playerDataToLoad;
+            Vector3 hp = new Vector3(pd.haroldPos[0], pd.haroldPos[1], pd.haroldPos[2]);
+            Vector3 ip = new Vector3(pd.iainPos[0], pd.iainPos[1], pd.iainPos[2]);
+            Vector3 mp = new Vector3(pd.mackenziePos[0], pd.mackenziePos[1], pd.mackenziePos[2]);
+            Vector3 ep = new Vector3(pd.evelynPos[0], pd.evelynPos[1], pd.evelynPos[2]);
+            agents[0].transform.position = hp;
+            agents[1].transform.position = ip;
+            agents[2].transform.position = mp;
+            agents[3].transform.position = ep;
+
+            // Grab fear amounts
+            agents[0].agentFear.currentFear = pd.haroldFear;
+            agents[1].agentFear.currentFear = pd.iainFear;
+            agents[2].agentFear.currentFear = pd.mackenzieFear;
+            agents[3].agentFear.currentFear = pd.evelynFear;
+
+            // Grab visited rooms
+            agents[0].visitedRooms.AddRange(pd.haroldRooms);
+            agents[1].visitedRooms.AddRange(pd.iainRooms);
+            agents[2].visitedRooms.AddRange(pd.mackenzieRooms);
+            agents[3].visitedRooms.AddRange(pd.evelynRooms);
+
+        }
     }
     
     private void Update()

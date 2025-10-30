@@ -44,7 +44,6 @@ public class SaveManager : MonoBehaviour
     // A list of SaveDisplayData, to be used by UI to display the saves that are currently stored
     private List<SaveDisplayData> saves;
 
-
     /// <summary>
     /// Saves current scene data into a save with name saveName (must be called in the main scene!)
     /// </summary>
@@ -57,15 +56,28 @@ public class SaveManager : MonoBehaviour
         FileStream stream = new FileStream(path, FileMode.Create);
 
 
-        // Fetch necessary player data
+        // Fetch necessary player data, see PlayerData to see a *slightly* more organized view of what data is saved
         PlayerData data = new PlayerData(
             TurnBasedSystem.GET_TURN_COUNT(),
+            TurnBasedSystem.GET_TURN_COUNT(TurnType.Player),
+            TurnBasedSystem.GET_TURN_COUNT(TurnType.AI),
+            TurnBasedSystem.GET_TURN_COUNT(TurnType.Event),
+            TurnBasedSystem.S.roundsUntilDefeat,
+            MazeGenerator.Instance.startState,
             CultistPoints.GetPoints(),
             FearMeter.GET_METER_TOTAL(),
+            AgentManager.Instance.agents[0].agentFear.currentFear,
+            AgentManager.Instance.agents[1].agentFear.currentFear,
+            AgentManager.Instance.agents[2].agentFear.currentFear,
+            AgentManager.Instance.agents[3].agentFear.currentFear,
             AgentManager.Instance.agents[0].transform.position,
             AgentManager.Instance.agents[1].transform.position,
             AgentManager.Instance.agents[2].transform.position,
-            AgentManager.Instance.agents[3].transform.position
+            AgentManager.Instance.agents[3].transform.position,
+            AgentManager.Instance.agents[0].visitedRooms,
+            AgentManager.Instance.agents[1].visitedRooms,
+            AgentManager.Instance.agents[2].visitedRooms,
+            AgentManager.Instance.agents[3].visitedRooms
         );
 
         // Send to binary file
@@ -104,6 +116,7 @@ public class SaveManager : MonoBehaviour
 
         // Send to LoadManager and then load/reload the scene
         LoadManager.S.playerDataToLoad = data;
+        LoadManager.S.loadData = true;
         SceneController.Instance.LoadScene("NEW_MAIN");
 
 

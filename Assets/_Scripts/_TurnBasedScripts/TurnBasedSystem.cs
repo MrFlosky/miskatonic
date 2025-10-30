@@ -19,7 +19,7 @@ public enum TurnType{Player, AI, Event, NeverSet};
 /// </summary>
 public class TurnBasedSystem : MonoBehaviour
 {
-    static private TurnBasedSystem S;
+    static public TurnBasedSystem S;
 
     static public TurnType currentTurn;
 
@@ -35,7 +35,7 @@ public class TurnBasedSystem : MonoBehaviour
     private int eventTurnCount = 0;
 
     /// Number of rounds until defeat.
-    private int roundsUntilDefeat;
+    public int roundsUntilDefeat { get; private set; }
 
     /// List of items to destroy after x turns
     List<DestroyAfterRounds> destroyablesList = new List<DestroyAfterRounds>();
@@ -51,14 +51,24 @@ public class TurnBasedSystem : MonoBehaviour
     void Start()
     {
         S = this;
-        if (LoadManager.S.playerDataToLoad != null)
+        // If there is data to load, load it
+        if (LoadManager.S.loadData)
         {
             PlayerData pd = LoadManager.S.playerDataToLoad;
-            roundsUntilDefeat = GameManager.Instance.GetRoundsTillDefeat() - pd.turn;
-            // also need to save
+            roundsUntilDefeat = pd.roundsUntil;
+            totalTurnCount = pd.totalTurn;
+            playerTurnCount = pd.playerTurn;
+            aiTurnCount = pd.aiTurn;
+            eventTurnCount = pd.eventTurn;
+
+            // Gonna need to figure out how to save destroyable objects at some point, skipping it for VS
+            
+        } else
+        {
+            roundsUntilDefeat = GameManager.Instance.GetRoundsTillDefeat();
         }
-        
-        roundsUntilDefeat = GameManager.Instance.GetRoundsTillDefeat();
+
+            
         //S.txt.text = "Total Turns: " + S.totalTurnCount + "\n" + "Player Turns: " + S.playerTurnCount + "\n" + "AI Turns: " + S.aiTurnCount; ///***DEBUG
         S.txt.text = "Turns Left: " + (S.roundsUntilDefeat / 2 - S.aiTurnCount);
         currentTurn = TurnType.Player;

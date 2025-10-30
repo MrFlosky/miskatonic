@@ -8,19 +8,66 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerData 
 {
-    public int turn;
+
+    // TurnBasedSystem
+    public int totalTurn;
+    public int playerTurn;
+    public int aiTurn;
+    public int eventTurn;
+    public int roundsUntil;
+
+    // Maze Generation
+    public Random.State randomStateBeforeMazeGen;
+
+    // Dispatch System
     public int cultists;
+
     public float fear;
+
+    // Agent Positions
     public float[] haroldPos;
     public float[] iainPos;
     public float[] mackenziePos;
     public float[] evelynPos;
 
-    public PlayerData(int currentTurn, int cultistPoints, float currentFear, Vector3 harold, Vector3 iain, Vector3 mack, Vector3 eve)
+    // Agent Fears
+    public int haroldFear;
+    public int iainFear;
+    public int mackenzieFear;
+    public int evelynFear;
+
+    // Agent Visited Rooms
+    public string[] haroldRooms;
+    public string[] iainRooms;
+    public string[] mackenzieRooms;
+    public string[] evelynRooms;
+
+    // Constructor handles conversion of non-serializable data types
+    public PlayerData(
+        int totalTurnCount, int playerTurnCount, int aiTurnCount, int eventTurnCount, int roundsUntilDefeat,
+        Random.State mazeRandState,
+        int cultistPoints,
+        float totalFear,
+        int hFear, int iFear, int mFear, int eFear,
+        Vector3 harold, Vector3 iain, Vector3 mack, Vector3 eve,
+        List<string> hRooms, List<string> iRooms, List<string> mRooms, List<string> eRooms)
     {
-        turn = currentTurn;
+
+        totalTurn = totalTurnCount;
+        playerTurn = playerTurnCount;
+        aiTurn = aiTurnCount;
+        eventTurn = eventTurnCount;
+
+        randomStateBeforeMazeGen = mazeRandState;
+
+
         cultists = cultistPoints;
-        fear = currentFear;
+        fear = totalFear;
+
+        iainFear = iFear;
+        haroldFear = hFear;
+        evelynFear = eFear;
+        mackenzieFear = mFear;
 
         haroldPos = new float[3];
         haroldPos[0] = harold.x;
@@ -41,6 +88,11 @@ public class PlayerData
         evelynPos[0] = eve.x;
         evelynPos[1] = eve.y;
         evelynPos[2] = eve.z;
+
+        haroldRooms = hRooms.ToArray();
+        iainRooms = iRooms.ToArray();
+        mackenzieRooms = mRooms.ToArray();
+        evelynRooms = eRooms.ToArray();
 
 
 

@@ -8,6 +8,7 @@ using UnityEngine;
 public class LoadManager : MonoBehaviour
 {
     public static LoadManager S;
+    public bool loadData;
     public PlayerData playerDataToLoad;
 
 
