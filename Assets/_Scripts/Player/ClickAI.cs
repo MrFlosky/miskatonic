@@ -275,152 +275,7 @@ public class ClickAI : MonoBehaviour
         // Update the tracked dolly's path position based on the scroll amount and speed factor
         track.m_PathPosition += scrollAmount / 120 * scrollSpeed;
     }
-
-
-    /// <summary>
-    /// 
-    /// Handle right-click input to preview AI movement paths by outlining titles
-    /// Clear outlines when releasing right-click or clicking elsewhere
-    /// 
-    /// </summary>
-    public void OnRightClick(InputAction.CallbackContext context)
-    {
-        rightClicking = true;
-
-        if (_clickedAI || !TurnBasedSystem.IsPlayerTurn() || _inConversation)
-        {
-            ClearOutlines();
-            return;
-        }
-
-        //Leave Room On Right Click
-        if (isSnooping && !_inConversation)
-        {
-            activeCamera.enabled = false;
-            isSnooping = false;
-            playerCam.enabled = true;
-            if (activeCamera.enabled)
-            {
-                activeCamera = playerCam;
-                activeCamera.enabled = true;
-            }
-        }
-
-        var mousePos = GameInput.Instance.GetActiveGameDevice() == GameInput.GameDevice.KeyboardMouse
-            ? Mouse.current.position.ReadValue()
-            : VirtualMouseUI.Instance.GetVirtualMousePosition();
-
-        Ray ray = Camera.main.ScreenPointToRay(mousePos);
-
-        if (Physics.Raycast(ray, out RaycastHit hit))
-        {
-            if (hit.collider.CompareTag("AI"))
-            {
-                if (context.started)
-                {
-                    var agentNavigation = hit.collider.GetComponent<AgentNavigation>();
-
-                    // Highlight the agent's planned path for the next turn
-                    if (agentNavigation != null && agentNavigation.storedPath.Count > 0)
-                    {
-                        // Clear any previously active outlines
-                        ClearOutlines();
-                        List<Transform> childWithTag = new List<Transform>();
-
-                        for (int i = 0; i < Mathf.Min(agentNavigation.tilesPerTurn, agentNavigation.storedPath.Count); i++)
-                        {
-                            MazeCell cell = agentNavigation.storedPath[i];
-                            if (MazeRenderer.Instance.cellGameObjects.TryGetValue(cell.position, out GameObject cellObject))
-                            {
-                                for (int j = 0; j < cellObject.transform.childCount; j++)
-                                {
-                                    if (cellObject.transform.GetChild(j).gameObject.layer == LayerMask.NameToLayer("Ground"))
-                                        childWithTag.Add(cellObject.transform.GetChild(j));
-                                }
-
-                            }
-                        }
-
-                        // Apply outline material
-                        foreach (var child in childWithTag)
-                        {
-                            var materials = child.GetComponent<MeshRenderer>().materials;
-
-                            var newMaterials = new Material[materials.Length + 1];
-
-                            for (int i = 0; i < materials.Length; i++)
-                            {
-                                newMaterials[i] = materials[i];
-                            }
-
-                            newMaterials[^1] = outlineMaterial;
-
-                            child.GetComponent<MeshRenderer>().materials = newMaterials;
-
-                            activeOutlines.Add(child);
-                        }
-                    }
-                    else if (agentNavigation != null && agentNavigation.path.Count > 0)
-                    {
-                        // Clear any previously active outlines
-                        ClearOutlines();
-
-                        List<Transform> childWithTag = new List<Transform>();
-                        for (int i = 0; i < Mathf.Min(agentNavigation.tilesPerTurn, agentNavigation.path.Count); i++)
-                        {
-                            MazeCell cell = agentNavigation.path[i];
-                            if (MazeRenderer.Instance.cellGameObjects.TryGetValue(cell.position, out GameObject cellObject))
-                            {
-                                for (int j = 0; j < cellObject.transform.childCount; j++)
-                                {
-                                    if (cellObject.transform.GetChild(j).gameObject.layer == LayerMask.NameToLayer("Ground"))
-                                        childWithTag.Add(cellObject.transform.GetChild(j));
-                                }
-
-                            }
-                        }
-
-                        foreach (var child in childWithTag)
-                        {
-                            var materials = child.GetComponent<MeshRenderer>().materials;
-
-                            var newMaterials = new Material[materials.Length + 1];
-
-                            for (int i = 0; i < materials.Length; i++)
-                            {
-                                newMaterials[i] = materials[i];
-                            }
-
-                            newMaterials[^1] = outlineMaterial;
-
-                            child.GetComponent<MeshRenderer>().materials = newMaterials;
-
-                            activeOutlines.Add(child);
-                        }
-                    }
-                }
-                else
-                {
-                    ClearOutlines();
-                }
-
-            }
-
-            
-
-            else
-            {
-                ClearOutlines();
-            }
-        }
-        else if (context.performed || context.canceled)
-        {
-            rightClicking = false;
-            ClearOutlines();
-        }
-    }
-
-
+    
     /// <summary>
     /// 
     /// Remove outlines from all currently highlighted tiles
@@ -459,6 +314,8 @@ public class ClickAI : MonoBehaviour
     /// </summary>
     public void EndConversation()
     {
+        if (UIManagerLite.GetCurrentState() != UIManagerLite.GameState.Dialogue) return; // for win con, only execute this code if in dialogue
+
         PlayerController.Instance.clickedAI = false;
         _inConversation = false;
 

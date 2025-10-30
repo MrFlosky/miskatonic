@@ -78,6 +78,8 @@ public class SkillBarrier : Skill
             MazeGenerator.Instance.SetWallInternalState(x, y, wT, true);
             TurnBasedSystem.DestroyAfterRounds destroyInstance = new TurnBasedSystem.DestroyAfterRounds(roundsLast, confirmedWall.gameObject, wT);
 
+            MapChangeEvents.InvokeBarrierChanged();
+            
             ResetValues();
             EndSkill(); 
         }
