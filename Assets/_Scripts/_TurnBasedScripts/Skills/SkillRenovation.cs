@@ -10,6 +10,7 @@ public class SkillRenovation : Skill
     /// if the player clicks on the room it will activate the skill. Effects handled by the RenovationEffect script
     /// </summary>
 
+    public AgentNavigation Evelyn, Mackenzie, Harold, Ian;
     private PlayerInputActions inputActions;
     private void Awake()
     {
@@ -20,7 +21,7 @@ public class SkillRenovation : Skill
 
 
     public void OnClick(InputAction.CallbackContext context)
-    { 
+    {
         Vector2 mousePos = Vector2.zero;
         mousePos = GameInput.Instance.GetActiveGameDevice() == GameInput.GameDevice.KeyboardMouse
             ? Mouse.current.position.ReadValue()
@@ -32,12 +33,18 @@ public class SkillRenovation : Skill
 
         if (Physics.Raycast(ray, out hit))
         {
-            if (hit.collider.gameObject.GetComponentInParent<MazeCellObject>() != null 
+            if (hit.collider.gameObject.GetComponentInParent<MazeCellObject>() != null
             && hit.collider.gameObject.GetComponentInParent<MazeCellObject>().roomType != "Hallway")
             {
-                print("Heyo");
+                //do renovation stuff
             }
         }
 
     }
+    
+    public void OnRightClick(InputAction.CallbackContext context)
+    {
+        
+    }
+    
 }

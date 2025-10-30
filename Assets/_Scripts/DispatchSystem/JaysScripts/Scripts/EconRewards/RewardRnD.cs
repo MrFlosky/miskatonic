@@ -1,23 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class RewardRnD : Reward
 {
 
     public override void DisplayRewardMessage()
     {
-        throw new System.NotImplementedException();
+        rewardPopupUI.SetActive(true);
+        timeElapsed = 0;
+        this.enabled = true;
+
     }
 
     public override void GrantReward()
     {
-        throw new System.NotImplementedException();
+        FearMeter.S.RnD = true;
+        DisplayRewardMessage();
     }
 
     public override void InitRewardUI()
     {
-        throw new System.NotImplementedException();
+        
     }
 
 }

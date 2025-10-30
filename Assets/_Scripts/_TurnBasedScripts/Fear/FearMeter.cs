@@ -50,10 +50,12 @@ public class FearMeter : MonoBehaviour
         
         AudioManager.PlaySFX(SFXType.FearIncrease);
         S.timeElapsed = 0; // setting to 0 here makes so slider animates smoothly with multiple increase calls
-        
+
         if (!S.RnD) S.totalFear += increase;
+
         else
         {
+            print("Yup");
             S.RnDIntGain = Mathf.RoundToInt(CultistPoints.S.cultistPoints / S.RnDDivisor);
         }
 
