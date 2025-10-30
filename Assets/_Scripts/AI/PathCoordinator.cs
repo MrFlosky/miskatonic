@@ -99,11 +99,15 @@ public class PathCoordinator : MonoBehaviour
         Vector2Int currentPos = agent.WorldToGridPosition(agent.transform.position);
         Debug.Log($"{agent.name}: Current position {currentPos}");
         
+        bool hasKey = GameManager.Instance.CheckAgentGoal(agent);
+        bool knowsRitualRoom = agent.IsRoomVisited("Ritual Room");
+        bool needsRitualRoom = hasKey && knowsRitualRoom;
+        
         if (LureManager.Instance == null || !LureManager.Instance.IsLureActive())
         {
             MazeCell currentCell = agent.gameManager.centralMaze[currentPos.x, currentPos.y];
             
-            if (currentCell.roomTile && !agent.IsRoomVisited(currentCell.roomType))
+            if (currentCell.roomTile && !agent.IsRoomVisited(currentCell.roomType) && !needsRitualRoom)
             {
                 if (IsStandingSpot(currentPos, currentCell.roomType))
                 {
@@ -113,6 +117,19 @@ public class PathCoordinator : MonoBehaviour
                 else
                 {
                     Debug.Log($"{agent.name}: In {currentCell.roomType} but not at standing spot - generating path to standing spot");
+                }
+            }
+            
+            if (needsRitualRoom && currentCell.roomTile)
+            {
+                if (currentCell.roomType != "Ritual Room")
+                {
+                    Debug.Log($"{agent.name}: Has key but not in Ritual Room (in {currentCell.roomType}) - must reroute to Ritual Room");
+                }
+                else if (currentCell.roomType == "Ritual Room" && IsStandingSpot(currentPos, "Ritual Room"))
+                {
+                    Debug.Log($"{agent.name}: Has key and already at Ritual Room standing spot, no path needed");
+                    return;
                 }
             }
         }
