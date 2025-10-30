@@ -78,7 +78,8 @@ public class UIManagerLite : MonoBehaviour
                     GameState.Dialogue,
                     GameState.SkillInUse,
                     GameState.Storyboard,
-                    GameState.EnemyTurn
+                    GameState.EnemyTurn,
+                    GameState.BoardBase,
                 } 
             },
             { 

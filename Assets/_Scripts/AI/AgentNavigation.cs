@@ -14,16 +14,15 @@ public class AgentNavigation : MonoBehaviour
     public float speed = 3.5f;
     public float mazeHeight = 0.5f;
 
-    public List<MazeCell> path = new List<MazeCell>();
-    public List<MazeCell> storedPath = new List<MazeCell>();
+    public List<MazeCell> path = new();
 
     private bool isMoving = false;
     public bool hasDestination = false;
     public bool turnFinished = false;
 
-    private Stack<Vector2Int> pathHistory = new Stack<Vector2Int>();
-    private List<String> visitedRooms = new List<String>();
-    private Dictionary<Vector2Int, int> visitCount = new Dictionary<Vector2Int, int>();
+    private Stack<Vector2Int> pathHistory = new();
+    private List<String> visitedRooms = new();
+    private Dictionary<Vector2Int, int> visitCount = new();
     private PlayerVision playerVision;
 
     public Vector3 destination;
@@ -32,7 +31,7 @@ public class AgentNavigation : MonoBehaviour
     [SerializeField] private RoomName GoalRoom;
 
     private string currentRoom;
-    private Dictionary<string, System.Action> roomFearEffects;
+    private Dictionary<string, Action> roomFearEffects;
 
     [SerializeField] private Fear agentFear;
     
@@ -40,7 +39,7 @@ public class AgentNavigation : MonoBehaviour
     [Tooltip("Number of tiles the agent can move per turn. Set to 0 for unlimited movement.")]
     public int tilesPerTurn = 5;
     
-    private int tilesMoved = 0; // Track tiles moved this turn
+    private int tilesMoved; // Track tiles moved this turn
     
     public bool HasMovedMaxTiles()
     {
@@ -52,7 +51,7 @@ public class AgentNavigation : MonoBehaviour
         tilesMoved = 0;
     }
     
-    private static HashSet<Vector2Int> occupiedCells = new HashSet<Vector2Int>();
+    private static HashSet<Vector2Int> occupiedCells = new();
 
     private void Start()
     {
@@ -85,12 +84,7 @@ public class AgentNavigation : MonoBehaviour
 
     public void SetDestination(Vector2Int target) {
         hasDestination = true;
-
-        if (storedPath.Count > 0) {
-            RestorePath();
-            return;
-        }
-
+        
         StopMovement();
 
         Vector2Int currentPosition = WorldToGridPosition(transform.position);
@@ -130,9 +124,7 @@ public class AgentNavigation : MonoBehaviour
     
     private void FollowPath()
     {
-
         if (!isMoving || path.Count == 0) return;
-        
 
         Vector3 currentPosition = transform.position;
         Vector3 targetPosition = destination;
@@ -149,7 +141,7 @@ public class AgentNavigation : MonoBehaviour
             FreeCell(previousGrid);
 
             path.RemoveAt(0);
-            tilesMoved++; // Increment tiles moved counter
+            tilesMoved++;
 
             Vector2Int gridPosition = WorldToGridPosition(transform.position);
             MazeCell currentCell = gameManager.centralMaze[gridPosition.x, gridPosition.y];
@@ -160,39 +152,43 @@ public class AgentNavigation : MonoBehaviour
             visitCount[gridPosition]++;
 
             string roomType = currentCell.roomType;
-
-            // Check if we've reached a room tile that we haven't visited
+            
             if (!IsRoomVisited(roomType) && currentCell.roomTile)
             {
-                MarkRoomAsVisited(roomType);
-                EnterRoom(roomType);
-                StopMovement();
-                return;
+                if (IsStandingSpot(gridPosition, roomType))
+                {
+                    Debug.Log($"{gameObject.name}: Reached designated standing spot at {gridPosition} in {roomType} - entering room");
+                    MarkRoomAsVisited(roomType);
+                    EnterRoom(roomType);
+                    StopMovement();
+                    return;
+                }
+                else
+                {
+                    Debug.Log($"{gameObject.name}: Passing through {roomType} at {gridPosition} (not a standing spot)");
+                }
             }
             
-            // Update current room tracking
             if (currentCell.roomTile && currentRoom != currentCell.roomType)
             {
-                EnterRoom(roomType);
+                currentRoom = currentCell.roomType;
             }
             else if (currentCell.roomType == "Hallway")
+            {
                 currentRoom = null;
-
-            // Check if we've moved the maximum tiles for this turn
+            }
+            
             if (HasMovedMaxTiles())
             {
                 Debug.Log($"{gameObject.name}: Moved {tilesMoved} tiles this turn - pausing");
-                PauseMovement();
                 return;
             }
 
             if (path.Count > 0)
             {
-
                 Vector3 nextPos = GetWorldPosition(path[0].position);
                 Vector3 moveDir = (nextPos - transform.position).normalized;
-
-                // Determine facing direction for PlayerVision
+                
                 if (playerVision != null)
                 {
                     if (Mathf.Abs(moveDir.x) > Mathf.Abs(moveDir.z))
@@ -205,43 +201,18 @@ public class AgentNavigation : MonoBehaviour
                     }
                 }
 
-                // Update vision highlights
                 if (playerVision != null)
                 {
                     Debug.Log("playerVision updated.");
                     playerVision.UpdateVision(true);
                 }
-
-                // Check if next cell is still walkable
+                
                 MazeCell nextCell = path[0];
                 if (!IsWalkable(currentCell, nextCell))
                 {
-                    // Path is blocked by walls, need to recalculate
-                    Vector2Int targetPos = path[path.Count - 1].position;
-                    path.Clear();
-                    path = FindPath(gridPosition, targetPos);
-                    
-                    if (path.Count == 0)
-                    {
-                        Debug.LogWarning($"{gameObject.name}: Path blocked by walls and cannot recalculate");           
-                        StopMovement();
-                        return;
-                    }
-                }
-                // Check if next cell is occupied by another agent (only for hallways, not rooms)
-                else if (!nextCell.roomTile && IsCellOccupiedByOther(nextCell.position))
-                {
-                    // Hallway is blocked by another agent, need to recalculate
-                    Vector2Int targetPos = path[^1].position;
-                    path.Clear();
-                    path = FindPath(gridPosition, targetPos);
-                    
-                    if (path.Count == 0)
-                    {
-                        Debug.LogWarning($"{gameObject.name}: Path blocked by agent and cannot recalculate");
-                        StopMovement();
-                        return;
-                    }
+                    Debug.LogError($"{gameObject.name}: Path blocked by walls during movement - stopping");
+                    StopMovement();
+                    return;
                 }
                 
                 ReserveNextCell();
@@ -254,7 +225,26 @@ public class AgentNavigation : MonoBehaviour
         }
     }
     
-    private void ReserveNextCell()
+    private bool IsStandingSpot(Vector2Int position, string roomType)
+    {
+        List<Room> allRooms = GameManager.Instance.GetRooms();
+        
+        foreach (Room room in allRooms)
+        {
+            if (room.roomType == roomType)
+            {
+                if (room.standingSpots != null && room.standingSpots.Contains(position))
+                {
+                    return true;
+                }
+                break;
+            }
+        }
+        
+        return false;
+    }
+    
+    public void ReserveNextCell()
     {
         if (path.Count > 0)
         {
@@ -290,67 +280,7 @@ public class AgentNavigation : MonoBehaviour
        
         gameObject.GetComponent<DialogueBank>().alreadyTalked = false;
     }
-
-    public void PauseMovement()
-    {
-        storedPath = new List<MazeCell>(path);
-        path.Clear();
-        isMoving = false;
-    }
     
-    public void RestorePath()
-    {
-        ValidateStoredPath();
-
-        if (storedPath.Count > 0)
-        {
-            path = new List<MazeCell>(storedPath);
-            storedPath.Clear();
-            
-            // Verify the first step is still valid
-            Vector2Int currentPos = WorldToGridPosition(transform.position);
-            MazeCell currentCell = gameManager.centralMaze[currentPos.x, currentPos.y];
-            
-            if (path.Count > 0 && IsWalkable(currentCell, path[0]) && !IsCellOccupiedByOther(path[0].position))
-            {
-                ReserveNextCell();
-                isMoving = true;
-                destination = GetWorldPosition(path[0].position);
-            }
-            else
-            {
-                // Path is immediately blocked, clear it
-                Debug.LogWarning($"{gameObject.name}: Restored path is immediately blocked");
-                path.Clear();
-                isMoving = false;
-            }
-        }
-        else
-        {
-            isMoving = false;
-        }
-    }
-
-    private void ValidateStoredPath()
-    {
-        Vector2Int currentPos = WorldToGridPosition(transform.position);
-        MazeCell currentCell = gameManager.centralMaze[currentPos.x, currentPos.y];
-    
-        for (int i = 0; i < storedPath.Count; i++)
-        {
-            MazeCell nextCell = storedPath[i];
-
-            // Check walls AND agent occupation
-            if (!IsWalkable(currentCell, nextCell) || IsCellOccupiedByOther(nextCell.position))
-            {
-                storedPath.RemoveRange(i, storedPath.Count - i);
-                break;
-            }
-
-            currentCell = nextCell;
-        }
-    }
-
     public Vector2Int WorldToGridPosition(Vector3 worldPosition)
     {
         int gridX = Mathf.RoundToInt(worldPosition.x / gameManager.CellSize);
@@ -358,7 +288,7 @@ public class AgentNavigation : MonoBehaviour
         return new Vector2Int(gridX, gridZ);
     }
 
-    private Vector3 GetWorldPosition(Vector2Int gridPosition)
+    public Vector3 GetWorldPosition(Vector2Int gridPosition)
     {
         return new Vector3(gridPosition.x * gameManager.CellSize, mazeHeight, gridPosition.y * gameManager.CellSize);
     }
@@ -413,7 +343,7 @@ public class AgentNavigation : MonoBehaviour
             {
                 if (closedSet.Contains(neighbor)) continue;
                 
-                if (neighbor != targetCell && !neighbor.roomTile && IsCellOccupiedByOther(neighbor.position))
+                if (neighbor != targetCell && IsCellOccupiedByOther(neighbor.position))
                     continue;
 
                 float tentativeGScore = gScore[current] + 1;
@@ -710,16 +640,22 @@ public class AgentNavigation : MonoBehaviour
     {
         Vector2Int currentPos = WorldToGridPosition(transform.position);
         MazeCell currentCell = gameManager.centralMaze[currentPos.x, currentPos.y];
-        
+    
         Debug.Log($"{gameObject.name}: Room swap detected at position {currentPos}, cell type is now {currentCell.roomType}");
-        
-        // Stop any movement - path is no longer valid after swap
+    
         StopMovement();
-        
-        // If we're in a room after the swap, update our current room tracking
+    
         if (currentCell.roomTile)
         {
             currentRoom = currentCell.roomType;
+        
+            if (!IsRoomVisited(currentCell.roomType))
+            {
+                Debug.Log($"{gameObject.name}: Standing in unvisited {currentCell.roomType} after swap - entering it");
+                MarkRoomAsVisited(currentCell.roomType);
+                EnterRoom(currentCell.roomType);
+            }
+        
             Debug.Log($"{gameObject.name}: Now in {currentCell.roomType} after swap");
         }
         else
@@ -735,13 +671,20 @@ public class AgentNavigation : MonoBehaviour
     public bool IsDestinationSet() {
         return hasDestination;
     }
-    
+
     public void EnterRoom(string roomType)
     {
         currentRoom = roomType;
+        Debug.Log($"{gameObject.name}: EnterRoom called for {roomType}");
+    
         if (roomFearEffects.ContainsKey(roomType))
         {
+            Debug.Log($"{gameObject.name}: Found fear effect for {roomType}, executing...");
             roomFearEffects[roomType]?.Invoke();
+        }
+        else
+        {
+            Debug.Log($"{gameObject.name}: No fear effect registered for {roomType}");
         }
     }
     
@@ -752,30 +695,38 @@ public class AgentNavigation : MonoBehaviour
 
     private void DecreaseFear()
     {
+        Debug.Log($"{gameObject.name}: DecreaseFear called - this is the GOAL ROOM!");
+        bool hadGoalBefore = gameManager.CheckAgentGoal(this);
+        Debug.Log($"{gameObject.name}: Had goal before: {hadGoalBefore}");
+    
         gameManager.SetGoalBool(this, true);
+    
+        bool hasGoalAfter = gameManager.CheckAgentGoal(this);
+        Debug.Log($"{gameObject.name}: Has goal after: {hasGoalAfter}");
+    
         agentFear.ReduceFear(5);
     }
 
     private enum RoomName
     {
-        Study,
-        DungeonRoom,
-        Armory,
-        GhostRoom,
+        Bedroom,
+        DiningRoom,
+        Cemetery,
+        Library,
         RitualRoom,
-        HiddenTreasureRoom
+        Dungeon
     }
     
     private string GetRoomName(RoomName roomName)
     {
         return roomName switch
         {
-            RoomName.Study => "Study",
-            RoomName.DungeonRoom => "Dungeon Room",
-            RoomName.Armory => "Armory",
-            RoomName.GhostRoom => "Ghost Room",
+            RoomName.Bedroom => "Bedroom",
+            RoomName.Dungeon => "Dungeon",
+            RoomName.DiningRoom => "Dining Room",
+            RoomName.Cemetery => "Cemetery",
             RoomName.RitualRoom => "Ritual Room",
-            RoomName.HiddenTreasureRoom => "Hidden Treasure Room",
+            RoomName.Library => "Library",
             _ => roomName.ToString()
         };
     }
@@ -793,5 +744,136 @@ public class AgentNavigation : MonoBehaviour
     public bool IsMoving()
     {
         return isMoving;
+    }
+    
+    public List<MazeCell> FindPathWithAwareness(Vector2Int start, Vector2Int target)
+    {
+        if (start.x < 0 || start.x >= mazeGenerator.mazeWidth || 
+            start.y < 0 || start.y >= mazeGenerator.mazeHeight ||
+            target.x < 0 || target.x >= mazeGenerator.mazeWidth || 
+            target.y < 0 || target.y >= mazeGenerator.mazeHeight)
+        {
+            Debug.LogError($"{gameObject.name}: Path start {start} or target {target} out of bounds");
+            return new List<MazeCell>();
+        }
+
+        List<MazeCell> openSet = new List<MazeCell>();
+        HashSet<MazeCell> closedSet = new HashSet<MazeCell>();
+
+        MazeCell startCell = gameManager.centralMaze[start.x, start.y];
+        MazeCell targetCell = gameManager.centralMaze[target.x, target.y];
+
+        openSet.Add(startCell);
+
+        Dictionary<MazeCell, MazeCell> cameFrom = new Dictionary<MazeCell, MazeCell>();
+        Dictionary<MazeCell, float> gScore = new Dictionary<MazeCell, float>();
+        Dictionary<MazeCell, float> fScore = new Dictionary<MazeCell, float>();
+        Dictionary<MazeCell, int> timeAtCell = new Dictionary<MazeCell, int>(); // Track time steps
+
+        gScore[startCell] = 0;
+        fScore[startCell] = Heuristic(startCell, targetCell);
+        timeAtCell[startCell] = 0;
+
+        while (openSet.Count > 0)
+        {
+            MazeCell current = openSet[0];
+            foreach (MazeCell cell in openSet)
+            {
+                if (fScore.ContainsKey(cell) && fScore[cell] < fScore[current])
+                {
+                    current = cell;
+                }
+            }
+
+            if (current == targetCell)
+            {
+                return ReconstructPath(cameFrom, current);
+            }
+
+            openSet.Remove(current);
+            closedSet.Add(current);
+
+            int currentTime = timeAtCell[current];
+
+            foreach (MazeCell neighbor in GetNeighbors(current))
+            {
+                if (closedSet.Contains(neighbor)) continue;
+    
+                if (!IsWalkable(current, neighbor)) continue;
+    
+                int neighborTime = currentTime + 1;
+                
+                if (neighbor != targetCell)
+                {
+                    if (PathCoordinator.Instance != null && 
+                        PathCoordinator.Instance.IsCellReservedAtTime(neighbor.position, neighborTime, this))
+                    {
+                        continue;
+                    }
+                }
+    
+                if (neighbor != targetCell && IsCellOccupiedByOther(neighbor.position))
+                {
+                    continue;
+                }
+
+                float tentativeGScore = gScore[current] + 1;
+
+                if (!openSet.Contains(neighbor))
+                {
+                    openSet.Add(neighbor);
+                }
+                else if (tentativeGScore >= gScore[neighbor])
+                {
+                    continue;
+                }
+
+                cameFrom[neighbor] = current;
+                gScore[neighbor] = tentativeGScore;
+                fScore[neighbor] = gScore[neighbor] + Heuristic(neighbor, targetCell);
+                timeAtCell[neighbor] = neighborTime;
+            }
+        }
+
+        return new List<MazeCell>();
+    }
+    
+    public void StartMovementWithPath()
+    {
+        if (path.Count > 0)
+        {
+            isMoving = true;
+            destination = GetWorldPosition(path[0].position);
+            Debug.Log($"{gameObject.name}: Started movement with {path.Count} tiles in path");
+        }
+        else
+        {
+            Debug.LogWarning($"{gameObject.name}: Cannot start movement - path is empty");
+        }
+    }
+    
+    public string GetGoalRoomName()
+    {
+        return GetRoomName(GoalRoom);
+    }
+
+    public Vector2Int GetActualStopPosition()
+    {
+        if (path.Count == 0)
+        {
+            return WorldToGridPosition(transform.position);
+        }
+    
+        int stopIndex;
+        if (tilesPerTurn > 0 && path.Count > tilesPerTurn)
+        {
+            stopIndex = tilesPerTurn - 1;
+        }
+        else
+        {
+            stopIndex = path.Count - 1;
+        }
+    
+        return path[stopIndex].position;
     }
 }

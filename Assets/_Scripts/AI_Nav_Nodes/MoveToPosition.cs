@@ -27,7 +27,7 @@ public class MoveToPosition : ActionNode
         // If we've taken the desired number of steps, pause and succeed
         if (stepsTaken >= context.agentNavigation.tilesPerTurn)
         {
-            context.agentNavigation.PauseMovement();
+            //context.agentNavigation.PauseMovement();
             return State.Success;
         }
         
