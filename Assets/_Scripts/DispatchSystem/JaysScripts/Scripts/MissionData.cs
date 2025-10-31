@@ -30,6 +30,9 @@ public class MissionData : ScriptableObject
     [Header("If a cultist reward, how many are granted?")]
     public int cultistsGranted;
 
+    [Header("If granting path previews, for how many turns?")]
+    public int previewsGranted;
+
     [Header("If a narrative reward, who is it for?")]
     public CharacterData.Character character;
 }

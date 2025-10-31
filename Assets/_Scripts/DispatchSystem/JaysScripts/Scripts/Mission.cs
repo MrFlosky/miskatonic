@@ -140,6 +140,9 @@ public class Mission : MonoBehaviour
             case UnlockReward unlockReward:
                 unlockReward.InitSkill();
                 break;
+            case RewardNavPreview navPreviewReward:
+                navPreviewReward.SetPreviewsRewarded(missionData.previewsGranted);
+                break;
             default:
                 // no skill reward given
                 break;

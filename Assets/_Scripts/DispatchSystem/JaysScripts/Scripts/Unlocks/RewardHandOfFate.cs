@@ -19,6 +19,7 @@ public class RewardHandOfFate : Reward
     public override void GrantReward()
     {
         DispatchSystem.UnlockRerollSacrifice();
+        DisplayRewardMessage();
     }
 
     public override void InitRewardUI()

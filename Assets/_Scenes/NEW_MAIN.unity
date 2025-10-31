@@ -90007,7 +90007,7 @@ PrefabInstance:
       objectReference: {fileID: 855558311}
     - target: {fileID: 5592833437522147513, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
       propertyPath: missionCards.Array.size
-      value: 9
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 5592833437522147513, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
       propertyPath: missionCards.Array.data[0].cardCount
@@ -90046,6 +90046,14 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5592833437522147513, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
+      propertyPath: missionCards.Array.data[9].cardCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5592833437522147513, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
+      propertyPath: missionCards.Array.data[10].cardCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5592833437522147513, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
       propertyPath: missionCards.Array.data[0].missionData
       value: 
       objectReference: {fileID: 11400000, guid: 02e593917f8d99142a3b5a8aaccd9b6c, type: 2}
@@ -90081,6 +90089,14 @@ PrefabInstance:
       propertyPath: missionCards.Array.data[8].missionData
       value: 
       objectReference: {fileID: 11400000, guid: 9628b3b2511176749a701660c998408d, type: 2}
+    - target: {fileID: 5592833437522147513, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
+      propertyPath: missionCards.Array.data[9].missionData
+      value: 
+      objectReference: {fileID: 11400000, guid: 16e69fa79797f744d934e8fdfef5b349, type: 2}
+    - target: {fileID: 5592833437522147513, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
+      propertyPath: missionCards.Array.data[10].missionData
+      value: 
+      objectReference: {fileID: 11400000, guid: 35f924a06bc1304429eafbf57c19910f, type: 2}
     - target: {fileID: 6986799419869777753, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
       propertyPath: clueTextBlock
       value: 
