@@ -82,6 +82,9 @@ public class PlayerController : MonoBehaviour
                 case SkillBarrier skillBarrier:
                     skillBarrier.OnClick(context);
                     break;
+                case SkillLure skillLure:
+                    skillLure.OnClick(context);
+                    break;
             }
 
 
@@ -130,6 +133,9 @@ public class PlayerController : MonoBehaviour
                 case SkillFearTotem fearTotem:
                     fearTotem.OnRightClick(context);
                     break;
+                case SkillLure skillLure:
+                    skillLure.OnRightClick(context);
+                    break;
             }
         }
     }
@@ -146,6 +152,9 @@ public class PlayerController : MonoBehaviour
                     break;
                 case SkillBarrier skillBarrier:
                     skillBarrier.OnConfirm(context);
+                    break;
+                case SkillLure skillLure:
+                    skillLure.OnConfirm(context);
                     break;
             }
         }

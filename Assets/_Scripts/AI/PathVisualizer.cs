@@ -35,7 +35,7 @@ public class PathVisualizer : MonoBehaviour
 
     private void Update()
     {
-        if (Keyboard.current.pKey.wasPressedThisFrame)
+        if (Keyboard.current.zKey.wasPressedThisFrame)
         {
             TogglePaths();
         }
