@@ -34,7 +34,7 @@ public class AgentNavigation : MonoBehaviour
     private string currentRoom;
     private Dictionary<string, System.Action> roomFearEffects;
 
-    [SerializeField] public Fear agentFear { get; private set; }
+    [SerializeField] public Fear agentFear;
     
     [Header("Movement Per Turn")]
     [Tooltip("Number of tiles the agent can move per turn. Set to 0 for unlimited movement.")]

@@ -35,7 +35,7 @@ public class TurnBasedSystem : MonoBehaviour
     private int eventTurnCount = 0;
 
     /// Number of rounds until defeat.
-    public int roundsUntilDefeat { get; private set; }
+    public int roundsUntilDefeat;
 
     /// List of items to destroy after x turns
     List<DestroyAfterRounds> destroyablesList = new List<DestroyAfterRounds>();

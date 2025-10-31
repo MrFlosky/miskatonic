@@ -17,7 +17,7 @@ public class PlayerData
     public int roundsUntil;
 
     // Maze Generation
-    public Random.State randomStateBeforeMazeGen;
+    public int mazeSeed;
 
     // Dispatch System
     public int cultists;
@@ -45,12 +45,13 @@ public class PlayerData
     // Constructor handles conversion of non-serializable data types
     public PlayerData(
         int totalTurnCount, int playerTurnCount, int aiTurnCount, int eventTurnCount, int roundsUntilDefeat,
-        Random.State mazeRandState,
+        int seed,
         int cultistPoints,
         float totalFear,
         int hFear, int iFear, int mFear, int eFear,
         Vector3 harold, Vector3 iain, Vector3 mack, Vector3 eve,
-        List<string> hRooms, List<string> iRooms, List<string> mRooms, List<string> eRooms)
+        List<string> hRooms, List<string> iRooms, List<string> mRooms, List<string> eRooms
+        )
     {
 
         totalTurn = totalTurnCount;
@@ -58,7 +59,7 @@ public class PlayerData
         aiTurn = aiTurnCount;
         eventTurn = eventTurnCount;
 
-        randomStateBeforeMazeGen = mazeRandState;
+        mazeSeed = seed;
 
 
         cultists = cultistPoints;

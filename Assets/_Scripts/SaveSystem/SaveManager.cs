@@ -56,14 +56,16 @@ public class SaveManager : MonoBehaviour
         FileStream stream = new FileStream(path, FileMode.Create);
 
 
+
+
         // Fetch necessary player data, see PlayerData to see a *slightly* more organized view of what data is saved
-        PlayerData data = new PlayerData(
+        PlayerData data = new(
             TurnBasedSystem.GET_TURN_COUNT(),
             TurnBasedSystem.GET_TURN_COUNT(TurnType.Player),
             TurnBasedSystem.GET_TURN_COUNT(TurnType.AI),
             TurnBasedSystem.GET_TURN_COUNT(TurnType.Event),
             TurnBasedSystem.S.roundsUntilDefeat,
-            MazeGenerator.Instance.startState,
+            MazeGenerator.Instance.seed,
             CultistPoints.GetPoints(),
             FearMeter.GET_METER_TOTAL(),
             AgentManager.Instance.agents[0].agentFear.currentFear,
