@@ -138,6 +138,11 @@ public class PlayerController : MonoBehaviour
                     break;
             }
         }
+
+        if (clickAI != null && activeSkill == null)
+        {
+            clickAI.OnRightClick(context);
+        }
     }
 
     private void OnConfirm(InputAction.CallbackContext context)

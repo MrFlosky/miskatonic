@@ -43,7 +43,6 @@ public class ClickAI : MonoBehaviour
 
     [Header("Highlighting")]
     private List<Transform> activeOutlines = new List<Transform>(); // List of current outlined tiles
-    private bool rightClicking = false; // Whether the player is right-clicking
     [SerializeField] Material outlineMaterial;  // Material applied when highlighting tiles
 
     [Header("UI")]
@@ -105,15 +104,15 @@ public class ClickAI : MonoBehaviour
 
 
 
-            // Get moude position based on current input
-            Vector2 mousePos = Vector2.zero;
+        // Get moude position based on current input
+        Vector2 mousePos = Vector2.zero;
         mousePos = GameInput.Instance.GetActiveGameDevice() == GameInput.GameDevice.KeyboardMouse
             ? Mouse.current.position.ReadValue()
             : VirtualMouseUI.Instance.GetVirtualMousePosition();
 
         Ray ray = Camera.main.ScreenPointToRay(mousePos);
 
-        
+
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
 
@@ -194,6 +193,25 @@ public class ClickAI : MonoBehaviour
                 {
                     cameraRoomManagement(hit);
                 }
+            }
+        }
+    }
+
+    /// <summary>
+    /// Right click event function to exit room zoom back to board view
+    /// </summary>
+    public void OnRightClick(InputAction.CallbackContext context)
+    {
+        //Leave Room On Right Click
+        if (isSnooping && !_inConversation)
+        {
+            activeCamera.enabled = false;
+            isSnooping = false;
+            playerCam.enabled = true;
+            if (activeCamera.enabled)
+            {
+                activeCamera = playerCam;
+                activeCamera.enabled = true;
             }
         }
     }
@@ -366,10 +384,6 @@ public class ClickAI : MonoBehaviour
                 timeElapsed = 0f;
             }
         }
-
-        // Clear outlines unless hodling right-click in player's turn
-        if (rightClicking && TurnBasedSystem.IsPlayerTurn()) return;
-        ClearOutlines();
         
     }
 
