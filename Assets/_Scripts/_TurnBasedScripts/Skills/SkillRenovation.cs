@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 using UnityEngine.InputSystem;
 public class SkillRenovation : Skill
@@ -10,13 +11,26 @@ public class SkillRenovation : Skill
     /// if the player clicks on the room it will activate the skill. Effects handled by the RenovationEffect script
     /// </summary>
 
-    public AgentNavigation Evelyn, Mackenzie, Harold, Ian;
-    private PlayerInputActions inputActions;
+
+   // private PlayerInputActions inputActions;
+    [SerializeField] GameObject Renovator;
+    [SerializeField] AgentManager agentManager;
+    [SerializeField] Camera mainCamera;
+
     private void Awake()
     {
-        
+        if (mainCamera == null)
+        {
+            mainCamera = Camera.main; // Use main camera if none specified
+        }
+
         skillSystem = GetComponent<SkillSystem>();
 
+    }
+
+    void Start()
+    {
+        enabled = false;
     }
 
 
@@ -36,15 +50,35 @@ public class SkillRenovation : Skill
             if (hit.collider.gameObject.GetComponentInParent<MazeCellObject>() != null
             && hit.collider.gameObject.GetComponentInParent<MazeCellObject>().roomType != "Hallway")
             {
-                //do renovation stuff
+
+                string RoomsName = hit.collider.gameObject.GetComponentInParent<MazeCellObject>().roomType;
+                RoomsName = RoomsName.Replace(" ", "");
+                Debug.LogError(RoomsName);
+
+                AgentNavigation.RoomName Rn = (AgentNavigation.RoomName)System.Enum.Parse(typeof(AgentNavigation.RoomName), RoomsName);
+                
+                Debug.LogError(Rn);
+                foreach (AgentNavigation AN in agentManager.agents)
+                {
+                    AN.SetBonusFearRoom(Rn);
+
+                }
+                
+                
             }
         }
 
     }
-    
+
     public void OnRightClick(InputAction.CallbackContext context)
     {
-        
+        ExitInProgress();
+    }
+
+
+    public override void ActivateSkill()
+    {
+        base.ActivateSkill();
     }
     
 }

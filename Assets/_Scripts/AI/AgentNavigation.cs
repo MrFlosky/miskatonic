@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
+using UnityEditor.Rendering;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -28,6 +29,10 @@ public class AgentNavigation : MonoBehaviour
     public Vector3 destination;
 
     [SerializeField] private RoomName FearRoom;
+    [SerializeField]private RoomName bonusFearRoom;
+
+    }
+
     [SerializeField] private RoomName GoalRoom;
 
     private string currentRoom;
@@ -55,10 +60,11 @@ public class AgentNavigation : MonoBehaviour
 
     private void Start()
     {
-        print(FearRoom);
         roomFearEffects = new Dictionary<string, System.Action>();
         roomFearEffects[GetRoomName(FearRoom)] = IncreaseFear;
         roomFearEffects[GetRoomName(GoalRoom)] = DecreaseFear;
+        SetBonusFearRoom(RoomName.None);
+        
     }
 
     private void Awake()
@@ -690,10 +696,18 @@ public class AgentNavigation : MonoBehaviour
             Debug.Log($"{gameObject.name}: No fear effect registered for {roomType}");
         }
     }
-    
+
     public void IncreaseFear()
     {
         agentFear.AddFear(5);
+    }
+    
+    public void AddBonusFear(float bonusFear)
+    {
+        //temporary pending fear being made into float
+       int addedFear = Mathf.RoundToInt(bonusFear);
+
+        agentFear.AddFear(addedFear);
     }
 
     private void DecreaseFear()
@@ -710,7 +724,7 @@ public class AgentNavigation : MonoBehaviour
         agentFear.ReduceFear(5);
     }
 
-    private enum RoomName
+    public enum RoomName
     {
         Bedroom,
         DiningRoom,
