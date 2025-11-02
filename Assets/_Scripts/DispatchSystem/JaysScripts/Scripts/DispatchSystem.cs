@@ -128,12 +128,7 @@ public class DispatchSystem : MonoBehaviour , ITurnObserver
     /// </summary>
     void ITurnObserver.PlayerTurnInitiated()
     {
-        dealerDealtWith = false;
 
-        // add reroll and update text
-        rerolls = 1;
-        rerollTxt.text = defaultRerollText;
-        //initiateCardDealerButton.gameObject.SetActive(true);
     }
     void ITurnObserver.EnemyTurnInitiated()
     {

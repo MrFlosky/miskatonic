@@ -210,6 +210,7 @@ public class AgentNavigation : MonoBehaviour
                 {
                     Debug.Log("playerVision updated.");
                     playerVision.UpdateVision(true);
+                    playerVision.ApplyPsychosis();
                 }
 
                 // Check if next cell is still walkable

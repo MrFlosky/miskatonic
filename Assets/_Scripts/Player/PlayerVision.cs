@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 public enum Vision { Up, Down, Left, Right }
-public class PlayerVision : MonoBehaviour
+public class PlayerVision : MonoBehaviour, ITurnObserver
 {
     public Vision facing = Vision.Up;
     public Vector2Int gridPos;
@@ -21,7 +21,10 @@ public class PlayerVision : MonoBehaviour
     public List<MazeCellObject> totemCell = new List<MazeCellObject>();
     private int totemFear = 0;
 
+    // Psychosis skill
     public bool isPsychosis = false;
+    private int endTurn;
+    private int psyRadius;
 
 
     /// <summary>
@@ -31,6 +34,7 @@ public class PlayerVision : MonoBehaviour
     {
         // Try to get the MazeCellObject this player is standing on
         currentCell = GetComponent<MazeCellObject>();
+        TurnBasedSystem.SubscribeAsObserver(this);
 
         if (currentCell != null)
         {
@@ -246,5 +250,93 @@ public class PlayerVision : MonoBehaviour
         }
     }
 
+    public void EnablePsychosisVision(bool enable, int endAtTurn, int radius)
+    {
+        isPsychosis = enable;
+        endTurn = endAtTurn;
+        psyRadius = radius;
+    }
 
+    /// <summary>
+    /// Returns all cells within a circular (360°) vision range.
+    /// Ignores facing direction and wall blocking for Psychosis.
+    /// </summary>
+    public List<Vector2Int> GetFullVisionCells()
+    {
+        List<Vector2Int> visible = new List<Vector2Int>();
+        var agentNavigation = GetComponent<AgentNavigation>();
+        var gameManager = agentNavigation.gameManager;
+
+        for (int dx = -psyRadius; dx <= psyRadius; dx++)
+        {
+            for (int dy = -psyRadius; dy <= psyRadius; dy++)
+            {
+                int newX = gridPos.x + dx;
+                int newY = gridPos.y + dy;
+
+                Vector2Int pos = new Vector2Int(gridPos.x + dx, gridPos.y + dy);
+
+                // Skip out of range
+                if (newX < 0 || newX >= gameManager.centralMaze.GetLength(0) ||
+                newY < 0 || newY >= gameManager.centralMaze.GetLength(1))
+                {
+                    break; // Out of maze bounds, stop vision
+                }
+
+                visible.Add(pos);
+            }
+        }
+
+        return visible;
+    }
+
+
+    public void ApplyPsychosis()
+    {
+        if (isPsychosis)
+        {
+
+            Debug.Log("check for ai players");
+            var agentNavigation = GetComponent<AgentNavigation>();
+            var gameManager = agentNavigation.gameManager;
+            var fear = GetComponent<Fear>();
+            var visibleCells = GetFullVisionCells();
+
+            // int nearbyCharacters = 0;
+            List<PlayerVision> nearbyCharacters = new List<PlayerVision>();
+
+            foreach (var player in FindObjectsOfType<PlayerVision>())
+            {
+                if (player == this) continue;
+
+                Vector2Int otherPos = player.GetComponent<PlayerVision>().gridPos;
+                if (visibleCells.Contains(otherPos) && !nearbyCharacters.Contains(player))
+                    // nearbyCharacters++;
+                    nearbyCharacters.Add(player);
+            }
+
+            int gainFear = nearbyCharacters.Count * 5;
+            if (gainFear > 0)
+            {
+                fear.AddFear(gainFear);
+            }
+        }
+
+    }
+    /// <summary>
+    /// Every player turn, if the psychosis was applied, check the vision and fear added if any 
+    /// player is around.
+    /// </summary>
+    void ITurnObserver.PlayerTurnInitiated()
+    {
+
+        
+    }
+    void ITurnObserver.EnemyTurnInitiated()
+    {
+        if (TurnBasedSystem.GET_TURN_COUNT() <= endTurn)
+        {
+            isPsychosis = false;
+        }
+    }
 }
