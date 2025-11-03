@@ -16,10 +16,11 @@ MonoBehaviour:
   description: Choose a character. For the next 3 turns they see other characters
     as horrifying monsters, gaining fear based on the amount of other characters
     nearby (in the same room or within 3 tiles).
-  cultistCost: 1
+  cultistCost: 5
   oneTimeUse: 1
   turnActivateTime: 0
   reward: {fileID: -6424063008033546454, guid: 635b1b0cf7f9d3246bfe1cdebdee55ea, type: 3}
   usages: 1
   cultistsGranted: 0
+  previewsGranted: 0
   character: 0

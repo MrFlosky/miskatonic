@@ -205,7 +205,7 @@ public class AgentNavigation : MonoBehaviour
                 {
                     Debug.Log("playerVision updated.");
                     playerVision.UpdateVision(true);
-                    playerVision.ApplyPsychosis();
+                    playerVision.ApplyPsychosis(true);
                 }
                 
                 MazeCell nextCell = path[0];
@@ -278,6 +278,7 @@ public class AgentNavigation : MonoBehaviour
 
         //playerVision.totemCell.Clear();
         playerVision.UpdateVision(false);
+        playerVision.ApplyPsychosis(false);
        
         gameObject.GetComponent<DialogueBank>().alreadyTalked = false;
     }

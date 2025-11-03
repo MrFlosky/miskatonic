@@ -46,6 +46,7 @@ public class SkillPsychosis : Skill
                 {
                     ApplyPsychosis(vision);
                     isSelecting = true;
+                    this.enabled = false;
                     skillsUI.ENABLE_BUTTONS();
                     EndSkill();
                 }
@@ -58,7 +59,7 @@ public class SkillPsychosis : Skill
     public void ApplyPsychosis(PlayerVision vision)
     {
         Debug.Log("Psychosis applied");
-        vision.EnablePsychosisVision(true, TurnBasedSystem.GET_TURN_COUNT() + roundsLast, visionRadius);
+        vision.EnablePsychosisVision(true, TurnBasedSystem.GET_TURN_COUNT() + roundsLast, visionRadius, fearPerNearby);
     }
 
     public void StartTargetSelection()
@@ -82,10 +83,9 @@ public class SkillPsychosis : Skill
 
     public override void EndSkill()
     {
-
-        base.EndSkill();
         this.enabled = false;
         isSelecting = false;
+        base.EndSkill();
 
     }
 
