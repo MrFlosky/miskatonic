@@ -56,6 +56,16 @@ public class PlayerData
     public bool[] mackenzieFears;
     public bool[] evelynFears;
 
+    // Dialogue 
+    public int haroldDialogueRemainingCount;
+    public int iainDialogueRemainingCount;
+    public int mackenzieDialogueRemainingCount;
+    public int evelynDialogueRemainingCount;
+    public List<int> haroldRemainingDialogues;
+    public List<int> iainRemainingDialogues;
+    public List<int> mackenzieRemainingDialogues;
+    public List<int> evelynRemainingDialogues;
+
 
 
 
@@ -70,7 +80,9 @@ public class PlayerData
         Vector3 hPos, Vector3 iPos, Vector3 mPos, Vector3 ePos,
         List<string> hRooms, List<string> iRooms, List<string> mRooms, List<string> eRooms,
         bool aoeUnlocked, bool bUnlocked, bool tUnlocked, bool lUnlocked, bool rUnlocked,
-        bool[] hFears, bool[] iFears, bool[] mFears, bool[] eFears
+        bool[] hFears, bool[] iFears, bool[] mFears, bool[] eFears,
+        int hDialogueCount, int iDialogueCount, int mDialogueCount, int eDialogueCount,
+        List<int> hRemainingDialogues, List<int> iRemainingDialogues, List<int> mRemainingDialogues, List<int> eRemainingDialogues
         )
     {
 
@@ -125,6 +137,16 @@ public class PlayerData
         iainFears = iFears;
         mackenzieFears = mFears;
         evelynFears = eFears;
+
+        haroldDialogueRemainingCount = hDialogueCount;
+        iainDialogueRemainingCount = iDialogueCount;
+        mackenzieDialogueRemainingCount = mDialogueCount;
+        evelynDialogueRemainingCount = eDialogueCount;
+
+        haroldRemainingDialogues = hRemainingDialogues;
+        iainRemainingDialogues = iRemainingDialogues;
+        mackenzieRemainingDialogues = mRemainingDialogues;
+        evelynRemainingDialogues = eRemainingDialogues;
 
     }
 }

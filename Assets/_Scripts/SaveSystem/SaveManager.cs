@@ -20,17 +20,21 @@ public class SaveManager : MonoBehaviour
     TODO:
         High Prio
         - Reading dispatch deck state
-        - Reading fears discovered
-        - Reading dialogue info? (idk if its based on turns or previous dialogue)
+        - Reading dialogue info
+
 
 
         Med Prio
         - Warn user when a save will be overwritten
+        - Read placed barriers and destroyed walls
+        - Read other placed objects like fear totems
+        - Read AI States
+        - Read what characters have been talked to that turn
+        - Read if cultist has been talked to
         - Autosave? 
 
         Low Prio
         - Sort saves by Date
-        - Capped amt of saves?
         - Reformat to JSON or proprietary binary serialization
         - Reformat to event-based
     */
@@ -86,7 +90,15 @@ public class SaveManager : MonoBehaviour
             CharacterFears.Instance.GetFearsDiscovered(CharacterData.Character.HaroldAuden),
             CharacterFears.Instance.GetFearsDiscovered(CharacterData.Character.IainSchweblin),
             CharacterFears.Instance.GetFearsDiscovered(CharacterData.Character.MackenzieJoyce),
-            CharacterFears.Instance.GetFearsDiscovered(CharacterData.Character.EvelynVentress)
+            CharacterFears.Instance.GetFearsDiscovered(CharacterData.Character.EvelynVentress),
+            AgentManager.Instance.agents[0].GetComponent<DialogueBank>().GetRemainingDialogueCount(),
+            AgentManager.Instance.agents[1].GetComponent<DialogueBank>().GetRemainingDialogueCount(),
+            AgentManager.Instance.agents[2].GetComponent<DialogueBank>().GetRemainingDialogueCount(),
+            AgentManager.Instance.agents[3].GetComponent<DialogueBank>().GetRemainingDialogueCount(),
+            AgentManager.Instance.agents[0].GetComponent<DialogueBank>().GetRemainingDialogues(),
+            AgentManager.Instance.agents[1].GetComponent<DialogueBank>().GetRemainingDialogues(),
+            AgentManager.Instance.agents[2].GetComponent<DialogueBank>().GetRemainingDialogues(),
+            AgentManager.Instance.agents[3].GetComponent<DialogueBank>().GetRemainingDialogues()
         );
 
         // Send to binary file
