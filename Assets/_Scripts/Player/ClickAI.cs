@@ -56,6 +56,9 @@ public class ClickAI : MonoBehaviour
     private bool isUsingSkill = false;
     public CinemachineVirtualCamera roomCamera; //Current Room Camera
 
+    [Header("Disabled UI")]
+    public GameObject characterPortaits;
+
 
     /// <summary>
     /// Vars for checking for double click. Used for room zooming
@@ -208,6 +211,7 @@ public class ClickAI : MonoBehaviour
             activeCamera.enabled = false;
             isSnooping = false;
             playerCam.enabled = true;
+            characterPortaits.SetActive(true);
             if (activeCamera.enabled)
             {
                 activeCamera = playerCam;
@@ -262,6 +266,7 @@ public class ClickAI : MonoBehaviour
             //Blend Camera if skill not in use
             if (roomCamera && !isUsingSkill)
             {
+                characterPortaits.SetActive(false);
                 if (roomCamera.enabled == false)
                 {
                     roomCamera.gameObject.SetActive(true);
@@ -336,6 +341,7 @@ public class ClickAI : MonoBehaviour
 
         PlayerController.Instance.clickedAI = false;
         _inConversation = false;
+        characterPortaits.SetActive(true);
 
         if (playerCam)
             playerCam.enabled = true;

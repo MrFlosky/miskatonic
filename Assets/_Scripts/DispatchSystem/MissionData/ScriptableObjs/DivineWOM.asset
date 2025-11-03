@@ -12,11 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95ccb6b6e7296c546b4c934070f5b23a, type: 3}
   m_Name: DivineWOM
   m_EditorClassIdentifier: 
-  title: WOM
-  description: placeholder
+  title: Diving Word of Mouth
+  description: 'Gain cultists every turn based on how many cultists are currently
+    a part of your cult. '
   cultistCost: 1
+  oneTimeUse: 0
   turnActivateTime: 0
   reward: {fileID: -8037245122163773980, guid: a04494502d1b06744a90bf5cb8607719, type: 3}
   usages: 0
   cultistsGranted: 1
+  previewsGranted: 0
   character: 0
