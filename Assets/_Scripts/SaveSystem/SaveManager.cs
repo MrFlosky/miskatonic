@@ -19,7 +19,6 @@ public class SaveManager : MonoBehaviour
     /*
     TODO:
         High Prio
-        - Reading ability unlocks
         - Reading dispatch deck state
         - Reading fears discovered
         - Reading dialogue info? (idk if its based on turns or previous dialogue)
@@ -83,7 +82,11 @@ public class SaveManager : MonoBehaviour
             SkillsCollection.S.IsBarrierUnlocked(),
             SkillsCollection.S.IsTotemUnlocked(),
             SkillsCollection.S.IsLureUnlocked(),
-            SkillsCollection.S.IsRoomSwapUnlocked()
+            SkillsCollection.S.IsRoomSwapUnlocked(),
+            CharacterFears.Instance.GetFearsDiscovered(CharacterData.Character.HaroldAuden),
+            CharacterFears.Instance.GetFearsDiscovered(CharacterData.Character.IainSchweblin),
+            CharacterFears.Instance.GetFearsDiscovered(CharacterData.Character.MackenzieJoyce),
+            CharacterFears.Instance.GetFearsDiscovered(CharacterData.Character.EvelynVentress)
         );
 
         // Send to binary file

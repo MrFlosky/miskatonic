@@ -31,7 +31,7 @@ public class PlayerData
     public float[] mackenziePos;
     public float[] evelynPos;
 
-    // Agent Fears
+    // Agent Fear Numbers
     public int haroldFear;
     public int iainFear;
     public int mackenzieFear;
@@ -50,6 +50,11 @@ public class PlayerData
     public bool LureUnlocked;
     public bool RoomSwapUnlocked;
 
+    // Agent Fears Discovered
+    public bool[] haroldFears;
+    public bool[] iainFears;
+    public bool[] mackenzieFears;
+    public bool[] evelynFears;
 
 
 
@@ -62,9 +67,10 @@ public class PlayerData
         int cultistPoints,
         float totalFear,
         int hFear, int iFear, int mFear, int eFear,
-        Vector3 harold, Vector3 iain, Vector3 mack, Vector3 eve,
+        Vector3 hPos, Vector3 iPos, Vector3 mPos, Vector3 ePos,
         List<string> hRooms, List<string> iRooms, List<string> mRooms, List<string> eRooms,
-        bool aoeUnlocked, bool bUnlocked, bool tUnlocked, bool lUnlocked, bool rUnlocked 
+        bool aoeUnlocked, bool bUnlocked, bool tUnlocked, bool lUnlocked, bool rUnlocked,
+        bool[] hFears, bool[] iFears, bool[] mFears, bool[] eFears
         )
     {
 
@@ -85,24 +91,24 @@ public class PlayerData
         mackenzieFear = mFear;
 
         haroldPos = new float[3];
-        haroldPos[0] = harold.x;
-        haroldPos[1] = harold.y;
-        haroldPos[2] = harold.z;
+        haroldPos[0] = hPos.x;
+        haroldPos[1] = hPos.y;
+        haroldPos[2] = hPos.z;
 
         iainPos = new float[3];
-        iainPos[0] = iain.x;
-        iainPos[1] = iain.y;
-        iainPos[2] = iain.z;
+        iainPos[0] = iPos.x;
+        iainPos[1] = iPos.y;
+        iainPos[2] = iPos.z;
 
         mackenziePos = new float[3];
-        mackenziePos[0] = mack.x;
-        mackenziePos[1] = mack.y;
-        mackenziePos[2] = mack.z;
+        mackenziePos[0] = mPos.x;
+        mackenziePos[1] = mPos.y;
+        mackenziePos[2] = mPos.z;
 
         evelynPos = new float[3];
-        evelynPos[0] = eve.x;
-        evelynPos[1] = eve.y;
-        evelynPos[2] = eve.z;
+        evelynPos[0] = ePos.x;
+        evelynPos[1] = ePos.y;
+        evelynPos[2] = ePos.z;
 
         haroldRooms = hRooms.ToArray();
         iainRooms = iRooms.ToArray();
@@ -115,7 +121,10 @@ public class PlayerData
         LureUnlocked = lUnlocked;
         RoomSwapUnlocked = rUnlocked;
 
-
+        haroldFears = hFears;
+        iainFears = iFears;
+        mackenzieFears = mFears;
+        evelynFears = eFears;
 
     }
 }
