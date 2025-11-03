@@ -258,7 +258,7 @@ public class PlayerVision : MonoBehaviour, ITurnObserver
     }
 
     /// <summary>
-    /// Returns all cells within a circular (360°) vision range.
+    /// Returns all cells within a circular (360ï¿½) vision range.
     /// Ignores facing direction and wall blocking for Psychosis.
     /// </summary>
     public List<Vector2Int> GetFullVisionCells()

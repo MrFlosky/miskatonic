@@ -11,8 +11,6 @@ using UnityEngine;
 public class Heartbeats : MonoBehaviour
 {
     public static Heartbeats S;
-    [Header("Used to scale how much heartbeat pitch increases with fear.")]
-    [SerializeField] int heartbeatMaxFear = 400;
     public AudioSource heartbeat;
     public AudioSource mainTheme;
     float heartbeatPitch;
@@ -55,8 +53,8 @@ public class Heartbeats : MonoBehaviour
     {
         AudioManager.SmoothVolumeTransition(mainTheme.volume, mainTheme.volume / 2.5f);  // lower main theme volume so heartbeat better heard
 
-        //S.maxFear = maxFear; old
-        S.maxFear = heartbeatMaxFear;
+        S.maxFear = maxFear; // old now new
+        //S.maxFear = heartbeatMaxFear;
         S.heartbeatPitch = S.FearToHeartBeat(fear);
         S.heartbeat.pitch = S.heartbeatPitch;
         S.heartbeat.Play();
@@ -114,13 +112,5 @@ public class Heartbeats : MonoBehaviour
 
         S.heartbeat.Stop();
     }
-
-    // Called when parent object is disabled? Can seemly only detect if this script also enabled i.e. the behavior
-    // void OnDisable()
-    // {
-    //     S.heartbeat.Stop();
-    //     S.enabled = false;
-    // }
-
 
 }

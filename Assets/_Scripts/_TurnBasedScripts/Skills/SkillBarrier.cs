@@ -78,6 +78,8 @@ public class SkillBarrier : Skill
             MazeGenerator.Instance.SetWallInternalState(x, y, wT, true);
             TurnBasedSystem.DestroyAfterRounds destroyInstance = new TurnBasedSystem.DestroyAfterRounds(roundsLast, confirmedWall.gameObject, wT);
 
+            MapChangeEvents.InvokeBarrierChanged();
+            
             ResetValues();
             EndSkill(); 
         }
@@ -104,7 +106,7 @@ public class SkillBarrier : Skill
         {
             // If no cell is selected, end the skill and refund points
             Debug.Log("No cell selected, ending skill");
-            ExitInProgress();
+            ExitInProgress(); // samme as base.ExitInProgress if no override in this function
         }
 
     }

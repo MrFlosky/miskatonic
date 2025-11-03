@@ -3,6 +3,8 @@ using DialogueEditor;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices.WindowsRuntime;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -17,9 +19,9 @@ using Yarn.Unity;
 /// 
 /// Responsibilities:
 /// - Triggering dialouge with AI
+/// - Room viewing
 /// - Managing camrea trsnsitions between player camera and AI camera
 /// - Handling outline visualization for AI movement paths
-/// - Disabling/enabling UI buttons during conversations
 /// 
 /// </summary>
 public class ClickAI : MonoBehaviour
@@ -32,7 +34,7 @@ public class ClickAI : MonoBehaviour
     public CinemachineVirtualCamera activeCamera;   // Currently active camera (AI or player)
 
     public bool _inConversation;   // Tracks if a conversation is ongoing
-    public bool _clickedAI = false; // Track if the AI has been clicked.
+    public bool _clickedAI = false; // Track if the AI has been clicked. Flips to false once convo started.
 
 
     [Header("Camera Dolly")]
@@ -41,7 +43,6 @@ public class ClickAI : MonoBehaviour
 
     [Header("Highlighting")]
     private List<Transform> activeOutlines = new List<Transform>(); // List of current outlined tiles
-    private bool rightClicking = false; // Whether the player is right-clicking
     [SerializeField] Material outlineMaterial;  // Material applied when highlighting tiles
 
     [Header("UI")]
@@ -54,9 +55,16 @@ public class ClickAI : MonoBehaviour
     private bool isSnooping = false; //check if the player is currently looking in a room
     private bool isUsingSkill = false;
     public CinemachineVirtualCamera roomCamera; //Current Room Camera
-    
 
 
+    /// <summary>
+    /// Vars for checking for double click. Used for room zooming
+    /// </summary>
+    private bool singleClicked = false;
+    private bool doubleClickCheck = false;
+    private bool doubleClicked = false;
+    private float doubleClickWindow = 0.5f; // window user has to perform double click before being treated as single click
+    private float timeElapsed = 0.0f;
 
     // AI Camera currently active.
     // Used for bust rotation function calls.
@@ -87,7 +95,14 @@ public class ClickAI : MonoBehaviour
     /// </summary>
     public void OnClick(InputAction.CallbackContext context)
     {
-       // if (_clickedAI || !TurnBasedSystem.IsPlayerTurn() || _inConversation) return;
+        // do NOT allow any click events here if clicked on an ai, in convo, or its the enemy turn
+        //if (_clickedAI || TurnBasedSystem.IsAITurn() || _inConversation) return; //this was the long working version.
+        UIManagerLite.GameState gameState = UIManagerLite.GetCurrentState();
+        if (gameState != UIManagerLite.GameState.BoardBase) return; // not allowed to perform any click actions on board/ai if not in boardbase
+        CheckForDoubleClick();
+
+
+
 
         // Get moude position based on current input
         Vector2 mousePos = Vector2.zero;
@@ -97,14 +112,14 @@ public class ClickAI : MonoBehaviour
 
         Ray ray = Camera.main.ScreenPointToRay(mousePos);
 
-        
+
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
 
-            
+
             if (hit.collider.CompareTag("AI"))
             {
-                
+
 
                 GameObject aiGameObj = hit.collider.gameObject;
                 DialogueBank dialogueBank = aiGameObj.GetComponent<DialogueBank>();
@@ -145,7 +160,7 @@ public class ClickAI : MonoBehaviour
                     {
                         roomCamera.enabled = false;
                     }
-                    
+
                     virtualCam.gameObject.SetActive(true);
                     virtualCam.enabled = true;
                 }
@@ -163,81 +178,101 @@ public class ClickAI : MonoBehaviour
 
                 UIManagerLite.TransitionToState(UIManagerLite.GameState.Dialogue);
 
-
-
-
-
-
             }
 
-           /* else if (hit.collider.CompareTag("Book"))
-            {
-               
-                hit.collider.GetComponent<Books>().ChangeBook();
-            }*/
+            /* else if (hit.collider.CompareTag("Book"))
+             {
+
+                 hit.collider.GetComponent<Books>().ChangeBook();
+             }*/
 
             //Check is tile is a room
-            else if (hit.collider.gameObject.GetComponentInParent<MazeCellObject>() != null &&hit.collider.gameObject.GetComponentInParent<MazeCellObject>().roomType != "Hallway")
+            else if (hit.collider.gameObject.GetComponentInParent<MazeCellObject>() != null && hit.collider.gameObject.GetComponentInParent<MazeCellObject>().roomType != "Hallway")
             {
-                if (roomCamera)
+                if (doubleClicked)
                 {
-                    roomCamera.enabled = false;
+                    cameraRoomManagement(hit);
                 }
-                if (hit.collider.gameObject.GetComponentInParent<MazeCellObject>().roomType != null)
-                {
-                    isSnooping = true;
-                    //Set the room camera to the room type being clicked
-                    switch (hit.collider.gameObject.GetComponentInParent<MazeCellObject>().roomType)
-                    {                        
-                        //camera blend on room click
-                        case "Bedroom":
-                            roomCamera = Maze.gameObject.GetComponent<MazeRenderer>().bedroomCam;
-                            break;
-                        case "Library":
-                            roomCamera = Maze.gameObject.GetComponent<MazeRenderer>().libraryCam;
-                            break;
-                        case "Dining Room":
-                            roomCamera = Maze.gameObject.GetComponent<MazeRenderer>().diningCam;
-                            break;
-                        case "Dungeon":
-                            roomCamera = Maze.gameObject.GetComponent<MazeRenderer>().dungeonCam;
-                            break;
-                        case "Ritual Room":
-                            roomCamera = Maze.gameObject.GetComponent<MazeRenderer>().ritualCam;
-                            break;
-                        case "Cemetery":
-                            roomCamera = Maze.gameObject.GetComponent<MazeRenderer>().cemeteryCam;
-                            break;
-                    }
-
-                    //Check if a skill is in use
-                    if (this.gameObject.GetComponent<PlayerController>().activeSkill != null)
-                    {
-                        isUsingSkill = true;
-                    }
-                    if (this.gameObject.GetComponent<PlayerController>().activeSkill == null)
-                    {
-                        isUsingSkill = false;
-                    }
-
-                    //Blend Camera if skill not in use
-                    if (roomCamera && !isUsingSkill)
-                    {
-                        if (roomCamera.enabled == false)
-                        {
-                            roomCamera.gameObject.SetActive(true);
-                            roomCamera.enabled = true;
-                        }                        
-                    }
-                    activeCamera = roomCamera;
-                    playerCam.enabled = false;
-                }            
             }
-            
-
         }
     }
 
+    /// <summary>
+    /// Right click event function to exit room zoom back to board view
+    /// </summary>
+    public void OnRightClick(InputAction.CallbackContext context)
+    {
+        //Leave Room On Right Click
+        if (isSnooping && !_inConversation)
+        {
+            activeCamera.enabled = false;
+            isSnooping = false;
+            playerCam.enabled = true;
+            if (activeCamera.enabled)
+            {
+                activeCamera = playerCam;
+                activeCamera.enabled = true;
+            }
+        }
+    }
+
+    private void cameraRoomManagement(RaycastHit Room)
+    {
+        if (roomCamera)
+        {
+            roomCamera.enabled = false;
+        }
+        if (Room.collider.gameObject.GetComponentInParent<MazeCellObject>().roomType != null)
+        {
+            isSnooping = true;
+            //Set the room camera to the room type being clicked
+            switch (Room.collider.gameObject.GetComponentInParent<MazeCellObject>().roomType)
+            {
+                //camera blend on room click
+                case "Bedroom":
+                    roomCamera = Maze.gameObject.GetComponent<MazeRenderer>().bedroomCam;
+                    break;
+                case "Library":
+                    roomCamera = Maze.gameObject.GetComponent<MazeRenderer>().libraryCam;
+                    break;
+                case "Dining Room":
+                    roomCamera = Maze.gameObject.GetComponent<MazeRenderer>().diningCam;
+                    break;
+                case "Dungeon":
+                    roomCamera = Maze.gameObject.GetComponent<MazeRenderer>().dungeonCam;
+                    break;
+                case "Ritual Room":
+                    roomCamera = Maze.gameObject.GetComponent<MazeRenderer>().ritualCam;
+                    break;
+                case "Cemetery":
+                    roomCamera = Maze.gameObject.GetComponent<MazeRenderer>().cemeteryCam;
+                    break;
+            }
+
+            //Check if a skill is in use
+            if (this.gameObject.GetComponent<PlayerController>().activeSkill != null)
+            {
+                isUsingSkill = true;
+            }
+            if (this.gameObject.GetComponent<PlayerController>().activeSkill == null)
+            {
+                isUsingSkill = false;
+            }
+
+            //Blend Camera if skill not in use
+            if (roomCamera && !isUsingSkill)
+            {
+                if (roomCamera.enabled == false)
+                {
+                    roomCamera.gameObject.SetActive(true);
+                    roomCamera.enabled = true;
+                }
+            }
+            activeCamera = roomCamera;
+            playerCam.enabled = false;
+        
+    }
+}
 
     /// <summary>
     /// 
@@ -258,152 +293,7 @@ public class ClickAI : MonoBehaviour
         // Update the tracked dolly's path position based on the scroll amount and speed factor
         track.m_PathPosition += scrollAmount / 120 * scrollSpeed;
     }
-
-
-    /// <summary>
-    /// 
-    /// Handle right-click input to preview AI movement paths by outlining titles
-    /// Clear outlines when releasing right-click or clicking elsewhere
-    /// 
-    /// </summary>
-    public void OnRightClick(InputAction.CallbackContext context)
-    {
-        rightClicking = true;
-
-        if (_clickedAI || !TurnBasedSystem.IsPlayerTurn() || _inConversation)
-        {
-            ClearOutlines();
-            return;
-        }
-
-        //Leave Room On Right Click
-        if (isSnooping && !_inConversation)
-        {
-            activeCamera.enabled = false;
-            isSnooping = false;
-            playerCam.enabled = true;
-            if (activeCamera.enabled)
-            {
-                activeCamera = playerCam;
-                activeCamera.enabled = true;
-            }
-        }
-
-        var mousePos = GameInput.Instance.GetActiveGameDevice() == GameInput.GameDevice.KeyboardMouse
-            ? Mouse.current.position.ReadValue()
-            : VirtualMouseUI.Instance.GetVirtualMousePosition();
-
-        Ray ray = Camera.main.ScreenPointToRay(mousePos);
-
-        if (Physics.Raycast(ray, out RaycastHit hit))
-        {
-            if (hit.collider.CompareTag("AI"))
-            {
-                if (context.started)
-                {
-                    var agentNavigation = hit.collider.GetComponent<AgentNavigation>();
-
-                    // Highlight the agent's planned path for the next turn
-                    if (agentNavigation != null && agentNavigation.storedPath.Count > 0)
-                    {
-                        // Clear any previously active outlines
-                        ClearOutlines();
-                        List<Transform> childWithTag = new List<Transform>();
-
-                        for (int i = 0; i < Mathf.Min(agentNavigation.tilesPerTurn, agentNavigation.storedPath.Count); i++)
-                        {
-                            MazeCell cell = agentNavigation.storedPath[i];
-                            if (MazeRenderer.Instance.cellGameObjects.TryGetValue(cell.position, out GameObject cellObject))
-                            {
-                                for (int j = 0; j < cellObject.transform.childCount; j++)
-                                {
-                                    if (cellObject.transform.GetChild(j).gameObject.layer == LayerMask.NameToLayer("Ground"))
-                                        childWithTag.Add(cellObject.transform.GetChild(j));
-                                }
-
-                            }
-                        }
-
-                        // Apply outline material
-                        foreach (var child in childWithTag)
-                        {
-                            var materials = child.GetComponent<MeshRenderer>().materials;
-
-                            var newMaterials = new Material[materials.Length + 1];
-
-                            for (int i = 0; i < materials.Length; i++)
-                            {
-                                newMaterials[i] = materials[i];
-                            }
-
-                            newMaterials[^1] = outlineMaterial;
-
-                            child.GetComponent<MeshRenderer>().materials = newMaterials;
-
-                            activeOutlines.Add(child);
-                        }
-                    }
-                    else if (agentNavigation != null && agentNavigation.path.Count > 0)
-                    {
-                        // Clear any previously active outlines
-                        ClearOutlines();
-
-                        List<Transform> childWithTag = new List<Transform>();
-                        for (int i = 0; i < Mathf.Min(agentNavigation.tilesPerTurn, agentNavigation.path.Count); i++)
-                        {
-                            MazeCell cell = agentNavigation.path[i];
-                            if (MazeRenderer.Instance.cellGameObjects.TryGetValue(cell.position, out GameObject cellObject))
-                            {
-                                for (int j = 0; j < cellObject.transform.childCount; j++)
-                                {
-                                    if (cellObject.transform.GetChild(j).gameObject.layer == LayerMask.NameToLayer("Ground"))
-                                        childWithTag.Add(cellObject.transform.GetChild(j));
-                                }
-
-                            }
-                        }
-
-                        foreach (var child in childWithTag)
-                        {
-                            var materials = child.GetComponent<MeshRenderer>().materials;
-
-                            var newMaterials = new Material[materials.Length + 1];
-
-                            for (int i = 0; i < materials.Length; i++)
-                            {
-                                newMaterials[i] = materials[i];
-                            }
-
-                            newMaterials[^1] = outlineMaterial;
-
-                            child.GetComponent<MeshRenderer>().materials = newMaterials;
-
-                            activeOutlines.Add(child);
-                        }
-                    }
-                }
-                else
-                {
-                    ClearOutlines();
-                }
-
-            }
-
-            
-
-            else
-            {
-                ClearOutlines();
-            }
-        }
-        else if (context.performed || context.canceled)
-        {
-            rightClicking = false;
-            ClearOutlines();
-        }
-    }
-
-
+    
     /// <summary>
     /// 
     /// Remove outlines from all currently highlighted tiles
@@ -442,6 +332,8 @@ public class ClickAI : MonoBehaviour
     /// </summary>
     public void EndConversation()
     {
+        if (UIManagerLite.GetCurrentState() != UIManagerLite.GameState.Dialogue) return; // for win con, only execute this code if in dialogue
+
         PlayerController.Instance.clickedAI = false;
         _inConversation = false;
 
@@ -477,9 +369,22 @@ public class ClickAI : MonoBehaviour
 
     private void Update()
     {
-        // Clear outlines unless hodling right-click in player's turn
-        if (rightClicking && TurnBasedSystem.IsPlayerTurn()) return;
-        ClearOutlines();           
+       if (doubleClickCheck)
+        {
+            timeElapsed += Time.deltaTime;
+
+            // reset for fresh clicks if timed out after making first click.
+            // fixes bug where player makes first click, waits too long, then goes in for a double click
+            if (timeElapsed > doubleClickWindow)
+            {
+                //Debug.Log("<color=red>TIMEOUT - Resetting for fresh clicks</color>");
+                singleClicked = false;
+                doubleClickCheck = false;
+                doubleClicked = false;
+                timeElapsed = 0f;
+            }
+        }
+        
     }
 
     [SerializeField] CinemachineVirtualCamera storyboardCam;
@@ -546,6 +451,34 @@ public class ClickAI : MonoBehaviour
     public void SetAICam(AICamera aicam)
     {
         activeAICam = aicam;
+    }
+
+    /// <summary>
+    /// Checks if a double click has been performed, used for room clicking.
+    /// </summary>
+    private void CheckForDoubleClick()
+    {
+        // if first click, mark this as potential d-click
+        if (!singleClicked)
+        {
+            singleClicked = true;
+            doubleClicked = false;
+            doubleClickCheck = true;
+            timeElapsed = 0.0f;
+            //Debug.Log($"<color=cyan>FIRST CLICK - singleClicked: {singleClicked}, timeElapsed reset</color>");
+        } else
+        {
+            //Debug.Log($"<color=yellow>SECOND CLICK - singleClicked: {singleClicked} -> false, timeElapsed: {timeElapsed}</color>"); 
+            singleClicked = false;    
+        }
+
+        if (timeElapsed <= doubleClickWindow && !singleClicked)
+        {
+            doubleClicked = true;
+            doubleClickCheck = false;
+            timeElapsed = 0.0f;
+            //Debug.Log("DOUBLE CLICK!");
+        } 
     }
 
 

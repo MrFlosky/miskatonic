@@ -112,9 +112,8 @@ public class SkillSwapRooms : Skill
             AudioManager.PlaySFX(SFXType.MouseButtonHit);
             return;
         }
-        base.ExitInProgress();
-        EndSkill();
 
+        base.ExitInProgress();
     }
 
 
@@ -182,7 +181,7 @@ public class SkillSwapRooms : Skill
         }
 
         // Perform the room swap using GameManager
-        SwapRooms(room1Ob, rm1Type, room2Ob, rm2Type);
+        SwapRooms(room1Ob, rm1Type, room2Ob, rm2Type);        
 
         // Update the UI to show the swap success
         txt.text = "SWAP BETWEEN " + "\n" + rm1Type + " AND " + rm2Type + "\n SUCCESSFUL";
@@ -205,6 +204,8 @@ public class SkillSwapRooms : Skill
         {
             agent.OnRoomSwapped();
         }
+        
+        MapChangeEvents.InvokeRoomsSwapped();
     }
 
 
@@ -238,6 +239,10 @@ public class SkillSwapRooms : Skill
         // Swap the room positions in the scene
         Vector3 room1Position = room1Ob.transform.position;
         Vector3 room2Position = room2Ob.transform.position;
+
+        //Swap Room Cameras
+        room1Ob.transform.Find("RoomCam(Clone)").position = room2Ob.transform.Find("RoomCam(Clone)").position;
+        room2Ob.transform.Find("RoomCam(Clone)").position = room1Ob.transform.Find("RoomCam(Clone)").position;
 
         // Swap the positions of the room GameObjects
         room1Ob.transform.position = room2Position;

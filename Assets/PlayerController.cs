@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     private PlayerInputActions inputActions;
     private ClickAI clickAI;
     public Skill activeSkill; // Reference to the currently active skill
-    public bool clickedAI = false;
+    public bool clickedAI = false; // this is nasty, mirrored variable in clickAI
 
     private Bookshelf bookshelf;
     private void Awake()
@@ -85,6 +85,9 @@ public class PlayerController : MonoBehaviour
                 case SkillPsychosis skillPsychosis:
                     skillPsychosis.OnClick(context);
                     break;
+                case SkillLure skillLure:
+                    skillLure.OnClick(context);
+                    break;
             }
 
 
@@ -136,9 +139,12 @@ public class PlayerController : MonoBehaviour
                 case SkillPsychosis skillPsychosis:
                     skillPsychosis.OnRightClick(context);
                     break;
+                case SkillLure skillLure:
+                    skillLure.OnRightClick(context);
+                    break;
             }
         }
-        
+
         if (clickAI != null && activeSkill == null)
         {
             clickAI.OnRightClick(context);
@@ -157,6 +163,9 @@ public class PlayerController : MonoBehaviour
                     break;
                 case SkillBarrier skillBarrier:
                     skillBarrier.OnConfirm(context);
+                    break;
+                case SkillLure skillLure:
+                    skillLure.OnConfirm(context);
                     break;
             }
         }

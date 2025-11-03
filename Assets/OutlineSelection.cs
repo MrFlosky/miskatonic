@@ -27,37 +27,67 @@ using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
 using Unity.VisualScripting;
 
+
+/// <summary>
+/// This class is responsible for managing the outlines and title text for models.
+/// Including the raycast.
+/// </summary>
 public class OutlineHighlight : MonoBehaviour
 {
     public InputActionAsset inputActionAsset; // Reference to the InputActionAsset
-    private InputAction pointerPositionAction;
     private Transform highlight;
     private RaycastHit raycastHit;
 
     [SerializeField]
     private float outlineWidth = 10f;
-    
+
     [SerializeField]
     private Color outlineColor = Color.black;
 
     [SerializeField]
     private TMP_Text highlightedText;
 
-    private void OnEnable()
+    private void Awake()
     {
         highlightedText.text = "";
     }
 
+    /// <summary>
+    /// Called by UIManager for game states where highlighting should not occur.
+    /// The actual click functions like starting dialogue handled by ClickAI.
+    /// </summary>
+    public void PauseOutlining()
+    {
+        highlightedText.text = "";
+        // clear previous highlight if there was one
+        if (highlight != null)
+        {
+            highlight.gameObject.GetComponent<Outline>().enabled = false;
+            highlight = null;
+        }
+
+        this.enabled = false; // stop monobehavior functs. can still put code after this
+    }
+
+    /// <summary>
+    /// Called by UIManager for game states where highlighting may be resumed.
+    /// </summary>
+    public void ResumeOutlining()
+    {
+        this.enabled = true;
+    }
 
     private void Update()
     {
-        if (PlayerController.Instance.clickedAI)
-        {
-            Outline outline = highlight.gameObject.GetComponent<Outline>();
-            outline.enabled = false;
-            return;
-        }
-        
+        // i think this both unhighlights the last highlighted object and returns if we clicked an AI.
+        // changed this to be controller by the functs above and UIManager.
+        // if (PlayerController.Instance.clickedAI)
+        // {
+        //     Outline outline = highlight.gameObject.GetComponent<Outline>();
+        //     outline.enabled = false;
+        //     return;
+        // }
+
         // Get the pointer position from the InputAction
         Vector2 mousePos = Vector2.zero;
         mousePos = GameInput.Instance.GetActiveGameDevice() == GameInput.GameDevice.KeyboardMouse ? Mouse.current.position.ReadValue() : VirtualMouseUI.Instance.GetVirtualMousePosition();
@@ -80,10 +110,10 @@ public class OutlineHighlight : MonoBehaviour
                 highlightedText.text = highlight.tag is "AI" ? highlight.gameObject.name : highlight.parent.GetComponent<MazeCellObject>().roomType;
 
                 AgentNavigation agent;
-                if(highlight.transform.GetComponent<AgentNavigation>() != null)
+                if (highlight.transform.GetComponent<AgentNavigation>() != null)
                 {
                     agent = highlight.transform.GetComponent<AgentNavigation>();
-                    if(GameManager.Instance.CheckAgentGoal(agent))
+                    if (GameManager.Instance.CheckAgentGoal(agent))
                     {
                         string textBeforeSprite = highlightedText.text;
                         string spriteWithOffset = "  <voffset=10px><sprite=0></voffset>";

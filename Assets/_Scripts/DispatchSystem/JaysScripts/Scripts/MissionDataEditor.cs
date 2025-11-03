@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using UnityEditor;
 
 /// <summary>
@@ -37,9 +38,14 @@ public class MissionDataEditor : Editor
             else if (mission.reward is NarrativeReward)
             {
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("character"));
+            } 
+            else if (mission.reward is RewardNavPreview)
+            {
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("previewsGranted"));
             }
         }
 
         serializedObject.ApplyModifiedProperties();
     }
 }
+#endif
