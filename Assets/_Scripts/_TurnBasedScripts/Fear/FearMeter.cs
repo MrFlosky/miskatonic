@@ -19,6 +19,9 @@ public class FearMeter : MonoBehaviour
     {
         slid = GetComponent<Slider>();
         S = this;
+        
+        if (LoadManager.S.loadData) totalFear = LoadManager.S.playerDataToLoad.fear;
+
         slid.maxValue = GameManager.Instance.GetWinFear();
         enabled = false;
     }

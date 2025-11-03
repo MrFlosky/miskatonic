@@ -23,7 +23,7 @@ public class PlayerData
     // Dispatch System
     public int cultists;
 
-    public float fear;
+    public int fear;
 
     // Agent Positions
     public float[] haroldPos;
@@ -75,7 +75,7 @@ public class PlayerData
         int totalTurnCount, int playerTurnCount, int aiTurnCount, int eventTurnCount, int roundsUntilDefeat,
         int seed,
         int cultistPoints,
-        float totalFear,
+        int totalFear,
         int hFear, int iFear, int mFear, int eFear,
         Vector3 hPos, Vector3 iPos, Vector3 mPos, Vector3 ePos,
         List<string> hRooms, List<string> iRooms, List<string> mRooms, List<string> eRooms,
