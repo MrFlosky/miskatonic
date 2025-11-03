@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
@@ -18,24 +19,21 @@ public class SaveManager : MonoBehaviour
     /*
     TODO:
         High Prio
-        - Loading save data into scene (LoadManager)
-        - Save/Load UIs
-        - Reading map base and changes made to the map (barriers placed/walls destroyed)
         - Reading ability unlocks
         - Reading dispatch deck state
         - Reading fears discovered
         - Reading dialogue info? (idk if its based on turns or previous dialogue)
-        - Reading turn counts (ai turn count, player turn count, etc.)
 
 
         Med Prio
         - Warn user when a save will be overwritten
-        - Autosave
+        - Autosave? 
 
         Low Prio
         - Sort saves by Date
         - Capped amt of saves?
         - Reformat to JSON or proprietary binary serialization
+        - Reformat to event-based
     */
 
 
@@ -48,7 +46,7 @@ public class SaveManager : MonoBehaviour
     /// Saves current scene data into a save with name saveName (must be called in the main scene!)
     /// </summary>
     /// <param name="saveName"></param>
-    public void Save(string saveName)
+    public void Save(string saveName, int slot)
     {
         // Create file in a persistent OS agnostic location
         BinaryFormatter formatter = new BinaryFormatter();
@@ -59,6 +57,7 @@ public class SaveManager : MonoBehaviour
 
 
         // Fetch necessary player data, see PlayerData to see a *slightly* more organized view of what data is saved
+        // Ideally instead of getting all this data from the classes, this should trigger an event that has the classes send their data here
         PlayerData data = new(
             TurnBasedSystem.GET_TURN_COUNT(),
             TurnBasedSystem.GET_TURN_COUNT(TurnType.Player),
@@ -79,7 +78,12 @@ public class SaveManager : MonoBehaviour
             AgentManager.Instance.agents[0].visitedRooms,
             AgentManager.Instance.agents[1].visitedRooms,
             AgentManager.Instance.agents[2].visitedRooms,
-            AgentManager.Instance.agents[3].visitedRooms
+            AgentManager.Instance.agents[3].visitedRooms,
+            SkillsCollection.S.IsAOEFearUnlocked(),
+            SkillsCollection.S.IsBarrierUnlocked(),
+            SkillsCollection.S.IsTotemUnlocked(),
+            SkillsCollection.S.IsLureUnlocked(),
+            SkillsCollection.S.IsRoomSwapUnlocked()
         );
 
         // Send to binary file
@@ -88,7 +92,7 @@ public class SaveManager : MonoBehaviour
 
         // Add to our list of available saves
         SaveDisplayData d = new SaveDisplayData(saveName, System.DateTime.Now.ToString(), TurnBasedSystem.GET_TURN_COUNT().ToString());
-        AddSave(d);
+        AddSave(d, slot);
 
         DebugSaveInfo();
     }
@@ -125,11 +129,10 @@ public class SaveManager : MonoBehaviour
 
     }
 
-    // Adds a save to the list in memory as well as to our saved binary file
-    private void AddSave(SaveDisplayData dat)
+    // Adds a save to the list in memory as well as to our saved binary file 
+    private void AddSave(SaveDisplayData dat, int slot)
     {
-        // saves is the list of saves that we have in memory
-        saves.Add(dat);
+        saves[slot - 1] = dat;
 
         // saves.mis stores only the data about what saves exist for loading UI and such
         BinaryFormatter f = new BinaryFormatter();
@@ -141,6 +144,7 @@ public class SaveManager : MonoBehaviour
 
         stream.Close();
     }
+
 
     /// <summary>
     /// Returns an array of all SaveDisplayData currently stored in the SaveManager
@@ -157,6 +161,7 @@ public class SaveManager : MonoBehaviour
         foreach (SaveDisplayData s in saves)
         {
             Debug.LogWarning("Found save of name: " + s.name + ".\nDate: " + s.date + ".\nTurn Number: " + s.turnNum + ".");
+            
         }
     }
 
@@ -191,6 +196,10 @@ public class SaveManager : MonoBehaviour
         {
             Debug.Log("No save information found!");
             saves = new List<SaveDisplayData>();
+            for (int i = 0; i < 3; i++)
+            {
+                saves.Add(new SaveDisplayData("No Data!", "", ""));
+            }
         }
         
 

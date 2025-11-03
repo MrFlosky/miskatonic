@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -42,6 +43,18 @@ public class PlayerData
     public string[] mackenzieRooms;
     public string[] evelynRooms;
 
+    // Skill Unlocks
+    public bool AOEFearUnlocked;
+    public bool BarrierUnlocked;
+    public bool TotemUnlocked;
+    public bool LureUnlocked;
+    public bool RoomSwapUnlocked;
+
+
+
+
+
+
     // Constructor handles conversion of non-serializable data types
     public PlayerData(
         int totalTurnCount, int playerTurnCount, int aiTurnCount, int eventTurnCount, int roundsUntilDefeat,
@@ -50,7 +63,8 @@ public class PlayerData
         float totalFear,
         int hFear, int iFear, int mFear, int eFear,
         Vector3 harold, Vector3 iain, Vector3 mack, Vector3 eve,
-        List<string> hRooms, List<string> iRooms, List<string> mRooms, List<string> eRooms
+        List<string> hRooms, List<string> iRooms, List<string> mRooms, List<string> eRooms,
+        bool aoeUnlocked, bool bUnlocked, bool tUnlocked, bool lUnlocked, bool rUnlocked 
         )
     {
 
@@ -94,6 +108,12 @@ public class PlayerData
         iainRooms = iRooms.ToArray();
         mackenzieRooms = mRooms.ToArray();
         evelynRooms = eRooms.ToArray();
+
+        AOEFearUnlocked = aoeUnlocked;
+        BarrierUnlocked = bUnlocked;
+        TotemUnlocked = tUnlocked;
+        LureUnlocked = lUnlocked;
+        RoomSwapUnlocked = rUnlocked;
 
 
 
