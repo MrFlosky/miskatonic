@@ -25,6 +25,8 @@ public class PlayerVision : MonoBehaviour, ITurnObserver
     public bool isPsychosis = false;
     private int endTurn;
     private int psyRadius;
+    private List<PlayerVision> nearbyCharacters = new List<PlayerVision>();
+    private int psyFear = 0;
 
 
     /// <summary>
@@ -250,11 +252,12 @@ public class PlayerVision : MonoBehaviour, ITurnObserver
         }
     }
 
-    public void EnablePsychosisVision(bool enable, int endAtTurn, int radius)
+    public void EnablePsychosisVision(bool enable, int endAtTurn, int radius, int fear)
     {
         isPsychosis = enable;
         endTurn = endAtTurn;
         psyRadius = radius;
+        psyFear = fear;
     }
 
     /// <summary>
@@ -291,35 +294,46 @@ public class PlayerVision : MonoBehaviour, ITurnObserver
     }
 
 
-    public void ApplyPsychosis()
+    public void ApplyPsychosis(bool turn)
     {
-        if (isPsychosis)
+        if (isPsychosis && turn)
         {
 
-            Debug.Log("check for ai players");
             var agentNavigation = GetComponent<AgentNavigation>();
             var gameManager = agentNavigation.gameManager;
             var fear = GetComponent<Fear>();
             var visibleCells = GetFullVisionCells();
 
             // int nearbyCharacters = 0;
-            List<PlayerVision> nearbyCharacters = new List<PlayerVision>();
+            
 
             foreach (var player in FindObjectsOfType<PlayerVision>())
             {
                 if (player == this) continue;
 
                 Vector2Int otherPos = player.GetComponent<PlayerVision>().gridPos;
-                if (visibleCells.Contains(otherPos) && !nearbyCharacters.Contains(player))
+                Vector2Int nearestCell = FindNearestCellGrid(player.transform.position);
+                int distance = Mathf.Abs(nearestCell.x - gridPos.x) + Mathf.Abs(nearestCell.y - gridPos.y);
+
+                if (distance <= psyRadius && !nearbyCharacters.Contains(player))
+                {
                     // nearbyCharacters++;
                     nearbyCharacters.Add(player);
+                    fear.AddFear(psyFear);
+                    Debug.LogWarning($"Psychosis raised: {psyFear}");
+                }
+                    
             }
 
-            int gainFear = nearbyCharacters.Count * 5;
-            if (gainFear > 0)
-            {
-                fear.AddFear(gainFear);
-            }
+        }
+
+        if (!turn)
+            nearbyCharacters.Clear();
+
+        if (TurnBasedSystem.GET_TURN_COUNT() == endTurn)
+        {
+            isPsychosis = false;
+            nearbyCharacters.Clear();
         }
 
     }
@@ -330,13 +344,14 @@ public class PlayerVision : MonoBehaviour, ITurnObserver
     void ITurnObserver.PlayerTurnInitiated()
     {
 
-        
-    }
-    void ITurnObserver.EnemyTurnInitiated()
-    {
-        if (TurnBasedSystem.GET_TURN_COUNT() <= endTurn)
+        if (TurnBasedSystem.GET_TURN_COUNT() == endTurn)
         {
             isPsychosis = false;
         }
+
+    }
+    void ITurnObserver.EnemyTurnInitiated()
+    {
+        
     }
 }
