@@ -56,6 +56,7 @@ public class AICamera : MonoBehaviour
         {
             AIFearMeter.StartUpSlider(thisAIsFear.GetFear(), thisAIsFear.GetFearThreshold());
             AIFearMeter.DisplayAIMeter();
+            FearCollection.S.SetFearStateText(thisAIsFear.GetFearState().ToString());
 
             dialogueBank.PlayRandomDialogue();
             dialogueBank.alreadyTalked = true;
