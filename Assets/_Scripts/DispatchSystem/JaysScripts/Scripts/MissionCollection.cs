@@ -32,6 +32,8 @@ public class MissionCollection : MonoBehaviour
     [SerializeField] private Canvas dealerCanvas;
     [SerializeField] private GameObject blankMissionCard;
 
+    [SerializeField] private GameObject[] worldCards;
+
     // Needed for mission rewards!
     // Im having missions access through static variables
     // here in order to keep the class structure contained.
@@ -81,6 +83,8 @@ public class MissionCollection : MonoBehaviour
             missionObj.transform.SetParent(dealerCanvas.transform);
             missionObj.GetComponent<RectTransform>().anchoredPosition = new Vector2(offsets[i], -100);
             missionObj.SetActive(true);
+
+            worldCards[i].GetComponent<MissionDisplay>().UpdateMission(chosenMission);
         }
 
         // TEMPORARY FOR PROTO!!!!!!!!!!
