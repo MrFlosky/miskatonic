@@ -15,7 +15,7 @@ public class DispatchSystem : MonoBehaviour , ITurnObserver
     /// <summary>
     /// Text for reroll, including number left.
     /// </summary>
-    [SerializeField] private TextMeshProUGUI rerollTxt;
+    [SerializeField] private TextMeshPro rerollTxt;
 
     /// <summary>
     /// Text displayed when player has option to purchase rerolls with
@@ -28,6 +28,12 @@ public class DispatchSystem : MonoBehaviour , ITurnObserver
     /// doesn't have cultpoint reroll option unlocked.
     /// </summary>
     private string defaultRerollText;
+
+    /// <summary>
+    /// Text displayed when player all out of rerolls and cannot purchase any
+    /// if they have cultpoint reroll unlocked.
+    /// </summary>
+    private string outOfRerollsText;
 
     /// <summary>
     /// Whether or not player has ability to reroll at the cost of cultists.
@@ -47,8 +53,9 @@ public class DispatchSystem : MonoBehaviour , ITurnObserver
 
     void Awake()
     {
-        cultistPurchaseText = "SACRIFICE " + cultistRerollCost + " FOR REROLL";
+        cultistPurchaseText = "SACRIFICE " + cultistRerollCost + " CULTIST FOR REROLL";
         defaultRerollText = "Reroll";
+        outOfRerollsText = "OUT OF REROLLS";
         rerollTxt.text = defaultRerollText;
     }
 
@@ -89,12 +96,18 @@ public class DispatchSystem : MonoBehaviour , ITurnObserver
             MissionCollection.S.Reroll();
 
             // update text to cultist cost
-            if (cultistRerollUnlocked && rerolls == 0)
+            if (cultistRerollUnlocked && rerolls == 0 && CultistPoints.GetPoints() > 0) // gross if statements, need to clean this later - jay
             {
                 rerollTxt.text = cultistPurchaseText;
-            } 
+                rerollTxt.fontSize = 15;
+            }
+            else if ((!cultistRerollUnlocked && rerolls == 0) || (cultistRerollUnlocked && CultistPoints.GetPoints() == 0))
+            {
+                rerollTxt.fontSize = 32;
+                rerollTxt.text = outOfRerollsText;
+            }
         }
-
+    
     }
 
     /// <summary>
@@ -130,6 +143,7 @@ public class DispatchSystem : MonoBehaviour , ITurnObserver
         // add reroll and update text
         rerolls = 1;
         rerollTxt.text = defaultRerollText;
+        rerollTxt.fontSize = 36;
         //initiateCardDealerButton.gameObject.SetActive(true);
     }
     void ITurnObserver.EnemyTurnInitiated()
