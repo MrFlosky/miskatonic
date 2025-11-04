@@ -86,7 +86,7 @@ public class ClickAI : MonoBehaviour
         // Set up initial active camera
         activeCamera = playerCam;
         track = playerCam.GetCinemachineComponent<CinemachineTrackedDolly>();
-        switchCamButton.onClick.AddListener(SwitchToCustomCamera);
+        storyboardSwitchCamBtn.onClick.AddListener(SwitchToStoryboardCamera);
     }
 
 
@@ -211,7 +211,6 @@ public class ClickAI : MonoBehaviour
             activeCamera.enabled = false;
             isSnooping = false;
             playerCam.enabled = true;
-            characterPortaits.SetActive(true);
             if (activeCamera.enabled)
             {
                 activeCamera = playerCam;
@@ -394,13 +393,15 @@ public class ClickAI : MonoBehaviour
     }
 
     [SerializeField] CinemachineVirtualCamera storyboardCam;
-    [SerializeField] Button switchCamButton;
+    [SerializeField] CinemachineVirtualCamera dispatchCam;
+    [SerializeField] Button storyboardSwitchCamBtn;
+
 
 
     /// <summary>
     /// Switch to camera for story board
     /// </summary>
-    public void SwitchToCustomCamera()
+    public void SwitchToStoryboardCamera()
     {
         // Disable whatever camera is currently active
         if (activeCamera != null)
@@ -416,10 +417,31 @@ public class ClickAI : MonoBehaviour
         // Track it as the active camera
         activeCamera = storyboardCam;
 
-        switchCamButton.onClick.RemoveAllListeners(); // switch what function button calls
-        switchCamButton.onClick.AddListener(SwitchToPlayerCamera); // switch what function button calls
-
+        storyboardSwitchCamBtn.onClick.RemoveAllListeners(); // switch what function button calls
+        storyboardSwitchCamBtn.onClick.AddListener(SwitchStoryboardToPlayerCamera); // switch what function button calls
         UIManagerLite.TransitionToState(UIManagerLite.GameState.Storyboard);
+    }
+
+    /// <summary>
+    /// Switch to camera for dispatch system
+    /// </summary>
+    public void SwitchToDispatchCamera()
+    {
+        // Disable whatever camera is currently active
+        if (activeCamera != null)
+        {
+            activeCamera.enabled = false;
+            activeCamera.gameObject.SetActive(false);
+        }
+
+        // Enable your new camera
+        dispatchCam.gameObject.SetActive(true);
+        dispatchCam.enabled = true;
+
+        // Track it as the active camera
+        activeCamera = dispatchCam;
+        
+        UIManagerLite.TransitionToState(UIManagerLite.GameState.Dispatch);
     }
 
 
@@ -428,7 +450,7 @@ public class ClickAI : MonoBehaviour
     /// <summary>
     /// Switch back to player camera from story board
     /// </summary>
-    public void SwitchToPlayerCamera()
+    public void SwitchStoryboardToPlayerCamera()
     {
 
         // Disable whatever camera is currently active
@@ -445,8 +467,30 @@ public class ClickAI : MonoBehaviour
         // Track it as the active camera
         activeCamera = playerCam;
 
-        switchCamButton.onClick.RemoveAllListeners(); // switch what function button calls
-        switchCamButton.onClick.AddListener(SwitchToCustomCamera); // switch what function button calls
+        storyboardSwitchCamBtn.onClick.RemoveAllListeners(); // switch what function button calls
+        storyboardSwitchCamBtn.onClick.AddListener(SwitchToStoryboardCamera); // switch what function button calls
+
+        UIManagerLite.TransitionToState(UIManagerLite.GameState.BoardBase);
+    }
+    /// <summary>
+    /// Switch back to player camera from story board
+    /// </summary>
+    public void SwitchDispatchToPlayerCamera()
+    {
+
+        // Disable whatever camera is currently active
+        if (activeCamera != null)
+        {
+            activeCamera.enabled = false;
+            activeCamera.gameObject.SetActive(false);
+        }
+
+        // Enable the player camera
+        playerCam.gameObject.SetActive(true);
+        playerCam.enabled = true;
+
+        // Track it as the active camera
+        activeCamera = playerCam;
 
         UIManagerLite.TransitionToState(UIManagerLite.GameState.BoardBase);
     }

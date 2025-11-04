@@ -62,7 +62,6 @@ public class DispatchSystem : MonoBehaviour , ITurnObserver
     /// </summary>
     public void DealCards()
     {
-        UIManagerLite.TransitionToState(UIManagerLite.GameState.Dealer);
         MissionCollection.S.DISPLAY_AVAILABLE_MISSIONS();
     }
 
@@ -72,7 +71,6 @@ public class DispatchSystem : MonoBehaviour , ITurnObserver
     // </summary>
     static public void DealingOver()
     {
-        UIManagerLite.TransitionToState(UIManagerLite.GameState.BoardBase);
         dealerDealtWith = true;
         MissionCollection.S.HIDE_ALL_MISSIONS();
     }

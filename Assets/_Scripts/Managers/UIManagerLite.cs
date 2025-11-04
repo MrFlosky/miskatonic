@@ -20,6 +20,7 @@ public class UIManagerLite : MonoBehaviour
         Dialogue,
         SkillInUse,
         Storyboard,
+        Dispatch,
         EnemyTurn
     }
 
@@ -72,12 +73,13 @@ public class UIManagerLite : MonoBehaviour
         {
             { 
                 GameState.BoardBase, 
-                new List<GameState> 
-                { 
+                new List<GameState>
+                {
                     GameState.Dealer,
                     GameState.Dialogue,
                     GameState.SkillInUse,
                     GameState.Storyboard,
+                    GameState.Dispatch,
                     GameState.EnemyTurn,
                     GameState.BoardBase,
                 } 
@@ -105,6 +107,14 @@ public class UIManagerLite : MonoBehaviour
             },
             { 
                 GameState.Storyboard, 
+                new List<GameState> 
+                { 
+                    GameState.BoardBase,
+                    GameState.Dispatch
+                } 
+            },
+            { 
+                GameState.Dispatch, 
                 new List<GameState> 
                 { 
                     GameState.BoardBase
@@ -236,6 +246,19 @@ public class UIManagerLite : MonoBehaviour
                     
                     S.outlineManager.ResumeOutlining();
                 }
+                // TRANSITION: Dispatch → BoardBase
+                else if (fromState == GameState.Dispatch)
+                {
+                    Debug.Log("Dealer interaction complete, back to board");
+                    S.dealerButton.gameObject.SetActive(false);
+                    EnableEndTurnButton();
+
+                    S.storyboardButton.gameObject.SetActive(true);
+                    S.endTurnButton.gameObject.SetActive(true);
+                    S.skillUICollection.ENABLE_BUTTONS();
+
+                    S.outlineManager.ResumeOutlining();
+                }
                 // TRANSITION: EnemyTurn → BoardBase
                 else if (fromState == GameState.EnemyTurn)
                 {
@@ -331,6 +354,27 @@ public class UIManagerLite : MonoBehaviour
                     S.skillPointUICollection.HIDE_PTS();
                     S.skillUICollection.HIDE_SKILLS();
                     S.portraitOb.SetActive(false);
+
+                    S.outlineManager.PauseOutlining();
+                }
+                break;
+            // ==================================================================================
+            // ENTERING: Dispatch
+            // ==================================================================================
+            case GameState.Dispatch:
+
+                // TRANSITION: BoardBase → Dispatch
+                if (fromState == GameState.BoardBase)
+                {
+                    Debug.Log("Coming from board, to dispatch");
+
+                    DisableEndTurnButton();
+                    Debug.Log("Entering dealer interaction");
+
+                    S.storyboardButton.gameObject.SetActive(false);
+                    S.endTurnButton.gameObject.SetActive(false);
+                    S.dealerButton.gameObject.SetActive(false);
+                    S.skillUICollection.DISABLE_BUTTONS();
 
                     S.outlineManager.PauseOutlining();
                 }

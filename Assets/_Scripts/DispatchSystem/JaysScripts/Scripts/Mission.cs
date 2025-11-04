@@ -16,16 +16,17 @@ public class Mission : MonoBehaviour
 
     // IMPORTANT: GETTING THESE TEXT VALUES VIA THEIR CHILD INDEX UNDER THE PREFAB! 
     // Text values for a mission card.
-    private TextMeshProUGUI missionTitle;
-    private TextMeshProUGUI missionDescription;
-    private TextMeshProUGUI cultistCost;
-    private TextMeshProUGUI timeCost;
+    public TextMeshProUGUI missionTitle { get; private set; }
+    public TextMeshProUGUI missionDescription { get; private set; }
+    public TextMeshProUGUI cultistCost { get; private set; }
+    public TextMeshProUGUI timeCost { get; private set; }
+    public TextMeshProUGUI rewardName { get; private set; }
 
     // Button to select this mission
     private Button selectMissionButton;
 
     // Reward associated with this mission
-    private Reward missionReward;
+    public Reward missionReward { get; private set; }
 
     // Mission data associated with this mission
     private MissionData missionData;
@@ -81,7 +82,7 @@ public class Mission : MonoBehaviour
     /// <summary>
     /// Upon clicking this mission, activate it if user has enough cultist points.
     /// </summary>
-    private void MissionSelect()
+    public void MissionSelect()
     {
         if (cultistPointSystem.AttemptMissionPurchase(missionData.cultistCost))
         {
@@ -114,7 +115,8 @@ public class Mission : MonoBehaviour
         //rewardObj.transform.SetParent(missionCardObj.transform); TODO: we need these to be outside mission card obj, organize later
         missionReward = rewardObj.GetComponent<Reward>();
 
-        transform.GetChild(6).GetComponent<TextMeshProUGUI>().text = "Reward: " + missionReward.rewardName;
+        rewardName = transform.GetChild(6).GetComponent<TextMeshProUGUI>();
+        rewardName.text = "Reward: " + missionReward.rewardName;
 
         switch (missionReward)
         {
@@ -159,6 +161,11 @@ public class Mission : MonoBehaviour
     public bool IsOneTimeUse()
     {
         return oneTimeUse;
+    }
+
+    public MissionData GetMissionData()
+    {
+        return missionData;
     }
 
 
