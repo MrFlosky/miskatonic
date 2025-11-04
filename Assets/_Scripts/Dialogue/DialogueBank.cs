@@ -5,13 +5,12 @@ using UnityEngine;
 using Yarn;
 using Yarn.Unity;
 
-
 /// <summary>
 /// This class will be responsible for accessing the respective dialogues for each character.
 /// It automatically detects how many dialogues a given character has based on a strict file structure.
 /// </summary>
 public class DialogueBank : MonoBehaviour, ITurnObserver
-{
+{    
     /// <summary>
     /// The main way to manipulate the state of dialog.
     /// </summary>
@@ -43,7 +42,6 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
 
     //List of Fear to Reveal. NOW HANDLED BY CHARACTERFEARS
     //public GameObject[] fears;
-
     
 
     void Start()
@@ -209,7 +207,6 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
     }
 
 
-
     // Changed by balance value interface, controls
     // how much fear is added/reduced with yarn script 
     // commands. Based on assumption that these are
@@ -236,6 +233,30 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
     public void discoverFear(int fearNum)
     {
         CharacterFears.Instance.DiscoverFear(character, fearNum);
+    }
+
+    [YarnCommand("neutral")]
+    public void YarnNeutralFS()
+    {
+        characterFear.SetFearState(FearState.Neutral);
+    }
+
+    [YarnCommand("determined")]
+    public void YarnDeterminedFS()
+    {
+        characterFear.SetFearState(FearState.Determined);
+    }
+
+    [YarnCommand("terrified")]
+    public void YarnTerrifiedFS()
+    {
+        characterFear.SetFearState(FearState.Terrified);
+    }
+    
+    [YarnCommand("tweaking")]
+    public void YarnTweakingFS()
+    {
+        characterFear.SetFearState(FearState.Tweaking);
     }
     #endregion
 

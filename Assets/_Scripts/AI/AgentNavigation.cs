@@ -865,7 +865,7 @@ public class AgentNavigation : MonoBehaviour
         {
             return WorldToGridPosition(transform.position);
         }
-    
+
         int stopIndex;
         if (tilesPerTurn > 0 && path.Count > tilesPerTurn)
         {
@@ -875,7 +875,15 @@ public class AgentNavigation : MonoBehaviour
         {
             stopIndex = path.Count - 1;
         }
-    
+
         return path[stopIndex].position;
+    }
+    
+    /// <summary>
+    /// Set the number of tiles this AI is allowed to move per turn.
+    /// </summary>
+    public void SetTilesPerTurn(int tiles)
+    {
+        tilesPerTurn = tiles;
     }
 }

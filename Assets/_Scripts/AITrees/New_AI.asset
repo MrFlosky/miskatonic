@@ -1,5 +1,25 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-6975158364960916237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b50d7a4d9c4707242b07f0fabea16147, type: 3}
+  m_Name: DetermineTilesToMove
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: df39b980e3cc18745ab513285b04b739
+  position: {x: -317.3126, y: 447}
+  blackboard:
+    moveToPosition: {x: 0, y: 0}
+  description: 
+  drawGizmos: 0
 --- !u!114 &-4716995311277471421
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36,7 +56,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 5d5a8c42d315b1b41b4adbd72748ca81
-  position: {x: -230.98328, y: 446.99283}
+  position: {x: -489.33035, y: 447}
   blackboard:
     moveToPosition: {x: 0, y: 0}
   description: 
@@ -56,7 +76,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 290c1d780ef3cf042a93a7fb07ba837a
-  position: {x: 129.5873, y: 577.6}
+  position: {x: 208.68214, y: 578}
   blackboard:
     moveToPosition: {x: 0, y: 0}
   description: 
@@ -107,6 +127,7 @@ MonoBehaviour:
   - {fileID: 3661065999990017618}
   - {fileID: -2423724688020454257}
   - {fileID: 1107629327451776456}
+  - {fileID: -6975158364960916237}
   blackboard:
     moveToPosition: {x: 0, y: 0}
 --- !u!114 &625853337257626030
@@ -131,6 +152,7 @@ MonoBehaviour:
   drawGizmos: 0
   children:
   - {fileID: -3700904947948407427}
+  - {fileID: -6975158364960916237}
   - {fileID: -2423724688020454257}
   - {fileID: 3661065999990017618}
 --- !u!114 &1107629327451776456
@@ -148,7 +170,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 47f963a7b84f3fd41b7457b70aecd5e8
-  position: {x: -128.76816, y: 577.6}
+  position: {x: 0.000015258789, y: 577.99994}
   blackboard:
     moveToPosition: {x: 0, y: 0}
   description: 
