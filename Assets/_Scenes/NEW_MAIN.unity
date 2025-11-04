@@ -90956,7 +90956,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5592833437522147513, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
       propertyPath: missionCards.Array.size
-      value: 12
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 5592833437522147513, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
       propertyPath: worldCards.Array.data[0]
@@ -91019,6 +91019,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5592833437522147513, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
+      propertyPath: missionCards.Array.data[12].cardCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5592833437522147513, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
       propertyPath: missionCards.Array.data[0].missionData
       value: 
       objectReference: {fileID: 11400000, guid: 02e593917f8d99142a3b5a8aaccd9b6c, type: 2}
@@ -91066,6 +91070,10 @@ PrefabInstance:
       propertyPath: missionCards.Array.data[11].missionData
       value: 
       objectReference: {fileID: 11400000, guid: 46264f462d33b7043a1da43cc62b26dc, type: 2}
+    - target: {fileID: 5592833437522147513, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
+      propertyPath: missionCards.Array.data[12].missionData
+      value: 
+      objectReference: {fileID: 11400000, guid: e0a75af2769576a44b2f82d8dbbaeb97, type: 2}
     - target: {fileID: 6986799419869777753, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
       propertyPath: clueTextBlock
       value: 
