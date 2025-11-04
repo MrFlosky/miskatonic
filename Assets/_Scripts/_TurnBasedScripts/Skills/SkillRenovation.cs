@@ -72,9 +72,15 @@ public class SkillRenovation : Skill
 
     public void OnRightClick(InputAction.CallbackContext context)
     {
+        print("test");
         ExitInProgress();
+        this.enabled = false;
     }
 
+    public override void EndSkill()
+    {
+        base.EndSkill();
+    }
 
     public override void ActivateSkill()
     {

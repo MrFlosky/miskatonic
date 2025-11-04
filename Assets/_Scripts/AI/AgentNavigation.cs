@@ -31,6 +31,10 @@ public class AgentNavigation : MonoBehaviour
     [SerializeField] private RoomName FearRoom;
     [SerializeField]private RoomName bonusFearRoom;
 
+    public void SetBonusFearRoom(RoomName name)
+    {
+        bonusFearRoom = name;
+        roomFearEffects[GetRoomName(bonusFearRoom)] = IncreaseFear;
     }
 
     [SerializeField] private RoomName GoalRoom;
@@ -726,24 +730,25 @@ public class AgentNavigation : MonoBehaviour
 
     public enum RoomName
     {
-        Bedroom,
+        Library,
+        DungeonRoom,
         DiningRoom,
         Cemetery,
-        Library,
         RitualRoom,
-        Dungeon
+        Bedroom,
+        None
     }
     
     private string GetRoomName(RoomName roomName)
     {
         return roomName switch
         {
-            RoomName.Bedroom => "Bedroom",
-            RoomName.Dungeon => "Dungeon",
-            RoomName.DiningRoom => "Dining Room",
+            RoomName.Library => "Library",
+            RoomName.DungeonRoom => "Dungeon Room",
+            RoomName.DiningRoom => "DiningRoom",
             RoomName.Cemetery => "Cemetery",
             RoomName.RitualRoom => "Ritual Room",
-            RoomName.Library => "Library",
+            RoomName.Bedroom => "Bedroom",
             _ => roomName.ToString()
         };
     }
