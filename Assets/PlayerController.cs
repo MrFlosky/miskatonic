@@ -60,7 +60,11 @@ public class PlayerController : MonoBehaviour
     private void OnClick(InputAction.CallbackContext context)
     {
 
-        
+        // Forward the click input to the ClickAI script
+        if (clickAI != null && activeSkill == null)
+        {
+            clickAI.OnClick(context);
+        }
 
         // Use the currently active skill
         if (activeSkill != null && activeSkill.enabled)
@@ -92,12 +96,6 @@ public class PlayerController : MonoBehaviour
 
 
 
-        }
-
-        // Forward the click input to the ClickAI script
-        if (clickAI != null && activeSkill == null)
-        {
-            clickAI.OnClick(context);
         }
 
         //Lyn's note to self: COME UP WITH SOME VARIABLE TO CHECK SO THIS ISNT RUNNING EVERY TIME!!!
