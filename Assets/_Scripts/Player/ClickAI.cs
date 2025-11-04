@@ -216,6 +216,7 @@ public class ClickAI : MonoBehaviour
                 activeCamera = playerCam;
                 activeCamera.enabled = true;
             }
+            characterPortaits.SetActive(true);
         }
     }
 

@@ -256,6 +256,7 @@ public class UIManagerLite : MonoBehaviour
                     S.storyboardButton.gameObject.SetActive(true);
                     S.endTurnButton.gameObject.SetActive(true);
                     S.skillUICollection.ENABLE_BUTTONS();
+                    S.portraitOb.SetActive(true);
 
                     S.outlineManager.ResumeOutlining();
                 }
@@ -375,6 +376,7 @@ public class UIManagerLite : MonoBehaviour
                     S.endTurnButton.gameObject.SetActive(false);
                     S.dealerButton.gameObject.SetActive(false);
                     S.skillUICollection.DISABLE_BUTTONS();
+                    S.portraitOb.SetActive(false);
 
                     S.outlineManager.PauseOutlining();
                 }
