@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.ProBuilder.MeshOperations;
 using UnityEngine.UI;
 
-public class Fear : MonoBehaviour
+
+public class Fear : MonoBehaviour, ITurnObserver
 {
 
     public int currentFear = 10;
@@ -14,12 +16,24 @@ public class Fear : MonoBehaviour
     /// </summary>
     public int fearThreshold = 25;
     string weakness;
+
+    /// <summary>
+    /// Characters current fear state as set by dialogues.
+    /// </summary>
+    private FearState fearState = FearState.Neutral;
+
+    /// <summary>
+    /// Number of turns until this character returns to neutral fear state.
+    /// </summary>
+    private int turnsUntilNeutralState = 0;
+
     // Start is called before the first frame update
     void Start()
     {
-     
+        TurnBasedSystem.SubscribeAsObserver(this);
         // Initiate fear meter with contribution from the fear of this AI
         FearMeter.INCREASE_METER(currentFear);
+        FearCollection.S.SetFearStateText(fearState.ToString()); // set initial fear state text
     }
 
     public void AddFear(int add)
@@ -38,23 +52,24 @@ public class Fear : MonoBehaviour
             FearMeter.INCREASE_METER(add);
             AIFearMeter.UpdateSlider(currentFear);
         }
-        
+
     }
 
     public void ReduceFear(int subt)
     {
         // Check if would be negative.
         // Deduct only what brings currentfear to 0.
-        if(currentFear - subt < 0)
+        if (currentFear - subt < 0)
         {
-            FearMeter.DECREASE_METER(currentFear); 
+            FearMeter.DECREASE_METER(currentFear);
             currentFear = 0;
             AIFearMeter.UpdateSlider(currentFear);
-        } else
+        }
+        else
         {
-        currentFear -= subt;
-        FearMeter.DECREASE_METER(subt);
-        AIFearMeter.UpdateSlider(currentFear);
+            currentFear -= subt;
+            FearMeter.DECREASE_METER(subt);
+            AIFearMeter.UpdateSlider(currentFear);
         }
     }
 
@@ -66,5 +81,66 @@ public class Fear : MonoBehaviour
     public int GetFearThreshold()
     {
         return fearThreshold;
+    }
+
+    /// <summary>
+    /// Return fear state of given AI.
+    /// </summary>
+    public FearState GetFearState()
+    {
+        return fearState;
+    }
+
+    /// <summary>
+    /// Called by yarn commands to set character's fear state in dialogues.
+    /// </summary>
+    public void SetFearState(FearState state)
+    {
+        FearState prevState = fearState; // previous fear state before setting new, used to compare against to determine lifetime
+        fearState = state;
+        SetStateLifetime(FearCollection.S.GetStateTurnLife(fearState), prevState);
+        FearCollection.S.SetFearStateText(fearState.ToString());
+    }
+
+    /// <summary>
+    /// Set lifetime for how long a state should last until going to default.
+    /// </summary>
+    public void SetStateLifetime(int lifetime, FearState prevState)
+    {
+        // if netural there is no lifetime
+        if (fearState == FearState.Neutral)
+        {
+            turnsUntilNeutralState = 0;
+        }
+        // if state is same as it is was, add to lifetime of this state
+        else if (fearState == prevState)
+        {
+            turnsUntilNeutralState += lifetime;
+        }
+        // this is a new state with a lifetime
+        else
+        {
+            turnsUntilNeutralState = lifetime;
+        }
+
+        Debug.Log(transform.parent.name + " turns until neutral" + turnsUntilNeutralState);
+        
+    }
+
+    public void EnemyTurnInitiated()
+    {
+        return;
+    }
+
+    public void PlayerTurnInitiated()
+    {
+        if(turnsUntilNeutralState > 0)
+        {
+            turnsUntilNeutralState -= 1;
+        }
+        else // if completed lifetime on a state, return to netural
+        {
+            fearState = FearState.Neutral;
+        }
     }
 }

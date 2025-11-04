@@ -25,6 +25,7 @@ Iain was used to the silence of The Great Plains, but this place was different. 
 ->Fill his head with the sounds of people talking all around him
     <<add_fear "Iain Schweblin">>
     <<discover_fear "Iain Schweblin" 1>>
+    <<terrified "Iain Schweblin">>
     //Fear of crowds
     Iain grabs his head. This isolation is starting to get to him, corrputing his mind. The voices slowly dissipate, but a the feeling that he could be losing it lingers. 
 ->Create a sharp ringing noise
@@ -35,6 +36,7 @@ title: IainSchweblin2
 As the minutes turn to hours, his mind goes to Grace. Did someone do this to him because of her? Who would stalk his dead wife's grave site? Who would trap him in this kind of place?
 ->This place must be under the cemetery. Like some lost catacombs.
     <<reduce_fear "Iain Schweblin">>
+    <<determined "Iain Schweblin">>
     "Yeah! That could be it!" He feels a wave of hope. 
 ->Why would someone change the words on her gravestone?
     No use speculating. There is no way he can find answers by just standing around. 
@@ -42,7 +44,8 @@ As the minutes turn to hours, his mind goes to Grace. Did someone do this to him
     He remembers the way that she smiled at him whenever he walked in the door, and the way she gasped whenever he got her flowers. That can't be true. 
 ->Her soul has trapped you here. You've been a neglectful father, careless with her children. 
     <<add_fear "Iain Schweblin">>
-    <<discover_fear "Iain Schweblin" 2>>
+    <<discover_fear "Iain Schweblin" 2>>    
+    <<terrified "Iain Schweblin">>
     //Trauma from wife's death
     “I’m so sorry, Grace.” He holds back tears. 
 ===
@@ -58,6 +61,7 @@ Iain thinks deeply about what happened before he blacked out, trying to find any
 ->"The kids are still in the car."
     <<add_fear "Iain Schweblin">>
     <<discover_fear "Iain Schweblin" 3>>
+    <<terrified "Iain Schweblin">>
     //Fear of harm coming to his kids
     “Oh my god, THE KIDS” He goes into a frenzy. "What happened to the kids? Are they in here? Did someone notice that they were left there? How are they going to get back home?" He paces back and forth, sweating profusely.
 ===
@@ -66,6 +70,7 @@ title: IainSchweblin4
 The rows of brick melt into a hypnotic pattern as he walks down corridor after corridor. He can feel his mind slipping.
 ->"Think of Grace and the kids"
     <<reduce_fear "Iain Schweblin">>
+    <<determined "Iain Schweblin">>
     This thought soothes him and gives him the courage to keep looking for a way out.
 ->Do nothing.
     He pulls himself together. "Gotta keep moving"
@@ -114,6 +119,7 @@ title: IainSchweblin7
 Iain starts to pick up the pace as the light in the hallway begins to dim. He slows down to a normal pace as another light source illuminates the hallway. 
 ->Bring the lights up
         <<reduce_fear "Iain Schweblin">>
+        <<determined "Iain Schweblin">>
         "Thank god" He keeps walking.
 ->Change the color of the lights to red
         "Huh, that's strange... ominous..." He keeps walking.
@@ -162,6 +168,7 @@ As he walks down the hallway, Iain's mind starts to play tricks on him. He begin
 ->A doctor with pale eyes and a large bag
         <<add_fear "Iain Schweblin">>
         <<discover_fear "Iain Schweblin" 9>>
+        <<terrified "Iain Schweblin">>
         //Fear of needles
         "Who is that" The doctor pulls a large needle out of his bag. "What the hell?!" As he walks backwards away from the figure, it dissolves into the wind.
 ->A shadowy man
@@ -196,6 +203,7 @@ As he walks from corridor to corridor, he begins to notice a sound coming from t
 ->It's the sound of children
         <<add_fear "Iain Schweblin">>
         <<discover_fear "Iain Schweblin" 3>>
+        <<terrified "Iain Schweblin">>
         //Fear of Harm Coming to his Kids
         "Charlie!! Maya!!" He punches at the wall. "Does this thing have them too?!"
 ->It's the sound of a dog barking

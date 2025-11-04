@@ -20,10 +20,12 @@ namespace TheKiwiCoder {
         public CapsuleCollider capsuleCollider;
         public CharacterController characterController;
         public AgentNavigation agentNavigation;
+        public Fear aiFear; // respective fear for character
         // Add other game specific systems here
 
         public static Context CreateFromGameObject(GameObject gameObject) {
             // Fetch all commonly used components
+            // looks like grabbing refs on each object this ai tree attached to- jay
             Context context = new Context();
             context.gameObject = gameObject;
             context.transform = gameObject.transform;
@@ -35,7 +37,7 @@ namespace TheKiwiCoder {
             context.capsuleCollider = gameObject.GetComponent<CapsuleCollider>();
             context.characterController = gameObject.GetComponent<CharacterController>();
             context.agentNavigation = gameObject.GetComponent<AgentNavigation>();
-            
+            context.aiFear = gameObject.GetComponent<Fear>();
             // Add whatever else you need here...
 
             return context;

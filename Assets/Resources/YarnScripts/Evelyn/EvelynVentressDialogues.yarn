@@ -25,6 +25,7 @@ Evelyn taps at her smart watch, trying to get it to come alive. The screen flick
 ->"No one can reach you here"
         <<add_fear "Evelyn Ventress">>
         <<discover_fear "Evelyn Ventress" 1>>
+        <<terrified "Evelyn Ventress">>
         //Fear of Isolation
         She stops for a second, thinks to herself, and looks down at the watch. Frantically, she starts to shake her wrist with her other hand, hoping that she can will it back to life. Suddenly, it begins glowing a bright blue light. Evelyn covers her eyes. Just as she begins to reopen them, the screen goes dark and smoke emanates from the watch. She throws it to the floor and keeps on walking. 
 ===
@@ -102,6 +103,7 @@ She lays out all of the information she knows in front of her and tries to find 
 ->"That man. He trapped you here"
         <<add_fear "Evelyn Ventress">>
         <<discover_fear "Evelyn Ventress" 6>>
+        <<terrified "Evelyn Ventress">>
         //Fear of Gene
         “What does he want with me. What has he done to me?” She tenses up.
 ===
@@ -110,6 +112,7 @@ title: EvelynVentress7
 “I have to make a plan. How am I getting out of here?”
 ->"Leave a trail, so you know where you've gone."
         <<reduce_fear "Evelyn Ventress">>
+        <<determined "Evelyn Ventress">>
         She uses a pen in her pocket to scrap at the walls, leaving a scar in the wall every couple of feet. She smiles at her work. "Progress" 
 ->"Make a marking on the wall."
         <<reduce_fear "Evelyn Ventress">>
@@ -133,6 +136,7 @@ Evelyn feels her arms. They are drenched in sweat.
 ->"You are falling apart"
         <<add_fear "Evelyn Ventress">>
         <<discover_fear "Evelyn Ventress" 8>>
+        <<terrified "Evelyn Ventress">>
         //Fear of Weakenss
         Her shoulders raise. She swears that she can feel a sickness under her skin.
 ->"Something else is causing this."
@@ -158,12 +162,13 @@ title: EvelynVentress10
 As she walks down corridor after corridor, she keeps her steps heavy to hear the sound of her footsteps echo down the hallway.
 ->Change the pitch of her steps.
         She laughs at the sound and takes a break from walking. "This is getting out of hand..." She says outloud to herself.
-->Make the steps even loader as the echo
+->Make the steps even louder as the echo
         <<reduce_fear "Evelyn Ventress">>
         Her ears start to ring from the sound of the echo. She laughs at herself a little and takes a break from walking. "Okay, this isn't a march. This is getting out of hand..." She says outloud to herself.
 ->Dampen the sound of her footsteps
         <<add_fear "Evelyn Ventress">>
         <<discover_fear "Evelyn Ventress" 0>>
+        <<terrified "Evelyn Ventress">>
         //Fear of Silence
         The sound of her footsteps slowly fizzle into nothing. She starts to sweat. She starts to run, hoping that this will interrupt the silence. The only thing that brings her comfort is the sound of her own heartbeat. 
 ->Do nothing
@@ -175,6 +180,7 @@ As she gazes upon row of brick after row of brick, Evelyn's mind starts to play 
 ->"It's Gene"
         <<add_fear "Evelyn Ventress">>
         <<discover_fear "Evelyn Ventress" 6>>
+        <<terrified "Evelyn Ventress">>
         //Fear of Gene
         She feels a lump start to grow in her throat. She tries to yell for help, but nothing comes out. She starts to run as the hallucination fizzles into the air. 
 ->"It's your father"
@@ -196,6 +202,7 @@ She looks down at the floor of the maze and notices some small creatures crawlin
 ->"It's a swarm of spiders"
         <<add_fear "Evelyn Ventress">>
         <<discover_fear "Evelyn Ventress" 9>>
+        <<terrified "Evelyn Ventress">>
         //Fear of spiders
         Evelyn jumps back. "Shit shit shit shit shit" She moves away from them as quick as possible. 
 ->"It's a parade of ants"
@@ -212,6 +219,7 @@ She tries not to, but her mind starts to think about what is going to happen to 
         She jumps and looks behind her only to find nothing. She laughs at the idea of one of those cheesy monsters from an 80s horror movie jumping out at her. She ignores the thought.
 ->"Maybe you'll find others here."
         <<reduce_fear "Evelyn Ventress">>
+        <<determined "Evelyn Ventress">>
         "I hope so..." She keeps searching.
 ->"Nothing will happen. You'll just be here... alone..."
         <<add_fear "Evelyn Ventress">>
@@ -227,6 +235,7 @@ She looks up at the roof of the maze and notices something...
 ->"Something is up there watching you"
         <<add_fear "Evelyn Ventress">>
         <<discover_fear "Evelyn Ventress" 3>>
+        <<terrified "Evelyn Ventress">>
         //Fear of being watched
         "I have no proof of that..." She tries to ignore the thought, but she can't help but feel eyes following her. She constantly checks over her shoulder.
 ->"The roof is caving in"

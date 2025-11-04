@@ -14,6 +14,7 @@ Maackenzie looks around the room, feeling a pressure in her chest. She tries to 
 ->Flash a blue light in the distance
         <<add_fear "Mackenzie Joyce">>
         <<discover_fear "Mackenzie Joyce" 0>>
+        <<terrified "Mackenzie Joyce">>
         //Fear of blue light
         Looking down, she sees the blue light diffusing on the floor. It feels like it is moving towards her. Dread sets in. "He's still after me" She begins to run down the hall, away from the noise.
 ===
@@ -39,6 +40,7 @@ Mackenzie shivers. It feels like the air is getting progressively colder. She st
         She starts to shake. "God, its so cold." She is more sure in herself now. This trap is responding to her, maybe she can begin to figure it out.
 ->Raise the temperature
         <<reduce_fear "Mackenzie Joyce">>
+        <<determined "Mackenzie Joyce">>
         She slows down as the air in the room becomes much more comfortable.
 ->Increase the sound of her footsteps
         <<add_fear "Mackenzie Joyce">>
@@ -58,6 +60,7 @@ Mackenzie begins to break. She can't find anything here. No people. No answers. 
 ->"The old man put you here"
         <<add_fear "Mackenzie Joyce">>
         <<discover_fear "Mackenzie Joyce" 3>>
+        <<terrified "Mackenzie Joyce">>
         //Fear of Elderly
         It finally dawns on her. Why did she do this to her? She begins to sweat profusely. What did she do to that man? Why? She screams
 ===
@@ -65,10 +68,11 @@ title: MackenzieJoyce4
 ---
 Mackenzie's mind starts to wander from outside her confines. She thinks to her job. Did her coworkers see her get kidnapped? Did they report her missing?
 ->"They must have reported something"
-        <<reduce_fear "Mackenzie Joyce">>
+        <<reduce_fear "Mackenzie Joyce">>        
         "Someone must be coming to help me." She feels an inkling of hope.
 ->"Maybe they are also stuck in here"
         <<reduce_fear "Mackenzie Joyce">>
+        <<determined "Mackenzie Joyce">>
         "Maybe I can find them!" She starts to call out their names. Her voice echoes throughout the halls. 
 ->"What is there to notice missing?"
         <<add_fear "Mackenzie Joyce">>
@@ -116,6 +120,7 @@ Mackenzie sulks as she walks down the hall.
         She laughs a little. This reminds Mackenzie of her father. 
 ->"You can do it!"
         <<reduce_fear "Mackenzie Joyce">>
+        <<dcetermined "Mackenzie Joyce">>
         She tries to muster up some drive to continue, but the hours are wearing on her.
 ->"It's a simple maze."
         "Right! I'll figure it out."
@@ -137,6 +142,7 @@ As she walks from corridor to corridor, she begins to notice a sound coming from
 ->It's the sound of a dog barking
         <<add_fear "Mackenzie Joyce">>
         <<discover_fear "Mackenzie Joyce" 9>>
+        <<terrified "Mackenzie Joyce">>
         //Fear of Dogs
         The sound startles her a little. Her hands start to twitch. She looks at the scar on her wrist before starting to sprint down the hall.         
 ===
@@ -148,6 +154,7 @@ Suddenly, Mackenzie stops walking, noticing that the maze is moving around her..
 ->Clear out the space
         <<add_fear "Mackenzie Joyce">>
         <<discover_fear "Mackenzie Joyce" 8>>
+        <<terrified "Mackenzie Joyce">>
         //Fear of Empty Spaces
         Everything disappears around her, leaving only her and the floor. She starts to shake and reach around for anything to hold onto. She closes her eyes, until the maze eventually returns to normal.
 ->Make the hallway wider
@@ -163,6 +170,7 @@ While she is walking, she feels something on her face.
 ->"Your nose is bleeding"
         <<add_fear "Mackenzie Joyce">>
         <<discover_fear "Mackenzie Joyce" 7>>
+        <<terrified "Mackenzie Joyce">>
         //Fear of Nose Bleeds
         "AHH!" She pats at her pockets, looking for the pack of tissues she usually carries with her, to no avail. She touches her face, realizing there is nothing there.
 ->It's dust
@@ -182,6 +190,7 @@ Mackenzie looks around the maze, trying to note down anything off about it. She 
 ->Create a blue light that shines through the slit
         <<add_fear "Mackenzie Joyce">>
         <<discover_fear "Mackenzie Joyce" 0>>
+        <<terrified "Mackenzie Joyce">>
         //Fear of The Blue Light
         She pushes herself back and gasps. Memories flood back to her. She gets up and starts running. 
 ===
@@ -195,7 +204,9 @@ From far down the hall, Mackenzie hears a noise.
 ->It's a loud banging sound that bounces around the hall
         <<add_fear "Mackenzie Joyce">>
         <<discover_fear "Mackenzie Joyce" 2>>
+        <<terrified "Mackenzie Joyce">>
         //Sensitive to Loud Noises
+        She covers her ears and curls up into a ball on the floor, waiting for the sound to stop.
 ->It's the sound of trumpets
         "What?!" She walks towards the sound.
 ===
@@ -205,7 +216,7 @@ All of the sudden, a painting appears on the wall. She looks at it, investigatin
 ->It's The Hunters in the Snow
         "Kinda spooky..." She admires the painting before moving on. She looks over her shoulder as she walks away, noticing the painting has disappeared.
 ->It's The Kiss by Klimt
-        <<reduce_fear "Mackenzie Joyce">>
+        <<reduce_fear "Mackenzie Joyce">>c
         "Pretty" She admires the painting before moving on. She looks over her shoulder as she walks away, noticing the painting has disappeared.
 ->It's the Mona Lisa
         She smiles back at the painting, admiring it before moving on. She looks over her shoulder as she walks away, noticing the painting has disappeared.
@@ -225,6 +236,7 @@ Her mind starts to think about what is going to happen to her here. She feels as
 ->"Nobody is looking for you. They've moved on..."
         <<add_fear "Mackenzie Joyce">>
         <<discover_fear "Mackenzie Joyce" 4>>
+        <<terrified "Mackenzie Joyce">>
         //Fear of letting people down
         She starts to cry as she buries her head in her hands.
 ->"Nothing will happen. There is nothing here."
