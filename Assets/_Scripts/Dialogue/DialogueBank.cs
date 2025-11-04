@@ -60,8 +60,39 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
         characterLastName = CharacterNames.GetLastName(character);
         characterFullName = characterFirstName + characterLastName;
 
-        LoadYarnDialogues();
-        dialoguesRemaining = totalDialogues;
+        // If we are loading from a save, get the corresponding dialoguesRemaining and unplayed dialogues
+        if (LoadManager.S.loadData)
+        {
+            PlayerData pd = LoadManager.S.playerDataToLoad;
+            switch (character)
+            {
+                case Character.HaroldAuden:
+                    dialoguesRemaining = pd.haroldDialogueRemainingCount;
+                    unPlayedDialogues = pd.haroldRemainingDialogues;
+                    break;
+                case Character.IainSchweblin:
+                    dialoguesRemaining = pd.iainDialogueRemainingCount;
+                    unPlayedDialogues = pd.iainRemainingDialogues;
+                    break;
+                case Character.MackenzieJoyce:
+                    dialoguesRemaining = pd.mackenzieDialogueRemainingCount;
+                    unPlayedDialogues = pd.mackenzieRemainingDialogues;
+                    break;
+                case Character.EvelynVentress:
+                    dialoguesRemaining = pd.evelynDialogueRemainingCount;
+                    unPlayedDialogues = pd.evelynRemainingDialogues;
+                    break;
+                default:
+                    break;
+            }
+        }
+        else
+        {
+            // Otherwise instantiate these variables normally
+            LoadYarnDialogues();
+            dialoguesRemaining = totalDialogues;
+        }
+        
 
     }
 
@@ -156,10 +187,15 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
         dialgoueRunner.StartDialogue("OutOfDialogue");
     }
 
-    
+
     public int GetRemainingDialogueCount()
     {
         return dialoguesRemaining;
+    }
+    
+    public List<int> GetRemainingDialogues()
+    {
+        return unPlayedDialogues;
     }
 
 

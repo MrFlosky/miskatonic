@@ -1,8 +1,10 @@
 using Cinemachine;
+using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Experimental.AI;
+using UnityEngine.Rendering;
 using Random = UnityEngine.Random;
 
 /// <summary>
@@ -39,10 +41,21 @@ public class MazeGenerator : MonoBehaviour {
     [Range(0f, 1f)] public float wallPropChance = 0.2f;   // 20% chance per wall
     public List<GameObject> wallProps;                    // assign in Inspector
     public Transform propParent;                         // parent container for organization    
+    public int seed;
 
     private void Start()
     {
         Instance = this;
+        // If we have save data to load, load the state of the random number generator at the start of that saves maze gen (now random will output the same values it did for that save)
+        if (!LoadManager.S.loadData)
+        {
+            Debug.LogWarning("Didn't find save data for maze gen!");
+            seed = Random.Range(int.MinValue, int.MaxValue);
+        } else
+        {  
+            seed = LoadManager.S.playerDataToLoad.mazeSeed;
+        }
+        Random.InitState(seed);
     }
 
 

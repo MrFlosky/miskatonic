@@ -10,6 +10,7 @@ using UnityEngine.UI;
 /// </summary>
 public class SkillSystem : MonoBehaviour
 {
+    public static SkillSystem S;
     // All skills attached to this game object
     private Skill[] skills;
 
@@ -18,6 +19,9 @@ public class SkillSystem : MonoBehaviour
     
     void Start()
     {
+        if (S != null) Debug.LogError("Cannot be more than one SkillSystem in scene!");
+        else S = this;
+
         skills = GetComponents<Skill>();
         DISPLAY_PTS(); ///*** DEBUG
 
@@ -86,6 +90,7 @@ public class SkillSystem : MonoBehaviour
     // {
     //     return availablePts;
     // }
+
 
 
 }
