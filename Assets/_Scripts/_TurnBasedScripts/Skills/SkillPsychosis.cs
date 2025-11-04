@@ -30,7 +30,7 @@ public class SkillPsychosis : Skill
     {
         Debug.Log("Psychosis onclicked");
         if (!isSelecting)
-        {   
+        {
             Vector2 mousePos = Vector2.zero;
             mousePos = GameInput.Instance.GetActiveGameDevice() == GameInput.GameDevice.KeyboardMouse ? Mouse.current.position.ReadValue() : VirtualMouseUI.Instance.GetVirtualMousePosition();
             // Determine the character being selected for psychosis
@@ -38,7 +38,7 @@ public class SkillPsychosis : Skill
             Ray ray = mainCamera.ScreenPointToRay(mousePos);
             RaycastHit hit;
 
-            // We don’t need layer filtering — just check if the clicked object has PlayerVision
+            // We donï¿½t need layer filtering ï¿½ just check if the clicked object has PlayerVision
             if (Physics.Raycast(ray, out hit, 100f))
             {
                 PlayerVision vision = hit.collider.GetComponentInParent<PlayerVision>();
@@ -48,11 +48,22 @@ public class SkillPsychosis : Skill
                     isSelecting = true;
                     this.enabled = false;
                     skillsUI.ENABLE_BUTTONS();
-                    EndSkill();
+                    EndSkillWaitFrame();
                 }
             }
         }
 
+    }
+    
+    /// <summary>
+    /// SPECIFICALLY FOR PYSCHOSIS SINCE CLICKING ON AI,
+    /// wait until end of frame to end the skill. This prevents transitioning to
+    /// board base state too early allowing dialogue click event to happen in same frame.
+    /// </summary>
+    IEnumerator EndSkillWaitFrame()
+    {
+        yield return new WaitForEndOfFrame();
+        EndSkill();
     }
 
 
