@@ -82,6 +82,9 @@ public class PlayerController : MonoBehaviour
                 case SkillBarrier skillBarrier:
                     skillBarrier.OnClick(context);
                     break;
+                case SkillPsychosis skillPsychosis:
+                    skillPsychosis.OnClick(context);
+                    break;
                 case SkillLure skillLure:
                     skillLure.OnClick(context);
                     break;
@@ -132,6 +135,9 @@ public class PlayerController : MonoBehaviour
                     break;
                 case SkillFearTotem fearTotem:
                     fearTotem.OnRightClick(context);
+                    break;
+                case SkillPsychosis skillPsychosis:
+                    skillPsychosis.OnRightClick(context);
                     break;
                 case SkillLure skillLure:
                     skillLure.OnRightClick(context);
