@@ -48,7 +48,7 @@ public class SkillPsychosis : Skill
                     isSelecting = true;
                     this.enabled = false;
                     skillsUI.ENABLE_BUTTONS();
-                    EndSkillWaitFrame();
+                    StartCoroutine(EndSkillWaitFrame());
                 }
             }
         }
