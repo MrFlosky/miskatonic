@@ -32,6 +32,10 @@ public class CultistPoints : MonoBehaviour
 
     void Start()
     {
+        if (LoadManager.S.loadData)
+        {
+            cultistPoints = LoadManager.S.playerDataToLoad.cultists;
+        }
         S = this;
         UpdateText();
     }
