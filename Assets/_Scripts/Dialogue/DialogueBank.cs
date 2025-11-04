@@ -49,7 +49,9 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
     void Start()
     {
         TurnBasedSystem.SubscribeAsObserver(this);
-        dialgoueRunner = FindObjectOfType<DialogueRunner>();
+        var dialogueSystem = GameObject.Find("Dialogue System"); // gets gameobject ("Dialogue System") MESSAGE FOR ANYONE ON CODE TEAM - You have permission to change this from finding a gameobject -Alex 
+        if (dialogueSystem == null) Debug.LogError("No dialogue system found! Make sure there is a dialogue runner called 'Dialogue System' in the scene - MUST MATCH EXACT SPELLING!!!!!! Did you change the name of 'Dialogue System' in the scene?");
+        dialgoueRunner = GameObject.Find("Dialogue System").GetComponent<DialogueRunner>(); // gets gameobject ("Dialogue System")
         characterFear = GetComponent<Fear>();
 
         // sub to dialogue on/off events for essentials line presenter settings
