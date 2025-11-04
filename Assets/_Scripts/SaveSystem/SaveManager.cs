@@ -138,6 +138,7 @@ public class SaveManager : MonoBehaviour
         // Send to LoadManager and then load/reload the scene
         LoadManager.S.playerDataToLoad = data;
         LoadManager.S.loadData = true;
+        Time.timeScale = 1.0f;
         SceneController.Instance.LoadScene("NEW_MAIN");
 
 
