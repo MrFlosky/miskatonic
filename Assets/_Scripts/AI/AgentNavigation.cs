@@ -731,7 +731,7 @@ public class AgentNavigation : MonoBehaviour
     public enum RoomName
     {
         Library,
-        DungeonRoom,
+        Dungeon,
         DiningRoom,
         Cemetery,
         RitualRoom,
@@ -744,7 +744,7 @@ public class AgentNavigation : MonoBehaviour
         return roomName switch
         {
             RoomName.Library => "Library",
-            RoomName.DungeonRoom => "Dungeon Room",
+            RoomName.Dungeon => "Dungeon",
             RoomName.DiningRoom => "DiningRoom",
             RoomName.Cemetery => "Cemetery",
             RoomName.RitualRoom => "Ritual Room",

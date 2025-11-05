@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -8,14 +9,17 @@ public class SkillRenovation : Skill
     /// <summary>
     /// this script handles the activation of the Renovation skill. When active it will check to see if the player clicks on a room
     /// 
-    /// if the player clicks on the room it will activate the skill. Effects handled by the RenovationEffect script
+    /// if the player clicks on the room it will activate the skill. Effects Added fear is handled by AgentNavigator script
     /// </summary>
 
+    /// currently effects do not stack. creating a new renovator will overwrite the previous one
 
-   // private PlayerInputActions inputActions;
-    [SerializeField] GameObject Renovator;
-    [SerializeField] AgentManager agentManager;
+    [SerializeField] GameObject renObj;
+    [SerializeField] protected AgentManager agentManager;
     [SerializeField] Camera mainCamera;
+    [SerializeField] int roundsLast;
+
+    [SerializeField] List<GameObject> Renovators;
 
     private void Awake()
     {
@@ -25,6 +29,8 @@ public class SkillRenovation : Skill
         }
 
         skillSystem = GetComponent<SkillSystem>();
+        Renovators = new List<GameObject>();
+        //TurnBasedSystem.SubscribeAsObserver(this);
 
     }
 
@@ -53,17 +59,20 @@ public class SkillRenovation : Skill
 
                 string RoomsName = hit.collider.gameObject.GetComponentInParent<MazeCellObject>().roomType;
                 RoomsName = RoomsName.Replace(" ", "");
-                Debug.LogError(RoomsName);
+                
 
                 AgentNavigation.RoomName Rn = (AgentNavigation.RoomName)System.Enum.Parse(typeof(AgentNavigation.RoomName), RoomsName);
+
                 
-                Debug.LogError(Rn);
                 foreach (AgentNavigation AN in agentManager.agents)
                 {
                     AN.SetBonusFearRoom(Rn);
+                    
+                    
 
                 }
-                
+                CreateRenovator();
+                EndSkill();
                 
             }
         }
@@ -72,9 +81,9 @@ public class SkillRenovation : Skill
 
     public void OnRightClick(InputAction.CallbackContext context)
     {
-        print("test");
+        Debug.LogError("test");
         ExitInProgress();
-        this.enabled = false;
+        
     }
 
     public override void EndSkill()
@@ -86,5 +95,32 @@ public class SkillRenovation : Skill
     {
         base.ActivateSkill();
     }
+
+    public void CreateRenovator()
+    {
+        Renovators.Clear();
+
+        GameObject newRen = Instantiate(renObj);
+        newRen.transform.SetParent(transform);
+        Renovators.Add(newRen);
+        newRen.GetComponent<Renovator>().turnsRemaining = roundsLast;
+        
+
+    }
+
+
+    public void EndRenovation()
+    {
+        foreach (AgentNavigation AN in agentManager.agents)
+                {
+                    AN.SetBonusFearRoom(AgentNavigation.RoomName.None);
+                    
+                    
+
+                }
+
+    }
+
     
+
 }
