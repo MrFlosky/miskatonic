@@ -28,7 +28,7 @@ public class Renovator : MonoBehaviour, ITurnObserver
 
     void ITurnObserver.EnemyTurnInitiated()
     {
-        Debug.LogError("lil' help!?");
+        
         turnsRemaining--;
     }
     
