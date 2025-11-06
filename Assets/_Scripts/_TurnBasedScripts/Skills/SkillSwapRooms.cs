@@ -236,13 +236,17 @@ public class SkillSwapRooms : Skill
     /// </summary>
     public void SwapRooms(GameObject room1Ob, string rm1Type, GameObject room2Ob, string rm2Type)
     {
+        //Find Original Swap Position
+        Vector3 orginal10bposition = room1Ob.transform.Find("RoomCam(Clone)").position;
+        Vector3 orginal20bposition = room2Ob.transform.Find("RoomCam(Clone)").position;
+
         // Swap the room positions in the scene
         Vector3 room1Position = room1Ob.transform.position;
         Vector3 room2Position = room2Ob.transform.position;
 
         //Swap Room Cameras
-        room1Ob.transform.Find("RoomCam(Clone)").position = room2Ob.transform.Find("RoomCam(Clone)").position;
-        room2Ob.transform.Find("RoomCam(Clone)").position = room1Ob.transform.Find("RoomCam(Clone)").position;
+        room1Ob.transform.Find("RoomCam(Clone)").position = orginal20bposition;
+        room2Ob.transform.Find("RoomCam(Clone)").position = orginal10bposition;
 
         // Swap the positions of the room GameObjects
         room1Ob.transform.position = room2Position;
