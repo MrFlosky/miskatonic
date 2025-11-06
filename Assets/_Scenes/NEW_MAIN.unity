@@ -40882,7 +40882,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 402037184}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7fc511e9ff0adfa48a0cbc0766548750, type: 3}
   m_Name: 
@@ -40893,6 +40893,9 @@ MonoBehaviour:
   outlineMaterial: {fileID: 0}
   totemCell: []
   isPsychosis: 0
+  psychosisLight: {fileID: 0}
+  psychosisColor: {r: 0.6, g: 0, b: 0.8, a: 1}
+  psychosisIntensity: 6
 --- !u!114 &402037188
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -91588,7 +91591,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5592833437522147513, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
       propertyPath: missionCards.Array.data[2].cardCount
-      value: 40
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5592833437522147513, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
       propertyPath: missionCards.Array.data[3].cardCount
@@ -91632,7 +91635,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5592833437522147513, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
       propertyPath: missionCards.Array.data[13].cardCount
-      value: 40
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5592833437522147513, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
       propertyPath: missionCards.Array.data[0].missionData
@@ -91685,7 +91688,7 @@ PrefabInstance:
     - target: {fileID: 5592833437522147513, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
       propertyPath: missionCards.Array.data[12].missionData
       value: 
-      objectReference: {fileID: 11400000, guid: 46264f462d33b7043a1da43cc62b26dc, type: 2}
+      objectReference: {fileID: 11400000, guid: e0a75af2769576a44b2f82d8dbbaeb97, type: 2}
     - target: {fileID: 5592833437522147513, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
       propertyPath: missionCards.Array.data[13].missionData
       value: 
@@ -107817,7 +107820,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1057312891}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7fc511e9ff0adfa48a0cbc0766548750, type: 3}
   m_Name: 
@@ -107828,6 +107831,9 @@ MonoBehaviour:
   outlineMaterial: {fileID: 0}
   totemCell: []
   isPsychosis: 0
+  psychosisLight: {fileID: 0}
+  psychosisColor: {r: 0.6, g: 0, b: 0.8, a: 1}
+  psychosisIntensity: 6
 --- !u!114 &1057312894
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -138747,7 +138753,7 @@ MonoBehaviour:
   mainCamera: {fileID: 0}
   roundsLast: 3
   fearPerNearby: 5
-  visionRadius: 30
+  visionRadius: 8
 --- !u!114 &1340635379
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -155079,7 +155085,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1495534903}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7fc511e9ff0adfa48a0cbc0766548750, type: 3}
   m_Name: 
@@ -155090,6 +155096,9 @@ MonoBehaviour:
   outlineMaterial: {fileID: 0}
   totemCell: []
   isPsychosis: 0
+  psychosisLight: {fileID: 0}
+  psychosisColor: {r: 0.6, g: 0, b: 0.8, a: 1}
+  psychosisIntensity: 6
 --- !u!114 &1495534906
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177062,7 +177071,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1671090630}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7fc511e9ff0adfa48a0cbc0766548750, type: 3}
   m_Name: 
@@ -177073,6 +177082,9 @@ MonoBehaviour:
   outlineMaterial: {fileID: 0}
   totemCell: []
   isPsychosis: 0
+  psychosisLight: {fileID: 0}
+  psychosisColor: {r: 0.6, g: 0, b: 0.8, a: 1}
+  psychosisIntensity: 6
 --- !u!114 &1671090633
 MonoBehaviour:
   m_ObjectHideFlags: 0

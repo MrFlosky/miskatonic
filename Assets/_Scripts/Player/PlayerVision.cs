@@ -28,6 +28,10 @@ public class PlayerVision : MonoBehaviour, ITurnObserver
     private List<PlayerVision> nearbyCharacters = new List<PlayerVision>();
     private int psyFear = 0;
 
+    public Light psychosisLight;
+    public Color psychosisColor = new Color(0.6f, 0f, 0.8f, 1f); // purple
+    public float psychosisIntensity = 6f;
+
 
     /// <summary>
     /// Set up varibles for current position of AI
@@ -47,6 +51,23 @@ public class PlayerVision : MonoBehaviour, ITurnObserver
             Debug.LogWarning("PlayerVision: No MazeCellObject attached. " +
                              "Make sure you assign currentCell when spawning!");
         }
+
+        
+    }
+
+    void Awake()
+    {
+        GameObject lightObj = new GameObject("PsychosisLight");
+        lightObj.transform.SetParent(transform);
+        lightObj.transform.localPosition = new Vector3(0, 2f, 0); // slightly above player
+        lightObj.SetActive(true);
+
+        psychosisLight = lightObj.AddComponent<Light>();
+        psychosisLight.type = LightType.Point;
+        psychosisLight.color = psychosisColor;
+        psychosisLight.intensity = 0f; // start off
+        psychosisLight.range = psyRadius;
+        psychosisLight.enabled = false;
     }
 
     /// <summary>
@@ -258,6 +279,14 @@ public class PlayerVision : MonoBehaviour, ITurnObserver
         endTurn = endAtTurn;
         psyRadius = radius;
         psyFear = fear;
+
+        if (psychosisLight != null)
+        {
+            psychosisLight.enabled = true;
+            psychosisLight.color = psychosisColor;
+            psychosisLight.intensity = psychosisIntensity;
+            psychosisLight.range = psyRadius;
+        }
     }
 
     /// <summary>
@@ -334,6 +363,11 @@ public class PlayerVision : MonoBehaviour, ITurnObserver
         {
             isPsychosis = false;
             nearbyCharacters.Clear();
+            if (psychosisLight != null)
+            {
+                psychosisLight.intensity = 0f;
+                psychosisLight.enabled = false;
+            }
         }
 
     }
