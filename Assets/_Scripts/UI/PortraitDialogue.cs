@@ -17,7 +17,7 @@ public class PortraitDialogue : MonoBehaviour
     // AI object with dialogue bank and ai cam
     [SerializeField] GameObject character;
     [SerializeField] GameObject playerControls;
-    [SerializeField]Books selfBook;
+    [SerializeField] public Books selfBook;
 
     private DialogueBank DB;
     private void Start()
@@ -28,6 +28,7 @@ public class PortraitDialogue : MonoBehaviour
 
         aiCam = character.transform.GetChild(0).GetComponent<AICamera>();
         selfBook = gameObject.GetComponent<Books>();
+        print(selfBook.gameObject.name);
     }
 
 
