@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
+using UnityEditor.Rendering;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -28,6 +29,14 @@ public class AgentNavigation : MonoBehaviour
     public Vector3 destination;
 
     [SerializeField] private RoomName FearRoom;
+    [SerializeField]private RoomName bonusFearRoom;
+
+    public void SetBonusFearRoom(RoomName name)
+    {
+        bonusFearRoom = name;
+        roomFearEffects[GetRoomName(bonusFearRoom)] = IncreaseFear;
+    }
+
     [SerializeField] private RoomName GoalRoom;
 
     private string currentRoom;
@@ -58,6 +67,8 @@ public class AgentNavigation : MonoBehaviour
         roomFearEffects = new Dictionary<string, System.Action>();
         roomFearEffects[GetRoomName(FearRoom)] = IncreaseFear;
         roomFearEffects[GetRoomName(GoalRoom)] = DecreaseFear;
+        SetBonusFearRoom(RoomName.None);
+        
     }
 
     private void Awake()
@@ -689,10 +700,18 @@ public class AgentNavigation : MonoBehaviour
             Debug.Log($"{gameObject.name}: No fear effect registered for {roomType}");
         }
     }
-    
-    private void IncreaseFear()
+
+    public void IncreaseFear()
     {
         agentFear.AddFear(5);
+    }
+    
+    public void AddBonusFear(float bonusFear)
+    {
+        //temporary pending fear being made into float
+       int addedFear = Mathf.RoundToInt(bonusFear);
+
+        agentFear.AddFear(addedFear);
     }
 
     private void DecreaseFear()
@@ -709,26 +728,27 @@ public class AgentNavigation : MonoBehaviour
         agentFear.ReduceFear(5);
     }
 
-    private enum RoomName
+    public enum RoomName
     {
-        Bedroom,
+        Library,
+        Dungeon,
         DiningRoom,
         Cemetery,
-        Library,
         RitualRoom,
-        Dungeon
+        Bedroom,
+        None
     }
     
     private string GetRoomName(RoomName roomName)
     {
         return roomName switch
         {
-            RoomName.Bedroom => "Bedroom",
+            RoomName.Library => "Library",
             RoomName.Dungeon => "Dungeon",
-            RoomName.DiningRoom => "Dining Room",
+            RoomName.DiningRoom => "DiningRoom",
             RoomName.Cemetery => "Cemetery",
             RoomName.RitualRoom => "Ritual Room",
-            RoomName.Library => "Library",
+            RoomName.Bedroom => "Bedroom",
             _ => roomName.ToString()
         };
     }

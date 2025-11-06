@@ -12,6 +12,7 @@ public class SkillAoeFear : Skill
     Transform obTrans;
     bool canPlace = true;
 
+    
 
     void Awake()
     {

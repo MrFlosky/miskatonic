@@ -14,7 +14,7 @@ using Unity.VisualScripting;
 /// </summary>
 public class CultistPoints : MonoBehaviour
 {
-    static private CultistPoints S;
+    static public CultistPoints S { get; private set; }
 
     /// <summary>
     /// Text displayed in DealerCanvas
