@@ -13951,7 +13951,7 @@ GameObject:
   m_Component:
   - component: {fileID: 138657986}
   - component: {fileID: 138657987}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Harold Page 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26346,7 +26346,7 @@ GameObject:
   - component: {fileID: 276203667}
   - component: {fileID: 276203666}
   - component: {fileID: 276203665}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: RightTurner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28435,7 +28435,8 @@ Transform:
   m_LocalPosition: {x: -539.5, y: -292, z: -15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1345550718}
   m_Father: {fileID: 483115193}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!114 &294327815
@@ -28452,7 +28453,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   paintMaterial: {fileID: 2100000, guid: 43479a98908cc8647a99484ca88938a0, type: 2}
   ditherMaterial: {fileID: 2100000, guid: b82d1161b9fc84a40b5130b2a217db6a, type: 2}
+  noPostProcMaterial: {fileID: 2100000, guid: 214624c04edcbc8498335dac7d2d36b5, type: 2}
   firstPassRT: {fileID: 8400000, guid: 33f7407523d2d3046a57a0dec8c0ab73, type: 2}
+  excludedObjectsRT: {fileID: 8400000, guid: 861eb9cbf98913f4794045c1eb64318d, type: 2}
+  excludedCam: {fileID: 1345550720}
 --- !u!114 &294327816
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28578,7 +28582,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 887
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8400000, guid: f3e7baabd91d43846b91be356d60c89d, type: 2}
   m_TargetDisplay: 0
@@ -28878,7 +28882,7 @@ GameObject:
   - component: {fileID: 298844321}
   - component: {fileID: 298844320}
   - component: {fileID: 298844319}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: RightTurner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37659,7 +37663,7 @@ GameObject:
   - component: {fileID: 375994016}
   - component: {fileID: 375994015}
   - component: {fileID: 375994014}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: LeftTurner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -62076,9 +62080,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 936255544}
     m_Modifications:
+    - target: {fileID: 889645728378425546, guid: bd3fe30883c14ba4aa41fd09c3730b5e, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2420121474723278209, guid: bd3fe30883c14ba4aa41fd09c3730b5e, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 3613398273464120548, guid: bd3fe30883c14ba4aa41fd09c3730b5e, type: 3}
       propertyPath: m_Name
       value: WorldCard
+      objectReference: {fileID: 0}
+    - target: {fileID: 3613398273464120548, guid: bd3fe30883c14ba4aa41fd09c3730b5e, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3840009097889455293, guid: bd3fe30883c14ba4aa41fd09c3730b5e, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4006761754822472747, guid: bd3fe30883c14ba4aa41fd09c3730b5e, type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -62127,6 +62147,10 @@ PrefabInstance:
     - target: {fileID: 4006761754822472747, guid: bd3fe30883c14ba4aa41fd09c3730b5e, type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4560799449881516125, guid: bd3fe30883c14ba4aa41fd09c3730b5e, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5071443368570821683, guid: bd3fe30883c14ba4aa41fd09c3730b5e, type: 3}
       propertyPath: m_LocalScale.x
@@ -62183,6 +62207,14 @@ PrefabInstance:
     - target: {fileID: 5071443368570821683, guid: bd3fe30883c14ba4aa41fd09c3730b5e, type: 3}
       propertyPath: m_ConstrainProportionsScale
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5407373442694688711, guid: bd3fe30883c14ba4aa41fd09c3730b5e, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6920321355246191650, guid: bd3fe30883c14ba4aa41fd09c3730b5e, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -66476,7 +66508,7 @@ GameObject:
   m_Component:
   - component: {fileID: 641952649}
   - component: {fileID: 641952648}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: OpenBook (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -80717,6 +80749,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: WorldRerollBtn
       objectReference: {fileID: 0}
+    - target: {fileID: 700227624313683454, guid: 97c58f3b6a40d124b810e4a2d5caf79e, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1408849475734780016, guid: 97c58f3b6a40d124b810e4a2d5caf79e, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3349056880326499459, guid: 97c58f3b6a40d124b810e4a2d5caf79e, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.29
@@ -80792,6 +80832,10 @@ PrefabInstance:
     - target: {fileID: 7910418451788768065, guid: 97c58f3b6a40d124b810e4a2d5caf79e, type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8784374616741480498, guid: 97c58f3b6a40d124b810e4a2d5caf79e, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -91238,7 +91282,7 @@ GameObject:
   m_Component:
   - component: {fileID: 890412980}
   - component: {fileID: 890412979}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: OpenBook (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93285,9 +93329,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 936255544}
     m_Modifications:
+    - target: {fileID: 889645728378425546, guid: bd3fe30883c14ba4aa41fd09c3730b5e, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2420121474723278209, guid: bd3fe30883c14ba4aa41fd09c3730b5e, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 3613398273464120548, guid: bd3fe30883c14ba4aa41fd09c3730b5e, type: 3}
       propertyPath: m_Name
       value: WorldCard (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3613398273464120548, guid: bd3fe30883c14ba4aa41fd09c3730b5e, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3840009097889455293, guid: bd3fe30883c14ba4aa41fd09c3730b5e, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4006761754822472747, guid: bd3fe30883c14ba4aa41fd09c3730b5e, type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -93336,6 +93396,10 @@ PrefabInstance:
     - target: {fileID: 4006761754822472747, guid: bd3fe30883c14ba4aa41fd09c3730b5e, type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4560799449881516125, guid: bd3fe30883c14ba4aa41fd09c3730b5e, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5071443368570821683, guid: bd3fe30883c14ba4aa41fd09c3730b5e, type: 3}
       propertyPath: m_LocalScale.x
@@ -93392,6 +93456,14 @@ PrefabInstance:
     - target: {fileID: 5071443368570821683, guid: bd3fe30883c14ba4aa41fd09c3730b5e, type: 3}
       propertyPath: m_ConstrainProportionsScale
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5407373442694688711, guid: bd3fe30883c14ba4aa41fd09c3730b5e, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6920321355246191650, guid: bd3fe30883c14ba4aa41fd09c3730b5e, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -94658,9 +94730,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 936255544}
     m_Modifications:
+    - target: {fileID: 889645728378425546, guid: bd3fe30883c14ba4aa41fd09c3730b5e, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2420121474723278209, guid: bd3fe30883c14ba4aa41fd09c3730b5e, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 3613398273464120548, guid: bd3fe30883c14ba4aa41fd09c3730b5e, type: 3}
       propertyPath: m_Name
       value: WorldCard (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3613398273464120548, guid: bd3fe30883c14ba4aa41fd09c3730b5e, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3840009097889455293, guid: bd3fe30883c14ba4aa41fd09c3730b5e, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4006761754822472747, guid: bd3fe30883c14ba4aa41fd09c3730b5e, type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -94709,6 +94797,10 @@ PrefabInstance:
     - target: {fileID: 4006761754822472747, guid: bd3fe30883c14ba4aa41fd09c3730b5e, type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4560799449881516125, guid: bd3fe30883c14ba4aa41fd09c3730b5e, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5071443368570821683, guid: bd3fe30883c14ba4aa41fd09c3730b5e, type: 3}
       propertyPath: m_LocalScale.x
@@ -94765,6 +94857,14 @@ PrefabInstance:
     - target: {fileID: 5071443368570821683, guid: bd3fe30883c14ba4aa41fd09c3730b5e, type: 3}
       propertyPath: m_ConstrainProportionsScale
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5407373442694688711, guid: bd3fe30883c14ba4aa41fd09c3730b5e, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6920321355246191650, guid: bd3fe30883c14ba4aa41fd09c3730b5e, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -95913,7 +96013,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 936255544}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: DispatchWorldCards
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96028,7 +96128,7 @@ GameObject:
   m_Component:
   - component: {fileID: 937283882}
   - component: {fileID: 937283881}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: OpenBook
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102066,7 +102166,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1001744313}
   - component: {fileID: 1001744314}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Evelyn Page 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -106677,7 +106777,7 @@ GameObject:
   - component: {fileID: 1051815890}
   - component: {fileID: 1051815889}
   - component: {fileID: 1051815888}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: RightTurner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -115567,7 +115667,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1130143734}
   - component: {fileID: 1130143735}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Evelyn Page 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -138721,6 +138821,89 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3910238404974811713, guid: fcbea12b95b612b4f8762e7bdcc06d85, type: 3}
   m_PrefabInstance: {fileID: 1345204626}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1345550717
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1345550718}
+  - component: {fileID: 1345550720}
+  m_Layer: 10
+  m_Name: NoPostCamera
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1345550718
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1345550717}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 294327814}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!20 &1345550720
+Camera:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1345550717}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
+  m_projectionMatrixMode: 1
+  m_GateFitMode: 2
+  m_FOVAxisMode: 0
+  m_Iso: 200
+  m_ShutterSpeed: 0.005
+  m_Aperture: 16
+  m_FocusDistance: 10
+  m_FocalLength: 50
+  m_BladeCount: 5
+  m_Curvature: {x: 2, y: 11}
+  m_BarrelClipping: 0.25
+  m_Anamorphism: 0
+  m_SensorSize: {x: 36, y: 24}
+  m_LensShift: {x: 0, y: 0}
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.3
+  far clip plane: 1000
+  field of view: 60
+  orthographic: 0
+  orthographic size: 5
+  m_Depth: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 1024
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 8400000, guid: 861eb9cbf98913f4794045c1eb64318d, type: 2}
+  m_TargetDisplay: 0
+  m_TargetEye: 3
+  m_HDR: 1
+  m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
 --- !u!1001 &1345745011
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -144246,7 +144429,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1395857042}
   - component: {fileID: 1395857043}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Mackenzie Page 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -173435,7 +173618,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1648449939}
   - component: {fileID: 1648449940}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Iain Page 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -180745,7 +180928,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1711137339}
   - component: {fileID: 1711137340}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Iain Page 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -185555,7 +185738,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1751006056}
   - component: {fileID: 1751006055}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: OpenBook (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -190494,7 +190677,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1803062995}
   - component: {fileID: 1803062996}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Evelyn Page 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -192832,7 +193015,7 @@ GameObject:
   - component: {fileID: 1828660771}
   - component: {fileID: 1828660770}
   - component: {fileID: 1828660769}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: RightTurner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -195238,7 +195421,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1850075091}
   - component: {fileID: 1850075092}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Harold Page 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -201299,7 +201482,7 @@ GameObject:
   - component: {fileID: 1907174103}
   - component: {fileID: 1907174102}
   - component: {fileID: 1907174101}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: LeftTurner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -202870,7 +203053,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1929246836}
   - component: {fileID: 1929246837}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Mackenzie Page 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -204136,7 +204319,7 @@ GameObject:
   - component: {fileID: 1939578948}
   - component: {fileID: 1939578947}
   - component: {fileID: 1939578946}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: LeftTurner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -207672,7 +207855,7 @@ GameObject:
   - component: {fileID: 1979541634}
   - component: {fileID: 1979541633}
   - component: {fileID: 1979541632}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: LeftTurner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -217776,7 +217959,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2069748664}
   - component: {fileID: 2069748665}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Iain Page 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -220001,7 +220184,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2101437949}
   - component: {fileID: 2101437950}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Harold Page 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -220231,7 +220414,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2105812248}
   - component: {fileID: 2105812249}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Mackenzie Page 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

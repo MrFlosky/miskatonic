@@ -13,8 +13,16 @@ public class PPEPasses : MonoBehaviour
 
     public Material paintMaterial;
     public Material ditherMaterial;
+    public Material noPostProcMaterial;
     public RenderTexture firstPassRT;   // Results from paint effect
-    //public RenderTexture secondPassRT;
+
+    
+    /// <summary>
+    /// Way this works is by having camera that only renders noPostProc layer with transparent clear color, store
+    /// in render texture. Then blit this rtex atop first paint render pass.
+    /// </summary>
+    public RenderTexture excludedObjectsRT; // render texture containing camera view of only excluded post proc layer objects
+    public Camera excludedCam;
 
     /// <summary>
     /// Runs once per frame when camera renders automatically.
@@ -30,8 +38,10 @@ public class PPEPasses : MonoBehaviour
         if (ppEnabled)
         {
             // perform two render passes using first paint shader, then dither
-            Graphics.Blit(source, firstPassRT, paintMaterial);
-            Graphics.Blit(firstPassRT, destination, ditherMaterial);
+            Graphics.Blit(source, firstPassRT, paintMaterial); // store results from source image blit with paint material in firstPassRt
+            Graphics.Blit(excludedObjectsRT, firstPassRT, noPostProcMaterial); // store exluded objects rt pixels with transparent material in first pass rt
+            Graphics.Blit(firstPassRT, destination, ditherMaterial); // store firstpassrt with dither material into destination, output render texture in inspector
+            
         }
         else
         {
@@ -48,6 +58,23 @@ public class PPEPasses : MonoBehaviour
         {
             ppEnabled = !ppEnabled;
         }
+    }
+
+        void LateUpdate()
+    {
+        // Sync excluded camera with main camera (after Cinemachine updates)
+  
+            // Sync transform (position and rotation)
+            excludedCam.transform.position = Camera.main.transform.position;
+            excludedCam.transform.rotation = Camera.main.transform.rotation;
+            
+            // Sync camera properties
+            excludedCam.fieldOfView = Camera.main.fieldOfView;
+            excludedCam.nearClipPlane = Camera.main.nearClipPlane;
+            excludedCam.farClipPlane = Camera.main.farClipPlane;
+            excludedCam.orthographic = Camera.main.orthographic;
+            excludedCam.orthographicSize = Camera.main.orthographicSize;
+        
     }
 
     void OnDestroy()
