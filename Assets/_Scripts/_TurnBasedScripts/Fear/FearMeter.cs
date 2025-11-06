@@ -6,15 +6,23 @@ using UnityEngine.UI;
 
 public class FearMeter : MonoBehaviour
 {
-    private static FearMeter S;
+    public static FearMeter S { get; private set; }
     int totalFear = 0;
-    
+    public bool RnD;
     public Slider slid;
     float timeElapsed = 0;
     public float sliderSpeed = 0.2f;
     public ParticleSystem ps;
 
+    //NOTE: This numnber should be how many percent you want to increase by i.e. if you want 1% just put 1.
+    //The number will be divided by 100 to make it a percentage later
+    //currently not functional, fear must be float
+    //[SerializeField] float RnDGain;
 
+    //temporary until fear is reworked to float
+    //gives one extra fear for every 10 cultists by default
+    [SerializeField] int RnDIntGain;
+    [SerializeField] int RnDDivisor=10;
     void Awake()
     {
         slid = GetComponent<Slider>();
@@ -39,9 +47,25 @@ public class FearMeter : MonoBehaviour
 
     static public void INCREASE_METER(int increase)
     {
+        
         AudioManager.PlaySFX(SFXType.FearIncrease);
         S.timeElapsed = 0; // setting to 0 here makes so slider animates smoothly with multiple increase calls
-        S.totalFear += increase;
+
+        if (!S.RnD) S.totalFear += increase;
+
+        else
+        {
+            print("Yup");
+            S.RnDIntGain = Mathf.RoundToInt(CultistPoints.S.cultistPoints / S.RnDDivisor);
+        }
+
+        //this will apply the percentage gain from the R&D upgrade, will only be functional if Fear is changed to float
+        // else
+        // {
+        //     S.totalFear += increase*(1+S.RnDGain) 
+        // }
+
+
         GameManager.Instance.CHECK_FEAR_WIN(S.totalFear);
         S.enabled = true;
     }

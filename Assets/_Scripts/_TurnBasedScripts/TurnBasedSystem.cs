@@ -269,6 +269,7 @@ public class TurnBasedSystem : MonoBehaviour
         MazeCellObject cellTotem;
         public DestroyAfterRounds(int rounds, GameObject obj, WallType wT)
         {
+           
             destroyOnRound = rounds + S.playerTurnCount;
             obToDestroy = obj;
             wallType = wT;
@@ -282,7 +283,7 @@ public class TurnBasedSystem : MonoBehaviour
         /// <param name="rounds"></param>
         /// <param name="obj"></param>
         public DestroyAfterRounds(int rounds, GameObject obj)
-        {
+        {   
             destroyOnRound = rounds + S.playerTurnCount;
             obToDestroy = obj;
             S.destroyablesListOb.Add(this);
@@ -326,14 +327,20 @@ public class TurnBasedSystem : MonoBehaviour
             }
         }
 
+        public void CheckRenDestroy()
+        {
+            
+        }
         /// <summary>
         /// for destroying aoe ob
         /// </summary>
         public void CheckObDestroy()
         {
+            
             if (destroyOnRound == S.playerTurnCount)
             {
                 S.readyToDestroyOb.Add(this);
+                Debug.LogError(obToDestroy.gameObject.name);
                 Destroy(obToDestroy);
             }
         }

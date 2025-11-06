@@ -92,6 +92,9 @@ public class PlayerController : MonoBehaviour
                 case SkillLure skillLure:
                     skillLure.OnClick(context);
                     break;
+                case SkillRenovation skillRenovation:
+                    skillRenovation.OnClick(context);
+                    break;
             }
 
 
@@ -139,6 +142,9 @@ public class PlayerController : MonoBehaviour
                     break;
                 case SkillLure skillLure:
                     skillLure.OnRightClick(context);
+                    break;
+                    case SkillRenovation skillRenovation:
+                    skillRenovation.OnRightClick(context);
                     break;
             }
         }
