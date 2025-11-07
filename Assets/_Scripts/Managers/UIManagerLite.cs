@@ -354,7 +354,7 @@ public class UIManagerLite : MonoBehaviour
                     S.endTurnButton.gameObject.SetActive(false);
                     S.skillPointUICollection.HIDE_PTS();
                     S.skillUICollection.HIDE_SKILLS();
-                    S.portraitOb.SetActive(false);
+                   // S.portraitOb.SetActive(false);
 
                     S.outlineManager.PauseOutlining();
                 }
