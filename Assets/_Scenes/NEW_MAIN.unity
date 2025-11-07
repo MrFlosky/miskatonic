@@ -458,6 +458,7 @@ GameObject:
   - component: {fileID: 4297058}
   - component: {fileID: 4297057}
   - component: {fileID: 4297061}
+  - component: {fileID: 4297062}
   m_Layer: 5
   m_Name: EvePortrait
   m_TagString: Untagged
@@ -509,6 +510,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   character: {fileID: 1495534903}
   playerControls: {fileID: 1066410479}
+  selfBook: {fileID: 0}
 --- !u!114 &4297058
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -626,6 +628,20 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &4297062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4297055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac2f096e3b00c5444b184d43bb1536b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  openBook: {fileID: 641952647}
+  bookshelf: {fileID: 0}
 --- !u!1 &4709964
 GameObject:
   m_ObjectHideFlags: 0
@@ -13336,6 +13352,7 @@ GameObject:
   - component: {fileID: 127152341}
   - component: {fileID: 127152340}
   - component: {fileID: 127152344}
+  - component: {fileID: 127152345}
   m_Layer: 5
   m_Name: MackenziePortrait
   m_TagString: Untagged
@@ -13377,6 +13394,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   character: {fileID: 402037184}
   playerControls: {fileID: 1066410479}
+  selfBook: {fileID: 0}
 --- !u!114 &127152341
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13504,6 +13522,20 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &127152345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 127152338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac2f096e3b00c5444b184d43bb1536b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  openBook: {fileID: 890412978}
+  bookshelf: {fileID: 0}
 --- !u!1 &127365482
 GameObject:
   m_ObjectHideFlags: 0
@@ -65306,6 +65338,7 @@ GameObject:
   - component: {fileID: 631664674}
   - component: {fileID: 631664673}
   - component: {fileID: 631664677}
+  - component: {fileID: 631664678}
   m_Layer: 5
   m_Name: IainPortrait
   m_TagString: Untagged
@@ -65357,6 +65390,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   character: {fileID: 1057312891}
   playerControls: {fileID: 1066410479}
+  selfBook: {fileID: 0}
 --- !u!114 &631664674
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65474,6 +65508,20 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &631664678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 631664671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac2f096e3b00c5444b184d43bb1536b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  openBook: {fileID: 1751006054}
+  bookshelf: {fileID: 0}
 --- !u!1001 &632148377
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -66419,7 +66467,11 @@ PrefabInstance:
       value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 7758099720788011288, guid: d9feabc76ca51d74985bd0cd2bcd33d0, type: 3}
+    - {fileID: 2503060248737823053, guid: d9feabc76ca51d74985bd0cd2bcd33d0, type: 3}
+    - {fileID: 5215182920571858157, guid: d9feabc76ca51d74985bd0cd2bcd33d0, type: 3}
+    - {fileID: 1931639851984714670, guid: d9feabc76ca51d74985bd0cd2bcd33d0, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d9feabc76ca51d74985bd0cd2bcd33d0, type: 3}
@@ -66513,7 +66565,7 @@ GameObject:
   - component: {fileID: 641952649}
   - component: {fileID: 641952648}
   m_Layer: 10
-  m_Name: OpenBook (1)
+  m_Name: Evelyn'sBook
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -91287,7 +91339,7 @@ GameObject:
   - component: {fileID: 890412980}
   - component: {fileID: 890412979}
   m_Layer: 10
-  m_Name: OpenBook (3)
+  m_Name: Mackenzie'sBook
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -96149,7 +96201,7 @@ GameObject:
   - component: {fileID: 937283882}
   - component: {fileID: 937283881}
   m_Layer: 10
-  m_Name: OpenBook
+  m_Name: Harold'sBook
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -166374,6 +166426,7 @@ GameObject:
   - component: {fileID: 1587007751}
   - component: {fileID: 1587007750}
   - component: {fileID: 1587007754}
+  - component: {fileID: 1587007755}
   m_Layer: 5
   m_Name: HaroldPortrait
   m_TagString: Untagged
@@ -166425,6 +166478,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   character: {fileID: 1671090630}
   playerControls: {fileID: 1066410479}
+  selfBook: {fileID: 0}
 --- !u!114 &1587007751
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -166542,6 +166596,20 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &1587007755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1587007748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac2f096e3b00c5444b184d43bb1536b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  openBook: {fileID: 937283880}
+  bookshelf: {fileID: 0}
 --- !u!1001 &1587600419
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -186340,7 +186408,7 @@ GameObject:
   - component: {fileID: 1751006056}
   - component: {fileID: 1751006055}
   m_Layer: 10
-  m_Name: OpenBook (2)
+  m_Name: Iain'sBook
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
