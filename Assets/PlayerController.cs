@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
 public class PlayerController : MonoBehaviour
 {
@@ -91,6 +92,9 @@ public class PlayerController : MonoBehaviour
                 case SkillRenovation skillRenovation:
                     skillRenovation.OnClick(context);
                     break;
+                case SkillBarrierDestroy skillBarrierDestroy:
+                    skillBarrierDestroy.OnClick(context);
+                    break;
             }
 
 
@@ -145,8 +149,11 @@ public class PlayerController : MonoBehaviour
                 case SkillLure skillLure:
                     skillLure.OnRightClick(context);
                     break;
-                    case SkillRenovation skillRenovation:
+                case SkillRenovation skillRenovation:
                     skillRenovation.OnRightClick(context);
+                    break;
+                case SkillBarrierDestroy skillBarrierDestroy:
+                    skillBarrierDestroy.OnRightClick(context);
                     break;
             }
         }
@@ -172,6 +179,9 @@ public class PlayerController : MonoBehaviour
                     break;
                 case SkillLure skillLure:
                     skillLure.OnConfirm(context);
+                    break;
+                case SkillBarrierDestroy skillBarrierDestroy:
+                    skillBarrierDestroy.OnConfirm(context);
                     break;
             }
         }

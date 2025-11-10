@@ -222,11 +222,45 @@ public class MazeRenderer : MonoBehaviour
         }
         return null; // Return null if no prefab is found for the room type
     }
-    
+
     [System.Serializable]
     public class RoomPrefabPair
     {
         public string roomType;
         public GameObject prefab;
+    }
+    
+    /// <summary>
+    /// Given coords corresponding to maze cell and a wall type, return the game object for that wall.
+    /// </summary>
+    public GameObject GetWallObject(int x, int y, WallType wallType)
+    {
+        Vector2Int cellPosition = new Vector2Int(x, y);
+        
+        if (!cellGameObjects.TryGetValue(cellPosition, out GameObject cellObject))
+        {
+            Debug.LogWarning($"Cell at ({x}, {y}) not found in cellGameObjects dictionary");
+            return null;
+        }
+        
+        Transform cellTransform = cellObject.transform;
+        
+        // Assuming order: Floor(0), Bottom(1), Top(2), Right(3), Left(4)
+        int wallIndex = wallType switch
+        {
+            WallType.Bottom => 1,
+            WallType.Top => 2,
+            WallType.Right => 3,
+            WallType.Left => 4,
+            _ => -1 // default case
+        };
+        
+        if (wallIndex < 0 || wallIndex >= cellTransform.childCount)
+        {
+            Debug.LogWarning($"Invalid wall index {wallIndex} for WallType {wallType}");
+            return null;
+        }
+        
+        return cellTransform.GetChild(wallIndex).gameObject;
     }
 }
