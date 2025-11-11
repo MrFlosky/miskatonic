@@ -10,13 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 95ccb6b6e7296c546b4c934070f5b23a, type: 3}
-  m_Name: Psychosis
+  m_Name: FearTotemUnlock
   m_EditorClassIdentifier: 
-  title: 
-  description: 
-  cultistCost: 0
+  title: Unnerving Obelisk
+  description: Grants an object that can be placed on the map, out of line of sight
+    of the given character. When any character sees the object, fear increases and
+    they path away.
+  cultistCost: 3
+  oneTimeUse: 1
   turnActivateTime: 0
-  reward: {fileID: 0}
+  reward: {fileID: -4974891129223782888, guid: 7cecec07c04c2e345bb32aacae5063f6, type: 3}
   usages: 0
   cultistsGranted: 0
+  previewsGranted: 0
   character: 0
