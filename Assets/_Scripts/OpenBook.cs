@@ -10,6 +10,8 @@ public class OpenBook : MonoBehaviour
     /// 
     /// The open book object must be active when the scene starts to ensure that the list of pages and page turners is properly populated.
     /// It will deactivate on start.
+    /// By default only one page will be active and viewable, more can be unlocked via the dispatch system (WIP)
+    /// 
     /// </summary>
 
     public List<GameObject> pageTurners = new List<GameObject>();
@@ -17,9 +19,10 @@ public class OpenBook : MonoBehaviour
 
     private GameObject firstPage, lastPage;
     public GameObject activePage;
+    public int unlockedPages;
     void Start()
     {
-
+        unlockedPages = 1;
         pageTurners.Clear();
 
         foreach (Transform t in transform.GetComponentInChildren<Transform>())
@@ -36,7 +39,7 @@ public class OpenBook : MonoBehaviour
         }
         firstPage = storyPanels[0];
         int listCount = storyPanels.Count-1;
-        lastPage = storyPanels[listCount];
+        lastPage = storyPanels[0];
         gameObject.SetActive(false);
     }
 
