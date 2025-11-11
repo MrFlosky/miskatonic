@@ -62257,6 +62257,14 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6993982171308124075, guid: bd3fe30883c14ba4aa41fd09c3730b5e, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6993982171308124075, guid: bd3fe30883c14ba4aa41fd09c3730b5e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 4921311398541993803, guid: a1cfd038aa2589e4f99cd347ea544c2d, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -164287,6 +164295,26 @@ PrefabInstance:
     - target: {fileID: 5949186300529070493, guid: d690e9a53e6790b4e800a43ee1e8c52b, type: 3}
       propertyPath: m_Color.r
       value: 0.08679241
+      objectReference: {fileID: 0}
+    - target: {fileID: 6432972959121505043, guid: d690e9a53e6790b4e800a43ee1e8c52b, type: 3}
+      propertyPath: inputMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6432972959121505043, guid: d690e9a53e6790b4e800a43ee1e8c52b, type: 3}
+      propertyPath: nextLineAction
+      value: 
+      objectReference: {fileID: -4841895057518147936, guid: 3c632a1eb08cada4597587008adc7675, type: 3}
+    - target: {fileID: 6432972959121505043, guid: d690e9a53e6790b4e800a43ee1e8c52b, type: 3}
+      propertyPath: nextLineKeyCode
+      value: 323
+      objectReference: {fileID: 0}
+    - target: {fileID: 6432972959121505043, guid: d690e9a53e6790b4e800a43ee1e8c52b, type: 3}
+      propertyPath: hurryUpLineAction
+      value: 
+      objectReference: {fileID: -547251627925881416, guid: 3c632a1eb08cada4597587008adc7675, type: 3}
+    - target: {fileID: 6432972959121505043, guid: d690e9a53e6790b4e800a43ee1e8c52b, type: 3}
+      propertyPath: hurryUpLineKeyCode
+      value: 323
       objectReference: {fileID: 0}
     - target: {fileID: 6897504189495081901, guid: d690e9a53e6790b4e800a43ee1e8c52b, type: 3}
       propertyPath: m_fontAsset
