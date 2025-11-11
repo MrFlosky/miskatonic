@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class PortraitFade : MonoBehaviour, ITurnObserver
 {
     ///This script fades out a characters portrait after being clicked and fades in when the turn refreshes
 
+    [SerializeField] TextMeshProUGUI ButtonText; // text for button below
+    [SerializeField] Button PortraitButton; // for setting the buttons inactive on click and vice versa
     [SerializeField]
     Image Portrait;
     Color portraitColor;
@@ -48,6 +51,8 @@ public class PortraitFade : MonoBehaviour, ITurnObserver
             portraitColor.a = alpha;
             Portrait.color = portraitColor;
 //            print(Portrait.color.a);
+            PortraitButton.interactable = false;
+            ButtonText.gameObject.SetActive(false);
 
 
 
@@ -73,8 +78,8 @@ public class PortraitFade : MonoBehaviour, ITurnObserver
             portraitColor.a = alpha;
             Portrait.color = portraitColor;
             print(Portrait.color.a);
-
-
+            PortraitButton.interactable = true;
+            ButtonText.gameObject.SetActive(true);
 
             yield return new WaitForEndOfFrame();
         }
