@@ -354,13 +354,21 @@ namespace Yarn.Unity
         [SerializeField] KeyCode cancelDialogueKeyCode = KeyCode.None;
 
 #if USE_INPUTSYSTEM
+
+        private bool hurriedUp = false;
         private void OnHurryUpLinePerformed(UnityEngine.InputSystem.InputAction.CallbackContext ctx)
         {
             RequestLineHurryUp();
         }
         private void OnNextLinePerformed(UnityEngine.InputSystem.InputAction.CallbackContext ctx)
         {
-            RequestNextLine();
+
+            if(hurriedUp)
+
+            {
+                RequestNextLine();
+                hurriedUp = false;
+            }
         }
         private void OnCancelDialoguePerformed(UnityEngine.InputSystem.InputAction.CallbackContext ctx)
         {
@@ -511,6 +519,7 @@ namespace Yarn.Unity
                     if (status == LineStatus.Waiting)
                     {
                         runner.RequestNextLine();
+                        hurriedUp = true; 
                     }
                     else
                     {
