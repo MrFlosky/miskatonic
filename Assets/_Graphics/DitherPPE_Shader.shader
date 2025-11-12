@@ -29,6 +29,7 @@ Shader "Unlit/DitherPPE_Shader"
             {
                 float2 uv : TEXCOORD0;
                 float4 vertex : SV_POSITION;
+                float4 screenPos : TEXCOORD1;
             };
 
             // texture to read from itself
@@ -65,11 +66,16 @@ Shader "Unlit/DitherPPE_Shader"
             3.0/4.0, 1.0/4.0
             );
 
-            float3 dither(float2 uv, float3 inputColor)
+            float3 dither(float3 inputColor, float4 screenPos)
              {  
                 // Accept RGB color, not just luminance
-                int x = int(uv.x * 1920) % 2;
-                int y = int(uv.y * 1080) % 2;
+
+                // get pixel coords. convert from clip space coords to normalized 0-1 coords via manual perspective division.
+                // THEN scale by screen res for pixel coords!
+                float2 screenPixels = screenPos.xy / screenPos.w * _ScreenParams.xy;
+
+                int x = int(screenPixels.x) % 8; // 8 for 8x8 bayer
+                int y = int(screenPixels.y) % 8;
 
                 // note if using different size bayer matrix, change rightside modulo to match size
                 //float threshold = bayerMatrix2x2[y * 2 + x]; 
@@ -95,6 +101,7 @@ Shader "Unlit/DitherPPE_Shader"
 
                 // send texture coordinate to frag shader, interpolate on the way
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
+                o.screenPos = ComputeScreenPos(o.vertex); // use screen pos for any res to index bayer matrix
                 return o;
             }
 
@@ -104,7 +111,7 @@ Shader "Unlit/DitherPPE_Shader"
                 float3 inputColor = tex2D(_MainTex, terped.uv).rgb;
                 
                 // dither
-                float3 finalColor = dither(terped.uv, inputColor);  // Pass the actual RGB color
+                float3 finalColor = dither(inputColor, terped.screenPos);  // Pass the actual RGB color
                 
                 return fixed4(finalColor, 1.0);
             }
