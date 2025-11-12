@@ -49,12 +49,7 @@ public class PortraitDialogue : MonoBehaviour
 
     void BeginDialogue()
     {
-        if (DB.alreadyTalked)
-        {
-            DB.AlreadyTalked();
-            return;
-        }
-
+        
         if (DB.GetRemainingDialogueCount() == 0)
         {
             DB.OutOfDialogues();
