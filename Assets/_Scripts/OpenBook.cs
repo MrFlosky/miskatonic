@@ -17,6 +17,7 @@ public class OpenBook : MonoBehaviour
 
     public List<GameObject> pageTurners = new List<GameObject>();
     public List<GameObject> storyPanels = new List<GameObject>();
+    public List<GameObject> narrativeClues = new List<GameObject>();
 
     public GameObject firstPage, lastPage;
     public GameObject activePage;
@@ -35,9 +36,14 @@ public class OpenBook : MonoBehaviour
                 pageTurners.Add(t.gameObject);
             }
 
-            else
+            else if (t.CompareTag("Clues"))
             {
-                storyPanels.Add(t.gameObject);
+                
+            }
+
+            else if(t.CompareTag("Storyboard"))
+            {
+               
             }
         }
         firstPage = storyPanels[0];

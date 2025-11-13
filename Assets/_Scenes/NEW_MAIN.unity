@@ -4819,7 +4819,7 @@ GameObject:
   - component: {fileID: 38171679}
   m_Layer: 10
   m_Name: MainStoryboards
-  m_TagString: Untagged
+  m_TagString: Storyboard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14191,7 +14191,7 @@ Transform:
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 937283882}
+  m_Father: {fileID: 1663028133}
   m_LocalEulerAnglesHint: {x: 90, y: 63.208, z: 0}
 --- !u!212 &138657987
 SpriteRenderer:
@@ -66984,6 +66984,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pageTurners: []
   storyPanels: []
+  narrativeClues: []
   firstPage: {fileID: 0}
   lastPage: {fileID: 0}
   activePage: {fileID: 0}
@@ -91805,6 +91806,37 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7682984578296859911, guid: 6c3d94bacfd3625428f1c24bddee899b, type: 3}
   m_PrefabInstance: {fileID: 889061142}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &890300047
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 890300048}
+  m_Layer: 10
+  m_Name: NarrativeClues
+  m_TagString: Clues
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &890300048
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 890300047}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 890412980}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &890412978
 GameObject:
   m_ObjectHideFlags: 0
@@ -91836,6 +91868,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pageTurners: []
   storyPanels: []
+  narrativeClues: []
   firstPage: {fileID: 0}
   lastPage: {fileID: 0}
   activePage: {fileID: 0}
@@ -91854,11 +91887,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2105812248}
-  - {fileID: 1395857042}
-  - {fileID: 1929246836}
   - {fileID: 1828660768}
   - {fileID: 1939578945}
+  - {fileID: 890300048}
+  - {fileID: 1660759727}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &890949015
@@ -92097,7 +92129,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5592833437522147513, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
       propertyPath: missionCards.Array.size
-      value: 15
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 5592833437522147513, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
       propertyPath: worldCards.Array.data[0]
@@ -96710,6 +96742,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pageTurners: []
   storyPanels: []
+  narrativeClues: []
   firstPage: {fileID: 0}
   lastPage: {fileID: 0}
   activePage: {fileID: 0}
@@ -96728,11 +96761,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 138657986}
-  - {fileID: 2101437949}
-  - {fileID: 1850075091}
   - {fileID: 276203664}
   - {fileID: 375994013}
+  - {fileID: 1663028133}
+  - {fileID: 2136067119}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &937477893
@@ -119505,7 +119537,7 @@ GameObject:
   - component: {fileID: 1151920236}
   m_Layer: 10
   m_Name: NarrativeClues
-  m_TagString: Untagged
+  m_TagString: Clues
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -119806,6 +119838,40 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4196248637664730121, guid: 773e711b1ac9352408b1c3e8d37a1f73, type: 3}
   m_PrefabInstance: {fileID: 1153359414}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1154575551
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1154575552}
+  m_Layer: 10
+  m_Name: MainStoryboards
+  m_TagString: Storyboard
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1154575552
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1154575551}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1711137339}
+  - {fileID: 2069748664}
+  - {fileID: 1648449939}
+  m_Father: {fileID: 1751006056}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1157510232
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -145614,7 +145680,7 @@ Transform:
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 890412980}
+  m_Father: {fileID: 1660759727}
   m_LocalEulerAnglesHint: {x: 90, y: 63.208, z: 0}
 --- !u!212 &1395857043
 SpriteRenderer:
@@ -155521,6 +155587,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1493946162}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1494146410
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1494146411}
+  m_Layer: 10
+  m_Name: NarrativeClues
+  m_TagString: Clues
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1494146411
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1494146410}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1751006056}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1495124731
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -175043,7 +175140,7 @@ Transform:
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1751006056}
+  m_Father: {fileID: 1154575552}
   m_LocalEulerAnglesHint: {x: 90, y: 63.208, z: 0}
 --- !u!212 &1648449940
 SpriteRenderer:
@@ -176262,6 +176359,40 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7682984578296859911, guid: 6c3d94bacfd3625428f1c24bddee899b, type: 3}
   m_PrefabInstance: {fileID: 1660396832}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1660759726
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1660759727}
+  m_Layer: 10
+  m_Name: MainStoryboard
+  m_TagString: Storyboard
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1660759727
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1660759726}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2105812248}
+  - {fileID: 1395857042}
+  - {fileID: 1929246836}
+  m_Father: {fileID: 890412980}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1660874053
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -176736,6 +176867,40 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3910238404974811713, guid: fcbea12b95b612b4f8762e7bdcc06d85, type: 3}
   m_PrefabInstance: {fileID: 1662894742}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1663028132
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1663028133}
+  m_Layer: 10
+  m_Name: MainStoryboard
+  m_TagString: Storyboard
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1663028133
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1663028132}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 138657986}
+  - {fileID: 2101437949}
+  - {fileID: 1850075091}
+  m_Father: {fileID: 937283882}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1663274312
 GameObject:
   m_ObjectHideFlags: 0
@@ -182431,7 +182596,7 @@ Transform:
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1751006056}
+  m_Father: {fileID: 1154575552}
   m_LocalEulerAnglesHint: {x: 90, y: 63.208, z: 0}
 --- !u!212 &1711137340
 SpriteRenderer:
@@ -187242,6 +187407,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pageTurners: []
   storyPanels: []
+  narrativeClues: []
   firstPage: {fileID: 0}
   lastPage: {fileID: 0}
   activePage: {fileID: 0}
@@ -187260,11 +187426,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1711137339}
-  - {fileID: 2069748664}
-  - {fileID: 1648449939}
   - {fileID: 1051815887}
   - {fileID: 1979541631}
+  - {fileID: 1494146411}
+  - {fileID: 1154575552}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1751124780
@@ -197088,7 +197253,7 @@ Transform:
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 937283882}
+  m_Father: {fileID: 1663028133}
   m_LocalEulerAnglesHint: {x: 90, y: 63.208, z: 0}
 --- !u!212 &1850075092
 SpriteRenderer:
@@ -205187,7 +205352,7 @@ Transform:
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 890412980}
+  m_Father: {fileID: 1660759727}
   m_LocalEulerAnglesHint: {x: 90, y: 63.208, z: 0}
 --- !u!212 &1929246837
 SpriteRenderer:
@@ -220162,7 +220327,7 @@ Transform:
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1751006056}
+  m_Father: {fileID: 1154575552}
   m_LocalEulerAnglesHint: {x: 90, y: 63.208, z: 0}
 --- !u!212 &2069748665
 SpriteRenderer:
@@ -222462,7 +222627,7 @@ Transform:
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 937283882}
+  m_Father: {fileID: 1663028133}
   m_LocalEulerAnglesHint: {x: 90, y: 63.208, z: 0}
 --- !u!212 &2101437950
 SpriteRenderer:
@@ -222692,7 +222857,7 @@ Transform:
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 890412980}
+  m_Father: {fileID: 1660759727}
   m_LocalEulerAnglesHint: {x: 90, y: 63.208, z: 0}
 --- !u!212 &2105812249
 SpriteRenderer:
@@ -224935,6 +225100,37 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3910238404974811713, guid: fcbea12b95b612b4f8762e7bdcc06d85, type: 3}
   m_PrefabInstance: {fileID: 2134702206}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2136067118
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2136067119}
+  m_Layer: 10
+  m_Name: NarrativeClues
+  m_TagString: Clues
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2136067119
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2136067118}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 937283882}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2136081036
 PrefabInstance:
   m_ObjectHideFlags: 0

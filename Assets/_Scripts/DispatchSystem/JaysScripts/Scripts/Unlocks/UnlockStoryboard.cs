@@ -9,7 +9,8 @@ public class UnlockStoryboard : NarrativeReward
     public Character targetsStoryboard;
     public static List <OpenBook> BookObjects = new List<OpenBook>();
 
-
+    [Tooltip("Check this box if the reward is a narrative clue. Leave unchecked for storyboard rewards")]
+    [SerializeField] bool Clue;
 
 
     public override void DisplayRewardMessage()
@@ -19,14 +20,23 @@ public class UnlockStoryboard : NarrativeReward
 
     public override void GrantReward()
     {
-        Debug.LogError(targetsStoryboard);
+        
         foreach(var bk in BookObjects)
         {
             if(targetsStoryboard != bk.charactersBook) continue;
            
             else
             {
-                bk.UnlockPage();
+                if (Clue)
+                {
+                    
+                }
+                else
+                { 
+                 
+                    bk.UnlockPage();
+                    
+                }
             }
         }
 
@@ -36,5 +46,6 @@ public class UnlockStoryboard : NarrativeReward
     {
        // throw new System.NotImplementedException();
     }
+    
     
 }
