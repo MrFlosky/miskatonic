@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using CharacterData;
 using UnityEngine;
 
 public class OpenBook : MonoBehaviour
@@ -10,16 +11,22 @@ public class OpenBook : MonoBehaviour
     /// 
     /// The open book object must be active when the scene starts to ensure that the list of pages and page turners is properly populated.
     /// It will deactivate on start.
+    /// By default only one page will be active and viewable, more can be unlocked via the dispatch system (WIP)
+    /// 
     /// </summary>
 
     public List<GameObject> pageTurners = new List<GameObject>();
     public List<GameObject> storyPanels = new List<GameObject>();
+    public List<GameObject> narrativeClues = new List<GameObject>();
 
-    private GameObject firstPage, lastPage;
+    public GameObject firstPage, lastPage;
     public GameObject activePage;
+    public int unlockedPages;
+
+    public Character charactersBook;
     void Start()
     {
-
+        unlockedPages = 1;
         pageTurners.Clear();
 
         foreach (Transform t in transform.GetComponentInChildren<Transform>())
@@ -29,15 +36,22 @@ public class OpenBook : MonoBehaviour
                 pageTurners.Add(t.gameObject);
             }
 
-            else
+            else if (t.CompareTag("Clues"))
             {
-                storyPanels.Add(t.gameObject);
+                
+            }
+
+            else if(t.CompareTag("Storyboard"))
+            {
+               
             }
         }
         firstPage = storyPanels[0];
-        int listCount = storyPanels.Count-1;
-        lastPage = storyPanels[listCount];
+        
+        lastPage = storyPanels[0];
         gameObject.SetActive(false);
+        print(storyPanels.Count);
+        UnlockStoryboard.BookObjects.Add(this);
     }
 
     public void NextPage()
@@ -63,5 +77,11 @@ public class OpenBook : MonoBehaviour
         
     }
 
+    public void UnlockPage()
+    {
+        if(unlockedPages == storyPanels.Count) return;
+        lastPage = storyPanels[unlockedPages];
+        unlockedPages++;
+    }
 
 }
