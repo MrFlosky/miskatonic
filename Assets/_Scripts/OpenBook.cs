@@ -22,7 +22,9 @@ public class OpenBook : MonoBehaviour
     public GameObject firstPage, lastPage;
     public GameObject activePage;
     public int unlockedPages;
-
+    
+    [SerializeField]bool storyboardOpen=true; 
+    
     public Character charactersBook;
     void Start()
     {
@@ -38,12 +40,18 @@ public class OpenBook : MonoBehaviour
 
             else if (t.CompareTag("Clues"))
             {
-                
+                foreach(Transform v in t.GetComponentsInChildren<Transform>())
+                {
+                    narrativeClues.Add(v.gameObject);
+                }
             }
 
             else if(t.CompareTag("Storyboard"))
             {
-               
+                foreach(Transform v in t.GetComponentsInChildren<Transform>())
+                {
+                    if(v!=t) storyPanels.Add(v.gameObject);
+                }
             }
         }
         firstPage = storyPanels[0];
@@ -57,7 +65,10 @@ public class OpenBook : MonoBehaviour
     public void NextPage()
     {
       
-        if (lastPage.activeSelf) return;
+        if (lastPage.activeSelf)
+        {
+            return;
+        }
         int pageNumber = storyPanels.IndexOf(activePage);
         activePage.SetActive(false);
         storyPanels[pageNumber + 1].SetActive(true);
@@ -82,6 +93,11 @@ public class OpenBook : MonoBehaviour
         if(unlockedPages == storyPanels.Count) return;
         lastPage = storyPanels[unlockedPages];
         unlockedPages++;
+    }
+
+    public void UnlockClue()
+    {
+         
     }
 
 }
