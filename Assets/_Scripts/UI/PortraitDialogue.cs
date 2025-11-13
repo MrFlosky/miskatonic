@@ -1,17 +1,18 @@
 using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
 /// This class is responsible for managing activating dialogue by clicking on character Portraits.
-/// Some spaghetti associations here, could use refactor along with ClickAI later.
+/// 
 /// </summary>
 public class PortraitDialogue : MonoBehaviour
 {
     private Button button;
-
+    public Color unavaliableColor;
 
     AICamera aiCam;
     // AI object with dialogue bank and ai cam
@@ -25,7 +26,7 @@ public class PortraitDialogue : MonoBehaviour
         button = GetComponent<Button>();
         button.onClick.AddListener(DetermineAction);
         DB = character.GetComponent<DialogueBank>();
-
+        unavaliableColor = button.colors.pressedColor;
         aiCam = character.transform.GetChild(0).GetComponent<AICamera>();
         selfBook = gameObject.GetComponent<Books>();
         print(selfBook.gameObject.name);
@@ -49,7 +50,12 @@ public class PortraitDialogue : MonoBehaviour
 
     void BeginDialogue()
     {
-        
+        if (DB.alreadyTalked)
+        {
+            //DB.AlreadyTalked();
+            return;
+        }
+
         if (DB.GetRemainingDialogueCount() == 0)
         {
             DB.OutOfDialogues();
@@ -60,8 +66,9 @@ public class PortraitDialogue : MonoBehaviour
         {
             {
                 DB.alreadyTalked = true;
-                PortraitFade portraitFade = character.GetComponent<PortraitFade>();
+                PortraitFade portraitFade = gameObject.GetComponent<PortraitFade>();
                 portraitFade.StartCoroutine(portraitFade.FadeOut());
+                portraitFade.clicked = true;
 
                 ClickAI.S.SetAICam(aiCam);
                 aiCam.RotBustToCam();
