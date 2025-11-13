@@ -1,9 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using CharacterData;
 using UnityEngine;
 
-public class UnlockStoryboard : Reward
+public class UnlockStoryboard : NarrativeReward
 {
+
+    public Character targetsStoryboard;
+    public static List <OpenBook> BookObjects = new List<OpenBook>();
 
 
 
@@ -15,12 +19,22 @@ public class UnlockStoryboard : Reward
 
     public override void GrantReward()
     {
-        throw new System.NotImplementedException();
+        Debug.LogError(targetsStoryboard);
+        foreach(var bk in BookObjects)
+        {
+            if(targetsStoryboard != bk.charactersBook) continue;
+           
+            else
+            {
+                bk.UnlockPage();
+            }
+        }
+
     }
 
     public override void InitRewardUI()
     {
-        throw new System.NotImplementedException();
+       // throw new System.NotImplementedException();
     }
     
 }

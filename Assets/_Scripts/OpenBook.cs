@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using CharacterData;
 using UnityEngine;
 
 public class OpenBook : MonoBehaviour
@@ -17,9 +18,11 @@ public class OpenBook : MonoBehaviour
     public List<GameObject> pageTurners = new List<GameObject>();
     public List<GameObject> storyPanels = new List<GameObject>();
 
-    private GameObject firstPage, lastPage;
+    public GameObject firstPage, lastPage;
     public GameObject activePage;
     public int unlockedPages;
+
+    public Character charactersBook;
     void Start()
     {
         unlockedPages = 1;
@@ -38,9 +41,11 @@ public class OpenBook : MonoBehaviour
             }
         }
         firstPage = storyPanels[0];
-        int listCount = storyPanels.Count-1;
+        
         lastPage = storyPanels[0];
         gameObject.SetActive(false);
+        print(storyPanels.Count);
+        UnlockStoryboard.BookObjects.Add(this);
     }
 
     public void NextPage()
@@ -66,5 +71,11 @@ public class OpenBook : MonoBehaviour
         
     }
 
+    public void UnlockPage()
+    {
+        if(unlockedPages == storyPanels.Count) return;
+        lastPage = storyPanels[unlockedPages];
+        unlockedPages++;
+    }
 
 }

@@ -16,13 +16,13 @@ public class PortraitFade : MonoBehaviour, ITurnObserver
     Image Portrait;
     [SerializeField] Color portraitColor;
     [SerializeField] Color defaultColor;
-    float MaxAlpha =1.0f;
+    [SerializeField]float MaxAlpha =1.0f;
     
     [SerializeField]
     float interpolationSpeed;
     [SerializeField] GameObject buttonText;
     public bool clicked;
-    float maxClickedAlpha = .1f;
+    [SerializeField]float maxClickedAlpha = .1f;
 
     
     Image portraitImage;
@@ -61,7 +61,7 @@ public class PortraitFade : MonoBehaviour, ITurnObserver
             while (Portrait.color.a > maxClickedAlpha)
             {
                 float alpha = portraitColor.a;
-                alpha = Mathf.Lerp(MaxAlpha, 0, t);
+                alpha = Mathf.Lerp(MaxAlpha, maxClickedAlpha, t);
                 t += interpolationSpeed * Time.deltaTime;
 
 
@@ -69,7 +69,9 @@ public class PortraitFade : MonoBehaviour, ITurnObserver
                 Portrait.color = portraitColor;
                 yield return new WaitForEndOfFrame();
 
+
             }
+            PortraitButton.enabled= false;
         }
 
         else
@@ -99,9 +101,9 @@ public class PortraitFade : MonoBehaviour, ITurnObserver
 
             portraitColor.a = alpha;
             Portrait.color = portraitColor;
-//            print(Portrait.color.a);
-            PortraitButton.interactable = false;
-           // ButtonText.gameObject.SetActive(false);
+
+          
+
 
 
 
@@ -188,6 +190,7 @@ public class PortraitFade : MonoBehaviour, ITurnObserver
     {
         StartCoroutine(TurnResetFadeIn());
         PortraitButton.enabled = true;
+        PortraitButton.interactable=true;
         clicked = false;
     }
 
