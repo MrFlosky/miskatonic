@@ -10,7 +10,7 @@ Maackenzie looks around the room, feeling a pressure in her chest. She tries to 
         <<add_fear "Mackenzie Joyce">>
         <<discover_fear "Mackenzie Joyce" 2>>
         //Sensitive to Loud Noises
-        She looks all around for the source of the sound while covering her ears. She collapses to the floor into the fetal position, waiting for the sound to dissapate. 
+        She looks all around for the source of the sound while covering her ears. She collapses to the floor into the fetal position, waiting for the sound to dissipate. 
 ->Flash a blue light in the distance
         <<add_fear "Mackenzie Joyce">>
         <<discover_fear "Mackenzie Joyce" 0>>
@@ -24,7 +24,7 @@ title: MackenzieJoyce1
 ->"What do you not understand? It's obvious what happened."
         <<add_fear "Mackenzie Joyce">>
         <<discover_fear "Mackenzie Joyce" 1>>
-        //Fear of Intellectual Inadequecy
+        //Fear of Intellectual Inadequacy
         Mackenzie's head begins to hurt. She places the palms against her forehead and tries to focus, but her mind is racing. 
 ->"Prison"
         This leaves her with more questions. Why would she be locked up? What did she do?
@@ -88,7 +88,7 @@ Mackenzie tries to think back to when she was taken. What happened?
 ->"What? You can't remember? Jesus, you really are slow."
         <<add_fear "Mackenzie Joyce">>
         <<discover_fear "Mackenzie Joyce" 1>>
-        //Fear of Intellectual Inadequecy
+        //Fear of Intellectual Inadequacy
         She tries as hard as she can to think back to that moment, but comes up short. Dejected, she continues forward.
 ->"There was a old man who took you."
         She remembers the old man. Skinny, tall, and eyes that saw for miles. She keeps trying to piece together the past.
@@ -120,7 +120,7 @@ Mackenzie sulks as she walks down the hall.
         She laughs a little. This reminds Mackenzie of her father. 
 ->"You can do it!"
         <<reduce_fear "Mackenzie Joyce">>
-        <<dcetermined "Mackenzie Joyce">>
+        <<determined "Mackenzie Joyce">>
         She tries to muster up some drive to continue, but the hours are wearing on her.
 ->"It's a simple maze."
         "Right! I'll figure it out."
@@ -216,7 +216,7 @@ All of the sudden, a painting appears on the wall. She looks at it, investigatin
 ->It's The Hunters in the Snow
         "Kinda spooky..." She admires the painting before moving on. She looks over her shoulder as she walks away, noticing the painting has disappeared.
 ->It's The Kiss by Klimt
-        <<reduce_fear "Mackenzie Joyce">>c
+        <<reduce_fear "Mackenzie Joyce">>
         "Pretty" She admires the painting before moving on. She looks over her shoulder as she walks away, noticing the painting has disappeared.
 ->It's the Mona Lisa
         She smiles back at the painting, admiring it before moving on. She looks over her shoulder as she walks away, noticing the painting has disappeared.
