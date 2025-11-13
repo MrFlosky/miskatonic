@@ -283,6 +283,12 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
         characterFear.SetFearState(FearState.Determined);
     }
 
+    [YarnCommand("scared")]
+    public void YarnScaredFS()
+    {
+        characterFear.SetFearState(FearState.Scared);
+    }
+
     [YarnCommand("terrified")]
     public void YarnTerrifiedFS()
     {

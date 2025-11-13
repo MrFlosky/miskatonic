@@ -12,6 +12,7 @@ public enum FearState
 {
     Neutral,
     Determined,
+    Scared,
     Terrified,
     Tweaking
 };
@@ -61,18 +62,6 @@ public class FearCollection : MonoBehaviour
     {
         S = this;
         ConvertToDict(); // convert inspector list to dict
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     public int GetStateMovement(FearState state)
