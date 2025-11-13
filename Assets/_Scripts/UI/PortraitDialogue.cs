@@ -67,7 +67,7 @@ public class PortraitDialogue : MonoBehaviour
             {
                 DB.alreadyTalked = true;
                 PortraitFade portraitFade = gameObject.GetComponent<PortraitFade>();
-                portraitFade.StartCoroutine(portraitFade.FadeOut());
+                
                 portraitFade.clicked = true;
 
                 ClickAI.S.SetAICam(aiCam);

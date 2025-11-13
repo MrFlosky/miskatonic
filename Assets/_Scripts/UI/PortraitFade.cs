@@ -54,24 +54,47 @@ public class PortraitFade : MonoBehaviour, ITurnObserver
     }
 
 
+    public IEnumerator BoardBaseReset()
+    {
+        float t = 0;
+        if (clicked)
+        {
+            while (Portrait.color.a > maxClickedAlpha)
+            {
+                float alpha = portraitColor.a;
+                alpha = Mathf.Lerp(MaxAlpha, 0, t);
+                t += interpolationSpeed * Time.deltaTime;
+
+
+                portraitColor.a = alpha;
+                Portrait.color = portraitColor;
+                yield return new WaitForEndOfFrame();
+
+            }
+        }
+
+        else
+        {
+           
+            PortraitButton.enabled = true;
+        }
+        buttonText.GetComponent<TextMeshProUGUI>().enabled = true;
+          
+    }
+
     //Uses Lerp to lower alpha
     public IEnumerator FadeOut()
     {
-  
-       
-        foreach(var B in AllPortraits)
-        {
-            B.buttonText.SetActive(true);
-            B.buttonText.GetComponent<TextMeshProUGUI>().enabled = false;
-            B.buttonText.SetActive(false);
-            B.PortraitButton.enabled = false;
-        }
+        float startingAlpha = Portrait.color.a;
+        buttonText.GetComponent<TextMeshProUGUI>().enabled = false;
+        PortraitButton.enabled = false;
+        
         float t = 0;
         portraitImage.color = PortraitButton.colors.pressedColor;
-        while(Portrait.color.a > 0)
+        while (Portrait.color.a > 0)
         {
             float alpha = portraitColor.a;
-            alpha = Mathf.Lerp(MaxAlpha, 0, t);
+            alpha = Mathf.Lerp(startingAlpha, 0, t);
             t += interpolationSpeed * Time.deltaTime;
 
 
@@ -88,7 +111,7 @@ public class PortraitFade : MonoBehaviour, ITurnObserver
         }
 
         
-        
+
     }
 
     //Uses Lerp to raise alpha
@@ -112,7 +135,8 @@ public class PortraitFade : MonoBehaviour, ITurnObserver
 
             yield return new WaitForEndOfFrame();
         }
-
+        buttonText.GetComponent<TextMeshProUGUI>().enabled = true;
+        PortraitButton.enabled = true;
 
     }
 
@@ -135,9 +159,9 @@ public class PortraitFade : MonoBehaviour, ITurnObserver
                 Portrait.color = portraitColor;
                 yield return new WaitForEndOfFrame();
             }
-            PortraitButton.enabled=true;
+            PortraitButton.enabled = true;
         }
-        
+
         else
         {
 
@@ -155,6 +179,9 @@ public class PortraitFade : MonoBehaviour, ITurnObserver
                 yield return new WaitForEndOfFrame();
             }
         }
+        
+        buttonText.GetComponent<TextMeshProUGUI>().enabled = true;
+        
     }
     
     void ITurnObserver.PlayerTurnInitiated()
@@ -166,8 +193,7 @@ public class PortraitFade : MonoBehaviour, ITurnObserver
     
     void ITurnObserver.EnemyTurnInitiated()
     {
-        portraitColor.a = 0;
-        Portrait.color = portraitColor;
+        StartCoroutine(FadeOut());
         PortraitButton.enabled = false;
 
     }
