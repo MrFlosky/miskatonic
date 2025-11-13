@@ -404,6 +404,7 @@ public class ClickAI : MonoBehaviour
     /// </summary>
     public void SwitchToStoryboardCamera()
     {
+    
         // Disable whatever camera is currently active
         if (activeCamera != null)
         {
