@@ -12,7 +12,7 @@ using UnityEngine.UI;
 public class PortraitDialogue : MonoBehaviour
 {
     private Button button;
-    public Color unavaliableColor;
+    
 
     AICamera aiCam;
     // AI object with dialogue bank and ai cam
@@ -26,10 +26,10 @@ public class PortraitDialogue : MonoBehaviour
         button = GetComponent<Button>();
         button.onClick.AddListener(DetermineAction);
         DB = character.GetComponent<DialogueBank>();
-        unavaliableColor = button.colors.pressedColor;
+       
         aiCam = character.transform.GetChild(0).GetComponent<AICamera>();
         selfBook = gameObject.GetComponent<Books>();
-        print(selfBook.gameObject.name);
+      
     }
 
 

@@ -6,7 +6,9 @@ using TMPro;
 
 public class PortraitFade : MonoBehaviour, ITurnObserver
 {
-    ///This script fades out a characters portrait after being clicked and fades in when the turn refreshes
+    /// <summary>
+    /// This script contains functions for fading portraits in and out. Also disables/enables the text of the portrait button and the button itself
+    /// </summary>
 
 
     public Button PortraitButton; // for setting the buttons inactive on click and vice versa
@@ -25,8 +27,7 @@ public class PortraitFade : MonoBehaviour, ITurnObserver
     
     Image portraitImage;
 
-    //this is used to fade in/out all portraits at once regardless of which is clicked on
-    public static List<PortraitFade> AllPortraits = new List<PortraitFade>();
+    
 
 
 
@@ -35,7 +36,7 @@ public class PortraitFade : MonoBehaviour, ITurnObserver
     {
         
         portraitImage = gameObject.GetComponent<Image>();
-        AllPortraits.Add(this);
+       
         TurnBasedSystem.SubscribeAsObserver(this);
        
         portraitColor = Portrait.color;
@@ -49,11 +50,9 @@ public class PortraitFade : MonoBehaviour, ITurnObserver
 
     }
 
-    void Update()
-    {
-    }
+   
 
-
+    //used when returning from storyboard to Boardbase
     public IEnumerator BoardBaseReset()
     {
         float t = 0;

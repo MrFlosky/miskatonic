@@ -562,21 +562,29 @@ public class UIManagerLite : MonoBehaviour
         S.optionsPresenterCG.alpha = 0;
     }
 
-    void DisablePortaitButtons()
+
+    
+        void DisablePortaitButtons()
     {
-        foreach (Button b in potraitButtons)
+        foreach (var P in S.portraitFades)
         {
-            b.interactable = false;
+            P.PortraitButton.enabled = false;
         }
     }
-    
+
+    /// <summary>
+    /// the following were changed to account for portrait fade rework. It now only enables those portraits that haven't been clicked this turn
+    /// </summary>
+
     void EnablePortraitButtons()
     {
-        foreach(Button b in potraitButtons)
+        foreach(var P in S.portraitFades)
         {
-            b.interactable = true;
+            if (!P.clicked) P.PortraitButton.enabled = true;
         }
     }
+
+
 
     /// <summary>
     /// these were originally in wrappers to be called by other classes
