@@ -81,7 +81,7 @@ public class PortraitFade : MonoBehaviour, ITurnObserver
           
     }
 
-    //Uses Lerp to lower alpha
+    //fully fades out a portrait
     public IEnumerator FadeOut()
     {
         float startingAlpha = Portrait.color.a;
@@ -113,7 +113,7 @@ public class PortraitFade : MonoBehaviour, ITurnObserver
 
     }
 
-    //Uses Lerp to raise alpha
+    //used at the start of the player turn to reset all portraits 
     public IEnumerator TurnResetFadeIn()
     {
         float t = 0;
@@ -139,9 +139,10 @@ public class PortraitFade : MonoBehaviour, ITurnObserver
 
     }
 
+    //fades in portraits, if a dialogue has already been initiated for this turn portraits are still partially faded and buttons are disabled
     public IEnumerator FadeIn()
     {
-        
+
         float t = 0;
 
         if (!clicked || UIManagerLite.GetCurrentState() != UIManagerLite.GameState.BoardBase)
@@ -178,15 +179,16 @@ public class PortraitFade : MonoBehaviour, ITurnObserver
                 yield return new WaitForEndOfFrame();
             }
         }
-        
+
         buttonText.GetComponent<TextMeshProUGUI>().enabled = true;
-        
+
     }
     
     void ITurnObserver.PlayerTurnInitiated()
     {
         StartCoroutine(TurnResetFadeIn());
         PortraitButton.enabled = true;
+        clicked = false;
     }
 
     
