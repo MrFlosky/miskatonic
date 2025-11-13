@@ -23,9 +23,22 @@ public class Fear : MonoBehaviour, ITurnObserver
     private FearState fearState = FearState.Neutral;
 
     /// <summary>
+    /// Character's individual slider wrapper, as displayed with the portrait.
+    /// Wrapped used bc need to enable/disable monobehavior and mono cannot enable
+    /// within itself when disabled.
+    /// </summary>
+    private IndividualFearMeter individualSlider;
+
+    /// <summary>
     /// Number of turns until this character returns to neutral fear state.
     /// </summary>
     private int turnsUntilNeutralState = 0;
+
+    void Awake()
+    {
+        // awake since apart of same game obj
+        individualSlider = GetComponent<IndividualFearMeter>();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -33,8 +46,11 @@ public class Fear : MonoBehaviour, ITurnObserver
         TurnBasedSystem.SubscribeAsObserver(this);
         // Initiate fear meter with contribution from the fear of this AI
         FearMeter.INCREASE_METER(currentFear);
+        individualSlider.InitSlider(fearThreshold);
+        individualSlider.UpdateCharacterFearSlider(currentFear);
         FearCollection.S.SetFearStateText(fearState.ToString()); // set initial fear state text
     }
+
 
     public void AddFear(int add)
     {
@@ -44,15 +60,15 @@ public class Fear : MonoBehaviour, ITurnObserver
         {
             FearMeter.INCREASE_METER(fearThreshold - currentFear);
             currentFear = fearThreshold;
-            AIFearMeter.UpdateSlider(currentFear);
         }
         else
         {
             currentFear += add;
             FearMeter.INCREASE_METER(add);
-            AIFearMeter.UpdateSlider(currentFear);
         }
 
+        AIFearMeter.UpdateSlider(currentFear);
+        individualSlider.UpdateCharacterFearSlider(currentFear);
     }
 
     public void ReduceFear(int subt)
@@ -63,15 +79,17 @@ public class Fear : MonoBehaviour, ITurnObserver
         {
             FearMeter.DECREASE_METER(currentFear);
             currentFear = 0;
-            AIFearMeter.UpdateSlider(currentFear);
         }
         else
         {
             currentFear -= subt;
             FearMeter.DECREASE_METER(subt);
-            AIFearMeter.UpdateSlider(currentFear);
         }
+
+        AIFearMeter.UpdateSlider(currentFear);
+        individualSlider.UpdateCharacterFearSlider(currentFear);
     }
+
 
     // used in ai cam to get this ai's fear and set it for the meter.
     public int GetFear()

@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
+/// This class is responsible for the shared slider for all AI when in dialogue.
 /// Using ConvoManager to show/hide slider.
 /// Using AICamera to set sliders initial startup value upon each AI click.
 /// Using Fear to update/animate increase/decrease.
