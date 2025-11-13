@@ -8,7 +8,7 @@ public class PortraitFade : MonoBehaviour, ITurnObserver
 {
     ///This script fades out a characters portrait after being clicked and fades in when the turn refreshes
 
-    [SerializeField] TextMeshProUGUI ButtonText; // text for button below
+    //[SerializeField] TextMeshProUGUI ButtonText; // text for button below
     [SerializeField] Button PortraitButton; // for setting the buttons inactive on click and vice versa
     [SerializeField]
     Image Portrait;
@@ -52,7 +52,7 @@ public class PortraitFade : MonoBehaviour, ITurnObserver
             Portrait.color = portraitColor;
 //            print(Portrait.color.a);
             PortraitButton.interactable = false;
-            ButtonText.gameObject.SetActive(false);
+            //ButtonText.gameObject.SetActive(false);
 
 
 
@@ -79,7 +79,7 @@ public class PortraitFade : MonoBehaviour, ITurnObserver
             Portrait.color = portraitColor;
             print(Portrait.color.a);
             PortraitButton.interactable = true;
-            ButtonText.gameObject.SetActive(true);
+            //ButtonText.gameObject.SetActive(true);
 
             yield return new WaitForEndOfFrame();
         }
