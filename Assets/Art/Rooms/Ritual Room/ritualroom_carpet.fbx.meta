@@ -3,7 +3,17 @@ guid: 20bae80e320e5a843bf13ff0e55da042
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: carpet
+    second: {fileID: 2100000, guid: 57aab1f22150d7143ac360224c89ede9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: carpet accents
+    second: {fileID: 2100000, guid: fc63349a879a1ff40b5e47ef8b431fa2, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
