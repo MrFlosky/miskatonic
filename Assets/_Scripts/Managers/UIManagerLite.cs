@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -45,7 +46,7 @@ public class UIManagerLite : MonoBehaviour
     [SerializeField] private Button storyboardButton;
     [SerializeField] private Button[] potraitButtons;
     [SerializeField] private GameObject portraitOb; // holds all potraits and text
-
+    [SerializeField] PortraitFade[] portraitFades;
     // Responsible for all relevant UI functions for skills
     [SerializeField] private SkillsCollection skillUICollection;
     [SerializeField] private SkillSystem skillPointUICollection;
@@ -63,6 +64,7 @@ public class UIManagerLite : MonoBehaviour
         S = this;
         SetupTransitions();
         currentState = GameState.BoardBase; // Default starting state
+        portraitFades = S.portraitOb.GetComponentsInChildren<PortraitFade>();
     }
 
     #region State Machine Methods
@@ -188,7 +190,11 @@ public class UIManagerLite : MonoBehaviour
                     S.storyboardButton.gameObject.SetActive(true);
                     S.endTurnButton.gameObject.SetActive(true);
                     S.skillUICollection.ENABLE_BUTTONS();
-                    S.portraitOb.SetActive(true);
+                    foreach(var p in S.portraitFades)
+                    {
+                        p.StartCoroutine(p.FadeIn());
+                       
+                    }
                     S.outlineManager.ResumeOutlining();
                 }
                 // TRANSITION: Dialogue → BoardBase
@@ -208,7 +214,12 @@ public class UIManagerLite : MonoBehaviour
                     S.storyboardButton.gameObject.SetActive(true);
                     S.endTurnButton.gameObject.SetActive(true);
                     S.skillUICollection.ENABLE_BUTTONS();
-                    S.portraitOb.SetActive(true);
+                    
+                    
+                    foreach(var P in S.portraitFades)
+                    {
+                        P.StartCoroutine(P.FadeIn());
+                    }
 
                     S.outlineManager.ResumeOutlining();
                 }
@@ -242,7 +253,10 @@ public class UIManagerLite : MonoBehaviour
                     S.endTurnButton.gameObject.SetActive(true);
                     S.skillPointUICollection.DISPLAY_PTS();
                     S.skillUICollection.DISPLAY_SKILLS();
-                    S.portraitOb.SetActive(true);
+                    foreach(var P in S.portraitFades)
+                    {
+                        P.StartCoroutine(P.BoardBaseReset());
+                    }
                     
                     S.outlineManager.ResumeOutlining();
                 }
@@ -256,7 +270,10 @@ public class UIManagerLite : MonoBehaviour
                     S.storyboardButton.gameObject.SetActive(true);
                     S.endTurnButton.gameObject.SetActive(true);
                     S.skillUICollection.ENABLE_BUTTONS();
-                    S.portraitOb.SetActive(true);
+                    foreach(var P in S.portraitFades)
+                    {
+                        P.StartCoroutine(P.FadeIn());
+                    }
 
                     S.outlineManager.ResumeOutlining();
                 }
@@ -270,7 +287,7 @@ public class UIManagerLite : MonoBehaviour
                     S.endTurnButton.gameObject.SetActive(true);
                     S.skillUICollection.DISPLAY_SKILLS();
                     S.skillPointUICollection.DISPLAY_PTS();
-                    S.portraitOb.SetActive(true);
+                    
                 }
                 break;
 
@@ -291,7 +308,7 @@ public class UIManagerLite : MonoBehaviour
                     S.endTurnButton.gameObject.SetActive(false);
                     S.dealerButton.gameObject.SetActive(false);
                     S.skillUICollection.DISABLE_BUTTONS();
-                    S.portraitOb.SetActive(false);
+                    
                     S.outlineManager.PauseOutlining();
                 }
                 break;
@@ -311,7 +328,10 @@ public class UIManagerLite : MonoBehaviour
                     S.endTurnButton.gameObject.SetActive(false);
                     S.skillUICollection.DEACTIVATE_SKILLS_NAKED(); // ends any skill currently in use
                     S.skillUICollection.DISABLE_BUTTONS();
-                    S.portraitOb.SetActive(false);
+                    foreach(var P in S.portraitFades)
+                    {
+                        P.StartCoroutine(P.FadeOut());
+                    }
 
                     S.outlineManager.PauseOutlining();
                 }
@@ -354,7 +374,11 @@ public class UIManagerLite : MonoBehaviour
                     S.endTurnButton.gameObject.SetActive(false);
                     S.skillPointUICollection.HIDE_PTS();
                     S.skillUICollection.HIDE_SKILLS();
-                   // S.portraitOb.SetActive(false);
+                    foreach(var p in S.portraitFades)
+                    {
+                        p.StartCoroutine(p.FadeIn());
+                      
+                    }
 
                     S.outlineManager.PauseOutlining();
                 }
@@ -376,7 +400,10 @@ public class UIManagerLite : MonoBehaviour
                     S.endTurnButton.gameObject.SetActive(false);
                     S.dealerButton.gameObject.SetActive(false);
                     S.skillUICollection.DISABLE_BUTTONS();
-                    S.portraitOb.SetActive(false);
+                    foreach(var P in S.portraitFades)
+                    {
+                        P.StartCoroutine(P.FadeOut());
+                    }
 
                     S.outlineManager.PauseOutlining();
                 }
@@ -396,7 +423,7 @@ public class UIManagerLite : MonoBehaviour
                     S.skillUICollection.DEACTIVATE_SKILLS_NAKED();
                     S.skillUICollection.HIDE_SKILLS();
                     S.skillPointUICollection.HIDE_PTS();
-                    S.portraitOb.SetActive(false);
+                    
                 }
                 break;
         }
@@ -535,21 +562,29 @@ public class UIManagerLite : MonoBehaviour
         S.optionsPresenterCG.alpha = 0;
     }
 
-    void DisablePortaitButtons()
+
+    
+        void DisablePortaitButtons()
     {
-        foreach (Button b in potraitButtons)
+        foreach (var P in S.portraitFades)
         {
-            b.interactable = false;
+            P.PortraitButton.enabled = false;
         }
     }
-    
+
+    /// <summary>
+    /// the following were changed to account for portrait fade rework. It now only enables those portraits that haven't been clicked this turn
+    /// </summary>
+
     void EnablePortraitButtons()
     {
-        foreach(Button b in potraitButtons)
+        foreach(var P in S.portraitFades)
         {
-            b.interactable = true;
+            if (!P.clicked) P.PortraitButton.enabled = true;
         }
     }
+
+
 
     /// <summary>
     /// these were originally in wrappers to be called by other classes
