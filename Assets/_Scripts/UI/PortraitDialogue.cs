@@ -44,7 +44,7 @@ public class PortraitDialogue : MonoBehaviour
 
         else if(UIManagerLite.GetCurrentState() == UIManagerLite.GameState.Storyboard)
         {
-            selfBook.ChangeBook();
+            selfBook.ChangeBook(false,false);
         }
     }
 

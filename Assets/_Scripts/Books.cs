@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using CharacterData;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -15,7 +16,7 @@ public class Books: MonoBehaviour
     public GameObject openBook;
     public Bookshelf bookshelf;
 
-
+    public Character charactersBook;
  
     private void Start()
     {
@@ -36,7 +37,7 @@ public class Books: MonoBehaviour
 
 
     // changes which book is open for the player and sets the first page as the current active page
-    public void ChangeBook()
+    public void ChangeBook(bool FromUnlock, bool UnlockingClue)
     {
         OpenBook OB =openBook.GetComponent<OpenBook>();
         if (OB.gameObject.activeSelf) return;
@@ -52,11 +53,41 @@ public class Books: MonoBehaviour
         foreach(GameObject page in OB.storyPanels)
         {
             page.SetActive(false);
+            
         }
-        OB.storyPanels[0].SetActive(true);
-        OB.activePage = OB.storyPanels[0];
+
+        foreach(GameObject page in OB.narrativeClues)
+        {
+            page.SetActive(false);
+        }
         
-        
+        if(!FromUnlock)
+        {
+            Debug.LogError("NOT UNLOCK");
+            OB.storyPanels[0].SetActive(true);
+            OB.activePage = OB.storyPanels[0];
+            OB.firstPage= OB.storyPanels[0];
+            OB.lastPage = OB.storyPanels[OB.unlockedPages-1];
+            OB.storyboardOpen= true;
+        }
+
+        else
+        {
+            
+
+            if (UnlockingClue)
+            {
+                
+               
+                OB.storyboardOpen=false;
+            }
+
+            else
+            {
+                OB.storyboardOpen=true;
+                Debug.LogError("GDSAG");
+            }
+        }
        
         
 

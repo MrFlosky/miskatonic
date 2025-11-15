@@ -24,12 +24,13 @@ public class OpenBook : MonoBehaviour
     public int unlockedPages;
     public int unlockedClues;
     
-    [SerializeField]bool storyboardOpen=true; 
+    public bool storyboardOpen=true; 
     
     public Character charactersBook;
     void Start()
-    {
+    {   
         unlockedPages = 1;
+        unlockedClues=0;
         pageTurners.Clear();
 
         foreach (Transform t in transform.GetComponentInChildren<Transform>())
@@ -60,39 +61,44 @@ public class OpenBook : MonoBehaviour
             }
         }
         firstPage = storyPanels[0];
-        
         lastPage = storyPanels[0];
         gameObject.SetActive(false);
         print(storyPanels.Count);
-        UnlockStoryboard.BookObjects.Add(this);
+        UnlockNarrative.BookObjects.Add(this);
     }
 
     public void NextPage()
     {
-      
+        int pageNumber;
+        //the last unlocked storyboard pannel is open. Advances to narrative clues if they are unlocked, returns if not
         if (lastPage.activeSelf&&storyboardOpen)
         {
-            print("F");
+            
             if(unlockedClues==0) return;
-            print("YEs");
             storyboardOpen=false;
             activePage.SetActive(false);
             narrativeClues[0].SetActive(true);
+            firstPage = narrativeClues[0];
+            lastPage = narrativeClues[unlockedClues-1];
+            activePage = narrativeClues[0];
 
             return;
         }
         
+        //Storyboards are open, and there are more storyboards to view;
         else if(!lastPage.activeSelf && storyboardOpen)
         {
-            int pageNumber = storyPanels.IndexOf(activePage);
+            pageNumber = storyPanels.IndexOf(activePage);
             activePage.SetActive(false);
             storyPanels[pageNumber + 1].SetActive(true);
             activePage = storyPanels[pageNumber + 1];
         }
         
+        //narrative clues are open, and there are more clues to view
         else if(!storyboardOpen&& !lastPage.activeSelf)
         {
             
+
         }
         
 
@@ -100,22 +106,40 @@ public class OpenBook : MonoBehaviour
     
     public void PreviousPage()
     {
-        print("FDSA");
-        if (!storyboardOpen)
+        int pageNumber;
+        
+        //storyboard pannel is open, opens the previous page
+        if (storyboardOpen && !firstPage.activeSelf)
         {   
-            print("Fe");
-            storyPanels[unlockedPages-1].SetActive(true);
+            pageNumber = storyPanels.IndexOf(activePage);
+            print(pageNumber);
+            activePage.SetActive(false);
+            storyPanels[pageNumber-1].SetActive(true);
+            activePage = storyPanels[pageNumber-1];
         }
 
+        //th first narrative clue is open, opens the final unlocked story pannel
+        else if (firstPage.activeSelf&& ! storyboardOpen)
+        {
+            activePage.SetActive(false);
+            storyPanels[unlockedPages-1].SetActive(true);
+            lastPage= storyPanels[unlockedPages-1];
+            firstPage= storyPanels[0];
+            activePage = storyPanels[unlockedPages-1];
+            storyboardOpen = true;
+            
 
+        }
+        //narrative clues are open, the first page is not open
+        else if (!storyboardOpen && !firstPage.activeSelf)
+        {
+            pageNumber=narrativeClues.IndexOf(activePage);
+            activePage.SetActive(false);
+            narrativeClues[pageNumber-1].SetActive(true);
+            activePage = narrativeClues[pageNumber-1];
+        }
 
-        // else if(!firstPage.activeSelf )
-        // {
-        //     int pageNumber = storyPanels.IndexOf(activePage);
-        //     activePage.SetActive(false);
-        //     storyPanels[pageNumber - 1].SetActive(true);
-        //     activePage = storyPanels[pageNumber - 1];
-        // }
+        
         
     }
 
@@ -124,11 +148,17 @@ public class OpenBook : MonoBehaviour
         if(unlockedPages == storyPanels.Count) return;
         lastPage = storyPanels[unlockedPages];
         unlockedPages++;
+        lastPage.SetActive(true);
     }
 
     public void UnlockClue()
     {
-         
+         if(unlockedClues == narrativeClues.Count ) return;
+         storyboardOpen=false;
+        lastPage = narrativeClues[unlockedClues];
+        firstPage=narrativeClues[0];
+         unlockedClues++;
+         activePage= lastPage;
     }
 
 }
