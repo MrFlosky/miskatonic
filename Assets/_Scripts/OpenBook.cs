@@ -22,6 +22,7 @@ public class OpenBook : MonoBehaviour
     public GameObject firstPage, lastPage;
     public GameObject activePage;
     public int unlockedPages;
+    public int unlockedClues;
     
     [SerializeField]bool storyboardOpen=true; 
     
@@ -42,7 +43,11 @@ public class OpenBook : MonoBehaviour
             {
                 foreach(Transform v in t.GetComponentsInChildren<Transform>())
                 {
-                    narrativeClues.Add(v.gameObject);
+                    if(v!=t)
+                    {
+                        narrativeClues.Add(v.gameObject);
+                        v.gameObject.SetActive(false);
+                    }
                 }
             }
 
@@ -65,26 +70,52 @@ public class OpenBook : MonoBehaviour
     public void NextPage()
     {
       
-        if (lastPage.activeSelf)
+        if (lastPage.activeSelf&&storyboardOpen)
         {
+            print("F");
+            if(unlockedClues==0) return;
+            print("YEs");
+            storyboardOpen=false;
+            activePage.SetActive(false);
+            narrativeClues[0].SetActive(true);
+
             return;
         }
-        int pageNumber = storyPanels.IndexOf(activePage);
-        activePage.SetActive(false);
-        storyPanels[pageNumber + 1].SetActive(true);
-        activePage = storyPanels[pageNumber + 1];
         
+        else if(!lastPage.activeSelf && storyboardOpen)
+        {
+            int pageNumber = storyPanels.IndexOf(activePage);
+            activePage.SetActive(false);
+            storyPanels[pageNumber + 1].SetActive(true);
+            activePage = storyPanels[pageNumber + 1];
+        }
+        
+        else if(!storyboardOpen&& !lastPage.activeSelf)
+        {
+            
+        }
         
 
     }
     
     public void PreviousPage()
     {
-        if (firstPage.activeSelf) return;
-        int pageNumber = storyPanels.IndexOf(activePage);
-        activePage.SetActive(false);
-        storyPanels[pageNumber - 1].SetActive(true);
-        activePage = storyPanels[pageNumber - 1];
+        print("FDSA");
+        if (!storyboardOpen)
+        {   
+            print("Fe");
+            storyPanels[unlockedPages-1].SetActive(true);
+        }
+
+
+
+        // else if(!firstPage.activeSelf )
+        // {
+        //     int pageNumber = storyPanels.IndexOf(activePage);
+        //     activePage.SetActive(false);
+        //     storyPanels[pageNumber - 1].SetActive(true);
+        //     activePage = storyPanels[pageNumber - 1];
+        // }
         
     }
 
