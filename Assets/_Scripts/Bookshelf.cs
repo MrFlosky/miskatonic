@@ -55,7 +55,7 @@ public class Bookshelf : MonoBehaviour
             if (hit.collider.CompareTag("Book"))
             {
 
-                hit.collider.GetComponent<Books>().ChangeBook();
+                hit.collider.GetComponent<Books>().ChangeBook(false,false);
             }
 
             else if (hit.collider.GetComponent<BookTurner>())

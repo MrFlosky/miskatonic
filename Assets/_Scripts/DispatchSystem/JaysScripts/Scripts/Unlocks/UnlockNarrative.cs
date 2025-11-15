@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using CharacterData;
 using UnityEngine;
 
-public class UnlockStoryboard : NarrativeReward
+public class UnlockNarrative : NarrativeReward
 {
 
     public Character targetsStoryboard;
@@ -20,7 +20,7 @@ public class UnlockStoryboard : NarrativeReward
 
     public override void GrantReward()
     {
-        
+           
         foreach(var bk in BookObjects)
         {
             if(targetsStoryboard != bk.charactersBook) continue;
@@ -29,6 +29,8 @@ public class UnlockStoryboard : NarrativeReward
             {
                 if (Clue)
                 {
+                    bk.UnlockClue();
+                    
                     
                 }
                 else
@@ -37,7 +39,19 @@ public class UnlockStoryboard : NarrativeReward
                     bk.UnlockPage();
                     
                 }
+
+                foreach(var OB in Bookshelf.S.Booklist)
+                {
+                    if(OB.charactersBook == bk.charactersBook)
+                    {
+                        OB.ChangeBook(true,Clue);
+                        break;
+                    }
+                }  
+
             }
+
+
         }
 
     }
