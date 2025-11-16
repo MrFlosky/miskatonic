@@ -17,6 +17,7 @@ public class PlayerVision : MonoBehaviour, ITurnObserver
     private Dictionary<MeshRenderer, Material[]> originalMaterials
     = new Dictionary<MeshRenderer, Material[]>();
 
+
     // Fear Totem skill
     public List<MazeCellObject> totemCell = new List<MazeCellObject>();
     private int totemFear = 0;
@@ -24,13 +25,21 @@ public class PlayerVision : MonoBehaviour, ITurnObserver
     // Psychosis skill
     public bool isPsychosis = false;
     private int endTurn;
-    private int psyRadius;
+    private int psyRadius = 20;
     private List<PlayerVision> nearbyCharacters = new List<PlayerVision>();
     private int psyFear = 0;
 
     public Light psychosisLight;
     public Color psychosisColor = new Color(0.6f, 0f, 0.8f, 1f); // purple
     public float psychosisIntensity = 6f;
+
+    // Incept Loneliness
+    private int lonelyFear = 2;
+    public bool isLonely = false;
+    public List<PlayerVision> notNearbyCharacters = new List<PlayerVision>();
+    private int lonelyRadius = 20;
+
+
 
 
     /// <summary>
@@ -289,6 +298,13 @@ public class PlayerVision : MonoBehaviour, ITurnObserver
         }
     }
 
+    public void EnableInceptLoneliness(bool enable, int fear, int radius)
+    {
+        isLonely = enable;
+        lonelyFear = fear;
+        lonelyRadius = radius;
+    }
+
     /// <summary>
     /// Returns all cells within a circular (360�) vision range.
     /// Ignores facing direction and wall blocking for Psychosis.
@@ -356,8 +372,45 @@ public class PlayerVision : MonoBehaviour, ITurnObserver
 
         }
 
+        if (isLonely && turn)
+        {
+            var agentNavigation = GetComponent<AgentNavigation>();
+            var gameManager = agentNavigation.gameManager;
+            
+            var visibleCells = GetFullVisionCells();
+
+            // int nearbyCharacters = 0;
+            
+
+            foreach (var player in FindObjectsOfType<PlayerVision>())
+            {
+                if (player == this) continue;
+
+                Vector2Int otherPos = player.GetComponent<PlayerVision>().gridPos;
+                Vector2Int nearestCell = FindNearestCellGrid(player.transform.position);
+                int distance = Mathf.Abs(nearestCell.x - gridPos.x) + Mathf.Abs(nearestCell.y - gridPos.y);
+
+                if (distance <= lonelyRadius && !notNearbyCharacters.Contains(player))
+                {
+                    notNearbyCharacters.Add(player);
+                }
+                    
+            }
+
+        }
+
         if (!turn)
+        {
             nearbyCharacters.Clear();
+            if (notNearbyCharacters.Count == 0)
+            {
+                var fear = GetComponent<Fear>();
+                fear.AddFear(lonelyFear);
+            }
+                
+            notNearbyCharacters.Clear();
+        }
+            
 
         if (TurnBasedSystem.GET_TURN_COUNT() == endTurn)
         {
