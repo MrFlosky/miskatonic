@@ -40998,7 +40998,7 @@ PrefabInstance:
     - target: {fileID: 4754172380535228095, guid: e3eee655d87ceda4783f353d13a4af64, type: 3}
       propertyPath: CharacterBust
       value: 
-      objectReference: {fileID: 1812329254}
+      objectReference: {fileID: 1897346546}
     - target: {fileID: 4754172380535228095, guid: e3eee655d87ceda4783f353d13a4af64, type: 3}
       propertyPath: _conversation
       value: 
@@ -41081,15 +41081,15 @@ PrefabInstance:
       objectReference: {fileID: 294327817}
     - target: {fileID: 8605525531046106200, guid: e3eee655d87ceda4783f353d13a4af64, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.97
+      value: -1.52
       objectReference: {fileID: 0}
     - target: {fileID: 8605525531046106200, guid: e3eee655d87ceda4783f353d13a4af64, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.18
+      value: 3.72
       objectReference: {fileID: 0}
     - target: {fileID: 8605525531046106200, guid: e3eee655d87ceda4783f353d13a4af64, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.88
+      value: -3.65
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 559894699154873847, guid: e3eee655d87ceda4783f353d13a4af64, type: 3}
@@ -67082,6 +67082,7 @@ MonoBehaviour:
   lastPage: {fileID: 0}
   activePage: {fileID: 0}
   unlockedPages: 0
+  storyboardOpen: 1
   charactersBook: 3
 --- !u!4 &641952649
 Transform:
@@ -92066,6 +92067,7 @@ MonoBehaviour:
   lastPage: {fileID: 0}
   activePage: {fileID: 0}
   unlockedPages: 0
+  storyboardOpen: 1
   charactersBook: 2
 --- !u!4 &890412980
 Transform:
@@ -96940,6 +96942,7 @@ MonoBehaviour:
   lastPage: {fileID: 0}
   activePage: {fileID: 0}
   unlockedPages: 0
+  storyboardOpen: 1
   charactersBook: 0
 --- !u!4 &937283882
 Transform:
@@ -152865,7 +152868,15 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -5188637420383916712, guid: 7e47a288908c6da428ea54fb35a79ff7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3309e0d033f30864887a7fee7cdfbf82, type: 2}
     - target: {fileID: -4157524182732408741, guid: 7e47a288908c6da428ea54fb35a79ff7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3309e0d033f30864887a7fee7cdfbf82, type: 2}
+    - target: {fileID: -2859109400176981367, guid: 7e47a288908c6da428ea54fb35a79ff7, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 3309e0d033f30864887a7fee7cdfbf82, type: 2}
@@ -152873,11 +152884,31 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 3309e0d033f30864887a7fee7cdfbf82, type: 2}
+    - target: {fileID: -692278924139111601, guid: 7e47a288908c6da428ea54fb35a79ff7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3309e0d033f30864887a7fee7cdfbf82, type: 2}
+    - target: {fileID: 268878347071510516, guid: 7e47a288908c6da428ea54fb35a79ff7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3309e0d033f30864887a7fee7cdfbf82, type: 2}
     - target: {fileID: 919132149155446097, guid: 7e47a288908c6da428ea54fb35a79ff7, type: 3}
       propertyPath: m_Name
       value: Mackenzie head
       objectReference: {fileID: 0}
+    - target: {fileID: 2733073680999739756, guid: 7e47a288908c6da428ea54fb35a79ff7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3309e0d033f30864887a7fee7cdfbf82, type: 2}
     - target: {fileID: 5259012984986326565, guid: 7e47a288908c6da428ea54fb35a79ff7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3309e0d033f30864887a7fee7cdfbf82, type: 2}
+    - target: {fileID: 6026486488648108182, guid: 7e47a288908c6da428ea54fb35a79ff7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3309e0d033f30864887a7fee7cdfbf82, type: 2}
+    - target: {fileID: 8581518204138243982, guid: 7e47a288908c6da428ea54fb35a79ff7, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 3309e0d033f30864887a7fee7cdfbf82, type: 2}
@@ -171989,7 +172020,7 @@ Transform:
   m_GameObject: {fileID: 1623093154}
   serializedVersion: 2
   m_LocalRotation: {x: -0.0705878, y: 0.8161571, z: -0.10208447, w: -0.56434375}
-  m_LocalPosition: {x: 2.29, y: 2.91, z: 1.99}
+  m_LocalPosition: {x: 3.52, y: 2.74, z: 1.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -188002,6 +188033,7 @@ MonoBehaviour:
   lastPage: {fileID: 0}
   activePage: {fileID: 0}
   unlockedPages: 0
+  storyboardOpen: 1
   charactersBook: 1
 --- !u!4 &1751006056
 Transform:
@@ -193653,11 +193685,6 @@ PrefabInstance:
 --- !u!4 &1812329253 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: d0530063531d4d740aec1003e3c44a44, type: 3}
-  m_PrefabInstance: {fileID: 1812329252}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1812329254 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: d0530063531d4d740aec1003e3c44a44, type: 3}
   m_PrefabInstance: {fileID: 1812329252}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1813318648
@@ -202710,6 +202737,11 @@ MonoBehaviour:
   roomFloorMaterial: {fileID: 2100000, guid: a166c9720d356d3469587ea35c8cab2b, type: 2}
   roomWallMaterial: {fileID: 2100000, guid: 9ab1b140570b2a943b20a45ff2e6cea9, type: 2}
   roomType: Dungeon Room
+--- !u!1 &1897346546 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 7e47a288908c6da428ea54fb35a79ff7, type: 3}
+  m_PrefabInstance: {fileID: 1465645970}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1897655865
 PrefabInstance:
   m_ObjectHideFlags: 0
