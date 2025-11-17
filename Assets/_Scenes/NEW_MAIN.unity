@@ -67234,6 +67234,7 @@ MonoBehaviour:
   lastPage: {fileID: 0}
   activePage: {fileID: 0}
   unlockedPages: 0
+  unlockedClues: 0
   storyboardOpen: 1
   charactersBook: 3
 --- !u!4 &641952649
@@ -92222,6 +92223,7 @@ MonoBehaviour:
   lastPage: {fileID: 0}
   activePage: {fileID: 0}
   unlockedPages: 0
+  unlockedClues: 0
   storyboardOpen: 1
   charactersBook: 2
 --- !u!4 &890412980
@@ -92479,7 +92481,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5592833437522147513, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
       propertyPath: missionCards.Array.size
-      value: 14
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 5592833437522147513, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
       propertyPath: worldCards.Array.data[0]
@@ -92616,7 +92618,7 @@ PrefabInstance:
     - target: {fileID: 5592833437522147513, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
       propertyPath: missionCards.Array.data[14].missionData
       value: 
-      objectReference: {fileID: 11400000, guid: 34a6df0347d4bf942bcc0e45646032e3, type: 2}
+      objectReference: {fileID: 11400000, guid: 04a008ff96b50de44960057d20dc0847, type: 2}
     - target: {fileID: 5592833437522147513, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
       propertyPath: missionCards.Array.data[15].missionData
       value: 
@@ -97022,6 +97024,7 @@ MonoBehaviour:
   lastPage: {fileID: 0}
   activePage: {fileID: 0}
   unlockedPages: 0
+  unlockedClues: 0
   storyboardOpen: 1
   charactersBook: 0
 --- !u!4 &937283882
@@ -188397,6 +188400,7 @@ MonoBehaviour:
   lastPage: {fileID: 0}
   activePage: {fileID: 0}
   unlockedPages: 0
+  unlockedClues: 0
   storyboardOpen: 1
   charactersBook: 1
 --- !u!4 &1751006056

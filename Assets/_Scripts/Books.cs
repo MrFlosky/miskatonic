@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class Books: MonoBehaviour
 {
@@ -17,11 +18,12 @@ public class Books: MonoBehaviour
     public Bookshelf bookshelf;
 
     public Character charactersBook;
+    ClickAI clAI;
  
     private void Start()
     {
         bookshelf = Bookshelf.S;
-
+        clAI = ClickAI.S;
 
         if (openBook == null)
         {
@@ -37,6 +39,7 @@ public class Books: MonoBehaviour
 
 
     // changes which book is open for the player and sets the first page as the current active page
+    //bools are indicating if the function is from unlocking a new page or not, and if it is unlocking a page is it a narrative clue or not
 
     //messy function, needs cleaning
     public void ChangeBook(bool FromUnlock, bool UnlockingClue)
@@ -64,9 +67,11 @@ public class Books: MonoBehaviour
             page.SetActive(false);
         }
         
+
+        //opens new book on starting page
         if(!FromUnlock)
         {
-            Debug.LogError("NOT UNLOCK");
+            
             OB.storyPanels[0].SetActive(true);
             OB.activePage = OB.storyPanels[0];
             OB.firstPage= OB.storyPanels[0];
@@ -74,20 +79,21 @@ public class Books: MonoBehaviour
             OB.storyboardOpen= true;
         }
 
+        //opens book on new unlocked page and changes camera
         else
         {
-            
-
+            clAI.SwitchToStoryboardCamera();
+            OB.activePage.SetActive(true);
             if (UnlockingClue)
             {
                 
-                OB.activePage.SetActive(true);
+                
                 OB.storyboardOpen=false;
             }
 
             else
             {
-                OB.activePage.SetActive(true);
+                
                 OB.storyboardOpen=true;
                
             }
