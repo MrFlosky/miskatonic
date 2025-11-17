@@ -61757,86 +61757,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6552313161999677569, guid: 7e3f6f673624fb648a2fc0b31c271fff, type: 3}
   m_PrefabInstance: {fileID: 592047143}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &592455642
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 592455643}
-  - component: {fileID: 592455644}
-  m_Layer: 0
-  m_Name: Placho,der
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &592455643
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 592455642}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1541865125}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &592455644
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 592455642}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78f9efcdf7880b648be35c99ce162448, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  missionCards:
-  - missionData: {fileID: 11400000, guid: 02e593917f8d99142a3b5a8aaccd9b6c, type: 2}
-    cardCount: 1
-  - missionData: {fileID: 11400000, guid: 2bafa8a28fc96054cb985f8dcfaad1ba, type: 2}
-    cardCount: 1
-  - missionData: {fileID: 11400000, guid: 0aedeb73391b74b46adafa0b6289ac3b, type: 2}
-    cardCount: 1
-  - missionData: {fileID: 11400000, guid: c689fe53b67c4134995688f9510bed22, type: 2}
-    cardCount: 3
-  - missionData: {fileID: 11400000, guid: 9dcca08ee1047394d82ea0c57d3b21db, type: 2}
-    cardCount: 3
-  - missionData: {fileID: 11400000, guid: f2dc8488c9c486e4c96a56384bd9e7ec, type: 2}
-    cardCount: 3
-  - missionData: {fileID: 11400000, guid: d4fb003ccef9fac48a8929db2af22035, type: 2}
-    cardCount: 3
-  - missionData: {fileID: 11400000, guid: 99b3befdf873b774b801a99d66e3c0b1, type: 2}
-    cardCount: 1
-  - missionData: {fileID: 11400000, guid: 9628b3b2511176749a701660c998408d, type: 2}
-    cardCount: 1
-  - missionData: {fileID: 11400000, guid: 16e69fa79797f744d934e8fdfef5b349, type: 2}
-    cardCount: 1
-  - missionData: {fileID: 11400000, guid: 35f924a06bc1304429eafbf57c19910f, type: 2}
-    cardCount: 1
-  - missionData: {fileID: 11400000, guid: 46264f462d33b7043a1da43cc62b26dc, type: 2}
-    cardCount: 1
-  - missionData: {fileID: 11400000, guid: e0a75af2769576a44b2f82d8dbbaeb97, type: 2}
-    cardCount: 1
-  - missionData: {fileID: 11400000, guid: 2e19bc2ceed4b5242a115b49a82f4d39, type: 2}
-    cardCount: 1
-  dealerCanvas: {fileID: 855558311}
-  blankMissionCard: {fileID: 6533333329466154850, guid: 9712d13c0b808444bbe1125177b61bd6, type: 3}
-  worldCards:
-  - {fileID: 599434413}
-  - {fileID: 909931556}
-  - {fileID: 928371740}
-  skillObject: {fileID: 1340635369}
 --- !u!1001 &593565746
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -93157,7 +93077,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5592833437522147513, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
       propertyPath: missionCards.Array.size
-      value: 8
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 5592833437522147513, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
       propertyPath: worldCards.Array.data[0]
@@ -93201,7 +93121,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5592833437522147513, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
       propertyPath: missionCards.Array.data[7].cardCount
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5592833437522147513, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
       propertyPath: missionCards.Array.data[8].cardCount
@@ -93238,35 +93158,35 @@ PrefabInstance:
     - target: {fileID: 5592833437522147513, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
       propertyPath: missionCards.Array.data[0].missionData
       value: 
-      objectReference: {fileID: 11400000, guid: 04a008ff96b50de44960057d20dc0847, type: 2}
+      objectReference: {fileID: 11400000, guid: 02e593917f8d99142a3b5a8aaccd9b6c, type: 2}
     - target: {fileID: 5592833437522147513, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
       propertyPath: missionCards.Array.data[1].missionData
       value: 
-      objectReference: {fileID: 11400000, guid: 884436ed3135fac449af0eb495291448, type: 2}
+      objectReference: {fileID: 11400000, guid: 2bafa8a28fc96054cb985f8dcfaad1ba, type: 2}
     - target: {fileID: 5592833437522147513, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
       propertyPath: missionCards.Array.data[2].missionData
       value: 
-      objectReference: {fileID: 11400000, guid: bd6b1effa630c1b49944a46f1170bd35, type: 2}
+      objectReference: {fileID: 11400000, guid: 0aedeb73391b74b46adafa0b6289ac3b, type: 2}
     - target: {fileID: 5592833437522147513, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
       propertyPath: missionCards.Array.data[3].missionData
       value: 
-      objectReference: {fileID: 11400000, guid: 71bef87d36c35ef4aa1c90c7d4a5d87a, type: 2}
+      objectReference: {fileID: 11400000, guid: c689fe53b67c4134995688f9510bed22, type: 2}
     - target: {fileID: 5592833437522147513, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
       propertyPath: missionCards.Array.data[4].missionData
       value: 
-      objectReference: {fileID: 11400000, guid: 34a6df0347d4bf942bcc0e45646032e3, type: 2}
+      objectReference: {fileID: 11400000, guid: 9dcca08ee1047394d82ea0c57d3b21db, type: 2}
     - target: {fileID: 5592833437522147513, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
       propertyPath: missionCards.Array.data[5].missionData
       value: 
-      objectReference: {fileID: 11400000, guid: 54c2720e593439a4587398b263f61d2d, type: 2}
+      objectReference: {fileID: 11400000, guid: f2dc8488c9c486e4c96a56384bd9e7ec, type: 2}
     - target: {fileID: 5592833437522147513, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
       propertyPath: missionCards.Array.data[6].missionData
       value: 
-      objectReference: {fileID: 11400000, guid: 91a8ee8f0b5f44846a949bc381812cfc, type: 2}
+      objectReference: {fileID: 11400000, guid: d4fb003ccef9fac48a8929db2af22035, type: 2}
     - target: {fileID: 5592833437522147513, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
       propertyPath: missionCards.Array.data[7].missionData
       value: 
-      objectReference: {fileID: 11400000, guid: 910768a2032650940958420cdad867e5, type: 2}
+      objectReference: {fileID: 11400000, guid: 99b3befdf873b774b801a99d66e3c0b1, type: 2}
     - target: {fileID: 5592833437522147513, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
       propertyPath: missionCards.Array.data[8].missionData
       value: 
@@ -163649,7 +163569,6 @@ Transform:
   - {fileID: 4255613324353333476}
   - {fileID: 855558308}
   - {fileID: 1702485631}
-  - {fileID: 592455643}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1542502478
