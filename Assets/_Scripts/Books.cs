@@ -37,18 +37,21 @@ public class Books: MonoBehaviour
 
 
     // changes which book is open for the player and sets the first page as the current active page
+
+    //messy function, needs cleaning
     public void ChangeBook(bool FromUnlock, bool UnlockingClue)
     {
         OpenBook OB =openBook.GetComponent<OpenBook>();
-        if (OB.gameObject.activeSelf) return;
+        if (OB.gameObject.activeSelf&&!FromUnlock) return;
+        
         foreach(var BK in bookshelf.Booklist)
         {
             
             BK.openBook.SetActive(false);
            
         }
-
         openBook.SetActive(true);
+       
 
         foreach(GameObject page in OB.storyPanels)
         {
@@ -78,14 +81,15 @@ public class Books: MonoBehaviour
             if (UnlockingClue)
             {
                 
-               
+                OB.activePage.SetActive(true);
                 OB.storyboardOpen=false;
             }
 
             else
             {
+                OB.activePage.SetActive(true);
                 OB.storyboardOpen=true;
-                Debug.LogError("GDSAG");
+               
             }
         }
        

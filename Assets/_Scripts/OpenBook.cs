@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using CharacterData;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class OpenBook : MonoBehaviour
@@ -11,8 +12,10 @@ public class OpenBook : MonoBehaviour
     /// 
     /// The open book object must be active when the scene starts to ensure that the list of pages and page turners is properly populated.
     /// It will deactivate on start.
-    /// By default only one page will be active and viewable, more can be unlocked via the dispatch system (WIP)
     /// 
+    /// By default only one page will be active and viewable, more can be unlocked via the dispatch system
+    /// 
+    /// Code has gotten messy, I plan to clean it up and make it more clear if there is time, right now I have focused on functionality first
     /// </summary>
 
     public List<GameObject> pageTurners = new List<GameObject>();
@@ -75,6 +78,7 @@ public class OpenBook : MonoBehaviour
         {
             
             if(unlockedClues==0) return;
+            
             storyboardOpen=false;
             activePage.SetActive(false);
             narrativeClues[0].SetActive(true);
@@ -97,7 +101,10 @@ public class OpenBook : MonoBehaviour
         //narrative clues are open, and there are more clues to view
         else if(!storyboardOpen&& !lastPage.activeSelf)
         {
-            
+            pageNumber = narrativeClues.IndexOf(activePage);
+            activePage.SetActive(false);
+            narrativeClues[pageNumber+1].SetActive(true);
+            activePage= narrativeClues[pageNumber+1];    
 
         }
         
@@ -143,21 +150,24 @@ public class OpenBook : MonoBehaviour
         
     }
 
+    
     public void UnlockPage()
     {
         if(unlockedPages == storyPanels.Count) return;
-        lastPage = storyPanels[unlockedPages];
         unlockedPages++;
-        lastPage.SetActive(true);
+        lastPage = storyPanels[unlockedPages-1];
+        activePage=lastPage;
+        
     }
 
     public void UnlockClue()
     {
          if(unlockedClues == narrativeClues.Count ) return;
          storyboardOpen=false;
-        lastPage = narrativeClues[unlockedClues];
-        firstPage=narrativeClues[0];
          unlockedClues++;
+         lastPage = narrativeClues[unlockedClues-1];
+         firstPage=narrativeClues[0];
+         
          activePage= lastPage;
     }
 
