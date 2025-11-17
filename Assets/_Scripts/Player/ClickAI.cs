@@ -80,12 +80,15 @@ public class ClickAI : MonoBehaviour
 
     void Awake()
     {
+         //originally in start, moved to resolve execution order error
+        S = this;
         raycastLayerMask = ~LayerMask.GetMask("NoCastyCastyCollider");
     }
 
+    
     private void Start()
     {
-        S = this;
+        
 
         // Dafault to main camera if not assigned
         if (mainCamera == null)
@@ -150,9 +153,9 @@ public class ClickAI : MonoBehaviour
                     return;
                 }
 
-                // disaable this character's portrait button
-                PortraitFade portraitFade = dialogueBank.GetPortraitFade();
-                portraitFade.clicked = true;
+                // fade potrait, depreciated with portrait fade changes
+                // PortraitFade portraitFade = aiGameObj.GetComponent<PortraitFade>();
+                // portraitFade.StartCoroutine(portraitFade.FadeOut());
 
                 // Rotate bust
                 activeAICam = aiGameObj.transform.GetChild(0).GetComponent<AICamera>();
