@@ -73,6 +73,16 @@ public class ClickAI : MonoBehaviour
     // Used for bust rotation function calls.
     private AICamera activeAICam;
 
+    /// <summary>
+    /// Raycast hits all layers besides this one.
+    /// </summary>
+    int raycastLayerMask;
+
+    void Awake()
+    {
+        raycastLayerMask = ~LayerMask.GetMask("NoCastyCastyCollider");
+    }
+
     private void Start()
     {
         S = this;
@@ -116,7 +126,7 @@ public class ClickAI : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(mousePos);
 
 
-        if (Physics.Raycast(ray, out RaycastHit hit))
+        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, raycastLayerMask))
         {
 
 

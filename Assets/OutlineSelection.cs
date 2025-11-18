@@ -16,16 +16,10 @@
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //SOFTWARE.
 
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using NUnit.Framework;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
-using Unity.VisualScripting;
 
 
 /// <summary>
@@ -47,9 +41,15 @@ public class OutlineHighlight : MonoBehaviour
     [SerializeField]
     private TMP_Text highlightedText;
 
+    /// <summary>
+    /// Layer to ignore when raycasting.
+    /// </summary>
+    private int ignoreLayerMask;
+
     private void Awake()
     {
         highlightedText.text = "";
+        ignoreLayerMask = ~LayerMask.GetMask("NoCastyCastyCollider"); // ~ means everything BUT this layer is hit
     }
 
     /// <summary>
@@ -89,6 +89,8 @@ public class OutlineHighlight : MonoBehaviour
         // }
 
         // Get the pointer position from the InputAction
+
+        
         Vector2 mousePos = Vector2.zero;
         mousePos = GameInput.Instance.GetActiveGameDevice() == GameInput.GameDevice.KeyboardMouse ? Mouse.current.position.ReadValue() : VirtualMouseUI.Instance.GetVirtualMousePosition();
         // Determine the rooms being selected for a switch
@@ -102,7 +104,7 @@ public class OutlineHighlight : MonoBehaviour
         }
 
         // Perform raycast to detect objects
-        if (!EventSystem.current.IsPointerOverGameObject() && Physics.Raycast(ray, out raycastHit))
+        if (!EventSystem.current.IsPointerOverGameObject() && Physics.Raycast(ray, out raycastHit, Mathf.Infinity, ignoreLayerMask))
         {
             highlight = raycastHit.transform;
             if (highlight.tag is "Selectable" or "AI")

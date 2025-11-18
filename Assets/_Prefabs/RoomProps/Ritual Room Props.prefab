@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8543581890511984613}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Ritual Room Props
   m_TagString: Prop
   m_Icon: {fileID: 0}
@@ -29,12 +29,12 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 7773495086118224419}
   - {fileID: 2581985831878198179}
   - {fileID: 311651385477956714}
   - {fileID: 947164101090825492}
   - {fileID: 8882525581248767505}
   - {fileID: 6090577862177105289}
-  - {fileID: 2833050434456079034}
   - {fileID: 5204397108210045515}
   - {fileID: 4048405502486859817}
   - {fileID: 4496522152485399162}
@@ -50,7 +50,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4048405502486859817}
   - component: {fileID: 2621840877627318546}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -134,6 +134,73 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!1 &9069915849017173210
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7773495086118224419}
+  - component: {fileID: 4771035064737187353}
+  - component: {fileID: 5470243451279226360}
+  m_Layer: 11
+  m_Name: GhostifyMe
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7773495086118224419
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9069915849017173210}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 6.16457, y: -6.1110973, z: 1.7286453}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2833050434456079034}
+  m_Father: {fileID: 8543581890511984613}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &4771035064737187353
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9069915849017173210}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.5245895, y: 2.3577757, z: 1.5333939}
+  m_Center: {x: -1.9220352, y: 6.3394303, z: -7.3575764}
+--- !u!114 &5470243451279226360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9069915849017173210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b8ca4be7bae8f04bac7fb3e113ad29f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &277407014870672257
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -197,6 +264,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: b04d7c1e7b901a04d8cb95929131f6f1, type: 3}
       propertyPath: m_Name
       value: ritualroom_candles (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b04d7c1e7b901a04d8cb95929131f6f1, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -272,6 +343,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ritualroom_candles (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b04d7c1e7b901a04d8cb95929131f6f1, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -288,7 +363,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 8543581890511984613}
+    m_TransformParent: {fileID: 7773495086118224419}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: dea13c82a719b4842819145ba56c4198, type: 3}
       propertyPath: m_LocalScale.x
@@ -296,23 +371,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dea13c82a719b4842819145ba56c4198, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.75
+      value: 0.74999994
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dea13c82a719b4842819145ba56c4198, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.75
+      value: 0.74999994
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dea13c82a719b4842819145ba56c4198, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.05
+      value: -2.1145706
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dea13c82a719b4842819145ba56c4198, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.001
+      value: 6.1120973
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dea13c82a719b4842819145ba56c4198, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -5.92
+      value: -7.6486454
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dea13c82a719b4842819145ba56c4198, type: 3}
       propertyPath: m_LocalRotation.w
@@ -345,6 +420,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: dea13c82a719b4842819145ba56c4198, type: 3}
       propertyPath: m_Name
       value: ritualroom_podium
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: dea13c82a719b4842819145ba56c4198, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -420,6 +499,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ritualroom_candles
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b04d7c1e7b901a04d8cb95929131f6f1, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -478,6 +561,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -3192123512098579621, guid: 707e41b8899dfb24e834cee45ac47a1c, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: -1977110305854175492, guid: 707e41b8899dfb24e834cee45ac47a1c, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -485,6 +572,14 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 707e41b8899dfb24e834cee45ac47a1c, type: 3}
       propertyPath: m_Name
       value: ritualcarpetunwrapped
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 707e41b8899dfb24e834cee45ac47a1c, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 7657321050334258985, guid: 707e41b8899dfb24e834cee45ac47a1c, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 9153585047947864883, guid: 707e41b8899dfb24e834cee45ac47a1c, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -552,6 +647,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ritualroom_bloodpool_placeholder
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: e786a1add553ec44eb5829246a99e00f, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -613,6 +712,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 20bae80e320e5a843bf13ff0e55da042, type: 3}
       propertyPath: m_Name
       value: ritualroom_carpet
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 20bae80e320e5a843bf13ff0e55da042, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 20bae80e320e5a843bf13ff0e55da042, type: 3}
       propertyPath: m_IsActive
@@ -691,6 +794,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: b04d7c1e7b901a04d8cb95929131f6f1, type: 3}
       propertyPath: m_Name
       value: ritualroom_candles (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b04d7c1e7b901a04d8cb95929131f6f1, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
