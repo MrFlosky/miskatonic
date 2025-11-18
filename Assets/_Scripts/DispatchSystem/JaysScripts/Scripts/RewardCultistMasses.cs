@@ -18,6 +18,7 @@ public class RewardCultistMasses : RewardCultist
     {
         // get cultist number from characterFears instead of from mission data
         cultistsToRewardTotal = CharacterFears.Instance.totalFearsDiscovered;
+        if (cultistsToRewardTotal > 8) cultistsToRewardTotal = 8;
     }
 
     public override void GrantReward()
