@@ -27,6 +27,7 @@ namespace Yarn.Unity
     {
         [MustNotBeNull, SerializeField] TextMeshProUGUI? text;
         [SerializeField] UnityEngine.UI.Image? selectionImage;
+        [SerializeField] UnityEngine.UI.Image? selectionImage2; //adds another indicator (works just like OG)
 
         [Group("Appearance"), SerializeField] InternalAppearance normal;
         [Group("Appearance"), SerializeField] InternalAppearance selected;
@@ -108,6 +109,20 @@ namespace Yarn.Unity
                 else
                 {
                     selectionImage.gameObject.SetActive(false);
+                }
+            }
+            // added to show second selection image
+            if (selectionImage2 != null)
+            {
+                selectionImage2.color = newColour;
+                if (newSprite != null)
+                {
+                    selectionImage2.sprite = newSprite;
+                    selectionImage2.gameObject.SetActive(true);
+                }
+                else
+                {
+                    selectionImage2.gameObject.SetActive(false);
                 }
             }
         }
