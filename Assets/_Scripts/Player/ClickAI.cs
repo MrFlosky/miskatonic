@@ -140,9 +140,9 @@ public class ClickAI : MonoBehaviour
                     return;
                 }
 
-                // fade potrait
-                PortraitFade portraitFade = aiGameObj.GetComponent<PortraitFade>();
-                portraitFade.StartCoroutine(portraitFade.FadeOut());
+                // disaable this character's portrait button
+                PortraitFade portraitFade = dialogueBank.GetPortraitFade();
+                portraitFade.clicked = true;
 
                 // Rotate bust
                 activeAICam = aiGameObj.transform.GetChild(0).GetComponent<AICamera>();

@@ -37,6 +37,16 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
     // Track when a dialogue has already been initiated in a given turn
     public bool alreadyTalked = false;
 
+    /// <summary>
+    /// For ease to access and trigger portrait fade in ClickAI. 
+    /// Not used in this class for any other purpose.
+    /// </summary>
+    [SerializeField] private PortraitFade portraitFade;
+    public PortraitFade GetPortraitFade()
+    {
+        return portraitFade;
+    }
+
     // Character's respective sprite. HANDLED BY CHAR GAME DIALOGUE
     //[SerializeField] private Sprite characterSprite;
 
