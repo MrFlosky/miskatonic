@@ -71,7 +71,11 @@ public class SkillRenovation : Skill
                     
 
                 }
-                CreateRenovator();
+                Vector3 newPosition = hit.transform.position;
+                newPosition.x += 1f;
+                newPosition.y = 0.5f;
+                newPosition.z += 1f;
+                CreateRenovator(newPosition);
                 EndSkill();
                 
             }
@@ -96,11 +100,12 @@ public class SkillRenovation : Skill
         base.ActivateSkill();
     }
 
-    public void CreateRenovator()
+    public void CreateRenovator(Vector3 newPos)
     {
         Renovators.Clear();
 
         GameObject newRen = Instantiate(renObj);
+        newRen.transform.position=newPos;
         newRen.transform.SetParent(transform);
         Renovators.Add(newRen);
         newRen.GetComponent<Renovator>().turnsRemaining = roundsLast;
