@@ -7,21 +7,18 @@ using UnityEngine.EventSystems;
 public class SkillPsychosis : Skill
 {
     public Camera mainCamera;
-    private SkillsCollection skillsUI;
     public int roundsLast = 3;
     public int fearPerNearby = 5;     // how much fear gained per nearby character
     public int visionRadius = 20;
     private bool isSelecting = false;
 
-    void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         if (mainCamera == null)
         {
             mainCamera = Camera.main; // Use main camera if none specified
         }
-        
-        skillSystem = GetComponent<SkillSystem>();
-        skillsUI = GetComponent<SkillsCollection>();
     }
 
 
@@ -39,7 +36,7 @@ public class SkillPsychosis : Skill
             RaycastHit hit;
 
             // We don�t need layer filtering � just check if the clicked object has PlayerVision
-            if (Physics.Raycast(ray, out hit, 100f))
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, raycastLayerMask))
             {
                 PlayerVision vision = hit.collider.GetComponentInParent<PlayerVision>();
                 if (vision != null && !vision.isPsychosis)
@@ -47,7 +44,6 @@ public class SkillPsychosis : Skill
                     ApplyPsychosis(vision);
                     isSelecting = true;
                     this.enabled = false;
-                    skillsUI.ENABLE_BUTTONS();
                     StartCoroutine(EndSkillWaitFrame());
                 }
             }

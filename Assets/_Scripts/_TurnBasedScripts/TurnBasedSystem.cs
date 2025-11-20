@@ -340,7 +340,7 @@ public class TurnBasedSystem : MonoBehaviour
             if (destroyOnRound == S.playerTurnCount)
             {
                 S.readyToDestroyOb.Add(this);
-                Debug.LogError(obToDestroy.gameObject.name);
+//                Debug.LogError(obToDestroy.gameObject.name);
                 Destroy(obToDestroy);
             }
         }

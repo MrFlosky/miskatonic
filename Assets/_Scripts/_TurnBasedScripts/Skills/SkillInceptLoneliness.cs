@@ -5,23 +5,16 @@ using UnityEngine;
 public class SkillInceptLoneliness : Skill
 {
     public Camera mainCamera;
-    private SkillsCollection skillsUI;
     public int fearPerNearby = 2;
     public int lonelyRadius = 20;
 
 
-    private void Awake()
+    protected override void Awake()
     {
         if (mainCamera == null)
         {
             mainCamera = Camera.main; // Use main camera if none specified
         }
-       
-        skillsUI = GetComponent<SkillsCollection>();
-        skillSystem = GetComponent<SkillSystem>();
-
-
-
     }
 
     public override void ActivateSkill()

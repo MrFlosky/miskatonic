@@ -21,17 +21,15 @@ public class SkillRenovation : Skill
 
     [SerializeField] List<GameObject> Renovators;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         if (mainCamera == null)
         {
             mainCamera = Camera.main; // Use main camera if none specified
         }
-
-        skillSystem = GetComponent<SkillSystem>();
         Renovators = new List<GameObject>();
-        //TurnBasedSystem.SubscribeAsObserver(this);
-
     }
 
     void Start()
@@ -51,7 +49,7 @@ public class SkillRenovation : Skill
 
         RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit))
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, raycastLayerMask))
         {
             if (hit.collider.gameObject.GetComponentInParent<MazeCellObject>() != null
             && hit.collider.gameObject.GetComponentInParent<MazeCellObject>().roomType != "Hallway")

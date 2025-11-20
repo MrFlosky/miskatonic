@@ -76,7 +76,7 @@ public class ClickAI : MonoBehaviour
     /// <summary>
     /// Raycast hits all layers besides this one.
     /// </summary>
-    int raycastLayerMask;
+    private int raycastLayerMask;
 
     void Awake()
     {
@@ -140,11 +140,11 @@ public class ClickAI : MonoBehaviour
                 GameObject aiGameObj = hit.collider.gameObject;
                 DialogueBank dialogueBank = aiGameObj.GetComponent<DialogueBank>();
                 // No dialouge needed
-                if (dialogueBank.alreadyTalked)
-                {
-                    dialogueBank.AlreadyTalked();
-                    return;
-                }
+                // if (dialogueBank.alreadyTalked)
+                // {
+                //     dialogueBank.AlreadyTalked();
+                //     return;
+                // }
 
                 // Prevent interaction if AI is out of dialouge
                 if (dialogueBank.GetRemainingDialogueCount() == 0)
@@ -193,6 +193,8 @@ public class ClickAI : MonoBehaviour
                 // UIManagerLite.DisableEndTurnButton(); // ugly
 
                 UIManagerLite.TransitionToState(UIManagerLite.GameState.Dialogue);
+                 PortraitFade PF = dialogueBank.GetPortraitFade();
+                PF.clicked= true;
 
             }
 

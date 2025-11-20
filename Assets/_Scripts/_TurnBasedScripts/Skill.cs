@@ -28,9 +28,6 @@ public abstract class Skill : MonoBehaviour
     [Header("The selectable image associated with this skill")]
     public Button skillButton;
 
-    [Header("Event associated with this skill")]
-    public UnityEvent skillEvent;
-
     /// <summary>
     /// Im keeping this variable with update to unlocks so that
     /// awarding usages is still supported.
@@ -57,14 +54,23 @@ public abstract class Skill : MonoBehaviour
     /// </summary>
     private bool unlocked = false;
 
+    /// <summary>
+    /// Skills that use raycasts hits all layers besides this one.
+    /// </summary>
+    protected int raycastLayerMask;
 
     // For some reason the parent class, Skill, does not pass its reference to skillSystem as it should. Try
     // debugging in various way but this my best fix. Simply calling get component again to get skillSystem.
     protected SkillSystem skillSystem;
 
-    private void Awake()
+
+    /// <summary>
+    /// All derived classes should call this base awake, override to expand upon it if needed.
+    /// </summary>
+    protected virtual void Awake()
     {
         skillSystem = GetComponent<SkillSystem>();
+        raycastLayerMask = ~LayerMask.GetMask("NoCastyCastyCollider");
     }
 
     /// <summary>
@@ -86,9 +92,7 @@ public abstract class Skill : MonoBehaviour
             UIManagerLite.TransitionToState(UIManagerLite.GameState.SkillInUse);
             //SkillsCollection.S.DISABLE_BUTTONS(); old ui
             endTurnButton.interactable = false;
-            skillEvent.Invoke(); // Not using this for now
-            // Stuff that happens when skill is activated!
-        }
+        } 
     }
 
     /// <summary>
@@ -105,21 +109,17 @@ public abstract class Skill : MonoBehaviour
             CultistPoints.DeductPonts(cultistCost);
             AddSkillUsage(1);
             ActivateSkill();
-        }
+        } 
     }
 
     /// <summary>
     /// Called once upon player unlocking this skill.
-    /// Sets skill button to active and interactable.
+    /// Sets skill button to active, SkillsCollection determines if it is interactable.
     /// </summary>
     public void UnlockSkill()
     {
-        
         unlocked = true;
         skillButton.gameObject.SetActive(true);
-        // usagesRemainTxt.gameObject.SetActive(true);
-        skillButton.interactable = true;
-
         cultistCostTxt.gameObject.SetActive(true);
         UpdateCultistCostText();
     }
@@ -142,6 +142,17 @@ public abstract class Skill : MonoBehaviour
     public bool IsUnlocked()
     {
         return unlocked;
+    }
+
+    /// <summary>
+    /// Returns whether this skill can be afforded, used by SkillsCollection
+    /// to determine if a bunch should be interactable or not upon being turned on.
+    /// </summary>
+    public bool CanAffordUsage()
+    {
+        //Debug.LogError(CultistPoints.GetPoints() >= cultistCost || usagesRemaining > 0);
+
+        return CultistPoints.GetPoints() >= cultistCost || usagesRemaining > 0;
     }
 
 

@@ -22,14 +22,6 @@ public class SkillSwapRooms : Skill
     private GameObject rm2Obj;
     private bool switchCanOccur = false;
 
-    //private PlayerInputActions inputActions;
-
-    private void Awake()
-    {
-        //inputActions = new PlayerInputActions();
-        skillSystem = GetComponent<SkillSystem>();
-    }
-
     private void Start()
     {
         enabled = false;
@@ -59,7 +51,7 @@ public class SkillSwapRooms : Skill
         // Determine the rooms being selected for a switch
         Ray ray = skillSystem.GET_CAM().ScreenPointToRay(mousePos);
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit))
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, raycastLayerMask))
         {
             MazeCellObject cellHit = hit.transform.GetComponentInParent<MazeCellObject>();
             if (cellHit != null && cellHit.roomType != "Hallway")

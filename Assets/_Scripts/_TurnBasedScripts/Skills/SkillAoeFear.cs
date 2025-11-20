@@ -14,14 +14,15 @@ public class SkillAoeFear : Skill
 
     
 
-    void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+        
         if (mainCamera == null)
         {
             mainCamera = Camera.main; // Use main camera if none specified
         }
         obTrans = AOEOb.GetComponent<Transform>();
-        skillSystem = GetComponent<SkillSystem>();
     }
 
     void Start()
@@ -37,7 +38,7 @@ public class SkillAoeFear : Skill
         Ray ray = mainCamera.ScreenPointToRay(mousePos);
         RaycastHit hit;
         // Note this is hitting the floor.
-        if (Physics.Raycast(ray, out hit))
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, raycastLayerMask))
         {
             if (hit.transform.GetComponentInParent<MazeCellObject>() != null)
             {
@@ -66,7 +67,7 @@ public class SkillAoeFear : Skill
         Ray ray = skillSystem.GET_CAM().ScreenPointToRay(mousePos);
         RaycastHit hit;
         // Note this is hitting the floor.
-        if (Physics.Raycast(ray, out hit))
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, raycastLayerMask))
         {
             if (canPlace && hit.transform.GetComponentInParent<MazeCellObject>() != null)
             {

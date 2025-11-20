@@ -66,15 +66,18 @@ public class SkillsCollection : MonoBehaviour
     }
 
     /// <summary>
-    /// Turn all skill buttons to interactable if they have usages.
+    /// Turn all skill buttons to interactable if they have can be afforded or have usages.
     /// </summary>
     public void ENABLE_BUTTONS()
     {
         foreach(Skill skill in S.skillList)
         {
-            if (skill.IsUnlocked())
+            if (skill.IsUnlocked() && skill.CanAffordUsage())
             {
                 skill.skillButton.interactable = true;
+            } else
+            {
+                skill.skillButton.interactable = false;
             }
         }
     }

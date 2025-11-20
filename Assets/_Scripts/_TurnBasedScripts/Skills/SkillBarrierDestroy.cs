@@ -33,12 +33,6 @@ public class SkillBarrierDestroy : Skill
     private int cycleCount = 0;
     private Transform cellHit;
 
-
-    private void Awake()
-    {
-        skillSystem = GetComponent<SkillSystem>();
-    }
-
     private void Start()
     {
         // I had a bug because this was in awake thus stopping start from being called until this script became enabled again.
@@ -54,7 +48,7 @@ public class SkillBarrierDestroy : Skill
             mousePos = GameInput.Instance.GetActiveGameDevice() == GameInput.GameDevice.KeyboardMouse ? Mouse.current.position.ReadValue() : VirtualMouseUI.Instance.GetVirtualMousePosition();
             Ray ray = skillSystem.GET_CAM().ScreenPointToRay(mousePos);
             RaycastHit hit;
-            if (Physics.Raycast(ray, out hit))
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, raycastLayerMask))
             {
                 if (hit.transform.GetComponentInParent<MazeCellObject>() != null)
                 {
@@ -62,8 +56,12 @@ public class SkillBarrierDestroy : Skill
                     Debug.Log(cellHit.name);
                     AudioManager.PlaySFX(SFXType.MouseButtonHit);
                     GetPossibleBarrierWalls(cellHit);
-                    canCycle = true;
+                    // early exit if no walls to destroy. allows player to choose
+                    // new cell without r-click cancel
+                    if(activeWalls.Count == 0){return;}
 
+
+                    canCycle = true;
                     // grab original mat once!
                     if (getOriginalMat)
                     {
@@ -143,24 +141,93 @@ public class SkillBarrierDestroy : Skill
     }
 
     /// <summary>
+    /// OLD VERSION WITHOUT PERIMETER CHECK
     /// Get active barrier walls apart of cell, which are those we may destroy.
+    /// </summary>
+    // private void GetPossibleBarrierWalls(Transform cell)
+    // {
+    //     activeWalls.Clear();
+
+    //     int i = 0;
+    //     foreach (Transform child in cell) // interesting cell is just a transform, but we can loop through its transforms
+    //     {
+    //         GameObject wallOb = child.gameObject;
+    //         if (wallOb.activeSelf == true) // grab all active walls
+    //         {
+    //             if (i == 0) { i++; continue; } // index 0 is floor, skip it
+
+    //             activeWalls.Add(child);
+    //             Debug.Log(child.name);
+    //             i++;
+    //         }
+    //     }
+    // }
+
+    /// <summary>
+    /// Get active barrier walls apart of cell, which are those we may destroy.
+    /// Excludes walls that border the perimeter of the maze.
     /// </summary>
     private void GetPossibleBarrierWalls(Transform cell)
     {
         activeWalls.Clear();
 
+        // Get cell's maze coordinates and maze dimensions to exclude perimeter walls
+        MazeCellObject cellObj = cell.GetComponent<MazeCellObject>();
+        int x = cellObj.GetXCoord();
+        int y = cellObj.GetYCoord();
+        int mazeWidth = MazeGenerator.Instance.mazeWidth;
+        int mazeHeight = MazeGenerator.Instance.mazeHeight;
+
         int i = 0;
-        foreach (Transform child in cell) // interesting cell is just a transform, but we can loop through its transforms
+        foreach (Transform child in cell)
         {
             GameObject wallOb = child.gameObject;
-            if (wallOb.activeSelf == true) // grab all active walls
+            
+            if (i == 0) { i++; continue; } // index 0 is floor, skip it
+            
+            if (wallOb.activeSelf == true)
             {
-                if (i == 0) { i++; continue; } // index 0 is floor, skip it
+                // Determine wall type 
+                WallType wallType = i switch
+                {
+                    1 => WallType.Bottom,
+                    2 => WallType.Top,
+                    3 => WallType.Right,
+                    4 => WallType.Left,
+                    _ => WallType.Top
+                };
 
-                activeWalls.Add(child);
-                Debug.Log(child.name);
-                i++;
+                // Check if this wall is on the perimeter
+                bool isPerimeterWall = false;
+                switch (wallType)
+                {
+                    case WallType.Bottom:
+                        isPerimeterWall = (y == 0);
+                        break;
+                    case WallType.Top:
+                        isPerimeterWall = (y == mazeHeight - 1);
+                        break;
+                    case WallType.Left:
+                        isPerimeterWall = (x == 0);
+                        break;
+                    case WallType.Right:
+                        isPerimeterWall = (x == mazeWidth - 1);
+                        break;
+                }
+
+                //Debug.Log($"  Index {i} ({child.name}): WallType={wallType}, IsPerimeter={isPerimeterWall}");
+                // Only add walls that are NOT on the perimeter
+                if (!isPerimeterWall)
+                {
+                    activeWalls.Add(child);
+                }
+                else
+                {
+                    Debug.Log($"EXCLUDED: Perimeter wall");
+                }
             }
+            // must always incremement outside loop to keep wall type indices accurate
+            i++; 
         }
     }
 
@@ -171,7 +238,7 @@ public class SkillBarrierDestroy : Skill
     /// </summary>
     private void CycleWall()
     {
-        Debug.Log("Cycling through walls");
+        //Debug.Log("Cycling through walls");
         // each new cycle input, reset all previously inactive walls in activewalls, back to active
         // with their original materials
         foreach (Transform wall in activeWalls)
@@ -188,11 +255,21 @@ public class SkillBarrierDestroy : Skill
         cycleCount = (cycleCount + 1) % activeWalls.Count; // wrap around at last wall index
     }
 
+    /// <summary>
+    /// On confirm AND canceling, reset values on this skill so it is ready for another use.
+    /// </summary>
     private void ResetValues()
     {
         canCycle = false;
         cycleCount = 0;
         cellHit = null;
+
+        // restore original materials to walls
+        foreach(Transform wall in activeWalls)
+        {
+            Renderer wallMat = wall.GetComponent<Renderer>();
+            wallMat.material = originalMat;
+        }
         activeWalls.Clear(); // Clear the list to avoid retaining any references
     }
 
