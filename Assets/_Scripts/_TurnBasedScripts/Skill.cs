@@ -28,9 +28,6 @@ public abstract class Skill : MonoBehaviour
     [Header("The selectable image associated with this skill")]
     public Button skillButton;
 
-    [Header("Event associated with this skill")]
-    public UnityEvent skillEvent;
-
     /// <summary>
     /// Im keeping this variable with update to unlocks so that
     /// awarding usages is still supported.
@@ -95,8 +92,6 @@ public abstract class Skill : MonoBehaviour
             UIManagerLite.TransitionToState(UIManagerLite.GameState.SkillInUse);
             //SkillsCollection.S.DISABLE_BUTTONS(); old ui
             endTurnButton.interactable = false;
-            skillEvent.Invoke(); // Not using this for now
-            // Stuff that happens when skill is activated!
         }
     }
 
