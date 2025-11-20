@@ -76,7 +76,7 @@ public class ClickAI : MonoBehaviour
     /// <summary>
     /// Raycast hits all layers besides this one.
     /// </summary>
-    int raycastLayerMask;
+    private int raycastLayerMask;
 
     void Awake()
     {

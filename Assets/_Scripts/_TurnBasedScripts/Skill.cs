@@ -57,14 +57,23 @@ public abstract class Skill : MonoBehaviour
     /// </summary>
     private bool unlocked = false;
 
+    /// <summary>
+    /// Skills that use raycasts hits all layers besides this one.
+    /// </summary>
+    protected int raycastLayerMask;
 
     // For some reason the parent class, Skill, does not pass its reference to skillSystem as it should. Try
     // debugging in various way but this my best fix. Simply calling get component again to get skillSystem.
     protected SkillSystem skillSystem;
 
-    private void Awake()
+
+    /// <summary>
+    /// All derived classes should call this base awake, override to expand upon it if needed.
+    /// </summary>
+    protected virtual void Awake()
     {
         skillSystem = GetComponent<SkillSystem>();
+        raycastLayerMask = ~LayerMask.GetMask("NoCastyCastyCollider");
     }
 
     /// <summary>

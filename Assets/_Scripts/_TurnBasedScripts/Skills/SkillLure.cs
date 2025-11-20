@@ -12,11 +12,6 @@ public class SkillLure : Skill
     private MazeCellObject selectedCellObj;
     private Material originalFloorMat;
     
-    private void Awake()
-    {
-        skillSystem = GetComponent<SkillSystem>();
-    }
-
     private void Start()
     {
         enabled = false;
@@ -32,7 +27,7 @@ public class SkillLure : Skill
         Ray ray = skillSystem.GET_CAM().ScreenPointToRay(mousePos);
         RaycastHit hit;
         
-        if (Physics.Raycast(ray, out hit))
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, raycastLayerMask))
         {
             MazeCellObject cellHit = hit.transform.GetComponentInParent<MazeCellObject>();
             

@@ -21,12 +21,6 @@ public class SkillBarrier : Skill
     private int cycleCount = 0;
     private Transform cellHit;
 
-
-    private void Awake()
-    {
-        skillSystem = GetComponent<SkillSystem>();
-    }
-
     private void Start()
     {
         // I had a bug because this was in awake thus stopping start from being called until this script became enabled again.
@@ -42,7 +36,7 @@ public class SkillBarrier : Skill
             mousePos = GameInput.Instance.GetActiveGameDevice() == GameInput.GameDevice.KeyboardMouse ? Mouse.current.position.ReadValue() : VirtualMouseUI.Instance.GetVirtualMousePosition();
             Ray ray = skillSystem.GET_CAM().ScreenPointToRay(mousePos);
             RaycastHit hit;
-            if (Physics.Raycast(ray, out hit))
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, raycastLayerMask))
             {
                 if (hit.transform.GetComponentInParent<MazeCellObject>() != null)
                 {
