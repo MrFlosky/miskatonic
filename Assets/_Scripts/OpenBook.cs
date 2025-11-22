@@ -24,6 +24,7 @@ public class OpenBook : MonoBehaviour
 
     public GameObject firstPage, lastPage;
     public GameObject activePage;
+    public GameObject blankPage;
     public int unlockedPages;
     public int unlockedClues;
     
@@ -62,22 +63,42 @@ public class OpenBook : MonoBehaviour
                     if(v!=t) storyPanels.Add(v.gameObject);
                 }
             }
+
         }
         firstPage = storyPanels[0];
         lastPage = storyPanels[0];
         gameObject.SetActive(false);
-        print(storyPanels.Count);
+        if(blankPage== null)
+        {
+                Debug.LogError(gameObject.name + " has no blank page assigned. Assign the Blank Page prefab in the inspector");
+        }
+        else
+        {
+                GameObject page = Instantiate(blankPage);
+                page.transform.position= firstPage.transform.position;
+                page.transform.SetParent(gameObject.transform);
+                page.SetActive(false);
+                blankPage=page;
+        }
         UnlockNarrative.BookObjects.Add(this);
     }
 
     public void NextPage()
     {
+        if(blankPage.activeSelf) return;
+
         int pageNumber;
-        //the last unlocked storyboard pannel is open. Advances to narrative clues if they are unlocked, returns if not
+        //the last unlocked storyboard pannel is open. Advances to narrative clues if they are unlocked, advances to blank page if not
         if (lastPage.activeSelf&&storyboardOpen)
         {
             
-            if(unlockedClues==0) return;
+            if(unlockedClues==0)
+            {
+                activePage.SetActive(false);
+                blankPage.SetActive(true);
+                return;
+                 
+            }
             
             storyboardOpen=false;
             activePage.SetActive(false);
@@ -113,6 +134,13 @@ public class OpenBook : MonoBehaviour
     
     public void PreviousPage()
     {
+        if (blankPage.activeSelf)
+        {
+            blankPage.SetActive(false);
+            activePage.SetActive(true); 
+            return;
+        }
+
         int pageNumber;
         
         //storyboard pannel is open, opens the previous page
