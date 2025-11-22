@@ -10,7 +10,9 @@ public class WorldObjectButton : MonoBehaviour,
     IPointerExitHandler
 {
     [Header("Events")]
-    public UnityEvent OnClick;
+    public UnityEvent OnLeftClick;
+    public UnityEvent OnRightClick;
+    public UnityEvent OnMiddleClick;
     public UnityEvent OnPointerEnterEvent;
     public UnityEvent OnPointerExitEvent;
 
@@ -24,7 +26,19 @@ public class WorldObjectButton : MonoBehaviour,
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        OnClick?.Invoke();
+        Debug.Log(eventData.button);
+        if(eventData.button == PointerEventData.InputButton.Left)
+        {
+            OnLeftClick?.Invoke();
+        }
+        if(eventData.button == PointerEventData.InputButton.Right)
+        {
+            OnRightClick?.Invoke();
+        }
+        if(eventData.button == PointerEventData.InputButton.Middle)
+        {
+            OnMiddleClick?.Invoke();
+        }
     }
 
     public void OnPointerEnter(PointerEventData eventData)
