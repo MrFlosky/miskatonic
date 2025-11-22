@@ -33,9 +33,9 @@ public class MissionDisplay : MonoBehaviour
     /// <summary>
     /// Upon clicking this card, activate it if user has enough cultist points.
     /// </summary>
-    public void SelectCard()
+    public bool SelectCard()
     {
-        missionObj.MissionSelect();
+        return missionObj.MissionSelect();
     }
 
 }

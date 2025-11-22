@@ -14,16 +14,19 @@ public class CardSelectionHandler : MonoBehaviour
 
     public void ActivateCard(GameObject card)
     {
-        if (selectedCard != null)
+        if (selectedCard != null && selectedCard.GetComponent<MissionDisplay>().SelectCard())
         {
-            selectedCard.GetComponent<MissionDisplay>().SelectCard();
             selectedCard.GetComponent<TempCardAnim>().ResetDestTransform();
             UnselectCard();
             OnCardActivation?.Invoke();
         }
-        else
+        else if(selectedCard == null)
         {
             SetSelectedCard(card);
+        }
+        else
+        {
+            //Probably want to show the player that they don't have enough cultists in some fasion
         }
     }
 
