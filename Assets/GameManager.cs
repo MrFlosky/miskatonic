@@ -67,6 +67,7 @@ public class GameManager : MonoBehaviour
         if (totalFear >= winFear)
         {
             Win("Successful summon");
+            TelemetryManager.S.Won();
         }
     }
 
@@ -78,6 +79,7 @@ public class GameManager : MonoBehaviour
         if(TurnBasedSystem.GET_TURN_COUNT() == roundsUntilDefeat && TurnBasedSystem.IsPlayerTurn())
         {
             Lose("Summon opening missed");
+            TelemetryManager.S.Lost(true);
         }
     }
 
@@ -302,6 +304,7 @@ public class GameManager : MonoBehaviour
         if (CHECK_RITUAL_ROOM_LOSE())
         {
             Lose("Ritual completed - humans conquered fear");
+            TelemetryManager.S.Lost(false);
         }
     }
 }
