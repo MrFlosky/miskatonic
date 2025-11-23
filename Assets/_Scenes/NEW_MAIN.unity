@@ -87799,6 +87799,7 @@ GameObject:
   - component: {fileID: 825611157}
   - component: {fileID: 825611156}
   - component: {fileID: 825611155}
+  - component: {fileID: 825611158}
   m_Layer: 5
   m_Name: LureSkillButton
   m_TagString: Untagged
@@ -87823,7 +87824,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 56.407837, y: -212.59935}
+  m_AnchoredPosition: {x: 56.407837, y: -44.967995}
   m_SizeDelta: {x: 152.3724, y: 47.2443}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &825611155
@@ -87920,6 +87921,30 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 825611153}
   m_CullTransparentMesh: 1
+--- !u!114 &825611158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 825611153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99634edca86565b4a96a0b7b261787f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  simpleTooltipStyle: {fileID: 11400000, guid: b60656fad1664684d8fb0085c2c6ccbb, type: 2}
+  infoLeft: 'Global Lure
+
+
+    Grants an item that attracts all characters when they
+    are within range.
+
+
+    - Left Click: Confirm
+
+    - Right Click: Cancel'
+  infoRight: 'Cultist: 4'
 --- !u!1001 &825959287
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -94285,6 +94310,7 @@ GameObject:
   - component: {fileID: 887524424}
   - component: {fileID: 887524423}
   - component: {fileID: 887524422}
+  - component: {fileID: 887524426}
   m_Layer: 5
   m_Name: BarrierSkillButton
   m_TagString: Untagged
@@ -94406,6 +94432,29 @@ RectTransform:
   m_AnchoredPosition: {x: 56.407837, y: -70.866455}
   m_SizeDelta: {x: 152.3724, y: 47.2443}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &887524426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 887524421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99634edca86565b4a96a0b7b261787f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  simpleTooltipStyle: {fileID: 11400000, guid: b60656fad1664684d8fb0085c2c6ccbb, type: 2}
+  infoLeft: 'Barriers
+
+
+    Cultists construct barriers, inhibiting the movement
+    of characters on the map. Grants two barriers to be placed. Barriers last for
+    one turn.
+
+
+    - '
+  infoRight: 'Cost: 2'
 --- !u!1001 &887836756
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -111847,6 +111896,7 @@ GameObject:
   - component: {fileID: 1056738490}
   - component: {fileID: 1056738489}
   - component: {fileID: 1056738488}
+  - component: {fileID: 1056738491}
   m_Layer: 5
   m_Name: RenovationButton
   m_TagString: Untagged
@@ -111871,7 +111921,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 56.407837, y: -165.35506}
+  m_AnchoredPosition: {x: 56.407837, y: -35.974396}
   m_SizeDelta: {x: 152.3724, y: 47.2443}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1056738488
@@ -111968,6 +112018,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1056738486}
   m_CullTransparentMesh: 1
+--- !u!114 &1056738491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1056738486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99634edca86565b4a96a0b7b261787f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  simpleTooltipStyle: {fileID: 11400000, guid: b60656fad1664684d8fb0085c2c6ccbb, type: 2}
+  infoLeft: 'Renovation
+
+
+    Choose a room. For the next 3 turns all characters
+    in that room gain fear.
+
+
+    Right Click: Cancel'
+  infoRight: 'Cultist: 3'
 --- !u!1001 &1057117595
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -156693,6 +156765,7 @@ GameObject:
   - component: {fileID: 1453125204}
   - component: {fileID: 1453125203}
   - component: {fileID: 1453125202}
+  - component: {fileID: 1453125205}
   m_Layer: 5
   m_Name: PsychosisButton
   m_TagString: Untagged
@@ -156717,7 +156790,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 56.407837, y: -307.08795}
+  m_AnchoredPosition: {x: 56.407837, y: -89.93599}
   m_SizeDelta: {x: 152.3724, y: 47.2443}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1453125202
@@ -156814,6 +156887,32 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1453125200}
   m_CullTransparentMesh: 1
+--- !u!114 &1453125205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1453125200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99634edca86565b4a96a0b7b261787f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  simpleTooltipStyle: {fileID: 11400000, guid: b60656fad1664684d8fb0085c2c6ccbb, type: 2}
+  infoLeft: 'Psychosis
+
+
+    Choose a character. For the next 3 turns they see other
+    characters as horrifying monsters, gaining fear based on the amount of other
+    characters nearby (in the same room or within 3 tiles).
+
+
+    - Click on character:
+    Confirm
+
+    - Right Click: Cancel'
+  infoRight: 'Cultist: 8'
 --- !u!1001 &1455227014
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -188925,6 +189024,7 @@ GameObject:
   - component: {fileID: 1717873112}
   - component: {fileID: 1717873111}
   - component: {fileID: 1717873113}
+  - component: {fileID: 1717873114}
   m_Layer: 5
   m_Name: BarrierDestroyButton
   m_TagString: Untagged
@@ -188949,7 +189049,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 56.407837, y: -354.33224}
+  m_AnchoredPosition: {x: 56.407837, y: -179.87198}
   m_SizeDelta: {x: 152.3724, y: 47.2443}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1717873111
@@ -189046,6 +189146,26 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1717873114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1717873109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99634edca86565b4a96a0b7b261787f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  simpleTooltipStyle: {fileID: 11400000, guid: b60656fad1664684d8fb0085c2c6ccbb, type: 2}
+  infoLeft: 'Barrier
+
+
+    Cultists construct barriers, inhibiting the movement of
+    characters on the map. Grants two barriers to be placed. Barriers last for one
+    turn.'
+  infoRight: 'Cultist: 2'
 --- !u!1001 &1719847903
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -197856,6 +197976,7 @@ GameObject:
   - component: {fileID: 1798195499}
   - component: {fileID: 1798195498}
   - component: {fileID: 1798195497}
+  - component: {fileID: 1798195501}
   m_Layer: 5
   m_Name: FearTotemButton
   m_TagString: Untagged
@@ -197974,9 +198095,37 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 56.407837, y: -259.84366}
+  m_AnchoredPosition: {x: 56.407837, y: -59.957325}
   m_SizeDelta: {x: 152.3724, y: 47.2443}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1798195501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1798195496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99634edca86565b4a96a0b7b261787f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  simpleTooltipStyle: {fileID: 11400000, guid: b60656fad1664684d8fb0085c2c6ccbb, type: 2}
+  infoLeft: 'Fear Totem
+
+
+    Grants an object that can be placed on the map, out
+    of line of sight of the given character. When any character sees the object,
+    fear increases and they path away.
+
+
+    - Mosue: Choose position
+
+    - Left
+    Click: Confirm
+
+    - Right Click: Cancel'
+  infoRight: 'Cultist: 6'
 --- !u!1001 &1801349931
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -233788,7 +233937,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 56.407837, y: -23.62215}
+  m_AnchoredPosition: {x: 56.407837, y: -25.696}
   m_SizeDelta: {x: 152.3724, y: 47.2443}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &395049246092085451
@@ -233864,7 +234013,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 56.407837, y: -118.11075}
+  m_AnchoredPosition: {x: 56.407837, y: -29.978664}
   m_SizeDelta: {x: 152.3724, y: 47.2443}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &453331225119685433
@@ -234947,6 +235096,7 @@ GameObject:
   - component: {fileID: 6092288434375005424}
   - component: {fileID: 789024644524278801}
   - component: {fileID: 221413049417327619}
+  - component: {fileID: 6092288434375005425}
   m_Layer: 5
   m_Name: AOEFearButton
   m_TagString: Untagged
@@ -235018,6 +235168,7 @@ GameObject:
   - component: {fileID: 3086606576973961556}
   - component: {fileID: 4284102892220411724}
   - component: {fileID: 395049246092085451}
+  - component: {fileID: 4345436628711367854}
   m_Layer: 5
   m_Name: RoomSwapButton
   m_TagString: Untagged
@@ -235025,6 +235176,31 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
+--- !u!114 &4345436628711367854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4345436628711367853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99634edca86565b4a96a0b7b261787f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  simpleTooltipStyle: {fileID: 11400000, guid: b60656fad1664684d8fb0085c2c6ccbb, type: 2}
+  infoLeft: 'Layout Changes
+
+
+    - Enter: confirm
+
+    - Left click: select rooms
+
+    -
+    Right click: cancel
+
+'
+  infoRight: 'Cost: 5'
 --- !u!222 &4391699212059953656
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -235880,6 +236056,32 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4293840793668421337}
   m_CullTransparentMesh: 1
+--- !u!114 &6092288434375005425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4293840793668421337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99634edca86565b4a96a0b7b261787f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  simpleTooltipStyle: {fileID: 11400000, guid: b60656fad1664684d8fb0085c2c6ccbb, type: 2}
+  infoLeft: 'AOE Fear
+
+
+    Raise a fog in a 2x2 radius that increases fear of all
+    characters inside. (could make fear gain increase based on amount of characters
+    in the fear, and also increase radius to make more powerful)
+
+
+    - Mouse: Choose
+    maze cell
+
+    - Enter: Confirm'
+  infoRight: 'Cultist: 4'
 --- !u!224 &6118490766366146386
 RectTransform:
   m_ObjectHideFlags: 0
