@@ -64,7 +64,6 @@ public class Mission : MonoBehaviour
         cultistCost = transform.GetChild(3).GetComponent<TextMeshProUGUI>();
         timeCost = transform.GetChild(4).GetComponent<TextMeshProUGUI>();
         selectMissionButton = transform.GetChild(5).GetComponent<Button>();
-        selectMissionButton.onClick.AddListener(MissionSelect);
 
         missionTitle.text = data.title;
         missionDescription.text = data.description;
@@ -82,7 +81,7 @@ public class Mission : MonoBehaviour
     /// <summary>
     /// Upon clicking this mission, activate it if user has enough cultist points.
     /// </summary>
-    public void MissionSelect()
+    public bool MissionSelect()
     {
         if (cultistPointSystem.AttemptMissionPurchase(missionData.cultistCost))
         {
@@ -96,7 +95,9 @@ public class Mission : MonoBehaviour
                 MissionCollection.S.RemoveCardFromPool(this);
                 //Destroy(this.gameObject);
             }
+            return true;
         }
+        return false;
         
     }
 

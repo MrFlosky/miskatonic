@@ -8,7 +8,7 @@ Shader "Hidden/AlphaComposite"
     {
         Tags { "Queue"="Transparent" }
         Blend SrcAlpha OneMinusSrcAlpha // Alpha blending
-        ZWrite Off // so transparent objects dont occlude other objects
+        // ZWrite Off fullscreen blit, depth buffer operations bypassed so this is useless for transparent objs to not block other transparent objects
         
         Pass
         {
@@ -18,6 +18,7 @@ Shader "Hidden/AlphaComposite"
             #include "UnityCG.cginc"
 
             sampler2D _MainTex;
+            
 
             fixed4 frag (v2f_img i) : SV_Target
             {
