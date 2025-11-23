@@ -112,133 +112,155 @@ Evelyn Ventress: "I can't believe I trusted that weirdo." She knows this has som
 ===
 title: EvelynVentress6
 ---
-She lays out all of the information she knows in front of her and tries to find an answer.
-->"This is a dream"
+Evelyn Ventress: She tries to mentally organize all of the information she knows in front of her. Closing her eyes, she tries to find an answer.
+->"This is a dream."
         <<reduce_fear "Evelyn Ventress">>
-        This thought is strangely comforting. By removing this situation from reality, she is able to think through it clearly without fear. 
+        <<determined "Evelyn Ventress">>
+        This thought is strangely comforting. By removing this situation from reality, she can think through it clearly without fear. 
 ->"This is some sort of strange hallucination"
-        <<reduce_fear "Evelyn Ventress">>
-        This thought is strangely comforting. By removing this situation from reality, she is able to think through it clearly without fear. 
+        <<neutral "Evelyn Ventress">>
+        This thought is strangely comforting. By removing this situation from reality, she can think through it clearly without fear.  
 ->"You are stuck in a coma"
-        <<reduce_fear "Evelyn Ventress">>
-        This thought is strangely comforting. By removing this situation from reality, she is able to think through it clearly without fear. 
-->"That man. He trapped you here"
+        <<neutral "Evelyn Ventress">>
+        This thought is strangely comforting. By removing this situation from reality, she can think through it clearly without fear. 
+->"That man. He trapped you here."
         <<add_fear "Evelyn Ventress">>
         <<discover_fear "Evelyn Ventress" 6>>
         <<terrified "Evelyn Ventress">>
         //Fear of Gene
-        “What does he want with me. What has he done to me?” She tenses up.
+        “What does he want with me?What has he done to me?” Her body tenses.
 ===
 title: EvelynVentress7
 ---
-“I have to make a plan. How am I getting out of here?”
+Evelyn Ventress: “I have to make a plan. How am I getting out of here?”
 ->"Leave a trail, so you know where you've gone."
         <<reduce_fear "Evelyn Ventress">>
         <<determined "Evelyn Ventress">>
-        She uses a pen in her pocket to scrap at the walls, leaving a scar in the wall every couple of feet. She smiles at her work. "Progress" 
-->"Make a marking on the wall."
+        She takes a pen from her pocket and scrapes the walls, leaving a scar every couple of feet. She smiles at her work. "Progress." 
+->"Mark the wall."
         <<reduce_fear "Evelyn Ventress">>
-        She uses a pen in her pocket to scrap at the walls, leaving a scar in the wall every couple of feet. She smiles at her work. "Progress" 
+        <<determined "Evelyn Ventress">>
+        She takes a pen from her pocket and scrapes the walls, She uses a pen in her pocket to scrap at the walls, leaving a scar in the wall every couple of feet. She smiles at her work. "Progress."
 ->"What can you do? You know nothing..."
         <<add_fear "Evelyn Ventress">>
         <<discover_fear "Evelyn Ventress" 7>>
+        <<scared "Evelyn Ventress">>
         //Fear of helplessness
-        She thinks for a while, trying to come up with an ideas. She sighs. What can she do? The lack of control bothers her. 
+        She tries to come up with ideas. She sighs as the lack of control overwhelms her. What can she do?
 ->Do nothing
-        he thinks for a while, trying to come up with an ideas. She sighs.
+        <<neutral "Evelyn Ventress">>
+        She tries to come up with ideas. She sighs.
 ===
 title: EvelynVentress8
 ---
-Evelyn feels her arms. They are drenched in sweat.
-->"Interesting how the body reacts so irrationally to fear. What use is this sweat"
+Evelyn Ventress: Evelyn notices that her arms are drenched in a clammy sweat. 
+->"Interesting how the body reacts to fear. What use is this sweat?"    
         <<reduce_fear "Evelyn Ventress">>
-        She is distracted from this nightmare for a second while she ponders the mysteries of the body. 
+        <<determined "Evelyn Ventress">>
+        The momentary distraction is a welcome relief.  
 ->"Weird"
+        <<neutral "Evelyn Ventress">>
         She continues moving.
 ->"You are falling apart"
         <<add_fear "Evelyn Ventress">>
         <<discover_fear "Evelyn Ventress" 8>>
         <<terrified "Evelyn Ventress">>
         //Fear of Weakness
-        Her shoulders raise. She swears that she can feel a sickness under her skin.
+        Her shoulders tense and rise. She feels a sickness under her skin.
 ->"Something else is causing this."
-        She is distracted from this nightmare for a second while she ponders the mystery.
+        <<neutral "Evelyn Ventress">>
+        The momentary distraction is a welcome relief.
 ===
 title: EvelynVentress9
 ---
-The hairs on Evelyn’s back begin to stand on edge. She feels as though she is being watched.
+Evelyn Ventress: The hair on Evelyn’s back stands on edge. She feels someone or something watching her.
 ->"You are being watched"
-        She is freaked out by the thought of someone watching her for a moment. She thinks about it for a moment... that means there is an answer. She walks faster, eager to figure out this mystery. 
+        <<neutral "Evelyn Ventress">>
+        Panicked by the thought of being watched, she walks faster in pursuit of answers and escape. 
 ->"Maybe it's god"
-        She is freaked out by the thought of someone watching her for a moment. She thinks about it for a moment... that means there is an answer. She walks faster, eager to figure out this mystery. 
-->"Nope. You are alone."
-        She continues walking. The weight of her own failure hangs on her shoulders. 
-->"You’re alone, like every moment of your life. Always alone."
+        <<neutral "Evelyn Ventress">>
+        Panicked by the thought of being watched, she walks faster in pursuit of answers and escape.   
+->"No. There are no eyes in the walls."        
+        <<neutral "Evelyn Ventress">>
+        She continues walking, laughing at herself. 
+->"You’re alone, just like every moment of your life. Always alone."
         <<add_fear "Evelyn Ventress">>
         <<discover_fear "Evelyn Ventress" 4>>
+        <<scared "Evelyn Ventress">>
         //Fear of ending up alone
-        She continues walking. The weight of her own failure hangs on her shoulders.
+        She continues walking. Her failure weighs heavy on her shoulders. 
 ===
 title: EvelynVentress10
 ---
-As she walks down corridor after corridor, she keeps her steps heavy to hear the sound of her footsteps echo down the hallway.
+Evelyn Ventress: As she walks down a series of corridors, she stomps so she can hear her footsteps echo down the halls.
 ->Change the pitch of her steps.
-        She laughs at the sound and takes a break from walking. "This is getting out of hand..." She says outloud to herself.
-->Make the steps even louder as the echo
+        <<neutral "Evelyn Ventress">>
+        She laughs at the sound and stops walking. "This is getting out of hand..."she says out loud.
+->Make the steps even louder as they echo.
         <<reduce_fear "Evelyn Ventress">>
-        Her ears start to ring from the sound of the echo. She laughs at herself a little and takes a break from walking. "Okay, this isn't a march. This is getting out of hand..." She says outloud to herself.
-->Dampen the sound of her footsteps
+        <<neutral "Evelyn Ventress">>
+        Her ears start to ring as the echo gets louder. She laughs at herself and stops walking. "Okay, this isn't a march. This is getting out of hand..." she says out loud. 
+->Dampen the sound of her footsteps.
         <<add_fear "Evelyn Ventress">>
         <<discover_fear "Evelyn Ventress" 0>>
         <<terrified "Evelyn Ventress">>
         //Fear of Silence
-        The sound of her footsteps slowly fizzle into nothing. She starts to sweat. She starts to run, hoping that this will interrupt the silence. The only thing that brings her comfort is the sound of her own heartbeat. 
+        The sound of her footsteps slowly fade into silence. She starts to sweat. She runs, desperate to break the disturbing silence. Her only comfort is the sound of her own heartbeat.
 ->Do nothing
-         She laughs at herself a little and takes a break from walking. "Okay, this isn't a march. This is getting out of hand..." She says outloud to herself.
+        <<neutral "Evelyn Ventress">>
+        She laughs at herself a little and takes a break from walking. "Okay, this isn't a march. This is getting out of hand..."she says out loud.
 ===
 title: EvelynVentress11
 ---
-As she gazes upon row of brick after row of brick, Evelyn's mind starts to play tricks on her. She begins to hallucinate. A figure appears before her. "What is that?"
+Evelyn Ventress: As she stares at endless rows of bricks, Evelyn hallucinates. A figure appears before her. "What is that?"
 ->"It's Gene"
         <<add_fear "Evelyn Ventress">>
         <<discover_fear "Evelyn Ventress" 6>>
         <<terrified "Evelyn Ventress">>
         //Fear of Gene
-        She feels a lump start to grow in her throat. She tries to yell for help, but nothing comes out. She starts to run as the hallucination fizzles into the air. 
+        She feels a lump grow in her throat. She yells for help, but no sound comes out. She runs as the hallucination evaporates into air.  
 ->"It's your father"
         <<add_fear "Evelyn Ventress">>
         <<discover_fear "Evelyn Ventress" 2>>
+        <<terrified "Evelyn Ventress">>
         //Fear of Father
-        She feels a lump start to grow in her throat. She tries to yell for help, but nothing comes out. She starts to run as the hallucination fizzles into the air. 
-->"It's one of your coworkers"
-        She moves closer to the apparition, confused. As she gets closer, the hallucination fizzles into the air.
-->"It looks completely unfamiliar"
-        She moves closer to the apparition, confused. As she gets closer, the hallucination fizzles into the air.
+        She feels a lump start to grow in her throat. She tries to yell for help, but nothing comes out. She starts to runs as the hallucination evaporates into air. 
+->"It's one of your coworkers."
+        <<neutral "Evelyn Ventress">>
+        Confused, she moves closer to the apparition. As she gets closer, the hallucination evaporates into air.
+->"It looks completely unfamiliar."
+        <<neutral "Evelyn Ventress">>
+        Confused, she moves closer to the apparition. As she gets closer, the hallucination evaporates into air.
 ===
 title: EvelynVentress12
 ---
-She looks down at the floor of the maze and notices some small creatures crawling on the edges of the corridor. 
+Evelyn Ventress: She looks down at the floor and sees small creatures crawling along the edges of the corridor. 
 ->"It's tiny little people..."
         <<reduce_fear "Evelyn Ventress">>
-        She looks closely at them and begins to laugh. What the hell is this place?!
-->"It's a swarm of spiders"
+        <<determined "Evelyn Ventress">>
+        She looks closely and begins to laugh. "What the hell is this place?! I have to get to the bottom of this."
+->"It's a swarm of spiders."
         <<add_fear "Evelyn Ventress">>
         <<discover_fear "Evelyn Ventress" 9>>
         <<terrified "Evelyn Ventress">>
         //Fear of spiders
-        Evelyn jumps back. "Shit shit shit shit shit" She moves away from them as quick as possible. 
-->"It's a parade of ants"
-        She looks at them curiously. "What kind of ants are these? They should give some hint to where I am."
-->"It's a parade of beetles"
-        She looks at them curiously. "What kind of beetles are these? They should give some hint to where I am."
+        Evelyn jumps back. "Shit shit shit shit shit!" She scrambles away from them. 
+->"It's a parade of ants."
+        <<neutral "Evelyn Ventress">>
+        Curious, she studies them. "What kind of beetles are these? They should give some hint of where I am."
+->"It's a parade of beetles."
+        <<neutral "Evelyn Ventress">>
+        Curious, she studies them. "What kind of beetles are these? They should give some hint of where I am."
 ===
 title: EvelynVentress13
 ---
-She tries not to, but her mind starts to think about what is going to happen to her here.
-->"A monster is going to get you and torture you..."
-        She laughs at the idea of one of those cheesy monsters from an 80s horror movie coming after her. She ignores the thought.
-->"LOOK OUT BEHIND YOU"
-        She jumps and looks behind her only to find nothing. She laughs at the idea of one of those cheesy monsters from an 80s horror movie jumping out at her. She ignores the thought.
+Evelyn Ventress: She struggles to keep her mind from imagining what horrors may happen to her here. 
+->"A monster is going to capture and torture you..."
+        <<neutral "Evelyn Ventress">>
+        She dilutes the idea by picturing a cheesy monster from an 80s horror movie.
+->"LOOK OUT BEHIND YOU!"
+        <<neutral "Evelyn Ventress">>
+        She jumps and looks behind her only to find nothing. She dilutes the fear by picturing a cheesy monster from an 80s horror movie.
 ->"Maybe you'll find others here."
         <<reduce_fear "Evelyn Ventress">>
         <<determined "Evelyn Ventress">>
@@ -246,22 +268,26 @@ She tries not to, but her mind starts to think about what is going to happen to 
 ->"Nothing will happen. You'll just be here... alone..."
         <<add_fear "Evelyn Ventress">>
         <<discover_fear "Evelyn Ventress" 1>>
+        <<scared "Evelyn Ventress">>
         //Fear of isolation
-        "Yeah... maybe" She tries to ignore the thought, but the thought of being stuck here alone sticks with her. 
+        "Yeah... maybe." She tries to ignore the possibility, but the thought of being stuck here alone clings to her. 
 ===
 title: EvelynVentress14
 ---
-She looks up at the roof of the maze and notices something...
-->"The roof is leaking"
-        "Are we under water?" She is left more confused.
-->"Something is up there watching you"
+Evelyn Ventress: She looks up at the ceiling and notices something.
+->"The roof is leaking."
+        <<neutral "Evelyn Ventress">>
+        "Are we under water?" She’s even more confused.
+->"Something is up there watching you."
         <<add_fear "Evelyn Ventress">>
         <<discover_fear "Evelyn Ventress" 3>>
         <<terrified "Evelyn Ventress">>
         //Fear of being watched
-        "I have no proof of that..." She tries to ignore the thought, but she can't help but feel eyes following her. She constantly checks over her shoulder.
-->"The roof is caving in"
-        "Are we underground?" She is left more confused.
-->"Normal roof"
-        Okay...
+        "I have no proof of that." She feels eyes following her. She constantly checks over her shoulder.
+->"The roof is caving in."
+        <<neutral "Evelyn Ventress">>
+        "Are we underground?" Confusion grows.
+->"Normal roof."
+        <<neutral "Evelyn Ventress">>
+        Okay.
 ===
