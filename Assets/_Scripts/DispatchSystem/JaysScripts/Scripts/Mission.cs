@@ -86,7 +86,9 @@ public class Mission : MonoBehaviour
         if (cultistPointSystem.AttemptMissionPurchase(missionData.cultistCost))
         {
             missionReward.GrantReward();
+            TelemetryManager.S.CountPick(missionData.title);
             DispatchSystem.DealingOver();
+            
 
             // if card is a one time use only, remove it from pool
             if(oneTimeUse)

@@ -76,6 +76,7 @@ public class MissionCollection : MonoBehaviour
             chosenMission = availableMissions[randomMissionIndex];
 
             discardedMissions.Add(chosenMission);
+            TelemetryManager.S.CountDiscard(chosenMission.GetMissionData().title);
             availableMissions.RemoveAt(randomMissionIndex);
 
             // Display randomly chosen mission with offsets on mission canvas
