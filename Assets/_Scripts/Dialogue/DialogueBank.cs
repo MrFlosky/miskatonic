@@ -27,7 +27,7 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
     private int dialoguesRemaining;
 
     // MUST match the character's folder that holds their dialogues.
-    [SerializeField] private CharacterData.Character character;
+    [SerializeField] public CharacterData.Character character;
     private string characterFirstName;
     private string characterLastName;
     
@@ -139,6 +139,28 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
         }
     }
 
+    Queue<string> DialogQueue = new Queue<string>();
+
+    /// <summary>
+    /// Queue up special dialog when a requirement is met.
+    /// </summary>
+    public void QueueSpecialDialog(string trigger)
+    {
+        characterFirstName = CharacterNames.GetFirstName(character);
+        characterLastName = CharacterNames.GetLastName(character);
+        characterFullName = characterFirstName + characterLastName;
+        string yarnAcessStr = characterFullName + trigger;
+        Debug.Log($"Dialog {yarnAcessStr} queued for {characterFirstName}");
+
+        DialogQueue.Enqueue(yarnAcessStr);
+    }
+
+    private string DequeueSpecialDialog()
+    {
+        return DialogQueue.Dequeue();
+    }
+
+
     /// <summary>
     /// Play random dialogue for given character,
     /// then remove that dialogue index as a possibility.
@@ -162,6 +184,33 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
 
         dialoguesRemaining -= 1;
         unPlayedDialogues.RemoveAt(listIndex);
+    }
+
+    public void PlayQueuedDialog(string yarnAcessStr)
+    {
+        ClickAI.S.StartConversation();
+        // add function to be called when dialogue ends. cannot be done in start,
+        // otherwise all dialoguebank gameobjects listening for event at same time
+        dialgoueRunner.onDialogueComplete.AddListener(EndDialogue);
+
+        CharacterGameDialogue.SetActivePortrait(character);
+        
+        dialgoueRunner.StartDialogue(yarnAcessStr);    
+    }
+
+    /// <summary>
+    /// Plays and handles dialog
+    /// </summary>
+    public void PlayDialog()
+    {
+        if(DialogQueue.Count > 0)
+        {
+            PlayQueuedDialog(DequeueSpecialDialog());
+        }
+        else
+        {
+            PlayRandomDialogue();
+        }
     }
 
     /// <summary>

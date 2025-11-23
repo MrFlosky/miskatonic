@@ -39,6 +39,11 @@ public class PPEPasses : MonoBehaviour
         {
             // perform two render passes using first paint shader, then dither
             Graphics.Blit(source, firstPassRT, paintMaterial); // store results from source image blit with paint material in firstPassRt
+
+            // grab depth from main camera, pass to no post procc shader so its depth aware of main scene
+            // for later reference on how to get scene depth buffer
+            //  noPostProcMaterial.SetTexture("_MainSceneDepth", source);
+            
             Graphics.Blit(excludedObjectsRT, firstPassRT, noPostProcMaterial); // store exluded objects rt pixels with transparent material in first pass rt
             Graphics.Blit(firstPassRT, destination, ditherMaterial); // store firstpassrt with dither material into destination, output render texture in inspector
             
