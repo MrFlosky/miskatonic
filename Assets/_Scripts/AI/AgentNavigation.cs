@@ -627,6 +627,10 @@ public class AgentNavigation : MonoBehaviour
         {
             visitedRooms.Add(roomType);
             path.Clear();
+
+            string noSpacesRoom = roomType.Replace(" ", "");
+
+            gameObject.GetComponent<DialogueBank>().QueueSpecialDialog(noSpacesRoom);
         }
     }
 

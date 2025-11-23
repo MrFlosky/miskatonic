@@ -58,7 +58,7 @@ public class AICamera : MonoBehaviour
             AIFearMeter.DisplayAIMeter();
             FearCollection.S.SetFearStateText(thisAIsFear.GetFearState().ToString());
 
-            dialogueBank.PlayRandomDialogue();
+            dialogueBank.PlayDialog();
             dialogueBank.alreadyTalked = true;
 
             // blending happens for both the zoom and zoom out transition i think
