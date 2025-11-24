@@ -1,101 +1,125 @@
 ﻿title: HaroldAudenLibrary
 ---
-OMG I'm in a freaking libray WTF MAN this is messed up
--> Library Option 1
-    DO libarary stuff
--> Libary Option 2
-    DO libarary stuff
--> Library Option 3
-    <<reduce_fear "Iain Schweblin">>
-    DO libarary stuff
--> Library option 4
-    <<add_fear "Iain Schweblin">>
-    <<discover_fear "Iain Schweblin" 0>>
-    //Overthinking
-    DO libarary stuff  
+Harold Auden: Harold pulls a dusty book of the shelf. Looking at the cover, he discovers some unusual runes engraved into it. He runs his fingers across them before opening the book to the first page. 
+->Title: “A History of the Vikings”
+    <<add_fear "Harold Auden">>
+    <<discover_fear "Harold Auden" 3>>
+    <<terrified "Harold Auden">>
+    //Fear of Violence
+    Reading past the first page, he is taken aback by the brutal illustrations of people being torn limb from limb. One particular illustration of the Blood Eagle, a ritualistic torture method, lingers in his mind as he puts the book away.
+->Title: “The New England Journal of Medicine”
+    <<neutral "Harold Auden">>
+	He skims past a couple of diagrams before putting the book back on the shelf. 
+->The text is unintelligible. 
+    <<neutral "Harold Auden">>
+	“Strange.” He puts the book back where he found it. 
+-> Title: “Different Seasons”
+    <<reduce_fear "Harold Auden">>
+    <<determined "Harold Auden">>
+    A smile takes over his face. He loved this book in high school. He carries it under his coat, hoping it will keep him company through his long journey. 
 ===
+
 title: HaroldAudenDungeon
 ---
-OMG I'm in a freaking dungeon WTF MAN this is messed up
--> dungeon Option 1
-    DO dungeon stuff
--> dungeon Option 2
-    DO dungeon stuff
--> dungeon Option 3
-    <<reduce_fear "Iain Schweblin">>
-    DO dungeon stuff
--> dungeon option 4
-    <<add_fear "Iain Schweblin">>
-    <<discover_fear "Iain Schweblin" 0>>
-    //Overthinking
-    DO dungeon stuff  
+Harold Auden: Harold feels uneasy as he steps in the room. He looks down at his feet to find his shoes soaking in a pool of blood. He jumps away, putting him face first with the contents of one of the cells.
+->It’s an old man sulking in the corner.
+    <<neutral "Harold Auden">>
+	Confused, he knocks on the bars of the cell. The figure looks up just to fade into the air as soon as he makes eye contact with Harold. 
+->It’s a mound of flesh.
+    <<add_fear "Harold Auden">>
+    <<discover_fear "Harold Auden" 7>>
+    <<terrified "Harold Auden">>
+    //Fear of the Inhuman
+    Something about this scene feels familiar to him. The mound of flesh begins to move to reveal two eyes staring at him, hanging off long nerves. He screams, but can’t take his eyes off of it as it fades into the air.  
+->Nothings there
+    <<neutral "Harold Auden">>
+	“Huh. Could of sworn I saw something.” He continues on. 
+->It’s a rabid dog
+    <<neutral "Harold Auden">>
+	“Hi, doggy.” Harold is comforted by the bars that separate him and the mutt. The dog snarls before fading into the air.  
 ===
+
 title: HaroldAudenDiningRoom
 ---
-OMG I'm in a freaking dining room WTF MAN this is messed up
--> dining room Option 1
-    DO dining room stuff
--> dining room Option 2
-    DO dining room stuff
--> dining room Option 3
-    <<reduce_fear "Iain Schweblin">>
-    DO dining room stuff
--> dining room option 4
-    <<add_fear "Iain Schweblin">>
-    <<discover_fear "Iain Schweblin" 0>>
-    //Overthinking
-    DO dining room stuff  
+Harold Auden: As Harold enters the dining room, he feels a shiver run up his spine.
+->”Wonder why it’s so cold…”
+    <<neutral "Harold Auden">>
+    Harold ponders the temperature of the room and what that could mean about where he is.
+->”It must be a ghost.”
+    <<neutral "Harold Auden">>
+	“A ghost?” He thinks about the implications of that potential reality. He can’t think of any good reason to be scared.
+->”That’s not the cold. Something is running up your spine.”
+    <<add_fear "Harold Auden">>
+    <<discover_fear "Harold Auden" 6>>
+    <<terrified "Harold Auden">>
+    //Fear of Parasites
+    He grabs at his back but can’t seem to reach his spine. He feels like something is crawling under his skin. He collapses to the floor and shakes with terror. 
+->”Must be the wind.”
+    <<neutral "Harold Auden">>
+    “Yeah, that must be it.” Harold continues on.
 ===
+
 title: HaroldAudenCemetery
 ---
-OMG I'm in a freaking cemetery WTF MAN this is messed up
--> cemetery Option 1
-    DO cemetery stuff
--> cemetery Option 2
-    DO cemetery stuff
--> cemetery Option 3
-    <<reduce_fear "Iain Schweblin">>
-    DO cemetery stuff
--> cemetery option 4
-    <<add_fear "Iain Schweblin">>
-    <<discover_fear "Iain Schweblin" 0>>
-    //Overthinking
-    DO cemetery stuff  
+Harold Auden: The strange patch of grass in the middle of this labyrinth perplexes Harold. He walks past the gravestones, reading the names on each one. He comes across one gravestone that becomes him closer. It reads… 
+->Jay Telzrow, 1913 - 1987, Beloved Mayor
+    <<neutral "Harold Auden">>
+  	“Seems perfectly normal.” Harold continues on his way.
+->Gray Huff, 1924 - 1996, Dedicated Dentist
+    <<neutral "Harold Auden">>
+	“Weird to put dentist on your headstone.” Harold continues on his way. 
+->Franklin Auden, 1942 - 2012, Loving Father
+    <<add_fear "Harold Auden">>
+    <<discover_fear "Harold Auden" 5>>
+    <<terrified "Harold Auden">>
+    //Fear of Parents
+	“Dad!?” He is shocked to be reminded of his father in this place. His father’s voice bounces around in his mind, following him wherever he goes. He looks over to the plot next to his father’s to see his mother’s eyes staring at him through the grass. Even in death, they watch, judging him. 
+->Alex Lacoste, 1950-2003, Forgotten
+    <<neutral "Harold Auden">>
+	“What does that mean?” He looks at the gravestone puzzled. 
 ===
 
 title: HaroldAudenRitualRoom
 ---
-OMG I'm in a freaking ritual room WTF MAN this is messed up
--> ritual room Option 1
-    DO ritual room stuff
--> ritual room Option 2
-    DO ritual room stuff
--> ritual room Option 3
-    <<reduce_fear "Iain Schweblin">>
-    DO ritual room stuff
--> ritual room option 4
-    <<add_fear "Iain Schweblin">>
-    <<discover_fear "Iain Schweblin" 0>>
-    //Overthinking
-    DO ritual room stuff  
+Harold Auden: Something takes over Harold as he enter the room. He starts shaking and can barely control his steps. He looks at the lectern holding a book with cryptic runes.
+->”Like a church”
+    <<add_fear "Harold Auden">>
+    <<discover_fear "Harold Auden" 1>>
+    <<terrified "Harold Auden">>
+    //Religious Trauma
+	A memory takes a hold of him. He sees his mother scolding him in the pews of a huge church hall and a tall paster staring menacingly down at him. The thought of those eyes following him makes him feel weak and helpless.  
+->”What do those runes read?”
+    <<neutral "Harold Auden">>
+	He looks closer, inspecting it thoroughly. He can’t find a satisfying answer.
+->”What is this room used for?”
+    <<neutral "Harold Auden">>
+	He can’t seem to figure that out. The book suggests some sort of ritual was performed here. 
+->”Look at this nice candles!”
+    <<neutral "Harold Auden">>
+	“Woah. Those are nice!”
+
 ===
 
 title: HaroldAudenBedroom
 ---
-OMG I'm in a freaking bedroom WTF MAN this is messed up
--> bedroom Option 1
-    DO bedroom stuff
--> bedroom Option 2
-    DO bedroom stuff
--> bedroom Option 3
-    <<reduce_fear "Iain Schweblin">>
-    DO bedroom stuff
--> bedroom option 4
-    <<add_fear "Iain Schweblin">>
-    <<discover_fear "Iain Schweblin" 0>>
-    //Overthinking
-    DO bedroom stuff  
+Harold Auden: Harold looks over at the bed. It reminds him of the days he spent locked in his room as a child, forced to watch the other kids play from outside his window. 
+->”You were so sick all the time.”
+    <<neutral "Harold Auden">>
+	“Yeah, I was. Mother was always so worried about me.” Harold continues to explore the room.
+->”Remember how the neighborhood kids used to treat you?”
+    <<add_fear "Harold Auden">>
+    <<discover_fear "Harold Auden" 4>>
+    <<terrified "Harold Auden">>
+    //Fear of Being Ridiculed 
+	A memory comes rushing back to him. The kids throwing rocks at his window, taking bets on who could break the glass and nail him in the head. He swears he can hear their laughter faintly. 
+->”You’re an adult now. Grow up.”
+    <<neutral "Harold Auden">>
+	“Yeah, I should grow up.” Harold continues on.
+->”Mom used to come take care of you.”
+    <<neutral "Harold Auden">>
+	“Yeah. Mother was always so worried about me.” Although those memories hold mixed emotions, it wasn’t all bad. Harold continues to explore the room. 
 ===
+
 title: HaroldAudenDetermined
 ---
 (in slow motion) LETS DO THIS COME AT ME YA DIDDYBLUD
