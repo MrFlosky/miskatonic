@@ -10,7 +10,7 @@ public class TelemetryManager : MonoBehaviour, ITurnObserver
     public MissionData[] missionsToCollectDataOn;
     private Dictionary<string, int> discardCounts;
     private Dictionary<string, int> chosenCounts;
-    private Dictionary<string, int> skillUsageCounts;
+    private Dictionary<string, int> skillUsageCounts = new Dictionary<string, int>();
 
     // used to prevent double counting of games with the same ID
     private int game_id;
@@ -45,7 +45,7 @@ public class TelemetryManager : MonoBehaviour, ITurnObserver
         List<Skill> skills = SkillsCollection.S.GetSkills();
         foreach (Skill s in skills)
         {
-            skillUsageCounts.Add(s.name, 0);
+            skillUsageCounts.Add(s.GetType().Name, 0);
         }
     }
 
@@ -57,6 +57,11 @@ public class TelemetryManager : MonoBehaviour, ITurnObserver
     public void CountPick(string title)
     {
         if (chosenCounts.ContainsKey(title)) chosenCounts[title]++;
+    }
+
+    public void CountSkillUsage(string name, int amt)
+    {
+        if (skillUsageCounts.ContainsKey(name)) skillUsageCounts[name] += amt;    
     }
 
     public void Won()

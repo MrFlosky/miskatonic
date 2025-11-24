@@ -89,6 +89,8 @@ public abstract class Skill : MonoBehaviour
             // usages
             usagesRemaining -= usageDeduction;
 
+            TelemetryManager.S.CountSkillUsage(GetType().Name, 1);
+
             UIManagerLite.TransitionToState(UIManagerLite.GameState.SkillInUse);
             //SkillsCollection.S.DISABLE_BUTTONS(); old ui
             endTurnButton.interactable = false;
@@ -185,6 +187,7 @@ public abstract class Skill : MonoBehaviour
             PlayerController.Instance.SetActiveSkill(null);
             AudioManager.PlaySFX(SFXType.ButtonSelection);
             CultistPoints.AddPointsStatic(cultistCost); // refund cultists if player exits skill usage
+            TelemetryManager.S.CountSkillUsage(GetType().Name, -1); // uncount the usage
             EndSkill();
         }
     }
