@@ -74,7 +74,7 @@ public class Mission : MonoBehaviour
         
 
 
-        timeCost.text = "Time: " + data.turnActivateTime.ToString();
+        //timeCost.text = "Time: " + data.turnActivateTime.ToString();
         missionCardObj.name = "Mission: " + missionTitle.text;
     }
 
