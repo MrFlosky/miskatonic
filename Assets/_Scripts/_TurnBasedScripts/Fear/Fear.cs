@@ -34,6 +34,8 @@ public class Fear : MonoBehaviour, ITurnObserver
     /// </summary>
     private int turnsUntilNeutralState = 0;
 
+    private HashSet<FearState> prevStates = new HashSet<FearState> { FearState.Neutral };
+
     void Awake()
     {
         // awake since apart of same game obj
@@ -118,6 +120,11 @@ public class Fear : MonoBehaviour, ITurnObserver
         fearState = state;
         SetStateLifetime(FearCollection.S.GetStateTurnLife(fearState), prevState);
         FearCollection.S.SetFearStateText(fearState.ToString());
+        if(!prevStates.Contains(state))
+        {
+            prevStates.Add(state);
+            gameObject.GetComponent<DialogueBank>().QueueSpecialDialog(state.ToString());
+        }
     }
 
     /// <summary>
