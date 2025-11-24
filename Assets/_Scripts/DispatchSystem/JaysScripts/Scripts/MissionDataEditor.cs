@@ -19,7 +19,7 @@ public class MissionDataEditor : Editor
         EditorGUILayout.PropertyField(serializedObject.FindProperty("title"));
         EditorGUILayout.PropertyField(serializedObject.FindProperty("description"));
         EditorGUILayout.PropertyField(serializedObject.FindProperty("cultistCost"));
-        EditorGUILayout.PropertyField(serializedObject.FindProperty("turnActivateTime"));
+        //EditorGUILayout.PropertyField(serializedObject.FindProperty("turnActivateTime"));
         EditorGUILayout.PropertyField(serializedObject.FindProperty("oneTimeUse"));
         EditorGUILayout.PropertyField(serializedObject.FindProperty("reward"));
 

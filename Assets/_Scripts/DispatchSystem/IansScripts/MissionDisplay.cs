@@ -26,7 +26,7 @@ public class MissionDisplay : MonoBehaviour
         missionTitle.text = missionObj.missionTitle.text;
         missionDescription.text = missionObj.missionDescription.text;
         cultistCost.text = missionObj.cultistCost.text;
-        timeCost.text = missionObj.timeCost.text;
+        //timeCost.text = missionObj.timeCost.text;
         reward.text = missionObj.rewardName.text;
     }
 

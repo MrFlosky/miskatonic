@@ -18,8 +18,8 @@ public class MissionData : ScriptableObject
     [Header("Removed from pool for rest of game after play?")]
     public bool oneTimeUse;
 
-    [Header("Turn Activation Time")]
-    public int turnActivateTime;
+    // [Header("Turn Activation Time")]
+    // public int turnActivateTime;
 
     [Header("Reward for purchasing this mission")]
     public Reward reward;
