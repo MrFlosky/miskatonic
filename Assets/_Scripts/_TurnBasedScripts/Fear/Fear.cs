@@ -131,7 +131,7 @@ public class Fear : MonoBehaviour, ITurnObserver
         if(!prevStates.Contains(state))
         {
             prevStates.Add(state);
-            gameObject.GetComponent<DialogueBank>().QueueSpecialDialog(state.ToString());
+            gameObject.GetComponent<DialogueBank>().QueueSpecialDialog(state.ToString(), DialogueBank.DialogueType.State);
         }
     }
 
