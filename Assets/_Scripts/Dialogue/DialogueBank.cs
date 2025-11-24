@@ -301,6 +301,11 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
         return count;
     }
 
+    public Character GetCharacter()
+    {
+        return character;
+    }
+
 
     // Changed by balance value interface, controls
     // how much fear is added/reduced with yarn script 

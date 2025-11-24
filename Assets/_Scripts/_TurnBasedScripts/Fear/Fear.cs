@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using CharacterData;
 using UnityEngine;
 using UnityEngine.ProBuilder.MeshOperations;
 using UnityEngine.UI;
@@ -34,12 +35,19 @@ public class Fear : MonoBehaviour, ITurnObserver
     /// </summary>
     private int turnsUntilNeutralState = 0;
 
+    /// <summary>
+    /// Reference to who this fear belongs to
+    /// </summary>
+    private Character characterEnum;
+
     private HashSet<FearState> prevStates = new HashSet<FearState> { FearState.Neutral };
+
 
     void Awake()
     {
         // awake since apart of same game obj
         individualSlider = GetComponent<IndividualFearMeter>();
+        characterEnum = GetComponent<DialogueBank>().GetCharacter();
     }
 
     // Start is called before the first frame update
@@ -166,6 +174,7 @@ public class Fear : MonoBehaviour, ITurnObserver
         else // if completed lifetime on a state, return to netural
         {
             fearState = FearState.Neutral;
+            CharacterGameDialogue.SetActivePortrait(characterEnum, fearState); // update portrait to neutral immediately
         }
     }
 }
