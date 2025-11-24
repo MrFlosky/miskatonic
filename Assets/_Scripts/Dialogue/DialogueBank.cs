@@ -178,7 +178,7 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
         int dialogueKey = unPlayedDialogues[listIndex];
         string yarnAcessStr = characterFullName + dialogueKey;
 
-        CharacterGameDialogue.SetActivePortrait(character);
+        CharacterGameDialogue.SetActivePortrait(character, characterFear.GetFearState());
         
         dialgoueRunner.StartDialogue(yarnAcessStr);
 
@@ -193,7 +193,7 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
         // otherwise all dialoguebank gameobjects listening for event at same time
         dialgoueRunner.onDialogueComplete.AddListener(EndDialogue);
 
-        CharacterGameDialogue.SetActivePortrait(character);
+        CharacterGameDialogue.SetActivePortrait(character, characterFear.GetFearState());
         
         dialgoueRunner.StartDialogue(yarnAcessStr);    
     }
@@ -233,7 +233,7 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
     /// </summary>
     public void AlreadyTalked()
     {
-        CharacterGameDialogue.SetActivePortrait(character);
+        CharacterGameDialogue.SetActivePortrait(character, characterFear.GetFearState());
         dialgoueRunner.StartDialogue("ClickedAlready");
     }
 
@@ -242,7 +242,7 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
     /// </summary>
     public void OutOfDialogues()
     {
-        CharacterGameDialogue.SetActivePortrait(character);
+        CharacterGameDialogue.SetActivePortrait(character, characterFear.GetFearState());
         dialgoueRunner.StartDialogue("OutOfDialogue");
     }
 
@@ -270,7 +270,7 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
     /// </summary>
     public void FindKey()
     {
-        CharacterGameDialogue.SetActivePortrait(character);
+        CharacterGameDialogue.SetActivePortrait(character, FearState.Determined);
         dialgoueRunner.StartDialogue(characterFullName + "Key");
     }
 
@@ -334,30 +334,39 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
     public void YarnNeutralFS()
     {
         characterFear.SetFearState(FearState.Neutral);
+        CharacterGameDialogue.SetActivePortrait(character, FearState.Neutral);
     }
 
     [YarnCommand("determined")]
     public void YarnDeterminedFS()
     {
         characterFear.SetFearState(FearState.Determined);
+        CharacterGameDialogue.SetActivePortrait(character, FearState.Determined);
+
     }
 
     [YarnCommand("scared")]
     public void YarnScaredFS()
     {
         characterFear.SetFearState(FearState.Scared);
+        CharacterGameDialogue.SetActivePortrait(character, FearState.Scared);
+
     }
 
     [YarnCommand("terrified")]
     public void YarnTerrifiedFS()
     {
         characterFear.SetFearState(FearState.Terrified);
+        CharacterGameDialogue.SetActivePortrait(character, FearState.Terrified);
+
     }
     
     [YarnCommand("tweaking")]
     public void YarnTweakingFS()
     {
         characterFear.SetFearState(FearState.Tweaking);
+        CharacterGameDialogue.SetActivePortrait(character, FearState.Scared); // no unique portrait for tweaking
+
     }
     #endregion
 

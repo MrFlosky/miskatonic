@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 // It was becoming tedious to keep recreating variables for character names everwhere,
@@ -62,6 +63,48 @@ namespace CharacterData
             
             return portrait;
         }
+
+        /// <summary>
+        /// Given a character, grab their portrait at the corresponding fear state.
+        /// </summary>
+        public static Sprite GetEmotionPortrait(Character character, FearState state)
+        {
+            string path = $"EmotionPortraits/{GetFirstName(character)}/{GetFirstName(character)}{state}";
+            Sprite portrait = Resources.Load<Sprite>(path);
+            
+            if (portrait == null)
+            {
+                Debug.LogError($"Portrait not found at Resources/{path}");
+            }
+            
+            return portrait;
+        }
+
+        /// <summary>
+        /// Grab all character's emotion portaits and store in dict of dict. Key is character enum, value is dict with fear state enum key
+        /// and sprite value.
+        /// </summary>
+        public static Dictionary<Character, Dictionary<FearState, Sprite>> GetAllEmotionPortraits()
+        {
+            Dictionary<Character, Dictionary<FearState, Sprite>> portraits = new Dictionary<Character, Dictionary<FearState, Sprite>>();
+            int fearStateCount = System.Enum.GetValues(typeof(FearState)).Length;
+            for (int i = 0; i < GetNumCharacters(); i++)
+            {
+                Character character = (Character)i;
+                portraits[character] = new Dictionary<FearState, Sprite>(); 
+
+                for(int j = 0; j < fearStateCount; j++)
+                {
+                    FearState state = (FearState) j;
+                    // tweaking doesnt have a fear state so skip it
+                    if(state== FearState.Tweaking){continue;}
+                    portraits[character][state] = GetEmotionPortrait(character, state);
+                }
+            }
+            
+            return portraits;
+        }
+
 
         public static Dictionary<Character, Sprite> GetAllPortraits()
         {
