@@ -140,11 +140,11 @@ public class ClickAI : MonoBehaviour
                 GameObject aiGameObj = hit.collider.gameObject;
                 DialogueBank dialogueBank = aiGameObj.GetComponent<DialogueBank>();
                 // No dialouge needed
-                // if (dialogueBank.alreadyTalked)
-                // {
-                //     dialogueBank.AlreadyTalked();
-                //     return;
-                // }
+                if (dialogueBank.alreadyTalked)
+                {
+                    dialogueBank.AlreadyTalked();
+                    return;
+                }
 
                 // Prevent interaction if AI is out of dialouge
                 if (dialogueBank.GetRemainingDialogueCount() == 0)
