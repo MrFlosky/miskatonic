@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using System.Linq;
 
 public enum Vision { Up, Down, Left, Right }
 public class PlayerVision : MonoBehaviour, ITurnObserver
@@ -37,8 +38,11 @@ public class PlayerVision : MonoBehaviour, ITurnObserver
     private int lonelyFear = 2;
     public bool isLonely = false;
     public List<PlayerVision> notNearbyCharacters = new List<PlayerVision>();
+    private List<PlayerVision> nearbyCharsForDialog = new List<PlayerVision>();
     private int lonelyRadius = 20;
 
+    // Tile distance required for a player to be nearby
+    private int nearbyRadius = 5;
 
 
 
@@ -62,6 +66,14 @@ public class PlayerVision : MonoBehaviour, ITurnObserver
         }
 
         
+    }
+
+    private void Update()
+    {
+        string nearby = string.Join(", ", nearbyCharacters.Select(c => c.gameObject.GetComponent<DialogueBank>().character));
+        string visible = string.Join(", ", currentVisible.Select(v => v.ToString()));   
+        Debug.Log($"{gameObject.GetComponent<DialogueBank>().character} is next to {nearby}");
+        Debug.Log($"{gameObject.GetComponent<DialogueBank>().character} can see {visible}");
     }
 
     void Awake()
@@ -200,10 +212,11 @@ public class PlayerVision : MonoBehaviour, ITurnObserver
         var gameManager = agentNavigation.gameManager;
         var fear = GetComponent<Fear>();
 
+
         // 1. Clear old highlights
         foreach (var pos in currentVisible)
         {
-            
+
             if (MazeRenderer.Instance.cellGameObjects.TryGetValue(pos, out GameObject cellObject))
             {
                 foreach (Transform child in cellObject.transform)
@@ -278,6 +291,21 @@ public class PlayerVision : MonoBehaviour, ITurnObserver
                         renderer.materials = mats.ToArray();
                     }
                 }
+            }
+        }
+
+        foreach (var player in FindObjectsOfType<PlayerVision>())
+        {
+            if (player == this) continue;
+
+            Vector2Int otherPos = player.GetComponent<PlayerVision>().gridPos;
+            Vector2Int nearestCell = FindNearestCellGrid(player.transform.position);
+            int distance = Mathf.Abs(nearestCell.x - gridPos.x) + Mathf.Abs(nearestCell.y - gridPos.y);
+
+            if (distance <= nearbyRadius && !nearbyCharsForDialog.Contains(player) && currentVisible.Contains(player.GetComponent<PlayerVision>().gridPos))
+            {
+                nearbyCharsForDialog.Add(player);
+                gameObject.GetComponent<DialogueBank>().QueueSpecialDialog($"Ecounter{player.GetComponent<DialogueBank>().character}", DialogueBank.DialogueType.Encounter);
             }
         }
     }
