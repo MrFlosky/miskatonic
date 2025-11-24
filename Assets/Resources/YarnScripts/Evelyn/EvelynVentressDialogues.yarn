@@ -7,7 +7,7 @@ Evelyn Ventress: Evelyn scans the hallway as she slowly walks side to side. She�
 ->Create a gust of wind that goes through her
         <<neutral "Evelyn Ventress">>
         "I must be above ground... somewhere." She keeps moving.
-->Do nothing. Complete stillness
+->Do nothing. Complete stillness.
         <<add_fear "Evelyn Ventress">>
         <<discover_fear "Evelyn Ventress" 0>>
         <<scared "Evelyn Ventress">>
@@ -15,11 +15,11 @@ Evelyn Ventress: Evelyn scans the hallway as she slowly walks side to side. She�
         She is completely lost. "Where could I be? What happened?"
 ->"What’s out there?"
         <<determined "Evelyn Ventress">>
-        She keeps going, determined to answer that question.
+        Curious, she keeps going, determined to answer that question.
 ===
 title: EvelynVentress1
 ---
-Evelyn Ventress: Evelyn taps to wake up her smart watch. The screen flickers before going black. She sighs. 
+Evelyn Ventress: Evelyn taps to wake up her smart watch. The screen flickers before going black. She sighs.
 ->"What a piece of garbage."
         <<neutral "Evelyn Ventress">>
         She unfastens the watch from her wrist, sliding it into her pocket. She hears a sharp popping noise as she walks away. She ignores it and continues moving.
@@ -34,7 +34,7 @@ Evelyn Ventress: Evelyn taps to wake up her smart watch. The screen flickers bef
         <<discover_fear "Evelyn Ventress" 1>>
         <<terrified "Evelyn Ventress">>
         //Fear of Isolation
-        She stops for a second and looks down at the watch. Frantically, she starts shaking her wrist with her other hand, hoping she can bring it back to life. Suddenly, it glows a bright blue. Evelyn covers her eyes. Just as she begins to reopen them, the screen goes dark and smoke emanates from the watch. She throws it to the floor and keeps walking.  
+        She stops for a second and looks down at the watch. Frantically, she starts shaking her wrist with her other hand, hoping she can bring it back to life. Suddenly, it glows. Evelyn covers her eyes. Just as she begins to reopen them, the screen goes dark and smoke emanates from the watch. She throws it to the floor and keeps walking..  
 ===
 title: EvelynVentress2
 ---
@@ -48,7 +48,7 @@ Evelyn Ventress: "This is taking too long. I gotta speed up." Her walk accelerat
 ->"SLOW DOWN. You don't know what might be ahead."
         <<determined "Evelyn Ventress">>
         "Makes sense." She slows down. Her mind races enthusiastically, trying to determine where she is. 
-->"No running in the halls!"
+->"No running in hall!"
         <<add_fear "Evelyn Ventress">>
         <<discover_fear "Evelyn Ventress" 2>>
         <<scared "Evelyn Ventress">>
@@ -58,19 +58,19 @@ Evelyn Ventress: "This is taking too long. I gotta speed up." Her walk accelerat
 title: EvelynVentress3
 ---
 Evelyn Ventress: "There has to be some way out of here." Evelyn pounds the wall of the maze and presses her ear to it.
-->Make it sound hollow
+->Make it sound hollow.
         <<neutral "Evelyn Ventress">>
-        She looks at the wall confused. She continues down the hallway, looking for rooms. 
-->Make it sound solid
+        She looks at the wall confused. She continues down the hallway, looking for rooms.
+->Make it sound solid.
         <<neutral "Evelyn Ventress">>
-        She looks at the wall confused. She continues down the hallway, looking for rooms. 
-->Hear the sounds of people talking on the other side
+        She looks at the wall confused. She continues down the hallway, looking for rooms.
+->Hear the sounds of people talking on the other side.
         <<add_fear "Evelyn Ventress">>
         <<discover_fear "Evelyn Ventress" 3>>
         <<scared "Evelyn Ventress">>
         //Fear of being watched
-        "What’s going on?" She is like a rat in a maze, with eyes watching her from every angle 
-->No sound at all
+        "What’s going on?" She is like a rat in a maze, with  eyes watching her from every angle.
+->No sound at all.
         <<determined "Evelyn Ventress">>
         "Strange..." She has never experienced anything like this. Her skin prickles with the combination of intrigue and mystery.
 ===
@@ -82,7 +82,7 @@ Evelyn Ventress: "What's the point?" Evelyn leans against the wall to catch her 
         She gets up from the floor and pulls herself together. No reason to waste her time here. 
 ->"You have to keep fighting."
         <<determined "Evelyn Ventress">>
-        Evelyn gets up off the floor and pulls herself together. No reason to waste her time here. 
+        Evelyn gets up off the floor and pulls herself together. No reason to waste her time here.  
 ->"There is no way to know."
         <<add_fear "Evelyn Ventress">>
         <<discover_fear "Evelyn Ventress" 5>>
@@ -96,19 +96,19 @@ Evelyn Ventress: "I can't believe I trusted that weirdo." She knows this has som
 ->"You should have known that guy couldn't be trusted."
         <<neutral "Evelyn Ventress">>
         How could she have known? She shakes the thought from her mind. 
-->"There was no way to know." 
+->"There was no way to know."    
         <<reduce_fear "Evelyn Ventress">>
         <<determined "Evelyn Ventress">>
-        She forgives herself. “You can’t know everything.” 
+        She forgives herself. “You can’t know everything.”  
 ->"You're too desperate for attention."
         <<neutral "Evelyn Ventress">>
-        "I guess." She keeps moving.  
-->"You were meant to be alone forever. This place is just showing you that."
+        "I guess." She keeps moving. 
+->"You were meant to be alone forever. This place is showing you that."        
         <<add_fear "Evelyn Ventress">>
         <<discover_fear "Evelyn Ventress" 4>>
         <<scared "Evelyn Ventress">>
         //Fear of ending up alone
-        She stands still for a moment and begins to cry. The maze is silent. 
+        She stands still for a moment and begins to cry. The maze is silent.
 ===
 title: EvelynVentress6
 ---
@@ -119,10 +119,10 @@ Evelyn Ventress: She tries to mentally organize all of the information she knows
         This thought is strangely comforting. By removing this situation from reality, she can think through it clearly without fear. 
 ->"This is some sort of strange hallucination"
         <<neutral "Evelyn Ventress">>
-        This thought is strangely comforting. By removing this situation from reality, she can think through it clearly without fear.  
-->"You are stuck in a coma"
+        This thought is strangely comforting. By removing this situation from reality, she is able to think through it clearly without fear.  
+->"You are stuck in a coma."
         <<neutral "Evelyn Ventress">>
-        This thought is strangely comforting. By removing this situation from reality, she can think through it clearly without fear. 
+        This thought is strangely comforting. By removing this situation from reality, she is able to think through it clearly without fear. 
 ->"That man. He trapped you here."
         <<add_fear "Evelyn Ventress">>
         <<discover_fear "Evelyn Ventress" 6>>
@@ -133,14 +133,14 @@ Evelyn Ventress: She tries to mentally organize all of the information she knows
 title: EvelynVentress7
 ---
 Evelyn Ventress: “I have to make a plan. How am I getting out of here?”
-->"Leave a trail, so you know where you've gone."
+->"Leave a trail, so you know where you've gone."    ."
         <<reduce_fear "Evelyn Ventress">>
         <<determined "Evelyn Ventress">>
-        She takes a pen from her pocket and scrapes the walls, leaving a scar every couple of feet. She smiles at her work. "Progress." 
+        She takes a pen from her pocket and scrapes the walls, leaving a scar every couple of feet. She smiles at her work. "Progress."
 ->"Mark the wall."
         <<reduce_fear "Evelyn Ventress">>
         <<determined "Evelyn Ventress">>
-        She takes a pen from her pocket and scrapes the walls, She uses a pen in her pocket to scrap at the walls, leaving a scar in the wall every couple of feet. She smiles at her work. "Progress."
+        She takes a pen from her pocket and scrapes the walls. She uses a pen in her pocket to scrap at the walls, leaving a scar in the wall every couple of feet. She smiles at her work. "Progress."
 ->"What can you do? You know nothing..."
         <<add_fear "Evelyn Ventress">>
         <<discover_fear "Evelyn Ventress" 7>>
