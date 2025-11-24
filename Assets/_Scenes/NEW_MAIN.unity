@@ -56101,9 +56101,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4560799449881516125, guid: bd3fe30883c14ba4aa41fd09c3730b5e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 3840009097889455293, guid: bd3fe30883c14ba4aa41fd09c3730b5e, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
     - targetCorrespondingSourceObject: {fileID: 2420121474723278209, guid: bd3fe30883c14ba4aa41fd09c3730b5e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
@@ -86573,9 +86570,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 0}
     - targetCorrespondingSourceObject: {fileID: 4560799449881516125, guid: bd3fe30883c14ba4aa41fd09c3730b5e, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 3840009097889455293, guid: bd3fe30883c14ba4aa41fd09c3730b5e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
     - targetCorrespondingSourceObject: {fileID: 2420121474723278209, guid: bd3fe30883c14ba4aa41fd09c3730b5e, type: 3}
@@ -152339,9 +152333,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4560799449881516125, guid: bd3fe30883c14ba4aa41fd09c3730b5e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 3840009097889455293, guid: bd3fe30883c14ba4aa41fd09c3730b5e, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
     - targetCorrespondingSourceObject: {fileID: 2420121474723278209, guid: bd3fe30883c14ba4aa41fd09c3730b5e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
@@ -171605,6 +171596,26 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -275.44427
       objectReference: {fileID: 0}
+    - target: {fileID: 3445310189898578398, guid: d690e9a53e6790b4e800a43ee1e8c52b, type: 3}
+      propertyPath: portraitButtonImages.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3445310189898578398, guid: d690e9a53e6790b4e800a43ee1e8c52b, type: 3}
+      propertyPath: portraitButtonImages.Array.data[0]
+      value: 
+      objectReference: {fileID: 1587007749}
+    - target: {fileID: 3445310189898578398, guid: d690e9a53e6790b4e800a43ee1e8c52b, type: 3}
+      propertyPath: portraitButtonImages.Array.data[1]
+      value: 
+      objectReference: {fileID: 631664672}
+    - target: {fileID: 3445310189898578398, guid: d690e9a53e6790b4e800a43ee1e8c52b, type: 3}
+      propertyPath: portraitButtonImages.Array.data[2]
+      value: 
+      objectReference: {fileID: 127152342}
+    - target: {fileID: 3445310189898578398, guid: d690e9a53e6790b4e800a43ee1e8c52b, type: 3}
+      propertyPath: portraitButtonImages.Array.data[3]
+      value: 
+      objectReference: {fileID: 4297056}
     - target: {fileID: 3814512071213513561, guid: d690e9a53e6790b4e800a43ee1e8c52b, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -235453,6 +235464,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CharacterSpriteImage: {fileID: 7958132037758011827}
+  portraitButtonImages: []
   DialogueAnimator: {fileID: 8440486443333516734}
 --- !u!114 &3476069476073815482
 MonoBehaviour:
