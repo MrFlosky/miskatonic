@@ -136,7 +136,7 @@ public class AgentNavigation : MonoBehaviour
     private void FollowPath()
     {
         if (!isMoving || path.Count == 0) return;
-
+        
         Vector3 currentPosition = transform.position;
         Vector3 targetPosition = destination;
 
@@ -170,6 +170,8 @@ public class AgentNavigation : MonoBehaviour
                 {
                     Debug.Log($"{gameObject.name}: Reached designated standing spot at {gridPosition} in {roomType} - entering room");
                     MarkRoomAsVisited(roomType);
+                    string noSpacesRoom = roomType.Replace(" ", "");    
+                    gameObject.GetComponent<DialogueBank>().QueueSpecialDialog(noSpacesRoom, DialogueBank.DialogueType.Room);
                     EnterRoom(roomType);
                     StopMovement();
                     return;
@@ -186,6 +188,7 @@ public class AgentNavigation : MonoBehaviour
             }
             else if (currentCell.roomType == "Hallway")
             {
+                gameObject.GetComponent<DialogueBank>().DequeueSpecialDialog(DialogueBank.DialogueType.Room);
                 currentRoom = null;
             }
             
@@ -628,9 +631,8 @@ public class AgentNavigation : MonoBehaviour
             visitedRooms.Add(roomType);
             path.Clear();
 
-            string noSpacesRoom = roomType.Replace(" ", "");
 
-            gameObject.GetComponent<DialogueBank>().QueueSpecialDialog(noSpacesRoom);
+
         }
     }
 

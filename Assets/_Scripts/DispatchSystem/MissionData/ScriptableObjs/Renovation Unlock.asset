@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95ccb6b6e7296c546b4c934070f5b23a, type: 3}
   m_Name: Renovation Unlock
   m_EditorClassIdentifier: 
-  title: Renovation Unlock
-  description: Unlocks a new skill
+  title: Room Renovation
+  description: Unlocks the ability to renovate a room, causing all characters in
+    that room to gain fear. Lasts 3 turns.
   cultistCost: 3
   oneTimeUse: 1
-  turnActivateTime: 0
   reward: {fileID: -5090007429000371857, guid: e9903ac7574b8d944a12c1044d3471ae, type: 3}
   usages: 0
   cultistsGranted: 0

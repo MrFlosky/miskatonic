@@ -1,55 +1,67 @@
 ﻿title: HaroldAuden0
 ---
-“God damn… My head.” He puts his fingers to his temples, looking up from the ground. “I can’t see anything.”
-->"Your glasses are on the floor to the right."
+Harold Auden: “Damn… my head.” Looking up from the ground, he puts his fingers to his temples. “I can’t see anything.”
+->"Your glasses are on the floor to the right."   
         <<reduce_fear "Harold Auden">>
         <<determined "Harold Auden">>
-        Harold feels around to his right. Finally, he finds his glasses and wipes them on his shirt before putting them on. 
-->Say nothing, let him figure it out
-        Harold feels around on the floor. After a couple of minutes, he finds his glasses and wipes them on his shirt before putting them on. 
+        Harold feels for them. Finally, he grasps them and wipes them on his shirt before putting them on.  
+->Say nothing. Let him figure it out.
+        <<neutral "Harold Auden">>
+        Harold feels for them. Finally, he grasps them and wipes them on his shirt before putting them on. 
 ->"Where are you? What is this place?"
-        "I have to see to know." Harold feels around on the floor. After a couple of minutes, he finds his glasses and wipes them on his shirt before putting them on. 
+        <<neutral "Harold Auden">>
+        "I have to see to know." Harold feels for his glasses. Finally, he grasps them and wipes them on his shirt before putting them on.
 ->Intensify the lights around him
         <<add_fear "Harold Auden">>
         <<discover_fear "Harold Auden" 8>>
+        <<scared "Harold Auden">>
         //Photosensitive
-        The lights are dim before bursting like white flame into the room. Dr. Auden groans in pain and sits there covering his eyes until he can feel the sting go away.
+        The room’s once-dim lights suddenly burst into white flames. Dr. Auden groans in pain,covering his eyes until the stinging subsides.
 ===
 title: HaroldAuden1
 ---
-“Where the hell did I end up?” He spins around, checking the hall behind him. 
-->"It must be another part of the library. Must’ve caught up in the work."
+Harold Auden: “Where the hell am I?” He spins around to check the hall behind him.
+->"It must be another part of the library. Must’ve been caught up in the work."
+        <<neutral "Harold Auden">>
         "That doesn't sound right..." Dr. Auden assures himself. This must have some sort of rational answer.
-->"You must be dreaming... in some sort of nightmare"
-        "I guess..." Dr. Auden assures himself. This must have some sort of rational answer.
-->"You've gone crazy"
-        "Maybe..." Dr. Auden assures himself. This must have some sort of rational answer.
-->"It must be a part of the sewer system. It’s so damp."
+->"It must be part of the sewer system. It’s so damp."
         <<add_fear "Harold Auden">>
         <<discover_fear "Harold Auden" 0>>
+        <<scared "Harold Auden">>
         //Hypochondriac
-        Harold looks down at his feet. Lifting up his souls, he sees that the bottom of his derby shoes have a gray substance stuck to them. He cautiously reaches down and touches it. The thin film sticks to his hand. He quickly wipes it against the wall of dungeon. Continuing exploring, he making sure the keep his right hand far from him. 
+        Harold looks down at his feet. Lifting up his soles, he sees a gray substance stuck to the bottom of his shoes. Cautiously, he reaches down to touch it. The thin film sticks to his hand. He quickly wipes it against the dungeon wall. As he pushes himself onward,  he keeps his right hand far from his face. 
+->"You must be dreaming. Some sort of nightmare"
+        <<neutral "Harold Auden">>
+        "I guess..." Dr. Auden assures himself. This must have some sort of rational answer.
+->"You've gone crazy."
+        <<neutral "Harold Auden">>
+        "Maybe..." Dr. Auden assures himself. This must have some sort of rational answer.
 ===
 title: HaroldAuden2
 ---
-“Who created this place?” He looks closer at the walls of the labyrinth. 
-->"Must be some ancient civilization"
-        Harold thinks on it for a second. He will start looking for clues. 
-->"It could be a government thing…"
-        Harold thinks on it for a second. He will start looking for clues. 
-->"Say nothing"
-        Harold can't find a satisfying answer. He'll start looking for anything to explain this.
-->"Maybe some… thing created it"
+Harold Auden: “Who created this place?” He looks closer at the walls of the labyrinth. 
+->"Maybe some… thing created it." 
         <<add_fear "Harold Auden">>
         <<discover_fear "Harold Auden" 7>>
+        <<scared "Harold Auden">>
         //Fear of the Inhuman
-        Harold thinks of the horror stories he read as a child. A chill goes up his spine. He knows that this is insane. This place must be manmade, right? He continues exploring, but the idea never leaves the back of his mind. 
+        Harold thinks of the horror stories he read as a child. A chill goes up his spine. He knows this is insane. This place must be manmade, right? He continues searching, but the idea never leaves his mind. 
+->"Must be some ancient civilization"
+        <<neutral "Harold Auden">>
+        Harold thinks for a moment. He’ll start looking for clues. 
+->"It could be a government thing…"
+        <<neutral "Harold Auden">>
+        Harold thinks for a moment. He’ll start looking for clues. 
+->Say nothing.
+        <<neutral "Harold Auden">>
+        Harold can't find an answer. He'll start looking for anything to explain this.
 ===
 title: HaroldAuden3
 ---
-“Who designed this place? I feel like I’ve been going in circles.” He takes off his glasses and rubs his eyes. Taking a break, Harold sits on the floor.
-->Lower the temperature
-        Harold shakes a little bit as a chill runs up the spine. "Gotta keep moving." He gets up off the floor to keep looking for a way out.
+Harold Auden: “Who designed this place? I feel like I’ve been going in circles.” He takes off his glasses and rubs his eyes. He sinks to the floor.
+->Lower the temperature.
+        <<neutral "Harold Auden">>
+        Harold shivers as a chill runs up his spine. "Gotta keep moving." He gets off the floor to keep looking for a way out.
 ->"You have to keep moving."
         <<reduce_fear "Harold Auden">>        
         <<determined "Harold Auden">>
@@ -57,201 +69,234 @@ title: HaroldAuden3
 ->"It has to be hell. Your sinful life has led you here."
         <<add_fear "Harold Auden">>
         <<discover_fear "Harold Auden" 1>>
+        <<terrified "Harold Auden">>
         //Fear of God
-        Harold sits there for a while, trying to think of everything that he’s ever done wrong. He falls over with his left cheek to the floor. For nearly an hour, he lays there. Something eventually compels him to get up. He does so with little motivation.
+        Harold remembers every wrong thing he’s ever done before slumping over until his cheek presses against the damp floor. For nearly an hour, he lies there until something compels him to get up. 
 ->"It’s purgatory."
-        Harold sits there for a while, trying to think of everything that he’s ever done wrong. 
+        <<add_fear "Harold Auden">>
+        <<discover_fear "Harold Auden" 1>>
+        <<terrified "Harold Auden">>
+        //Fear of God
+        Harold remembers every wrong thing he’s ever done before slumping over until his cheek presses against the damp floor. For nearly an hour, he lies there until something compels him to get up.
 ===
 title: HaroldAuden4
 ---
-“What did I do to end up here?” He sulks as he walks."
+Harold Auden: “What did I do to end up here?” He sulks as he walks.
 ->"You killed someone."
-        He laughs to himself a little. It is a waste of time to think about questions with no way to answer them. He figures the best way to find the way is to get out of this dump. 
-->"You obviously didn’t pray enough."
+        <<neutral "Harold Auden">>
+        He shakes his head. It’s a waste of time to think through questions without answers. He has to find a way out of this place. 
+->"You didn’t pray enough." 
+        <<neutral "Harold Auden">>
+        He shakes his head. It’s a waste of time to think through questions without answers. He has to find a way out of this place. 
+->"What God would bless you with Heaven?"  
         <<add_fear "Harold Auden">>
-        <<discover_fear "Harold Auden" 8>>
-        He laughs to himself a little, but this thought sticks with him It is a waste of time to think about questions with no way to answer them. He figures the best way to find the way is to get out of this dump. 
-->"What God would bless you with heaven?"
-        <<add_fear "Harold Auden">>
-        <<discover_fear "Harold Auden" 1>>        
+        <<discover_fear "Harold Auden" 1>>
         <<terrified "Harold Auden">>
         //Fear of God
-        He laughs to himself a little, but this thought sticks with him. It is a waste of time to think about questions with no way to answer them. He figures the best way to find the way is to get out of this dump. 
+        He shakes his head. It’s a waste of time to think through questions without answers. He has to find a way out of this place.
 ->"You weren’t strong enough. You let life pass you by."
-        He laughs to himself a little."That doesn't make much sense." It is a waste of time to think about questions with no way to answer them. He figures the best way to find the way is to get out of this dump. 
+        <<neutral "Harold Auden">>
+        "That doesn't make much sense."He shakes his head. It’s a waste of time to think through questions without answers. He has to find a way out of this place.  
 ===
 
 title: HaroldAuden5
 ---
-A sharp pain runs down Harold’s back. He grits his teeth, sharply exhaling through them. 
-->"You've been walking forever. Take a break!"
+Harold Auden: A sharp pain shoots down Harold’s back. He grits his teeth, exhaling through them. 
+->"You've been walking for so long."  
         <<reduce_fear "Harold Auden">>
-        Harold laughs to himself. He slows down and lean against the walls of the maze. Taking a couple of deep breaths, he stretches his arms to the ceiling and gains the courage to continue on. 
+        <<determined "Harold Auden">>
+        "I need to take a break." He slows down and leans against the wall of the maze. Taking deep breaths, he stretches his arms toward the ceiling until he finds the will to keep walking. 
 ->"You're under a curse."
-        Harold laughs to himself. He slows down and lean against the walls of the maze. Taking a couple of deep breaths, he stretches his arms to the ceiling and gains the courage to continue on. 
-->"You’re weak. How do you think you’ll ever escape?"
+        <<neutral "Harold Auden">>
+        Harold laughs to himself. He slows down and leans against the wall of the maze. Taking deep breaths, he stretches his arms toward the ceiling until he finds the will to keep walking. 
+->"You’re weak. You’ll never escape." 
         <<add_fear "Harold Auden">>
         <<discover_fear "Harold Auden" 2>>
         <<terrified "Harold Auden">>
         //Fear of Inadequecy
-        He falls to his knees. The pain in his back worsens. His fingers run along his spine, trying to find some relief. Harold lays down on the floor, trying to find any reason to keep going. 
+        Harold falls to his knees as the pain in his back worsens. His fingers reach back to massage his spine, trying to find relief. He lies down flat on the floor, trying to find a reason to keep going. 
 ->"Pathetic..."
         <<add_fear "Harold Auden">>
         <<discover_fear "Harold Auden" 2>>
+        <<scared "Harold Auden">>
         //Fear of Inadequecy
-        He falls to his knees. The pain in his back worsens. His fingers run along his spine, trying to find some relief. Harold lays down on the floor, trying to find any reason to keep going. 
+        Harold falls to his knees as the pain in his back worsens. His fingers reach back to massage  his spine, trying to find relief. He lies down flat on the floor, trying to find a reason to keep going. 
 ===
 title: HaroldAuden6
 ---
-The lack of sensation starts to get to Harold. The walls feel as if they are closing in on him. Rows and rows of bricks are his only company. It is dizzying. 
-->Shake the room
+Harold Auden: This dungeon's endless narrow passageways unnerve Harold. Row upon row of bricks on each side leave him dizzy and disoriented. 
+->Shake the room. 
         <<reduce_fear "Harold Auden">>
-        Harold notices the change and it wakes him up from his hypnosis. Something is controlling this place and he will find out what. 
-->Darken the lights
+        <<neutral "Harold Auden">>
+        Harold feels the change, and it shakes him out of his stupor. Something is controlling this place. He has to find out what it is. 
+-> Dim the lights.       
         <<reduce_fear "Harold Auden">>
-        Harold notices the change and it wakes him up from his hypnosis. Something is controlling this place and he will find out what. 
-->"This is your life now."
-        No use drawing unfounded conclusions. Something is controlling this place and he will find out what. 
-->Mess with his vision so that the hallway looks as if it has double in length.
+        <<neutral "Harold Auden">>
+        Harold feels the change, and it shakes him out of his stupor. Something is controlling this place. He has to find out what it is. 
+->Mess with his vision so that the bricks glow brightly and extend in length.
         <<add_fear "Harold Auden">>
         <<discover_fear "Harold Auden" 8>>        
         <<terrified "Harold Auden">>
         //Photosensitive
-        “BRICKS BRICKS BRICKS BRICKS” He starts to lose his mind. These words echo around in his head. His fingers begin to twitch. Harold’s mind slowly succumbs to the madness.
+        “BRICKS BRICKS BRICKS BRICKS.” The nonsensical-sounding word echoes in Harold’s mind. His fingers  twitch. He slowly begins to succumb to the madness.
+->"This is your life now."
+        <<neutral "Harold Auden">>
+        No use drawing unfounded conclusions. He cannot give up like this. Something is controlling this place. He must find out what it is. 
 ===
 title: HaroldAuden7
 ---
-Harold thinks back on how he got here. The book, the library, and everything going black. How old was that book? Where was it from? 
+Harold Auden: Harold thinks back on the moments before his reality changed. The book, the library, and everything going black. How old was that book? Where was it from? 
 ->"It must have bothered someone that you found it. That’s why they trapped you here."
-        “This isn’t useful.” Harold stops this dangerous train of thought. He has to try his best to keep his mind intact. 
-->"What a waste of time. Escape is the only thing you should be focused on."
-        <<reduce_fear "Harold Auden">>        
+        <<neutral "Harold Auden">>
+        “This isn’t useful.” Harold stops the dangerous train of thought. He must keep his mind intact. 
+->"What a waste of time. Escape is the only answer."    
+        <<reduce_fear "Harold Auden">>
         <<determined "Harold Auden">>
-        “This isn’t useful.” Harold stops this dangerous train of thought. He has to try his best to keep his mind intact. 
+        “This isn’t useful.” Harold stops the dangerous train of thought. He must keep his mind intact. 
 ->"You fell asleep. You’ll wake up eventually."
-        “This isn’t useful.” Harold stops this dangerous train of thought. He has to try his best to keep his mind intact. 
-->"Maybe it gave you some disease. Some ancient parasite that laid dormant between the pages…"
+        <<neutral "Harold Auden">>
+        “This isn’t useful.” Harold stops the dangerous train of thought. He must keep his mind intact. 
+->"Maybe it gave you a disease, perhaps an ancient parasite that laid dormant between the pages…" 
         <<add_fear "Harold Auden">>
         <<discover_fear "Harold Auden" 6>>
         <<terrified "Harold Auden">>
         //Fear of Parasites
-        Harold begins to itch at his skin. He convinced himself that there is something lurking beneath it. His eyes widen as he studies every inch of his body. He gets lost in a frenzy, clawing and scratching, before realizing that all of his clothes are on the floor and the only marks are from his own doing. “If there is something wrong with me, I can’t see it.” He slowly gets dressed again, continuing with the thought that something could be slowly eating away at him. 
+        Harold compulsively scratched at his skin. His eyes widen as he studies every inch of his body. He gets lost in the frenzy, clawing and scratching. Suddenly, he realizes that all of his clothes are on the floor, and the only marks on him are from his own hands. He slowly gets dressed again, battling against the fear that that something could be slowly eating away at him.  
 ===
 title: HaroldAuden8
 ---
-"Is there a pattern here? Have I seen that scuff mark before?” Harold tries to figure out if he has made any progress.
-->Let him investigate
+Harold Auden: "Is there a pattern here? Have I seen that scuff mark before?” Harold must make progress.
+->Let him investigate.
         <<reduce_fear "Harold Auden">>
-        Harold looks closer at the wall. He can’t seem to figure out if he has seen this area before, but it gives him the idea to take notes. He starts to focus on any small unique feature of each hallway, creating a list in his head to try to create some sort of mental map. 
-->Create the sound of a human voice coming from down the hallway
-        <<reduce_fear "Harold Auden">>
-        <<determined "Harold Auden">>
-        "Someone must be here!" He excidedly runs down the hallway, searching for the voice.
-->"You’ve been here before."
-        Harold racks his brain, trying to figure out if he has seen it before. There is no way to tell. 
+        He looks closer at the wall. He begins to take notes, focusing on any unique feature of each hallway, creating a mental map.
 ->"Someone must have been clawing at the walls to escape. Whoever it was... they were desperate..."
         <<add_fear "Harold Auden">>
         <<discover_fear "Harold Auden" 3>>
         <<terrified "Harold Auden">>
         //Fear of Violence
-        His mind runs in circles as he thinks of all the terrible things that could have happened to that poor soul. He starts to sweat.  
+        He imagines all the terrible things that could have happened to that poor soul. He starts to sweat.
+->Create the sound of a human voice coming from down the hallway. 
+        <<reduce_fear "Harold Auden">>
+        <<determined "Harold Auden">>
+        "Someone must be here!" He runs down the hallway, searching for the voice.
+->"You’ve been here before."
+        <<neutral "Harold Auden">>
+        He wracks his brain for any signs of familiarity. There is no way to tell.    
 ===
 title: HaroldAuden9
 ---
-"Why did I ever reach for that book in the first place? What exactly possessed me to pry it open?"
-->"There must be something that you can remember from it, some answer for all of this."
-        <<reduce_fear "Harold Auden">>
-        Harold tries to remember anything from the book, but his memory fails him. 
+Harold Auden: "Why did I ever reach for that book? What possessed me to pry it open?"
+->"There must be something you remember from it, some answer for all of this."   
+        <<neutral "Harold Auden">>
+        He reaches for any scrap of memory but fails.
 ->"You can't remember anything."
-        Harold tries to remember anything from the book, but his memory fails him. 
-->"There was something… off about it. Kinda like you, senile man."
+        <<neutral "Harold Auden">>
+        He reaches for any scrap of memory but fails. 
+->"There was something… off about it. You’re a senile old man."
         <<add_fear "Harold Auden">>
         <<discover_fear "Harold Auden" 4>>
+        <<scared "Harold Auden">>
         //Fear of Being Ridiculed
-        He is reminded of his student's pitying looks. He sulks.
+         He is reminded of his student's pitying looks. He sulks.
 ->"It called to you."
-        Remembering the feeling he got when he first saw it, a shiver runs down his back. There was something dark about it. He had to know what made it like that. He had to find an answer. 
+        <<neutral "Harold Auden">>
+        Remembering the feeling he got when he first saw it, a cold shiver ricochets through his body. There was something dark about it. He had to find the answer. 
 ===
 title: HaroldAuden10
 ---
-As he walks down the hallway, Harold's mind starts to play tricks on him. He begins to hallucinate. "What is that?"
+Harold Auden: As he walks down the hallway, Harold begins to hallucinate."What is that?"
 ->"It's your father."
         <<add_fear "Harold Auden">>
         <<discover_fear "Harold Auden" 5>>
         <<terrified "Harold Auden">>
         //Fear of parents
-        Harold freezes up. His father's mile long stare bores into his chest. His heart starts to beat fast as the hallucination fizzles into the darkness.
+        He freezes. His father's mile-long stare bores into his chest. His heartrate begins a gallop as the spectre slips back into blackness.
 ->"It's one of your students."
-        "They must have also found the book." He calls out to them, before the hallucination fizzles into the darkness.
+        <<neutral "Harold Auden">>
+        "They must have also found the book." He calls out to them but the hazy image retreats into darkness.
 ->"It's your high school teacher."
-        The sight of an old friend cheers him up. He always got along with his teachers. He extends his arms to hug him, before quickly realizing that this is just a trick of the mind.
-->"It's your childhood best friend."
+        <<neutral "Harold Auden">>
+        The sight of an old friend sparks hope. He always felt safe with his teachers. He extends his arms toward the man before realizing the man lived only in his desperate mind.
+->"It's your childhood best friend." 
         <<reduce_fear "Harold Auden">>
         <<determined "Harold Auden">>
-        The sight of an old friend cheers him up. He extends his arms to hug him, before quickly realizing that this is just a trick of the mind.
+        The sight of an old friend sparks hope. He reaches toward him before realizing the boy lived only in his desperate mind. 
 ===
 title: HaroldAuden11
 ---
-Harold takes a break after walking for so long. He sits down on the floor, propping himself up with the palms of his hand. Suddenly, he feels something creeping up his hand. 
+Harold Auden: Exhausted, Harold sinks to the floor. Suddenly, he feels something crawling up his hand. 
 ->"It's a swarm of ants."
-        He laughs a little to himself as he watches a brigade of ants march up his arm. He shakes them off. 
+        <<neutral "Harold Auden">>
+        He curses at the sight of ants streaming up his arm. He shakes them off. 
 ->"A mysterious sludge covers his hand."
         <<add_fear "Harold Auden">>
         <<discover_fear "Harold Auden" 0>>
         <<terrified "Harold Auden">>
         //Hypochondriac
-        He gasps, wiping his hand on his coat until no spot of the sludge can be seen. He walks in circles as he freaks out. The only thing that calms him down is taking his coat off and continuing without it.
-->"Something invisible is grabbing you."
-        He is confused at this thought. He looks down at his hand and sees nothing. He laughs at himself. 
-->"It's the presence of God."
+        He gasps, wiping his hand on his coat until no spot of sludge can be seen. He walks in circles until finally flinging off his coat and running away from it.
+->"It’s grabbing you."
+        <<neutral "Harold Auden">>
+        Confused, he scans down his body but sees nothing. He looks down at his hand and sees nothing. 
+->"It's the presence of God."    
         <<reduce_fear "Harold Auden">>
-        He knows this is silly, but it reminds him of his childhood. The memories of sunday school are complicated, but hold a unique nostalgia. 
+        <<determined "Harold Auden">>
+        He knows it’s far-fetched, but it reminds him of childhood. The memories of Sunday school hold a complex but somewhat warm nostalgia. 
 ===
 title: HaroldAuden12
 ---
-His mind begins to wander as the rows and rows of bricks fill his mind. It reminds him of the halls of his college and his mind goes to his students. 
+Harold Auden: The endless rows of bricks on each side remind him of the college’s hallways and the students streaming down them between classes.
 ->"They must be wondering where you are."
         <<reduce_fear "Harold Auden">>
-        He smiles to himself. It's nice to know there are people noticing his absence. 
+        <<determined "Harold Auden">>
+        He smiles at the thought of people noticing his absence.
 ->"They must be laughing at you. Another stupid mistake from Professor Auden."
         <<add_fear "Harold Auden">>
         <<discover_fear "Harold Auden" 2>>
+        <<scared "Harold Auden">>
         //Fear of Inadequecy
-        His shoulders tighten as he hunches over. The shame hangs over him. 
-->"They must be pissed. They paid for this class and you're not there."
-        "Nothing I can do." It's nice to know there are people noticing his absence. 
+        His shoulders tighten as the shame lashes him. 
+->"They must be pissed. They paid for this class, and you're not there."
+        <<neutral "Harold Auden">>
+        "Nothing I can do." Their anger is better than apathy.. 
 ->"They must be so confused."
-        It's nice to know there are people noticing his absence. 
+        <<neutral "Harold Auden">>
+        Their confusion is better than apathy.  
 ===
 title: HaroldAuden13
 ---
-Harold looks down, noticing a stain on his shirt. He pulls on it to get a better view.
+Harold Auden: Harold looks down, noticing a stain on his shirt. He pulls on it to get a better view.
 ->"It's a dark black."
+        <<neutral "Harold Auden">>
         "Must be an ink stain..." He pushes the thought aside.
-->"It's blood red"
+->"It's red."  
         <<add_fear "Harold Auden">>
         <<discover_fear "Harold Auden" 3>>
         <<terrified "Harold Auden">>
         //Fear of Violence
-        "OH GOD!" He feels around his chest and stomach to try to find the wound. He can't find anything. Did he hurt something? Where did this comes from?!
+        "OH, GOD!" His hands mindlessly search his body for a wound but find nothing. Where did this blood come from?
 ->"It's blue."
+        <<neutral "Harold Auden">>
         "Must be an ink stain..." He pushes the thought aside.
 ->"It's grey."
-        "Must be from dust or ash..." He pushes the thought aside.
+        <<neutral "Harold Auden">>
+        "Must be dust or ash..." He pushes the thought aside.
 ===
 title: HaroldAuden14
 ---
-Harold rests his back on the walls of the maze. He hears a sound echoing from further down the hall.
-->The sound is a deep gurgling sound
+Harold Auden: Harold rests his back on the wall of the maze. He hears a sound echoing from further down the corridor.
+->The sound is a deep gurgling sound.
         <<add_fear "Harold Auden">>
         <<discover_fear "Harold Auden" 7>>
+        <<terrified "Harold Auden">>
         //Fear of Inhuman
-        He starts to run in the opposite direction, thinking of all the most terrifying monsters from his childhood stories. 
-->The sound of laughter
-        He looks around, confused. He starts to investigate the sound. 
-->The sound of a car engine
-        He looks around, confused. He starts to investigate the sound. 
-->The sound of someone calling for help
-        <<reduce_fear "Harold Auden">>
-        A burst of confidence shoots through him. He has to help! Harold chases after the sound. 
+        He runs in the opposite direction, imagining the most terrifying monsters from the stories he read in childhood. 
+->The sound of laughter.
+        <<neutral "Harold Auden">>
+        He looks around, confused. He investigates the sound. 
+->The sound of a car engine.
+        <<neutral "Harold Auden">>
+        He looks around, confused. He investigates the sound. 
+->The sound of someone calling for help.
+        <<neutral "Harold Auden">>
+        A burst of bravery erupts inside him. He has to help! He sprints toward the sound. 
 ===

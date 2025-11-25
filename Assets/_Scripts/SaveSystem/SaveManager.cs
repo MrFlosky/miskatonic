@@ -20,6 +20,7 @@ public class SaveManager : MonoBehaviour
     TODO:
         High Prio
         - Reading dispatch deck state
+        - Update with new skills and other new data
 
         Med Prio
         - Warn user when a save will be overwritten

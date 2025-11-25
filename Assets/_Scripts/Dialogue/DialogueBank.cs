@@ -139,12 +139,21 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
         }
     }
 
-    Queue<string> DialogQueue = new Queue<string>();
+    public enum DialogueType
+    {
+        Room,
+        State,
+        Encounter,
+        None
+    }
+
+    private (DialogueType type, string text) dialog = (DialogueType.None, "Null");
 
     /// <summary>
-    /// Queue up special dialog when a requirement is met.
+    /// Queue up special dialog when a requirement is met. 
+    /// (Techincally with the current game design a queue is not needed as we don't want to actually store up dialogs but functionality is here if you just move some things around)
     /// </summary>
-    public void QueueSpecialDialog(string trigger)
+    public void QueueSpecialDialog(string trigger, DialogueType dialogueType)
     {
         characterFirstName = CharacterNames.GetFirstName(character);
         characterLastName = CharacterNames.GetLastName(character);
@@ -152,12 +161,23 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
         string yarnAcessStr = characterFullName + trigger;
         Debug.Log($"Dialog {yarnAcessStr} queued for {characterFirstName}");
 
-        DialogQueue.Enqueue(yarnAcessStr);
+        switch(dialog.type)
+        {
+            case DialogueType.Room:
+                if(dialogueType != DialogueType.Room) return;
+                break;
+            case DialogueType.State:
+                if(dialogueType == DialogueType.Encounter) return;
+                break;
+        }
+        dialog = (dialogueType, yarnAcessStr);
+
     }
 
-    private string DequeueSpecialDialog()
+    public void DequeueSpecialDialog(DialogueType dialogueType)
     {
-        return DialogQueue.Dequeue();
+        if(dialogueType != dialog.type) return;
+        dialog = (DialogueType.None, "Null");
     }
 
 
@@ -178,12 +198,39 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
         int dialogueKey = unPlayedDialogues[listIndex];
         string yarnAcessStr = characterFullName + dialogueKey;
 
-        CharacterGameDialogue.SetActivePortrait(character);
+        CharacterGameDialogue.SetActivePortrait(character, characterFear.GetFearState());
         
         dialgoueRunner.StartDialogue(yarnAcessStr);
 
         dialoguesRemaining -= 1;
         unPlayedDialogues.RemoveAt(listIndex);
+    }
+
+    /// <summary>
+    /// Play a base dialog given an index
+    /// then remove that dialogue index as a possibility.
+    /// </summary>
+    public void PlayDialogAtIndex(int index)
+    {
+        if(index > unPlayedDialogues.Count)
+        {
+            Debug.LogWarning("dialog index provided is outside of index range of available dialogs", this);
+            return;
+        }
+        ClickAI.S.StartConversation();
+        // add function to be called when dialogue ends. cannot be done in start,
+        // otherwise all dialoguebank gameobjects listening for event at same time
+        dialgoueRunner.onDialogueComplete.AddListener(EndDialogue);
+
+        int dialogueKey = unPlayedDialogues[index];
+        string yarnAcessStr = characterFullName + dialogueKey;
+
+        CharacterGameDialogue.SetActivePortrait(character);
+        
+        dialgoueRunner.StartDialogue(yarnAcessStr);
+
+        dialoguesRemaining -= 1;
+        unPlayedDialogues.RemoveAt(index);        
     }
 
     public void PlayQueuedDialog(string yarnAcessStr)
@@ -193,19 +240,42 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
         // otherwise all dialoguebank gameobjects listening for event at same time
         dialgoueRunner.onDialogueComplete.AddListener(EndDialogue);
 
-        CharacterGameDialogue.SetActivePortrait(character);
+        CharacterGameDialogue.SetActivePortrait(character, characterFear.GetFearState());
         
         dialgoueRunner.StartDialogue(yarnAcessStr);    
     }
+
+    bool firstDialogPlayed = false;
 
     /// <summary>
     /// Plays and handles dialog
     /// </summary>
     public void PlayDialog()
     {
-        if(DialogQueue.Count > 0)
+
+        // Terrible dummy way to handle the first dialog being the zero index
+        if(!firstDialogPlayed)
         {
-            PlayQueuedDialog(DequeueSpecialDialog());
+            firstDialogPlayed = true;
+            if(TurnBasedSystem.GET_TURN_COUNT() > 0)
+            {
+                if(dialog.type != DialogueType.None)
+                {
+                    PlayQueuedDialog(dialog.text);
+                }
+                else
+                {
+                    PlayRandomDialogue();
+                }
+                return;
+            }
+            PlayDialogAtIndex(0);
+
+            return;
+        }
+        if(dialog.type != DialogueType.None)
+        {
+            PlayQueuedDialog(dialog.text);
         }
         else
         {
@@ -233,7 +303,7 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
     /// </summary>
     public void AlreadyTalked()
     {
-        CharacterGameDialogue.SetActivePortrait(character);
+        CharacterGameDialogue.SetActivePortrait(character, characterFear.GetFearState());
         dialgoueRunner.StartDialogue("ClickedAlready");
     }
 
@@ -242,7 +312,7 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
     /// </summary>
     public void OutOfDialogues()
     {
-        CharacterGameDialogue.SetActivePortrait(character);
+        CharacterGameDialogue.SetActivePortrait(character, characterFear.GetFearState());
         dialgoueRunner.StartDialogue("OutOfDialogue");
     }
 
@@ -270,7 +340,7 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
     /// </summary>
     public void FindKey()
     {
-        CharacterGameDialogue.SetActivePortrait(character);
+        CharacterGameDialogue.SetActivePortrait(character, FearState.Determined);
         dialgoueRunner.StartDialogue(characterFullName + "Key");
     }
 
@@ -299,6 +369,11 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
         }
 
         return count;
+    }
+
+    public Character GetCharacter()
+    {
+        return character;
     }
 
 
@@ -334,30 +409,39 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
     public void YarnNeutralFS()
     {
         characterFear.SetFearState(FearState.Neutral);
+        CharacterGameDialogue.SetActivePortrait(character, FearState.Neutral);
     }
 
     [YarnCommand("determined")]
     public void YarnDeterminedFS()
     {
         characterFear.SetFearState(FearState.Determined);
+        CharacterGameDialogue.SetActivePortrait(character, FearState.Determined);
+
     }
 
     [YarnCommand("scared")]
     public void YarnScaredFS()
     {
         characterFear.SetFearState(FearState.Scared);
+        CharacterGameDialogue.SetActivePortrait(character, FearState.Scared);
+
     }
 
     [YarnCommand("terrified")]
     public void YarnTerrifiedFS()
     {
         characterFear.SetFearState(FearState.Terrified);
+        CharacterGameDialogue.SetActivePortrait(character, FearState.Terrified);
+
     }
     
     [YarnCommand("tweaking")]
     public void YarnTweakingFS()
     {
         characterFear.SetFearState(FearState.Tweaking);
+        CharacterGameDialogue.SetActivePortrait(character, FearState.Scared); // no unique portrait for tweaking
+
     }
     #endregion
 
