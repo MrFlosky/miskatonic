@@ -109,6 +109,11 @@ public class SkillsCollection : MonoBehaviour
         }
     }
     
+    public List<Skill> GetSkills()
+    {
+        return skillList;
+    }
+
     // Fetchers for save system
     public bool IsTotemUnlocked()
     {
