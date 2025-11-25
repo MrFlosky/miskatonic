@@ -13,12 +13,11 @@ MonoBehaviour:
   m_Name: Psychosis Unlock
   m_EditorClassIdentifier: 
   title: Psychosis
-  description: Choose a character. For the next 3 turns they see other characters
-    as horrifying monsters, gaining fear based on the amount of other characters
-    nearby (in the same room or within 3 tiles).
-  cultistCost: 5
+  description: Unlock the ability to inflict a character with psychosis. For the
+    next 3 turns they see other characters as horrifying monsters, gaining fear based
+    on the amount of other characters nearby (in the same room or within 3 tiles).
+  cultistCost: 3
   oneTimeUse: 1
-  turnActivateTime: 0
   reward: {fileID: -6424063008033546454, guid: 635b1b0cf7f9d3246bfe1cdebdee55ea, type: 3}
   usages: 1
   cultistsGranted: 0

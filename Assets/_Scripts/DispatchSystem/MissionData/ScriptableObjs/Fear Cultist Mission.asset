@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: Fear Cultist Mission
   m_EditorClassIdentifier: 
   title: The Impressionable Masses
-  description: Present yourself to the masses, gaining cultists based on how omnipotent
-    you appear (+1 cultist per fear discovered).
+  description: Present yourself to the masses, gaining cultists based on how fears
+    you have discoved (max 8).
   cultistCost: 0
-  turnActivateTime: 0
+  oneTimeUse: 0
   reward: {fileID: 2303783482711737635, guid: b6d91678ad2e95c44a275293c2125af1, type: 3}
   usages: 0
   cultistsGranted: 2
+  previewsGranted: 0
   character: 0
