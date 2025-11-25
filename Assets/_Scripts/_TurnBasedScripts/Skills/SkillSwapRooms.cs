@@ -54,7 +54,7 @@ public class SkillSwapRooms : Skill
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, raycastLayerMask))
         {
             MazeCellObject cellHit = hit.transform.GetComponentInParent<MazeCellObject>();
-            if (cellHit != null && cellHit.roomType != "Hallway")
+            if (cellHit != null && cellHit.roomType != "Hallway" && cellHit.roomType != "Ritual Room")
             {
                 GameObject roomHit = cellHit.transform.parent.gameObject;
                 string selectedRoomType = cellHit.roomType;
