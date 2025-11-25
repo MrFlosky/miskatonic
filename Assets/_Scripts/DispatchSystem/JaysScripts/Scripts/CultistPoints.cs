@@ -120,6 +120,6 @@ public class CultistPoints : MonoBehaviour
     private void UpdateText()
     {
         txt.text = "Cultist Points: " + cultistPoints;
-        babyTxt.text = "Cultists: " + cultistPoints;
+        babyTxt.text = "" + cultistPoints;
     }
 }
