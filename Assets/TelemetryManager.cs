@@ -8,8 +8,8 @@ public class TelemetryManager : MonoBehaviour, ITurnObserver
 {
     public static TelemetryManager S;
     public MissionData[] missionsToCollectDataOn;
-    private Dictionary<string, int> discardCounts;
-    private Dictionary<string, int> chosenCounts;
+    private Dictionary<string, int> discardCounts = new Dictionary<string, int>();
+    private Dictionary<string, int> chosenCounts = new Dictionary<string, int>();
     private Dictionary<string, int> skillUsageCounts = new Dictionary<string, int>();
 
     // used to prevent double counting of games with the same ID
@@ -29,7 +29,7 @@ public class TelemetryManager : MonoBehaviour, ITurnObserver
         {
             S = this;
         }
-
+        TurnBasedSystem.SubscribeAsObserver(this);
         // set the game id to our maze gen seed, as this value is random on every new game, but is preserved across saves
         game_id = MazeGenerator.Instance.seed;
         turn = 1;
@@ -82,6 +82,7 @@ public class TelemetryManager : MonoBehaviour, ITurnObserver
     /// </summary>
     public void SendReport()
     {
+        Debug.LogWarning("Sent telemetry report to: '" + logFilePath + "'!");
         File.AppendAllText(logFilePath, "Game ID," + game_id.ToString() + "\n");
 
         File.AppendAllText(logFilePath, "Discarded:\n");
@@ -115,12 +116,6 @@ public class TelemetryManager : MonoBehaviour, ITurnObserver
 
         File.AppendAllText(logFilePath, "END DATA\n\n");
     }
-
-
-
-
-
-
 
 
 
