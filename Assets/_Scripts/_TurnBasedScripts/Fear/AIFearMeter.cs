@@ -25,6 +25,9 @@ public class AIFearMeter : MonoBehaviour
         aiSlider = GetComponent<Slider>();
         heartbeats = transform.GetChild(0).GetComponent<Heartbeats>();
         visibleSlider = transform.GetChild(0).gameObject;
+
+        rectTransform = GetComponent<RectTransform>();
+        originalPos = rectTransform.anchoredPosition;
     }
 
     // After allowing ai fear meter and hearbeats to initialize in awake,
@@ -40,6 +43,14 @@ public class AIFearMeter : MonoBehaviour
     private float timeElapsed = 0f;
     public float sliderSpeed = 0.2f;
 
+    private RectTransform rectTransform;
+    private Vector2 originalPos;
+    private float shakeMagnitude = 5f;
+    private float shakeFrequency = 25f;
+
+    public UIShake uiShake;
+    public UIGlowPulse uiGlow;
+
     void Update()
     {
         timeElapsed += Time.deltaTime;
@@ -49,6 +60,7 @@ public class AIFearMeter : MonoBehaviour
         if (aiSlider.value == fear)
         {
             S.enabled = false;
+            // rectTransform.anchoredPosition = originalPos;
         }
     }
 
@@ -78,6 +90,30 @@ public class AIFearMeter : MonoBehaviour
         S.timeElapsed = 0;
         S.fear = newFear;
         S.enabled = true;
+
+        if (S.aiSlider.value > newFear)
+        {
+
+
+            // float x = (Mathf.PerlinNoise(Time.time * shakeFrequency, 0f) - 0.5f) * shakeMagnitude;
+            // float y = (Mathf.PerlinNoise(0f, Time.time * shakeFrequency) - 0.5f) * shakeMagnitude;
+
+            // rectTransform.anchoredPosition = originalPos + new Vector2(x, y);
+
+            S.uiShake.Shake(1f, 6f);
+
+        }
+        else
+        {
+            if (S.aiSlider.value < newFear)
+            {
+                float intensity = Mathf.Clamp((newFear - S.aiSlider.value) * 0.1f, 0.5f, 1.5f);
+
+                S.uiGlow.Pulse(intensity);
+            }
+        }
+
+
     }
 
 
@@ -94,3 +130,4 @@ public class AIFearMeter : MonoBehaviour
 
 
 }
+
