@@ -4,6 +4,8 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
+// TODO: REMOVE REDUNDANT DISPATCH OR DEALER GAME STATE. IDK WHY THIS WAS ADDED BUT THEY ARE THE SAME THING
+
 /// <summary>
 /// This class is responsible for bandaid UI management.
 /// Im calling this lite because not everything relevant to UI management is here yet, but
@@ -42,6 +44,7 @@ public class UIManagerLite : MonoBehaviour
     // Buttons
     [SerializeField] private Button endTurnButton;
     [SerializeField] private Button dealerButton; // button for starting mission dealer interaction
+    [SerializeField] private Button dealerReturnToBoardButton; // button for returning to board base from dealer
     [SerializeField] private Button rerollButton; // button for rerolling cards
     [SerializeField] private Button storyboardButton;
     [SerializeField] private Button[] potraitButtons;
@@ -266,7 +269,7 @@ public class UIManagerLite : MonoBehaviour
                     Debug.Log("Dealer interaction complete, back to board");
                     S.dealerButton.gameObject.SetActive(false);
                     EnableEndTurnButton();
-
+                    S.dealerReturnToBoardButton.gameObject.SetActive(false);
                     S.storyboardButton.gameObject.SetActive(true);
                     S.endTurnButton.gameObject.SetActive(true);
                     S.skillUICollection.ENABLE_BUTTONS();
@@ -308,7 +311,6 @@ public class UIManagerLite : MonoBehaviour
                     S.endTurnButton.gameObject.SetActive(false);
                     S.dealerButton.gameObject.SetActive(false);
                     S.skillUICollection.DISABLE_BUTTONS();
-                    
                     S.outlineManager.PauseOutlining();
                 }
                 break;
@@ -396,6 +398,7 @@ public class UIManagerLite : MonoBehaviour
                     DisableEndTurnButton();
                     Debug.Log("Entering dealer interaction");
 
+                    S.dealerReturnToBoardButton.gameObject.SetActive(true);
                     S.storyboardButton.gameObject.SetActive(false);
                     S.endTurnButton.gameObject.SetActive(false);
                     S.dealerButton.gameObject.SetActive(false);
