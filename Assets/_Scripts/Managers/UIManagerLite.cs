@@ -1,6 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -206,6 +205,7 @@ public class UIManagerLite : MonoBehaviour
                     if (!DispatchSystem.dealerDealtWith) // only set dealer button active if not yet dealt with
                     {
                         DisableEndTurnButton();
+                        S.dealerButton.gameObject.SetActive(true);
                         S.dealerButton.interactable = true;
                     }
                     else
@@ -224,6 +224,7 @@ public class UIManagerLite : MonoBehaviour
                     if (!DispatchSystem.dealerDealtWith)
                     {
                         S.dealerButton.gameObject.SetActive(true);
+                        S.dealerButton.interactable = true;
                     }
                     S.endTurnButton.gameObject.SetActive(true);
                     S.skillPointUICollection.DISPLAY_PTS();
@@ -303,6 +304,7 @@ public class UIManagerLite : MonoBehaviour
 
                     if (!DispatchSystem.dealerDealtWith)
                     {
+                        S.dealerButton.gameObject.SetActive(false);
                         S.dealerButton.interactable = false;
                     }
                     DisableEndTurnButton();

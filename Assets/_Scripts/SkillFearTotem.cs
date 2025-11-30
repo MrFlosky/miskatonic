@@ -11,20 +11,18 @@ public class SkillFearTotem : Skill
     bool canPlace=true;
     public int roundsLast;
   
-    private SkillsCollection skillsUI;
+    //private SkillsCollection skillsUI;
     
    
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         if (mainCamera == null)
         {
             mainCamera = Camera.main; // Use main camera if none specified
         }
+        //skillsUI = GetComponent<SkillsCollection>();
         fearTotemTrans = fearTotem.GetComponent<Transform>();
-        skillsUI = GetComponent<SkillsCollection>();
-        skillSystem = GetComponent<SkillSystem>();
-       
-
     }
 
 
@@ -44,7 +42,7 @@ public class SkillFearTotem : Skill
         Ray ray = mainCamera.ScreenPointToRay(mousePos);
         RaycastHit hit;
         // Note this is hitting the floor.
-        if (Physics.Raycast(ray, out hit))
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, raycastLayerMask))
         {
             if (hit.transform.GetComponentInParent<MazeCellObject>() != null)
             {
@@ -69,7 +67,7 @@ public class SkillFearTotem : Skill
         
         Ray ray = skillSystem.GET_CAM().ScreenPointToRay(mousePos);
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit))
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, raycastLayerMask))
         {
             
             if(canPlace && hit.transform.GetComponentInParent<MazeCellObject>() != null) 
@@ -98,7 +96,7 @@ public class SkillFearTotem : Skill
                 fearTotem.SetActive(false);
                 canPlace = false;
                 this.enabled = false;
-                skillsUI.ENABLE_BUTTONS();
+                //skillsUI.ENABLE_BUTTONS();
                 EndSkill();
 
                 
