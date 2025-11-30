@@ -8,8 +8,8 @@ public class ButtonGlow : MonoBehaviour
 {
     Image selfImage;
     Color nextColor;
-    Color currentColor;
     [SerializeField] float MaxAlpha;
+    Color minimumAlpha;
     bool ascending;
     [SerializeField] float interpolationSpeed;
     float t;
@@ -24,8 +24,8 @@ public class ButtonGlow : MonoBehaviour
        nextColor= selfImage.color;
        nextColor.a= 0;
         t=0;
-       selfImage.color = nextColor;  
-       active=true;
+       selfImage.color = nextColor;
+       minimumAlpha= nextColor;  
        ascending= true;
        
        
@@ -70,7 +70,12 @@ public class ButtonGlow : MonoBehaviour
         }
     }
 
-  
+    public void EndGlow()
+    {
+        selfImage.color= minimumAlpha;
+        active=false;
+
+    }
 
 }
 
