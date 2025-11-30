@@ -24366,7 +24366,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &233445337
 RectTransform:
   m_ObjectHideFlags: 0
@@ -91242,10 +91242,10 @@ MonoBehaviour:
     are within range.
 
 
-    - Left Click: Confirm
+    - Left Click: Select Character
 
     - Right Click: Cancel'
-  infoRight: 'Cultist: 4'
+  infoRight: 'Cost: 4'
 --- !u!1001 &825959287
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -97946,7 +97946,9 @@ MonoBehaviour:
     one turn.
 
 
-    - '
+    Left Click: Select Cell/Rotate
+
+    Enter: Confirm'
   infoRight: 'Cost: 2'
 --- !u!1001 &887836756
 PrefabInstance:
@@ -115427,8 +115429,10 @@ MonoBehaviour:
     in that room gain fear.
 
 
+    Left Click: Select Room
+
     Right Click: Cancel'
-  infoRight: 'Cultist: 3'
+  infoRight: 'Cost: 3'
 --- !u!1001 &1057117595
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -167182,11 +167186,11 @@ MonoBehaviour:
     characters nearby (in the same room or within 3 tiles).
 
 
-    - Click on character:
-    Confirm
+    - Left Click: Select
+    Character
 
     - Right Click: Cancel'
-  infoRight: 'Cultist: 8'
+  infoRight: 'Cost: 8'
 --- !u!1001 &1455227014
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -205755,13 +205759,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   simpleTooltipStyle: {fileID: 11400000, guid: b60656fad1664684d8fb0085c2c6ccbb, type: 2}
-  infoLeft: 'Barrier
+  infoLeft: 'Destruction
 
 
-    Cultists construct barriers, inhibiting the movement of
-    characters on the map. Grants two barriers to be placed. Barriers last for one
-    turn.'
-  infoRight: 'Cultist: 2'
+    Destroy any maze wall.
+
+
+    - Left Click: Select
+    Wall
+
+    - Right Click: Cancel'
+  infoRight: 'Cost: 2'
 --- !u!1001 &1719847903
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -215174,13 +215182,11 @@ MonoBehaviour:
     fear increases and they path away.
 
 
-    - Mosue: Choose position
+    - Left Click: Confirm
 
-    - Left
-    Click: Confirm
-
-    - Right Click: Cancel'
-  infoRight: 'Cultist: 6'
+    - Right Click:
+    Cancel'
+  infoRight: 'Cost: 6'
 --- !u!1001 &1801349931
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -263983,14 +263989,15 @@ MonoBehaviour:
   infoLeft: 'Layout Changes
 
 
-    - Enter: confirm
+    Select two rooms and swap their locations.
 
-    - Left click: select rooms
 
     -
-    Right click: cancel
+    Enter: Confirm
 
-'
+    - Left click: Select rooms
+
+    - Right click: Cancel'
   infoRight: 'Cost: 5'
 --- !u!222 &4391699212059953656
 CanvasRenderer:
@@ -265262,15 +265269,13 @@ MonoBehaviour:
 
 
     Raise a fog in a 2x2 radius that increases fear of all
-    characters inside. (could make fear gain increase based on amount of characters
-    in the fear, and also increase radius to make more powerful)
+    characters inside.
 
 
-    - Mouse: Choose
-    maze cell
+    - LMB: Choose maze cell
 
     - Enter: Confirm'
-  infoRight: 'Cultist: 4'
+  infoRight: 'Cost: 4'
 --- !u!224 &6118490766366146386
 RectTransform:
   m_ObjectHideFlags: 0
