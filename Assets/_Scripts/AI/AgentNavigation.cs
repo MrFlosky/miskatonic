@@ -34,7 +34,7 @@ public class AgentNavigation : MonoBehaviour
     public void SetBonusFearRoom(RoomName name)
     {
         bonusFearRoom = name;
-        roomFearEffects[GetRoomName(bonusFearRoom)] = IncreaseFear;
+        roomFearEffects[GetRoomName(bonusFearRoom)] = RoomIncreaseFear;
     }
 
     [SerializeField] private RoomName GoalRoom;
@@ -65,7 +65,7 @@ public class AgentNavigation : MonoBehaviour
     private void Start()
     {
         roomFearEffects = new Dictionary<string, System.Action>();
-        roomFearEffects[GetRoomName(FearRoom)] = IncreaseFear;
+        roomFearEffects[GetRoomName(FearRoom)] = RoomIncreaseFear;
         roomFearEffects[GetRoomName(GoalRoom)] = DecreaseFear;
         SetBonusFearRoom(RoomName.None);
         
@@ -711,7 +711,7 @@ public class AgentNavigation : MonoBehaviour
         }
     }
 
-    public void IncreaseFear()
+    public void RoomIncreaseFear()
     {
         agentFear.AddFear(5);
     }

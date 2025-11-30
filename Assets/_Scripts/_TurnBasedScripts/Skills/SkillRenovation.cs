@@ -83,7 +83,7 @@ public class SkillRenovation : Skill
 
     public void OnRightClick(InputAction.CallbackContext context)
     {
-        Debug.LogError("test");
+//        Debug.LogError("test");
         ExitInProgress();
         
     }
