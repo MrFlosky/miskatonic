@@ -100022,7 +100022,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5592833437522147513, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
       propertyPath: missionCards.Array.size
-      value: 15
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5592833437522147513, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
       propertyPath: worldCards.Array.data[0]
@@ -100038,7 +100038,7 @@ PrefabInstance:
       objectReference: {fileID: 1286806194}
     - target: {fileID: 5592833437522147513, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
       propertyPath: missionCards.Array.data[0].cardCount
-      value: 1
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 5592833437522147513, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
       propertyPath: missionCards.Array.data[1].cardCount
@@ -100103,11 +100103,11 @@ PrefabInstance:
     - target: {fileID: 5592833437522147513, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
       propertyPath: missionCards.Array.data[0].missionData
       value: 
-      objectReference: {fileID: 11400000, guid: 02e593917f8d99142a3b5a8aaccd9b6c, type: 2}
+      objectReference: {fileID: 11400000, guid: 2e19bc2ceed4b5242a115b49a82f4d39, type: 2}
     - target: {fileID: 5592833437522147513, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
       propertyPath: missionCards.Array.data[1].missionData
       value: 
-      objectReference: {fileID: 11400000, guid: 2bafa8a28fc96054cb985f8dcfaad1ba, type: 2}
+      objectReference: {fileID: 11400000, guid: 2e19bc2ceed4b5242a115b49a82f4d39, type: 2}
     - target: {fileID: 5592833437522147513, guid: c3c18a824382f904aaef9599e8b03839, type: 3}
       propertyPath: missionCards.Array.data[2].missionData
       value: 
@@ -150778,7 +150778,7 @@ MonoBehaviour:
   endTurnButton: {fileID: 5127021573554973369}
   usagesRemainTxt: {fileID: 1220290577}
   cultistCostTxt: {fileID: 1303889060}
-  cultistCost: 3
+  cultistCost: 0
   renObj: {fileID: 511141974884527934, guid: 1b098adcf0513894e96febebb7a9bc2c, type: 3}
   agentManager: {fileID: 1870082506}
   mainCamera: {fileID: 294327819}

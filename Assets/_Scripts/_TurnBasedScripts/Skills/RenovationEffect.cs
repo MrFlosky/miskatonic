@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RevovationEffect : MonoBehaviour, ITurnObserver
+public class RenovationEffect : MonoBehaviour, ITurnObserver
 {
     public int TurnsElapsed;
-    [SerializeField] int maxTurns;
+    public int maxTurns;
+    public int targetIndex;
+    public SkillRenovation skillRenovation;
     void Start()
     {
         TurnBasedSystem.SubscribeAsObserver(this);
@@ -18,8 +20,10 @@ public class RevovationEffect : MonoBehaviour, ITurnObserver
     {
         if (TurnsElapsed == maxTurns)
         {
-            Debug.Log("This room is no longer under the effects of renovation");
-            Destroy(gameObject);
+
+
+            skillRenovation.EndRenovation(targetIndex);
+            
         }
 
     }

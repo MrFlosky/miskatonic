@@ -29,12 +29,17 @@ public class AgentNavigation : MonoBehaviour
     public Vector3 destination;
 
     [SerializeField] private RoomName FearRoom;
-    [SerializeField]private RoomName bonusFearRoom;
+    [SerializeField]public List<RoomName> BonusFearRooms;
 
-    public void SetBonusFearRoom(RoomName name)
+    public void SetBonusFearRoom()
     {
-        bonusFearRoom = name;
-        roomFearEffects[GetRoomName(bonusFearRoom)] = RoomIncreaseFear;
+        foreach(var RM in BonusFearRooms)
+        {
+            roomFearEffects[GetRoomName(RM)] = RoomIncreaseFear;
+            
+        }
+
+
     }
 
     [SerializeField] private RoomName GoalRoom;
@@ -67,7 +72,7 @@ public class AgentNavigation : MonoBehaviour
         roomFearEffects = new Dictionary<string, System.Action>();
         roomFearEffects[GetRoomName(FearRoom)] = RoomIncreaseFear;
         roomFearEffects[GetRoomName(GoalRoom)] = DecreaseFear;
-        SetBonusFearRoom(RoomName.None);
+        BonusFearRooms.Clear();
         
     }
 
@@ -713,7 +718,10 @@ public class AgentNavigation : MonoBehaviour
 
     public void RoomIncreaseFear()
     {
+        Debug.LogError(agentFear.currentFear);
+        
         agentFear.AddFear(5);
+        Debug.LogError(agentFear.currentFear);
     }
     
     public void AddBonusFear(float bonusFear)
@@ -915,5 +923,23 @@ public class AgentNavigation : MonoBehaviour
     public void SetTilesPerTurn(int tiles)
     {
         tilesPerTurn = tiles;
+    }
+
+    public void CheckForClear()
+    {
+        bool allNone= true;
+        foreach(var RoomN in BonusFearRooms)
+        {
+            if(RoomN!= RoomName.None)
+            {
+                allNone = false;
+                break;
+            }
+        }
+
+        if (allNone)
+        {
+           BonusFearRooms.Clear(); 
+        }
     }
 }

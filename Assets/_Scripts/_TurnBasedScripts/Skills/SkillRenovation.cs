@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime;
+using UnityEditor.Rendering.BuiltIn.ShaderGraph;
 using UnityEngine;
 using UnityEngine.InputSystem;
 public class SkillRenovation : Skill
@@ -64,7 +65,7 @@ public class SkillRenovation : Skill
                 
                 foreach (AgentNavigation AN in agentManager.agents)
                 {
-                    AN.SetBonusFearRoom(Rn);
+                   AN.BonusFearRooms.Add(Rn);
                     
                     
 
@@ -73,7 +74,7 @@ public class SkillRenovation : Skill
                 newPosition.x += 1f;
                 newPosition.y = 0.5f;
                 newPosition.z += 1f;
-                CreateRenovator(newPosition);
+                CreateRenovator(newPosition, agentManager.agents[0].BonusFearRooms.IndexOf(Rn));
                 EndSkill();
                 
             }
@@ -98,32 +99,40 @@ public class SkillRenovation : Skill
         base.ActivateSkill();
     }
 
-    public void CreateRenovator(Vector3 newPos)
+    public void CreateRenovator(Vector3 newPos,int index)
     {
         Renovators.Clear();
 
         GameObject newRen = Instantiate(renObj);
+        RenovationEffect renEff = newRen.GetComponent<RenovationEffect>();
         newRen.transform.position=newPos;
         newRen.transform.SetParent(transform);
         Renovators.Add(newRen);
-        newRen.GetComponent<Renovator>().turnsRemaining = roundsLast;
+        renEff.maxTurns = roundsLast;
+        renEff.skillRenovation = this;
+        
+        foreach (AgentNavigation AN in agentManager.agents)
+            {
+                AN.SetBonusFearRoom();  
+            }
         
 
     }
 
 
-    public void EndRenovation()
+    public void EndRenovation(int index)
     {
+        Debug.LogError(index);
         foreach (AgentNavigation AN in agentManager.agents)
-                {
-                    AN.SetBonusFearRoom(AgentNavigation.RoomName.None);
-                    
-                    
-
-                }
+            {
+                AN.BonusFearRooms[index]= AgentNavigation.RoomName.None;
+                AN.CheckForClear();
+            }
+        
+        
 
     }
 
-    
+   
 
 }
