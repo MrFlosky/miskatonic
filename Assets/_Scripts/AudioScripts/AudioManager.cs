@@ -15,7 +15,7 @@ public class AudioManager : MonoBehaviour
     void Awake()
     {
         S = this;
-        S.enabled = false;
+        enabled = false;
     }
     public AudioSource characterSelect;
     public AudioSource buttonSelect;
@@ -48,12 +48,15 @@ public class AudioManager : MonoBehaviour
 
     static public void SmoothVolumeTransition(float startVol, float endVol)
     {
+        if (S == null) return; // for win sequence 
+
         S.timeElapsed = 0f;
         S.start = startVol;
         S.end = endVol;
         S.enabled = true;
         
     }
+
     static public void PlaySFX(SFXType clip)
     {
         switch(clip)

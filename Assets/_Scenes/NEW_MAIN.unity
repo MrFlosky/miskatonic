@@ -48326,6 +48326,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 453246926}
+  - component: {fileID: 453246927}
   m_Layer: 0
   m_Name: AI
   m_TagString: Untagged
@@ -48352,6 +48353,18 @@ Transform:
   - {fileID: 402037186}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &453246927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 453246925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61d66bf9f61e28d45a7f89b9cbb08a0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &453884096
 GameObject:
   m_ObjectHideFlags: 0
@@ -129258,6 +129271,10 @@ PrefabInstance:
       propertyPath: aoe
       value: 
       objectReference: {fileID: 86437683}
+    - target: {fileID: 4329230583971179906, guid: e71a97cbe39edb84da728219de2caeef, type: 3}
+      propertyPath: totalFearToWin
+      value: 400
+      objectReference: {fileID: 0}
     - target: {fileID: 4329230583971179906, guid: e71a97cbe39edb84da728219de2caeef, type: 3}
       propertyPath: fearArray.Array.data[0]
       value: 

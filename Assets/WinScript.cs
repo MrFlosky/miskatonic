@@ -6,6 +6,10 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+/// <summary>
+/// This class is responsible for tracking if the player has won and 
+/// initiating the win scene.
+/// </summary>
 public class WinScript : MonoBehaviour
 {
     public Light lightToDim;
@@ -53,6 +57,7 @@ public class WinScript : MonoBehaviour
 
     private IEnumerator DimLightAndLoadScene(string reason)
     {
+
         textParent.SetActive(true);
         mainText.text = "You Win";
         reasonText.text = reason;

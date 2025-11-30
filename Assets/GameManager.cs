@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Cinemachine;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -205,6 +206,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void Win(string reason)
     {
+        if (won) return; // prevent re entry, causing stack overflow
         won = true;
         foreach (var agent in agentGoalRoom.Keys)
         {

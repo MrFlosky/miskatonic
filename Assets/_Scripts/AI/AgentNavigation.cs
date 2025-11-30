@@ -290,9 +290,13 @@ public class AgentNavigation : MonoBehaviour
         path.Clear();
         isMoving = false;
 
-        //playerVision.totemCell.Clear();
-        playerVision.UpdateVision(false);
-        playerVision.ApplyPsychosis(false);
+        // null check or else this will cause stackoverflow
+        if (playerVision != null)
+        {
+            //playerVision.totemCell.Clear();
+            playerVision.UpdateVision(false);
+            playerVision.ApplyPsychosis(false);
+        }
        
         gameObject.GetComponent<DialogueBank>().alreadyTalked = false;
     }

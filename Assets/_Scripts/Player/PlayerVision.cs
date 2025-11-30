@@ -44,8 +44,6 @@ public class PlayerVision : MonoBehaviour, ITurnObserver
     // Tile distance required for a player to be nearby
     private int nearbyRadius = 5;
 
-
-
     /// <summary>
     /// Set up varibles for current position of AI
     /// </summary>
@@ -70,10 +68,10 @@ public class PlayerVision : MonoBehaviour, ITurnObserver
 
     private void Update()
     {
-        string nearby = string.Join(", ", nearbyCharacters.Select(c => c.gameObject.GetComponent<DialogueBank>().character));
-        string visible = string.Join(", ", currentVisible.Select(v => v.ToString()));   
-        Debug.Log($"{gameObject.GetComponent<DialogueBank>().character} is next to {nearby}");
-        Debug.Log($"{gameObject.GetComponent<DialogueBank>().character} can see {visible}");
+        // string nearby = string.Join(", ", nearbyCharacters.Select(c => c.gameObject.GetComponent<DialogueBank>().character));
+        // string visible = string.Join(", ", currentVisible.Select(v => v.ToString()));   
+        // Debug.Log($"{gameObject.GetComponent<DialogueBank>().character} is next to {nearby}");
+        // Debug.Log($"{gameObject.GetComponent<DialogueBank>().character} can see {visible}");
     }
 
     void Awake()
@@ -266,35 +264,35 @@ public class PlayerVision : MonoBehaviour, ITurnObserver
             }
 
 
-            if (MazeRenderer.Instance.cellGameObjects.TryGetValue(pos, out GameObject cellObject))
-            {
+            // if (MazeRenderer.Instance.cellGameObjects.TryGetValue(pos, out GameObject cellObject))
+            // {
 
-                foreach (Transform child in cellObject.transform)
-                {
-                    var renderer = child.GetComponent<MeshRenderer>();
-                    //if (renderer != null)
-                    //{
-                    //	var mats = new List<Material>(renderer.materials);
-                    //	if (!mats.Contains(outlineMaterial)) // avoid duplicates
-                    //		mats.Add(outlineMaterial);
-                    //	renderer.materials = mats.ToArray();
-                    //}
-                    if (renderer != null)
-                    {
-                        if (!originalMaterials.ContainsKey(renderer))
-                            originalMaterials[renderer] = renderer.materials;
+            //     foreach (Transform child in cellObject.transform)
+            //     {
+            //         var renderer = child.GetComponent<MeshRenderer>();
+            //         //if (renderer != null)
+            //         //{
+            //         //	var mats = new List<Material>(renderer.materials);
+            //         //	if (!mats.Contains(outlineMaterial)) // avoid duplicates
+            //         //		mats.Add(outlineMaterial);
+            //         //	renderer.materials = mats.ToArray();
+            //         //}
+            //         if (renderer != null)
+            //         {
+            //             if (!originalMaterials.ContainsKey(renderer))
+            //                 originalMaterials[renderer] = renderer.materials;
 
-                        var mats = new List<Material>(renderer.materials);
-                        if (!mats.Contains(outlineMaterial))
-                            mats.Add(outlineMaterial);
+            //             var mats = new List<Material>(renderer.materials);
+            //             if (!mats.Contains(outlineMaterial))
+            //                 mats.Add(outlineMaterial);
 
-                        renderer.materials = mats.ToArray();
-                    }
-                }
-            }
+            //             renderer.materials = mats.ToArray();
+            //         }
+            //     }
+            // }
         }
 
-        foreach (var player in FindObjectsOfType<PlayerVision>())
+        foreach (var player in PlayerVisionCollection.S.GetPlayerVisions())
         {
             if (player == this) continue;
 
@@ -380,7 +378,7 @@ public class PlayerVision : MonoBehaviour, ITurnObserver
             // int nearbyCharacters = 0;
             
 
-            foreach (var player in FindObjectsOfType<PlayerVision>())
+            foreach (var player in PlayerVisionCollection.S.GetPlayerVisions())
             {
                 if (player == this) continue;
 
@@ -410,7 +408,7 @@ public class PlayerVision : MonoBehaviour, ITurnObserver
             // int nearbyCharacters = 0;
             
 
-            foreach (var player in FindObjectsOfType<PlayerVision>())
+            foreach (var player in PlayerVisionCollection.S.GetPlayerVisions())
             {
                 if (player == this) continue;
 
