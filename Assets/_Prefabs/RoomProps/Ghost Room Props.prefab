@@ -41,6 +41,10 @@ Transform:
   - {fileID: 3451850781285388556}
   - {fileID: 1931421809649379216}
   - {fileID: 2305032505478249279}
+  - {fileID: 4243110574545031216}
+  - {fileID: 2588946209592187620}
+  - {fileID: 6362029964964570193}
+  - {fileID: 6221987641342304877}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &25509792258704743
@@ -465,6 +469,84 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: fed61c9ee70579b4294e955979d7bff2, type: 3}
   m_PrefabInstance: {fileID: 2394652149307429452}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &2623190244872912143
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 4349616472074778762}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 7731bb2155a6a4f4997a742574226235, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7731bb2155a6a4f4997a742574226235, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7731bb2155a6a4f4997a742574226235, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7731bb2155a6a4f4997a742574226235, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 8.474529
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7731bb2155a6a4f4997a742574226235, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.01
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7731bb2155a6a4f4997a742574226235, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.28
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7731bb2155a6a4f4997a742574226235, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7731bb2155a6a4f4997a742574226235, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7731bb2155a6a4f4997a742574226235, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7731bb2155a6a4f4997a742574226235, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7731bb2155a6a4f4997a742574226235, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7731bb2155a6a4f4997a742574226235, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7731bb2155a6a4f4997a742574226235, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7731bb2155a6a4f4997a742574226235, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7731bb2155a6a4f4997a742574226235, type: 3}
+      propertyPath: m_Name
+      value: Cemetary Lamp (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7731bb2155a6a4f4997a742574226235, type: 3}
+--- !u!4 &2588946209592187620 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7731bb2155a6a4f4997a742574226235, type: 3}
+  m_PrefabInstance: {fileID: 2623190244872912143}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2667930264554516547
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -710,6 +792,240 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: fed61c9ee70579b4294e955979d7bff2, type: 3}
   m_PrefabInstance: {fileID: 4366922229808761361}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &4424848117770794971
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 4349616472074778762}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 7731bb2155a6a4f4997a742574226235, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7731bb2155a6a4f4997a742574226235, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7731bb2155a6a4f4997a742574226235, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7731bb2155a6a4f4997a742574226235, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 8.474529
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7731bb2155a6a4f4997a742574226235, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.01
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7731bb2155a6a4f4997a742574226235, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -8.35
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7731bb2155a6a4f4997a742574226235, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7731bb2155a6a4f4997a742574226235, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7731bb2155a6a4f4997a742574226235, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7731bb2155a6a4f4997a742574226235, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7731bb2155a6a4f4997a742574226235, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7731bb2155a6a4f4997a742574226235, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7731bb2155a6a4f4997a742574226235, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7731bb2155a6a4f4997a742574226235, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7731bb2155a6a4f4997a742574226235, type: 3}
+      propertyPath: m_Name
+      value: Cemetary Lamp
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7731bb2155a6a4f4997a742574226235, type: 3}
+--- !u!4 &4243110574545031216 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7731bb2155a6a4f4997a742574226235, type: 3}
+  m_PrefabInstance: {fileID: 4424848117770794971}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5895855908913235334
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 4349616472074778762}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 7731bb2155a6a4f4997a742574226235, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7731bb2155a6a4f4997a742574226235, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7731bb2155a6a4f4997a742574226235, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7731bb2155a6a4f4997a742574226235, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.44
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7731bb2155a6a4f4997a742574226235, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.01
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7731bb2155a6a4f4997a742574226235, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -8.366
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7731bb2155a6a4f4997a742574226235, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7731bb2155a6a4f4997a742574226235, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7731bb2155a6a4f4997a742574226235, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7731bb2155a6a4f4997a742574226235, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7731bb2155a6a4f4997a742574226235, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7731bb2155a6a4f4997a742574226235, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7731bb2155a6a4f4997a742574226235, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7731bb2155a6a4f4997a742574226235, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7731bb2155a6a4f4997a742574226235, type: 3}
+      propertyPath: m_Name
+      value: Cemetary Lamp (3)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7731bb2155a6a4f4997a742574226235, type: 3}
+--- !u!4 &6221987641342304877 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7731bb2155a6a4f4997a742574226235, type: 3}
+  m_PrefabInstance: {fileID: 5895855908913235334}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &6899727894904816570
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 4349616472074778762}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 7731bb2155a6a4f4997a742574226235, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7731bb2155a6a4f4997a742574226235, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7731bb2155a6a4f4997a742574226235, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7731bb2155a6a4f4997a742574226235, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.44
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7731bb2155a6a4f4997a742574226235, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.01
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7731bb2155a6a4f4997a742574226235, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.28
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7731bb2155a6a4f4997a742574226235, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7731bb2155a6a4f4997a742574226235, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7731bb2155a6a4f4997a742574226235, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7731bb2155a6a4f4997a742574226235, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7731bb2155a6a4f4997a742574226235, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7731bb2155a6a4f4997a742574226235, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7731bb2155a6a4f4997a742574226235, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 7731bb2155a6a4f4997a742574226235, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7731bb2155a6a4f4997a742574226235, type: 3}
+      propertyPath: m_Name
+      value: Cemetary Lamp (2)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7731bb2155a6a4f4997a742574226235, type: 3}
+--- !u!4 &6362029964964570193 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7731bb2155a6a4f4997a742574226235, type: 3}
+  m_PrefabInstance: {fileID: 6899727894904816570}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7666802105411107464
 PrefabInstance:
