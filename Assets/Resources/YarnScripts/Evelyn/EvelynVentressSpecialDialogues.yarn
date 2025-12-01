@@ -1,109 +1,108 @@
 ﻿title: EvelynVentressLibrary
 ---
-OMG I'm in a freaking libray WTF MAN this is messed up
-Evelyn Ventress: Evelyn pokes her head into the dimly lit room to see two bookcases and a desk. She walks over to the desk and grabs some papers. She is looking for any kind of answer. 
+Evelyn Ventress: Evelyn pokes her head into the dimly lit room and sees two bookcases and a desk. She walks over to the desk and rifles through papers, searching for answers.
 ->The pages are empty.
     <<neutral "Evelyn Ventress">>
-	She puts the pages back down at the desk and continues searching the room. 
-->”Answers? You want answers? There has never been and never will be answers to any of this.”
+	She puts the pages down on the desk and searches the room. 
+->"Answers? You want answers? There has never been and never will be answers for any of this.”
     <<add_fear "Evelyn Ventress">>
     <<discover_fear "Evelyn Ventress" 5>>
     <<terrified "Evelyn Ventress">>
-	She tries to push these thoughts aside, but the words on the page seem meaningless to her now. She rests at the desk and softly cries. 
+	The words on the page seem meaningless to her now. She rests her head on the desk and softly cries. 
 ->The pages depict ancient rituals.
     <<reduce_fear Evelyn Ventress">>"
     <<determined "Evelyn Ventress">>
-	“Interesting…” She reads through the pages on blood sacrifices and portal openings with intense fascination. 
-->The pages read various passages from the bible.
+	“Interesting…” With intense fascination, she reads through pages on blood sacrifices and portal openings. 
+->The pages show various passages from the Bible.
     <<neutral "Evelyn Ventress">>
 	2 Peter 2:1-2…James 3:1…Matthew 7:21-23… She briefly looks over the contents but has no patience for traditional religion.  
 ===
 title: EvelynVentressDungeon
 ---
-Evelyn Ventress: The first thing Evelyn notices when walking into the room is the distinct smell of dried blood matching the splotches on the floor. Noticing the cage, she opens the cell door and walks inside. 
-->Create a disheveled man lying in the cell with her.
+Evelyn Ventress: When Evelyn walks into the room, she immediately detects the distinct smell of dried blood, which explains the dark splotches on the floor. She sees a cell door and walks inside.
+->Reveal a disheveled man lying in the cell with her.
     <<neutral "Evelyn Ventress">>
-	She notices the man in the corner of her eyes. She slowly walks over. “Sir, are you okay?” As soon as she says this, the body fades into the air. 
+	From the corner of her eye, she sees the man and slowly approaches. “Sir, are you okay?” As she speaks these words, his body fades into air. 
 ->Have the stone roof begin to collapse. 
     <<neutral "Evelyn Ventress">>
-	She quickly steps out of the cell. Wiping a bead of sweat away from her forehead, she smiles. She images herself as Indiana Jones in this moment. 
+	Quickly, she retreats out of the cell. Wiping a bead of sweat from her forehead, she smiles, imagining herself as Indiana Jones at this moment. 
 ->Slam the door behind her.
     <<add_fear "Evelyn Ventress">>
     <<discover_fear "Evelyn Ventress" 1>>
     <<terrified "Evelyn Ventress">>
-	“No no no no no no.” She quickly lunges towards the bars, pulling at them to open. Sweating, she collapses to the ground with stress. She stays there until the door eventually creeps back open. 
-->Create a little girl in the cell with her. 
+	“No no no no no no!” She lunges toward the bars, pulling hard but getting nowhere. Sweating, she collapses to the ground and stays there until the door cracks open once more.
+->Reveal a little girl in the cell with her. 
     <<neutral "Evelyn Ventress">>
-	Evelyn looks over her shoulder to notice the small child. She approaches her carefully. “Hi, Honey. How did you get here?” She reaches for the child’s shoulder as the apparition fades into the air. 
+	Evelyn looks over her shoulder and notices the child. Carefully, she approaches. “Hi, honey. How did you get here?” She reaches for the child’s arm as the apparition fades into air. 
 ===
 title: EvelynVentressDiningRoom
 ---
-Evelyn Ventress: Walking into the room, Evelyn the delighted by the decor. She walks to the head of the carefully set table. It looks as if it hasn’t been touched in years. 
+Evelyn Ventress: Walking into the room, Evelyn is delighted by the decor. She walks to the head of an ornately prepared  table. It looks as if it hasn’t been touched in years. 
 ->”Inspect the dusty plates on the table.”
     <<neutral "Evelyn Ventress">>
-	She picks one of the plates up and places in back down. Nothing interesting to see there. 
+	She picks up one of the plates and places it back down. Nothing interesting to see there. 
 ->”Inspect the potted plants around the table.”
     <<neutral "Evelyn Ventress">>
-	“Woah, these are lovely.” She is delighted by the plants.
+	“Wow, these are lovely.” She is delighted by the plants.
 ->”This room is boring. You want to leave.”
     <<neutral "Evelyn Ventress">>
-	Evelyn confuses herself with this thought. She likes the dated style. 
+	Evelyn feels confused when she wants to leave because she likes this dated style. 
 ->”Inspect the cobwebs in the corner of the roof.”
     <<add_fear "Evelyn Ventress">>
     <<discover_fear "Evelyn Ventress" 9>>
     <<terrified "Evelyn Ventress">>
-	She walks over to the corner of the room and cranes her neck upwards. She notices nothing at the cobwebs, but, as she walks away, feels something on her shoulder. Looking to her left, she sees a massive spider crawling on her and she screams at the top of her lungs before batting it off.  
+	She walks  to the corner of the room and cranes her neck upward. The cobwebs looks harmless,  but, as she walks away, she feels a tickle on her shoulder. Glancing left, she sees a massive spider crawling toward her face, and she screams before batting it off.   
 ===
 title: EvelynVentressCemetery
 ---
-Evelyn Ventress: Evelyn is taken aback at first sight of the cemetery. She finds it strange that such a place would be located in the middle of this labyrinth. She stands there, taking it in. 
-->Create a spooky ghost sound.
+Evelyn Ventress: Evelyn is taken aback at first sight of the cemetery. She finds it strange that such a place would be located at the center of this labyrinth. She stands there, taking it in. 
+->Create an exaggerated spooky ghost sound.
     <<neutral "Evelyn Ventress">>
 	She chuckles a bit. “What the hell could that be?”
 ->Create nothing but the sounds of wind blowing through the grass.
     <<add_fear "Evelyn Ventress">>
     <<discover_fear "Evelyn Ventress" 0>>
     <<terrified "Evelyn Ventress">>
-	The silence unnerves her, causing goosebumps to run along her back and up the nape of her neck. She grabs at her arms and shivers. 
+	The sound unnerves her, causing goosebumps to rise on the nape of her neck. She hugs her arms and shivers. 
 ->Create the sound of stones cracking.
     <<neutral "Evelyn Ventress">>
-	She perks up at the unexpected noise. She searches the cemetery in search of the noises origin but finds nothing.
+	She startles at the unexpected noise. She searches the cemetery for the source of that sound but finds nothing.
 ->Create the sound of a siren blaring.
     <<neutral "Evelyn Ventress">>
-	“Someone’s coming to save me!” She runs around trying to find the source of the noise but deems it a dirty trick as it dissipates.
+	“Someone’s coming to save me!” She runs in the direction of the siren, but when it abruptly stops, she assumes it was a cruel trick to give her false hope. 
 ===
 
 title: EvelynVentressRitualRoom
 ---
-Evelyn Ventress: Evelyn walks into the foreboding room. She inspects the lectern before making her way over to the pool in the center of the room. “What is that?”
-->”It’s blood”
+Evelyn Ventress: Evelyn walks into the room and inspects a lectern standing nearby. She then drifts toward a strange pool in the center of the room. “What is that?”
+->"It’s blood.”
     <<neutral "Evelyn Ventress">>
 	“Obviously, but where did it come from?”
-->”Something harvested it from you while you were unconscious. You've lost a lot of blood.”
+-"Something harvested it from you while you were unconscious. You've lost so much blood.”
     <<add_fear "Evelyn Ventress">>
     <<discover_fear "Evelyn Ventress" 8>>
     <<terrified "Evelyn Ventress">>
-	As she thinks about this theory, she starts to feel weak and dizzy. She tries to find something to grab onto but there’s nothing. She starts to sweat with the idea that she may be slowly dying. 
-->”Look! It’s Kool-Aid!”
+	As she considers this, she begins to feel weak and dizzy. She tries to find something to steady herself, but there’s nothing. She sweats, panicked by the thought that she may be slowly dying. 
+->"Look! It’s Kool-Aid!”
     <<neutral "Evelyn Ventress">>
 	“I don’t think that’s right.”
-->”It’s disease-ridden blood. Think of all the germs lurking in there.”
+->"It’s diseased blood. There are so many germs lurking in it.”
     <<neutral "Evelyn Ventress">>
-	She looks closer to tell if there is any kind of indication of disease. She can’t tell but finds the thought fascinating. 
+	She examines it closely for indications of disease, but it’s not obvious to the naked eye. The thought of it fascinates her. 
 ===
 
 title: EvelynVentressBedroom
 ---
-Evelyn Ventress: As Evelyn creeps into the bedroom, the atmosphere of the room disturbs her. It reminds her of her time working in a hospital. She analyzes the scene before her. 
+Evelyn Ventress: As Evelyn creeps into the bedroom, the atmosphere of the space disturbs her. It reminds her of her time working in a hospital. She analyzes the scene before her. 
 ->Create an envelope on the bedside table.
     <<add_fear "Evelyn Ventress">>
     <<discover_fear "Evelyn Ventress" 6>>
     <<terrified "Evelyn Ventress">>
-	Evelyn shutters. It’s an envelope with a red wax seal. “This must be Gene’s room. I knew he was behind all this.” She keeps checking over her shoulder, waiting for him to come back. 
+	Evelyn shudders. It’s an envelope with a red wax seal. “This must be Gene’s room. I knew he was behind  this.” She keeps glancing over her shoulder, waiting for him to reappear. 
 ->Create a hypodermic needle on the bedside table. 
     <<neutral "Evelyn Ventress">>
-	Evelyn walks over to the bedside table and inspects the needle. “This may be someones hospital room.”
-->Let her explore
+	Evelyn walks to the bedside table and inspects the needle. “This may be someone's hospital room.”
+->Let her explore.
     <<neutral "Evelyn Ventress">>
 	Evelyn walks around the room, analyzing its contents. 
 ->Make the wheelchair roll on its own. 
