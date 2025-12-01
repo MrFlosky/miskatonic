@@ -23,7 +23,7 @@ public class PortraitFade : MonoBehaviour, ITurnObserver
     [SerializeField] GameObject buttonText;
     public bool clicked;
     [SerializeField]float maxClickedAlpha = .1f;
-
+    
     
     Image portraitImage;
 

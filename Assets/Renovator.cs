@@ -2,34 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Renovator : MonoBehaviour, ITurnObserver
+public class Renovator : MonoBehaviour
 {
-    [SerializeField]public int turnsRemaining;
-
-    void Awake()
-    {
-        
-    }
-
-    void Start()
-    {
-        TurnBasedSystem.SubscribeAsObserver(this);
-    }
-    void ITurnObserver.PlayerTurnInitiated()
-    {
-        if (turnsRemaining <= 0)
-        {   
-            SkillRenovation sr = GetComponentInParent<SkillRenovation>();
-            sr.EndRenovation();   
-        }
-
-
-    }
-
-    void ITurnObserver.EnemyTurnInitiated()
-    {
-        
-        turnsRemaining--;
-    }
+    
     
 }
