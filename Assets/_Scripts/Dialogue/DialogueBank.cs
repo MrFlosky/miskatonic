@@ -158,8 +158,8 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
         characterFirstName = CharacterNames.GetFirstName(character);
         characterLastName = CharacterNames.GetLastName(character);
         characterFullName = characterFirstName + characterLastName;
-        string yarnAcessStr = characterFullName + trigger;
-        Debug.Log($"Dialog {yarnAcessStr} queued for {characterFirstName}");
+        string yarnAccessStr = characterFullName + trigger;
+        Debug.Log($"Dialog {yarnAccessStr} queued for {characterFirstName}");
 
         switch(dialog.type)
         {
@@ -170,7 +170,7 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
                 if(dialogueType == DialogueType.Encounter) return;
                 break;
         }
-        dialog = (dialogueType, yarnAcessStr);
+        dialog = (dialogueType, yarnAccessStr);
 
     }
 
@@ -178,6 +178,11 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
     {
         if(dialogueType != dialog.type) return;
         dialog = (DialogueType.None, "Null");
+    }
+
+    public DialogueType GetDialogueType()
+    {
+        return dialog.type;
     }
 
 
@@ -196,11 +201,11 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
         // access the dialogue at the random index, then play and remove
         // whatever dialogue number that returns from the list
         int dialogueKey = unPlayedDialogues[listIndex];
-        string yarnAcessStr = characterFullName + dialogueKey;
+        string yarnaccessStr = characterFullName + dialogueKey;
 
         CharacterGameDialogue.SetActivePortrait(character, characterFear.GetFearState());
         
-        dialgoueRunner.StartDialogue(yarnAcessStr);
+        dialgoueRunner.StartDialogue(yarnaccessStr);
 
         dialoguesRemaining -= 1;
         unPlayedDialogues.RemoveAt(listIndex);
@@ -223,17 +228,17 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
         dialgoueRunner.onDialogueComplete.AddListener(EndDialogue);
 
         int dialogueKey = unPlayedDialogues[index];
-        string yarnAcessStr = characterFullName + dialogueKey;
+        string yarnAccessStr = characterFullName + dialogueKey;
 
         CharacterGameDialogue.SetActivePortrait(character);
         
-        dialgoueRunner.StartDialogue(yarnAcessStr);
+        dialgoueRunner.StartDialogue(yarnAccessStr);
 
         dialoguesRemaining -= 1;
         unPlayedDialogues.RemoveAt(index);        
     }
 
-    public void PlayQueuedDialog(string yarnAcessStr)
+    public void PlayQueuedDialog(string yarnAccessStr)
     {
         ClickAI.S.StartConversation();
         // add function to be called when dialogue ends. cannot be done in start,
@@ -242,7 +247,8 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
 
         CharacterGameDialogue.SetActivePortrait(character, characterFear.GetFearState());
         
-        dialgoueRunner.StartDialogue(yarnAcessStr);    
+        dialgoueRunner.StartDialogue(yarnAccessStr);
+        dialog.type = DialogueType.None;
     }
 
     bool firstDialogPlayed = false;
@@ -252,7 +258,7 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
     /// </summary>
     public void PlayDialog()
     {
-
+        Debug.Log($"{characterFullName} in univsited room?: {gameObject.GetComponent<AgentNavigation>().IsStandingInUnvisitedRoom()}");
         // Terrible dummy way to handle the first dialog being the zero index
         if(!firstDialogPlayed)
         {
