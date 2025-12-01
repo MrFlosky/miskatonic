@@ -397,7 +397,7 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
     [YarnCommand("reduce_fear")]
     public void YarnReduceFear()
     {
-        characterFear.AddFear(fearReduce);
+        characterFear.ReduceFear(fearReduce);
     }
     [YarnCommand("discover_fear")]
     public void discoverFear(int fearNum)
