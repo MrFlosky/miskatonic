@@ -52,11 +52,12 @@ public class SkillRenovation : Skill
 
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, raycastLayerMask))
         {
-            if (hit.collider.gameObject.GetComponentInParent<MazeCellObject>() != null
-            && hit.collider.gameObject.GetComponentInParent<MazeCellObject>().roomType != "Hallway")
+            MazeCellObject cellHit = hit.collider.gameObject.GetComponentInParent<MazeCellObject>();
+            if (cellHit != null
+            && cellHit.roomType != "Hallway")
             {
-
-                string RoomsName = hit.collider.gameObject.GetComponentInParent<MazeCellObject>().roomType;
+                
+                string RoomsName = cellHit.roomType;
                 RoomsName = RoomsName.Replace(" ", "");
                 
 
@@ -70,11 +71,8 @@ public class SkillRenovation : Skill
                     
 
                 }
-                Vector3 newPosition = hit.transform.position;
-                newPosition.x += 1f;
-                newPosition.y = 0.5f;
-                newPosition.z += 1f;
-                CreateRenovator(newPosition, agentManager.agents[0].BonusFearRooms.IndexOf(Rn));
+                RoomCenter rc = cellHit.transform.parent.GetComponentInChildren<RoomCenter>();
+                CreateRenovator(rc.transform.position);
                 EndSkill();
                 
             }
@@ -99,7 +97,7 @@ public class SkillRenovation : Skill
         base.ActivateSkill();
     }
 
-    public void CreateRenovator(Vector3 newPos,int index)
+    public void CreateRenovator(Vector3 newPos)
     {
         Renovators.Clear();
 
