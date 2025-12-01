@@ -193,8 +193,11 @@ public class AgentNavigation : MonoBehaviour
             }
             else if (currentCell.roomType == "Hallway")
             {
-                gameObject.GetComponent<DialogueBank>().DequeueSpecialDialog(DialogueBank.DialogueType.Room);
-                currentRoom = null;
+                if(gameObject.GetComponent<DialogueBank>().GetDialogueType() == DialogueBank.DialogueType.Room) 
+                {
+                    gameObject.GetComponent<DialogueBank>().DequeueSpecialDialog(DialogueBank.DialogueType.Room);
+                }
+                currentRoom = null;     
             }
             
             if (HasMovedMaxTiles())
