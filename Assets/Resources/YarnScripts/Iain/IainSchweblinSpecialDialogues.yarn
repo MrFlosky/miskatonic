@@ -1,100 +1,116 @@
 ﻿title: IainSchweblinLibrary
 ---
 OMG I'm in a freaking libray WTF MAN this is messed up
--> Library Option 1
-    DO libarary stuff
--> Libary Option 2
-    DO libarary stuff
--> Library Option 3
-    <<reduce_fear "Iain Schweblin">>
-    DO libarary stuff
--> Library option 4
+Iain Schweblin: Walking into the library, a wave of familiarity washes over him. He sits down on the velvet couch and sighs. 
+->Do nothing.
+    <<neutral "Iain Schweblin">>
+	 Iain goes over to one of the shelves and picks up one of the books. It’s a collection of stories by Edgar Allan Poe. He reclines on the velvet couch to read. 
+->Have one of the books fall off the shelf. 
+    <<neutral "Iain Schweblin">>
+	It hits the ground with a loud smack. Iain picks up the book. It’s a collection of stories by Edgar Allan Poe. He reclines on the velvet couch to read. 
+->Drop the floor out from under him.
     <<add_fear "Iain Schweblin">>
-    <<discover_fear "Iain Schweblin" 0>>
-    //Overthinking
-    DO libarary stuff  
+    <<discover_fear "Iain Schweblin" 6>>
+    <<terrified "Iain Schweblin">>
+    //Fear of Heights
+	He looks down to see his feet dangling above a huge chasm. Slamming his eyes closed, he convinces himself it’s just a trick of the mind. He clutches his knees to his chest and rocks back and forth. He opens them again and sees that the room is just as it was before the hallucination. 
+->Have the bookshelf fall over.
+    <<neutral "Iain Schweblin">>
+	Startled, Iain leaps up from the couch and runs to the bookcase. He lifts it upright and begins organizing the books. This process calms him, reminding him of home. 
 ===
 title: IainSchweblinDungeon
 ---
-OMG I'm in a freaking dungeon WTF MAN this is messed up
--> dungeon Option 1
-    DO dungeon stuff
--> dungeon Option 2
-    DO dungeon stuff
--> dungeon Option 3
-    <<reduce_fear "Iain Schweblin">>
-    DO dungeon stuff
--> dungeon option 4
+Iain Schweblin: The dungeon’s torch lights hypnotizes Iain. It’s the first natural thing he’s seen in the place. The warm light comforts him, and he’s transfixed by its flickering movement.
+->Snuff out the flames.
     <<add_fear "Iain Schweblin">>
-    <<discover_fear "Iain Schweblin" 0>>
-    //Overthinking
-    DO dungeon stuff  
+    <<discover_fear "Iain Schweblin" 7>>
+    <<terrified "Iain Schweblin">>
+    //Fear of Darkness
+	The flame disappears, and the room goes dark. Smoke floats up from the torch. Iain whips his head around, trying to figure out what happened. He begins to hyperventilate as his eyes try to adjust to the darkness. 
+->Fan the flames.
+    <<neutral "Iain Schweblin">>
+	The flames grow in size. Iain smiles in wonder as it pushes up toward the ceiling. He backs away, afraid the room will catch fire. Eventually, the flame returns to its original size.
+->Do nothing.
+    <<neutral "Iain Schweblin">>
+	He eventually moves on from the flames and explores the individual cells.
+->Change the color of the flame to blue.
+    <<neutral "Iain Schweblin">>
+	Startled, he jumps back. His eyes stay locked on the flame. “What is causing that?”
 ===
 title: IainSchweblinDiningRoom
 ---
-OMG I'm in a freaking dining room WTF MAN this is messed up
--> dining room Option 1
-    DO dining room stuff
--> dining room Option 2
-    DO dining room stuff
--> dining room Option 3
-    <<reduce_fear "Iain Schweblin">>
-    DO dining room stuff
--> dining room option 4
+Iain Schweblin: Iain stands at the head of the dining room table, surveying the room.
+->”Inspect the dusty plates on the table.”
+    <<neutral "Iain Schweblin">>
+	He looks at the plates. “Boring.”
+->”Inspect the plants.”
     <<add_fear "Iain Schweblin">>
-    <<discover_fear "Iain Schweblin" 0>>
-    //Overthinking
-    DO dining room stuff  
+    <<discover_fear "Iain Schweblin" 8>>
+    <<terrified "Iain Schweblin">>
+    //Fear of Beetles
+	He looks down at the potted plants. “It looks like it’s dying.” As he walks away, he feels something on his shoulder. Glancing right, he sees a beetle crawling toward his face. He screams and swats it off. He can’t escape the feeling that beetles have infested his skin. 
+->”This room is boring. You want to leave.”
+    <<neutral "Iain Schweblin">>
+	“Yeah, I should get out of here.” He paces around for a moment before leaving. 
+->”Inspect the cobwebs in the corner of the room.”
+    <<neutral "Iain Schweblin">>
+	He walks over to the corner of the room and watches tiny spiders crawl along their webs. “Cool.”
 ===
 title: IainSchweblinCemetery
 ---
-OMG I'm in a freaking cemetery WTF MAN this is messed up
--> cemetery Option 1
-    DO cemetery stuff
--> cemetery Option 2
-    DO cemetery stuff
--> cemetery Option 3
-    <<reduce_fear "Iain Schweblin">>
-    DO cemetery stuff
--> cemetery option 4
+Iain Schweblin: As he enters the room, he stops short. The scene before him looks like it was lifted straight from the cemetery where he’d been visiting. He walks around, reading the headstones until one catches his attention.
+->Jay Telzrow, 1913 - 1987, Beloved Mayor
+    <<neutral "Iain Schweblin">>
+  	“Mayor of what?” Iain continues on his way.
+->Gray Huff, 1924 - 1996, Dedicated Dentist
+    <<neutral "Iain Schweblin">>
+	“Dentist?” Iain continues on his way.
+->Grace Taylor, 1988 - 2020, Loving Mother
     <<add_fear "Iain Schweblin">>
-    <<discover_fear "Iain Schweblin" 0>>
-    //Overthinking
-    DO cemetery stuff  
+    <<discover_fear "Iain Schweblin" 2>>
+    <<terrified "Iain Schweblin">>
+    //Trauma from Wife's Death
+	He falls to his knees. “They took you, too?!” He sobs. 
+->Alex Lacoste, 1950-2003, Forgotten
+    <<neutral "Iain Schweblin">>
+	Iain sighs. He studies the name. He will be the one who remembers. 
 ===
 
 title: IainSchweblinRitualRoom
 ---
-OMG I'm in a freaking ritual room WTF MAN this is messed up
--> ritual room Option 1
-    DO ritual room stuff
--> ritual room Option 2
-    DO ritual room stuff
--> ritual room Option 3
-    <<reduce_fear "Iain Schweblin">>
-    DO ritual room stuff
--> ritual room option 4
+Iain Schweblin: Iain walks into the strange room. He stands at the lectern before drifting toward a dark pool in the center of the room. “Where did that come from?”
+->”It’s blood.”
+    <<neutral "Iain Schweblin">>
+	“Obviously, but where did it come from?”
+->”Something harvested it from you while you were unconscious. They stuck a needle in you and pulled it out.”
     <<add_fear "Iain Schweblin">>
-    <<discover_fear "Iain Schweblin" 0>>
-    //Overthinking
-    DO ritual room stuff  
+    <<discover_fear "Iain Schweblin" 9>>
+    <<terrified "Iain Schweblin">>
+    //Fear of Needles
+	He starts scratching his arm. It feels like a needle is stuck beneath his skin. He keeps clawing at it until it feels like his skin will come off. 
+->”Look! It’s Kool-Aid!”
+    <<neutral "Iain Schweblin">>
+	“I don’t think that’s right.”
+->”It’s diseased blood. There are so many germs lurking in there.”
+    <<neutral "Iain Schweblin">>
+	He looks closer for any indications of disease. “How would I know?” He continues to explore the room. 
 ===
 
 title: IainSchweblinBedroom
 ---
-OMG I'm in a freaking bedroom WTF MAN this is messed up
--> bedroom Option 1
-    DO bedroom stuff
--> bedroom Option 2
-    DO bedroom stuff
--> bedroom Option 3
-    <<reduce_fear "Iain Schweblin">>
-    DO bedroom stuff
--> bedroom option 4
+Iain Schweblin: Iain surveys the bedroom, trying to make sense of who could be living here and  running this place. 
+->”Look at the wheelchair.”
+	He sits in it and rolls back and forth. He chuckles to himself. 
+->”Look at the bed.”
+	“There’s nothing here.” He continues exploring.
+->”Look in the drawer.”
     <<add_fear "Iain Schweblin">>
-    <<discover_fear "Iain Schweblin" 0>>
-    //Overthinking
-    DO bedroom stuff  
+    <<discover_fear "Iain Schweblin" 8>>
+    <<terrified "Iain Schweblin">>
+    //Fear of Beetles
+    Iain jumps back in horror. The beetles’ translucent bodies and sharp pincers scurried erratically up the sides of the drawer, feasting on wood as they leave behind rows of tiny holes in a meticulous pattern. He can’t stop shaking.
+->Make the wheelchair roll on its own. 
+	“Strange… Must be the wind.”
 ===
 title: IainSchweblinDetermined
 ---

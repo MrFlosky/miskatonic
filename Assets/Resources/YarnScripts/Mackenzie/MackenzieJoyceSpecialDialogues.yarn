@@ -1,100 +1,118 @@
 ﻿title: MackenzieJoyceLibrary
 ---
-OMG I'm in a freaking libray WTF MAN this is messed up
--> Library Option 1
-    DO libarary stuff
--> Libary Option 2
-    DO libarary stuff
--> Library Option 3
-    <<reduce_fear "Iain Schweblin">>
-    DO libarary stuff
--> Library option 4
-    <<add_fear "Iain Schweblin">>
-    <<discover_fear "Iain Schweblin" 0>>
-    //Overthinking
-    DO libarary stuff  
+Mackenzie Joyce: Mackenzie turns the corner into the library. She searches it for any answers. 
+->Knock the bookshelf over.
+    <<add_fear "Mackenzie Joyce">>
+    <<discover_fear "Mackenzie Joyce" 2>>
+    <<scared "Mackenzie Joyce">>
+    //Sensitive to Loud Noises
+	The bookshelf comes down with a thundering crash. Mackenzie covers her ears as the sound echoes through the room. Her heartrate spikes. 
+->Flicker the light on the desk.
+    <<neutral "Mackenzie Joyce">>
+	Mackenzie looks toward the light. She goes to the desk to sit down for a few moments before continuing the search.
+->Do nothing.
+    <<neutral "Mackenzie Joyce">>
+	Mackenzie explores the room, briefly pursuing the books on the shelves.
+->Make the desk lamp glow bright. 
+    <<neutral "Mackenzie Joyce">>
+	Mackenzie looks over to the desk and watches as the light slowly erases the shadows of the room. She walks over to sit down for a moment, soaking in the warm light.
 ===
 title: MackenzieJoyceDungeon
 ---
-OMG I'm in a freaking dungeon WTF MAN this is messed up
--> dungeon Option 1
-    DO dungeon stuff
--> dungeon Option 2
-    DO dungeon stuff
--> dungeon Option 3
-    <<reduce_fear "Iain Schweblin">>
-    DO dungeon stuff
--> dungeon option 4
-    <<add_fear "Iain Schweblin">>
-    <<discover_fear "Iain Schweblin" 0>>
-    //Overthinking
-    DO dungeon stuff  
+Mackenzie Joyce: Mackenzie walks into the dungeon. The sight of the blood-stained floor and rusted cells unnerves her. She drifts from cell to cell until she sees a man standing in the corner. He speaks to her.
+->It says ”Hello.”
+    <<neutral "Mackenzie Joyce">>
+	“Hey.” She waves at the prisoner. It suddenly fades back into the darkness. 
+->It says “Leave.”
+    <<neutral "Mackenzie Joyce">>
+	“Okay, geez.” Mackenzie stares the figure down a while longer before deciding to move on. 
+->It says, “Mackenzie… Help… Me…”
+    <<add_fear "Mackenzie Joyce">>
+    <<discover_fear "Mackenzie Joyce" 6>>
+    <<scared "Mackenzie Joyce">>
+    //Fear of letting people down
+	“What can I do?” She grabs at the bars and motions the figure to come closer. The figure collapses to the floor and reaches out to her. “Please… Help…” Mackenzie shakes the bars, but can do nothing as the man now lies lifeless on the cell floor. 
+->It says, “What are you doing here?”
+    <<neutral "Mackenzie Joyce">>
+	“I’m not sure. How did you get here?” Before the figure can respond, it disappears. 
 ===
 title: MackenzieJoyceDiningRoom
 ---
-OMG I'm in a freaking dining room WTF MAN this is messed up
--> dining room Option 1
-    DO dining room stuff
--> dining room Option 2
-    DO dining room stuff
--> dining room Option 3
-    <<reduce_fear "Iain Schweblin">>
-    DO dining room stuff
--> dining room option 4
-    <<add_fear "Iain Schweblin">>
-    <<discover_fear "Iain Schweblin" 0>>
-    //Overthinking
-    DO dining room stuff  
+Mackenzie Joyce: As Mackenzie enters the dining room, lights start to flicker and loudly buzz. 
+->Turn the lights off.
+    <<neutral "Mackenzie Joyce">>
+	The room goes dark. Mackenzie moves towards the door and waits in the light of the hallway. Slowly, her eyes adjust to the darkness and she explores the room.
+->Turn the lights blue.
+    <<add_fear "Mackenzie Joyce">>
+    <<discover_fear "Mackenzie Joyce" 0>>
+    <<scared "Mackenzie Joyce">>
+    //Fear of the blue light
+	She looks around. “He’s here.” Her heartbeat races and she frantically looks for any way  to protect herself. 
+->Make the lights brighter.
+    <<neutral "Mackenzie Joyce">>
+	Mackenzie can see the entire room now and is comforted to find it in order. 
+->Stop the lights from flickering. 
+    <<neutral "Mackenzie Joyce">>
+	The flickering stops and the buzzing grows faint. Mackenzie’s heartbeat slows and she sits down in one of the chairs to rest.  
 ===
 title: MackenzieJoyceCemetery
 ---
-OMG I'm in a freaking cemetery WTF MAN this is messed up
--> cemetery Option 1
-    DO cemetery stuff
--> cemetery Option 2
-    DO cemetery stuff
--> cemetery Option 3
-    <<reduce_fear "Iain Schweblin">>
-    DO cemetery stuff
--> cemetery option 4
-    <<add_fear "Iain Schweblin">>
-    <<discover_fear "Iain Schweblin" 0>>
-    //Overthinking
-    DO cemetery stuff  
+Mackenzie Joyce: As she turns the corner, the sight of a field of grass shocks her. She feels a cool breeze coming from the room as she slowly steps onto the turf. In the corner of her eye, she sees someone standing in front of a gravestone. 
+->”It’s a young woman.”
+    <<neutral "Mackenzie Joyce">>
+	Mackenzie walks over to her. The woman reminds her of her sister. “Hey. Do you know where we are?” The woman slowly turns to her and smiles. Before she can respond, the woman turns to dust and blows away in the wind. 
+->”It’s a grave digger.”
+    <<neutral "Mackenzie Joyce">>
+	Mackenzie walks over to him. “Hey, do you know where we are?” The man slowly turns to her and smiles.  Before she can respond, the man turns to dust and blows away in the wind. 
+->”It’s an old man.”
+    <<add_fear "Mackenzie Joyce">>
+    <<discover_fear "Mackenzie Joyce" 3>>
+    <<scared "Mackenzie Joyce">>
+    //Fear of elderly
+	Mackenzie freezes. “It’s him.” She wants to run but can’t get her body to move. The figure slowly turns towards her and smiles. Mackenzie screams as the man turns to dust and blows away in the wind.
+->”It’s a spirit.”
+    <<neutral "Mackenzie Joyce">>
+	“Really?” She walks over to the figure. Before she can investigate, the figure turns to dust and blows away in the wind.  
 ===
 
 title: MackenzieJoyceRitualRoom
 ---
-OMG I'm in a freaking ritual room WTF MAN this is messed up
--> ritual room Option 1
-    DO ritual room stuff
--> ritual room Option 2
-    DO ritual room stuff
--> ritual room Option 3
-    <<reduce_fear "Iain Schweblin">>
-    DO ritual room stuff
--> ritual room option 4
-    <<add_fear "Iain Schweblin">>
-    <<discover_fear "Iain Schweblin" 0>>
-    //Overthinking
-    DO ritual room stuff  
+Mackenzie Joyce: As Mackenzie walks into the room, she is immediately taken aback by the dark pool in the middle of the room. She walks toward it to look closer.
+->”It all started in summer camp. That nosebleed... They’ve been harvesting it from you.”
+    <<add_fear "Mackenzie Joyce">>
+    <<discover_fear "Mackenzie Joyce" 7>>
+    <<scared "Mackenzie Joyce">>
+    //Fear of Nosebleeds
+	The memory sends a chill up her spine. “Maybe that wasn’t just a nosebleed. Is that where this all started? What do they want from me?!”
+->”It’s blood from the sacrificial virgin.”
+    <<neutral "Mackenzie Joyce">>
+	Mackenzie smiles a bit at the thought. It reminds her of a corny horror movie. She doesn’t seem worried about being sacrificed. 
+->”This is where the demon is summoned.”
+    <<neutral "Mackenzie Joyce">>
+	Mackenzie smiles a bit at the thought. It reminds her of a corny horror movie, but it does make her worry. 
+->”It’s a portal to hell.”
+    <<neutral "Mackenzie Joyce">>
+	Mackenzie smiles a bit at the thought. It reminds her of a corny horror movie, but it does make her worry. 
 ===
 
 title: MackenzieJoyceBedroom
 ---
-OMG I'm in a freaking bedroom WTF MAN this is messed up
--> bedroom Option 1
-    DO bedroom stuff
--> bedroom Option 2
-    DO bedroom stuff
--> bedroom Option 3
-    <<reduce_fear "Iain Schweblin">>
-    DO bedroom stuff
--> bedroom option 4
-    <<add_fear "Iain Schweblin">>
-    <<discover_fear "Iain Schweblin" 0>>
-    //Overthinking
-    DO bedroom stuff  
+Mackenzie Joyce: Mackenzie walks into the room and feels an excited relief. “A BED?!” She throws herself down on it. “Finally, some rest.”
+->”Good. You need a rest.”
+    <<neutral "Mackenzie Joyce">>
+	She takes a short nap and wakes up feeling better.
+->”There are bugs in this bed.”
+    <<neutral "Mackenzie Joyce">>
+	She scrambles off the bed. “Better safe than sorry.” She continues to explore the room. 
+->”Nasty-ass bed.”
+    <<neutral "Mackenzie Joyce">>
+	She scrambles away from the bed. “I can’t sleep here.” She continues to explore the room. 
+->”You’re wasting time. You’ll never escape.”
+    <<add_fear "Mackenzie Joyce">>
+    <<discover_fear "Mackenzie Joyce" 5>>
+    <<scared "Mackenzie Joyce">>
+    //Fear of Wasted Time
+	Depressed, she doesn’t move from this spot, hating herself for the lack of motivation.
 ===
 title: MackenzieJoyceDetermined
 ---

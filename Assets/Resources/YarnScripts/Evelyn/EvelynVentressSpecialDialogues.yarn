@@ -8,6 +8,7 @@ Evelyn Ventress: Evelyn pokes her head into the dimly lit room and sees two book
     <<add_fear "Evelyn Ventress">>
     <<discover_fear "Evelyn Ventress" 5>>
     <<terrified "Evelyn Ventress">>
+    //Fear of Meaninglessness
 	The words on the page seem meaningless to her now. She rests her head on the desk and softly cries. 
 ->The pages depict ancient rituals.
     <<reduce_fear Evelyn Ventress">>"
@@ -30,6 +31,7 @@ Evelyn Ventress: When Evelyn walks into the room, she immediately detects the di
     <<add_fear "Evelyn Ventress">>
     <<discover_fear "Evelyn Ventress" 1>>
     <<terrified "Evelyn Ventress">>
+    //Fear of Isolation
 	“No no no no no no!” She lunges toward the bars, pulling hard but getting nowhere. Sweating, she collapses to the ground and stays there until the door cracks open once more.
 ->Reveal a little girl in the cell with her. 
     <<neutral "Evelyn Ventress">>
@@ -51,7 +53,8 @@ Evelyn Ventress: Walking into the room, Evelyn is delighted by the decor. She wa
     <<add_fear "Evelyn Ventress">>
     <<discover_fear "Evelyn Ventress" 9>>
     <<terrified "Evelyn Ventress">>
-	She walks  to the corner of the room and cranes her neck upward. The cobwebs looks harmless,  but, as she walks away, she feels a tickle on her shoulder. Glancing left, she sees a massive spider crawling toward her face, and she screams before batting it off.   
+    //Fear of spiders
+	She walks to the corner of the room and cranes her neck upward. The cobwebs looks harmless, but, as she walks away, she feels a tickle on her shoulder. Glancing left, she sees a massive spider crawling toward her face, and she screams before batting it off.   
 ===
 title: EvelynVentressCemetery
 ---
@@ -63,6 +66,7 @@ Evelyn Ventress: Evelyn is taken aback at first sight of the cemetery. She finds
     <<add_fear "Evelyn Ventress">>
     <<discover_fear "Evelyn Ventress" 0>>
     <<terrified "Evelyn Ventress">>
+    //Fear of silence
 	The sound unnerves her, causing goosebumps to rise on the nape of her neck. She hugs her arms and shivers. 
 ->Create the sound of stones cracking.
     <<neutral "Evelyn Ventress">>
@@ -82,6 +86,7 @@ Evelyn Ventress: Evelyn walks into the room and inspects a lectern standing near
     <<add_fear "Evelyn Ventress">>
     <<discover_fear "Evelyn Ventress" 8>>
     <<terrified "Evelyn Ventress">>
+    //Fear of weakness
 	As she considers this, she begins to feel weak and dizzy. She tries to find something to steady herself, but there’s nothing. She sweats, panicked by the thought that she may be slowly dying. 
 ->"Look! It’s Kool-Aid!”
     <<neutral "Evelyn Ventress">>
@@ -98,6 +103,7 @@ Evelyn Ventress: As Evelyn creeps into the bedroom, the atmosphere of the space 
     <<add_fear "Evelyn Ventress">>
     <<discover_fear "Evelyn Ventress" 6>>
     <<terrified "Evelyn Ventress">>
+    //Fear of Gene
 	Evelyn shudders. It’s an envelope with a red wax seal. “This must be Gene’s room. I knew he was behind  this.” She keeps glancing over her shoulder, waiting for him to reappear. 
 ->Create a hypodermic needle on the bedside table. 
     <<neutral "Evelyn Ventress">>
