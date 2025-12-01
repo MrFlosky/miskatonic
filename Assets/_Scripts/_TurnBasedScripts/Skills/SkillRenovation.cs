@@ -97,7 +97,7 @@ public class SkillRenovation : Skill
         base.ActivateSkill();
     }
 
-    public void CreateRenovator(Vector3 newPos,int index)
+    public void CreateRenovator(Vector3 newPos)
     {
         Renovators.Clear();
 
