@@ -120,7 +120,7 @@ public class SkillRenovation : Skill
 
     public void EndRenovation(int index)
     {
-        Debug.LogError(index);
+       
         foreach (AgentNavigation AN in agentManager.agents)
             {
                 AN.BonusFearRooms[index]= AgentNavigation.RoomName.None;
