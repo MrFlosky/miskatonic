@@ -66,7 +66,6 @@ public class OpenBook : MonoBehaviour
         firstPage = storyPanels[0];
         lastPage = storyPanels[0];
         gameObject.SetActive(false);
-        print(storyPanels.Count);
         UnlockNarrative.BookObjects.Add(this);
     }
 
