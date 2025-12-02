@@ -576,7 +576,7 @@ public class PlayerVision : MonoBehaviour, ITurnObserver
         if (!turn)
         {
             nearbyCharacters.Clear();
-            if (notNearbyCharacters.Count == 0)
+            if (notNearbyCharacters.Count == 0 && isLonely)
             {
                 var fear = GetComponent<Fear>();
                 fear.AddFear(lonelyFear);
