@@ -116,51 +116,63 @@ Mackenzie Joyce: Mackenzie walks into the room and feels an excited relief. “A
 ===
 title: MackenzieJoyceDetermined
 ---
-(in slow motion) LETS DO THIS COME AT ME YA DIDDYBLUD
--> determined Option 1
-    DO determined stuff
--> determined Option 2
-    DO determined stuff
--> determined Option 3
-    <<reduce_fear "Iain Schweblin">>
-    DO determined stuff
--> determined option 4
-    <<add_fear "Iain Schweblin">>
-    <<discover_fear "Iain Schweblin" 0>>
-    //Overthinking
-    DO determined stuff  
+Mackenzie Joyce: Mackenzie walks down the hallway with confidence. She’s starting to figure this puzzle out. 
+->”You got this!”
+    <<reduce_fear "Mackenzie Joyce">>
+    <<determined "Mackenzie Joyce">>
+	“Yeah! I got this!”
+->”Where did this feeling come from? When have you have accomplished anything?”
+    <<add_fear "Mackenzie Joyce">>
+    <<discover_fear "Mackenzie Joyce" 1>>
+    <<scared "Mackenzie Joyce">>
+    //Fear of Inadequecy
+	The weight of her past failures hang over her head and drag her down.
+->Raise the temperature.
+    <<reduce_fear "Mackenzie Joyce">>
+    <<determined "Mackenzie Joyce">>
+	“Thank god. I was getting cold.”
+->”Just rows of brick. That’s all that’s here.”
+    <<neutral "Mackenzie Joyce">>
+	“I have to keep searching.”
 ===
 title: MackenzieJoyceScared
 ---
-Im quaking in my boots bro
--> Scared Option 1
-    DO Scared stuff
--> Scared Option 2
-    DO Scared stuff
--> Scared Option 3
-    <<reduce_fear "Iain Schweblin">>
-    DO Scared stuff
--> Scared option 4
-    <<add_fear "Iain Schweblin">>
-    <<discover_fear "Iain Schweblin" 0>>
-    //Overthinking
-    DO Scared stuff  
+Mackenzie Joyce: Mackenzie starts to sweat with fear. She feels that something is haunting her. 
+->Raise the temperature.
+    <<neutral "Mackenzie Joyce">>
+	“Thank god. I was getting cold.”
+->Lower the temperature.
+    <<neutral "Mackenzie Joyce">>
+	She starts to shiver. She speeds up to outrun the cold.
+->Make the hall narrow.
+    <<neutral "Mackenzie Joyce">>
+	She starts to move faster to move through the tight tunnel. 
+->Make the hall widen. 
+    <<add_fear "Mackenzie Joyce">>
+    <<discover_fear "Mackenzie Joyce" 8>>
+    <<terrified "Mackenzie Joyce">>
+    //Fear of Empty Spaces
+	The empty space sends a chill up her back. She rushes to escape this place. 
+
 ===
 title: MackenzieJoyceTerrified
 ---
-Kinda spooky not gonna lie
--> Terrified Option 1
-    DO Terrified stuff
--> Terrified Option 2
-    DO Terrified stuff
--> Terrified Option 3
-    <<reduce_fear "Iain Schweblin">>
-    DO Terrified stuff
--> Terrified option 4
-    <<add_fear "Iain Schweblin">>
-    <<discover_fear "Iain Schweblin" 0>>
-    //Overthinking
-    DO Terrified stuff  
+Mackenzie Joyce: The maze is cold and lonely. Mackenzie can barely find the motivation to keep moving. 
+->”There is no way out.”
+    <<neutral "Mackenzie Joyce">>
+	“Maybe, but I have to keep looking.”
+->”The others here have already escaped. They left you behind.”
+    <<add_fear "Mackenzie Joyce">>
+    <<discover_fear "Mackenzie Joyce" 4>>
+    <<terrified "Mackenzie Joyce">>
+    //Fear of Being Left Behind
+	“No…” She collapses in a deep sadness. 
+->”There is no way out.”
+    <<neutral "Mackenzie Joyce">>
+	“Maybe, but I have to keep looking.”
+->’There is someone behind you.”
+    <<neutral "Mackenzie Joyce">>
+	She turns around, but doesn’t see anything.
 ===
 title: MackenzieJoyceTweaking
 ---
@@ -178,52 +190,61 @@ What was in those?
     //Overthinking
     DO Tweaking stuff  
 ===
-title:  MackenzieJoyceEncounterHaroldAuden
+title: MackenzieJoyceEncounterHaroldAuden
 ---
-Hi Harold
--> Harold Option 1
-    DO Harold stuff
--> Harold Option 2
-    DO Harold stuff
--> Harold Option 3
-    <<reduce_fear "Iain Schweblin">>
-    DO Harold stuff
--> Harold option 4
-    <<add_fear "Iain Schweblin">>
-    <<discover_fear "Iain Schweblin" 0>>
-    //Overthinking
-    DO Harold stuff  
+Mackenzie Joyce: Mackenzie looks ahead to see a man in a suit. She stops, looking closer.
+->Introduce yourself.
+    <<neutral "Mackenzie Joyce">>
+	“Hi… I’m Mackenzie.” Harold waves at her. Before they can talk, you use your powers to erase the memory and move them past each other.
+->”It’s him. It’s the old man.”
+    <<add_fear "Mackenzie Joyce">>
+    <<discover_fear "Mackenzie Joyce" 3>>
+    <<terrified "Mackenzie Joyce">>
+    //Fear of Elderly
+	She is paralyzed with fear. She wants to run, but can’t find the courage. Before he can say anything to assuage her fears, you use your powers to move them past each other.
+->”Who is that weirdo?”
+    <<neutral "Mackenzie Joyce">>
+	She cautiously walks up to him. Harold waves at her. Before they can talk, you use your powers to erase the memory and move them past each other.
+->”Is that a pastor?”
+    <<neutral "Mackenzie Joyce">>
+	“What would a pastor being doing here?” Harold waves at her. Before they can talk, you use your powers to erase the memory and move them past each other.
 ===
-title:  MackenzieJoyceEncounterEvelynVentress
+title: MackenzieJoyceEncounterEvelynVentress
 ---
-Hi Evelyn
--> Evelyn Option 1
-    DO Evelyn stuff
--> Evelyn Option 2
-    DO Evelyn stuff
--> Evelyn Option 3
-    <<reduce_fear "Iain Schweblin">>
-    DO Evelyn stuff
--> Evelyn option 4
-    <<add_fear "Iain Schweblin">>
-    <<discover_fear "Iain Schweblin" 0>>
-    //Overthinking
-    DO Evelyn stuff  
+Mackenzie Joyce: Mackenznie sees a tough-looking woman walk out of the shadows. She tries to find the words to talk to her.
+->Make Evelyn walk right past her without acknowledging Mackenzie.
+    <<add_fear "Mackenzie Joyce">>
+    <<discover_fear "Mackenzie Joyce" 4>>
+    <<scared "Mackenzie Joyce">>
+    //Fear of Being Left Behind
+	Mackenzie tries to talk to her, but the woman ignore her. Mackenzie feels dejected. 
+->”Introduce yourself.”
+    <<neutral "Mackenzie Joyce">>
+	“Hi… I’m Mackenzie.” Evelyn waves at her. Before they can talk, you use your powers to erase the memory and move them past each other.
+->”She must be a demon.”
+    <<neutral "Mackenzie Joyce">>
+	“She looks normal to me.” Evelyn waves at her. Before they can talk, you use your powers to erase the memory and move them past each other.
+->”She trapped you here.”
+    <<neutral "Mackenzie Joyce">>
+	“No, it was that old man.” Evelyn waves at her. Before they can talk, you use your powers to erase the memory and move them past each other.
 ===
 
 title: MackenzieJoyceEncounterIainSchweblin
 ---
-Hi Iain
--> Iain Option 1
-    DO Iain stuff
--> Iain Option 2
-    DO Iain stuff
--> Iain Option 3
-    <<reduce_fear "Iain Schweblin">>
-    DO Iain stuff
--> Iain option 4
-    <<add_fear "Iain Schweblin">>
-    <<discover_fear "Iain Schweblin" 0>>
-    //Overthinking
-    DO Iain stuff  
+Mackenzie Joyce: The light off of Iain’s head is the first thing Mackenzie sees as he appears from the darkness. 
+->”Introduce yourself”
+    <<neutral "Mackenzie Joyce">>
+    “Hi… I’m Mackenzie.” Iain smiles and walks up to her. Before they can talk, you use your powers to erase the memory and move them past each other.
+->”It’s Gene.”
+    <<neutral "Mackenzie Joyce">>
+	“Who’s Gene?” Iain smiles and walks up to her. Before they can talk, you use your powers to erase the memory and move them past each other.
+->”It’s Grace.”
+    <<neutral "Mackenzie Joyce">>
+	“Who’s Grace? He doesn’t look like a Grace.” Iain smiles and walks up to her. Before they can talk, you use your powers to erase the memory and move them past each other.
+->Fill the room with loud dog barks
+    <<add_fear "Mackenzie Joyce">>
+    <<discover_fear "Mackenzie Joyce" 9>>
+    <<scared "Mackenzie Joyce">>
+    //Fear of Dogs
+	“What is going on?!” Iain stands there and smiles at her. “He must be trying to attack me with them.” Mackenzie runs past. 
 ===
