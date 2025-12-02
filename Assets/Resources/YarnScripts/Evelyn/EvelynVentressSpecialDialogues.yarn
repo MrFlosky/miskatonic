@@ -130,7 +130,7 @@ Evelyn Ventress: Evelyn confidently walks down the hall. She knows she can escap
 ->”There is nothing you can do to escape this place.”
     <<add_fear "Evelyn Ventress">>
     <<discover_fear "Evelyn Ventress" 7>>
-    <<terrified "Evelyn Ventress">>
+    <<scared "Evelyn Ventress">>
     //Fear of Helplessness
 	Her confidence slowly fades away. She tries to maintain pace, but has a hard time finding the motivation.
 ===
@@ -144,7 +144,7 @@ Evelyn Ventress: Evelyn’s eyes dart around. She knows that this place is playi
 ->”What’s the point?”
     <<add_fear "Evelyn Ventress">>
     <<discover_fear "Evelyn Ventress" 5>>
-    <<terrified "Evelyn Ventress">>
+    <<scared "Evelyn Ventress">>
     //Fear of Meaninglessness
 	“I have to keep moving… I have to escape to… to…” She can’t find the words.
 ->”You can’t do it.”
