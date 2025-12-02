@@ -4,6 +4,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Cinemachine;
 
 /// <summary>
 /// Class that implements the swap room skill.
@@ -228,59 +229,28 @@ public class SkillSwapRooms : Skill
     /// </summary>
     public void SwapRooms(GameObject room1Ob, string rm1Type, GameObject room2Ob, string rm2Type)
     {
-        //Find Original Swap Position
-        Vector3 orginal10bposition = room1Ob.transform.Find("RoomCam(Clone)").position;
-        Vector3 orginal20bposition = room2Ob.transform.Find("RoomCam(Clone)").position;
-
-        // Swap the room positions in the scene
-        Vector3 room1Position = room1Ob.transform.position;
-        Vector3 room2Position = room2Ob.transform.position;
-
-        //Swap Room Cameras
-        room1Ob.transform.Find("RoomCam(Clone)").position = orginal20bposition;
-        room2Ob.transform.Find("RoomCam(Clone)").position = orginal10bposition;
-
-        // Swap the positions of the room GameObjects
-        room1Ob.transform.position = room2Position;
-        room2Ob.transform.position = room1Position;
-
-        // Swap room types for the cells in the centralMaze
+        // Swap room types for the cells in the centralMaze and on object in scene
         foreach (MazeCellObject cell in room1Ob.GetComponentsInChildren<MazeCellObject>())
         {
             Vector2Int cellPosition = new Vector2Int(cell.GetXCoord(), cell.GetYCoord());
             GameManager.Instance.centralMaze[cellPosition.x, cellPosition.y].roomType = rm2Type;
+            cell.roomType = rm2Type;
         }
 
         foreach (MazeCellObject cell in room2Ob.GetComponentsInChildren<MazeCellObject>())
         {
             Vector2Int cellPosition = new Vector2Int(cell.GetXCoord(), cell.GetYCoord());
             GameManager.Instance.centralMaze[cellPosition.x, cellPosition.y].roomType = rm1Type;
-        }
-
-        // Swap tiles between rooms while maintaining corresponding positions
-        SwapRoomTiles(room1Ob, room2Ob);
-    }
-
-    /// <summary>
-    /// For every cell apart of 2 given rooms, swap their types.
-    /// </summary>
-    private void SwapRoomTiles(GameObject room1Ob, GameObject room2Ob)
-    {
-        var room1Type = room1Ob.GetComponentsInChildren<MazeCellObject>()[0].roomType;
-        var room2Type = room2Ob.GetComponentsInChildren<MazeCellObject>()[0].roomType;
-
-        // Organize the tiles into a 5x5 grid based on their local positions
-        foreach (MazeCellObject cell in room1Ob.GetComponentsInChildren<MazeCellObject>())
-        {
-            cell.roomType = room2Type;
-        }
-
-        foreach (MazeCellObject cell in room2Ob.GetComponentsInChildren<MazeCellObject>())
-        {
-            cell.roomType = room1Type;
+            cell.roomType = rm1Type;
         }
 
         SwapRoomProps(room1Ob, room2Ob);
+
+        // update rooms cameras
+        UpdateCameraReferences(room1Ob, room2Ob, rm1Type, rm2Type);
+
+        // update room data
+        SwapRoomStandingSpots(room1Ob, room2Ob, rm1Type, rm2Type);
     }
 
     private void SwapRoomProps(GameObject room1Ob, GameObject room2Ob)
@@ -318,6 +288,97 @@ public class SkillSwapRooms : Skill
             }
         }
         return null;
+    }
+
+    /// <summary>
+    /// Swap room camera references. This fixes bug where room cams zoom into incorrect
+    /// room after swapping a mix of 3 rooms.
+    /// </summary>
+    private void UpdateCameraReferences(GameObject room1Ob, GameObject room2Ob, string rm1Type, string rm2Type)
+    {
+        MazeRenderer renderer = MazeRenderer.Instance;
+        
+        // Get camera from room1
+        CinemachineVirtualCamera room1Cam = room1Ob.GetComponentInChildren<CinemachineVirtualCamera>();
+        
+        // Get camera from room2
+        CinemachineVirtualCamera room2Cam = room2Ob.GetComponentInChildren<CinemachineVirtualCamera>();
+        
+        if (room1Cam == null || room2Cam == null) 
+        {
+            Debug.LogWarning("Camera not found in one of the rooms!");
+            return;
+        }
+        
+        // Swap the camera references based on the NEW room types
+        // room1 now has rm2Type, so its camera should be stored under rm2Type's reference
+        switch (rm2Type)
+        {
+            case "Bedroom": renderer.bedroomCam = room1Cam; break;
+            case "Library": renderer.libraryCam = room1Cam; break;
+            case "Dining Room": renderer.diningCam = room1Cam; break;
+            case "Dungeon": renderer.dungeonCam = room1Cam; break;
+            case "Ritual Room": renderer.ritualCam = room1Cam; break;
+            case "Cemetery": renderer.cemeteryCam = room1Cam; break;
+        }
+        
+        // room2 now has rm1Type, so its camera should be stored under rm1Type's reference
+        switch (rm1Type)
+        {
+            case "Bedroom": renderer.bedroomCam = room2Cam; break;
+            case "Library": renderer.libraryCam = room2Cam; break;
+            case "Dining Room": renderer.diningCam = room2Cam; break;
+            case "Dungeon": renderer.dungeonCam = room2Cam; break;
+            case "Ritual Room": renderer.ritualCam = room2Cam; break;
+            case "Cemetery": renderer.cemeteryCam = room2Cam; break;
+        }
+    }
+
+    /// <summary>
+    /// Swap room standing spots and tiles positions in actual Room class.
+    /// </summary>
+    private void SwapRoomStandingSpots(GameObject room1Ob, GameObject room2Ob, string rm1Type, string rm2Type)
+    {
+        List<Room> allRooms = GameManager.Instance.GetRooms();
+        
+        Room room1 = null;
+        foreach (Room r in allRooms)
+        {
+            if (r.roomType == rm1Type)
+            {
+                room1 = r;
+                break;
+            }
+        }
+
+        Room room2 = null;
+        foreach (Room r in allRooms)
+        {
+            if (r.roomType == rm2Type)
+            {
+                room2 = r;
+                break;
+            }
+        }
+        
+        if (room1 != null && room2 != null)
+        {
+            // Swap the tiles in room lists
+            List<Vector2Int> tempTiles = new List<Vector2Int>(room1.tilesInRoom);
+            room1.tilesInRoom = new List<Vector2Int>(room2.tilesInRoom);
+            room2.tilesInRoom = tempTiles;
+            
+            // Swap the standing spots
+            List<Vector2Int> tempSpots = new List<Vector2Int>(room1.standingSpots);
+            room1.standingSpots = new List<Vector2Int>(room2.standingSpots);
+            room2.standingSpots = tempSpots;
+            
+            //Debug.Log($"Swapped room data: {rm1Type} now at positions {string.Join(",", room1.tilesInRoom)} with standing spots {string.Join(",", room1.standingSpots)}");
+            //Debug.Log($"Swapped room data: {rm2Type} now at positions {string.Join(",", room2.tilesInRoom)} with standing spots {string.Join(",", room2.standingSpots)}");
+            string tempType = room1.roomType;
+            room1.roomType = room2.roomType;
+            room2.roomType = tempType;
+        }
     }
 
 }
