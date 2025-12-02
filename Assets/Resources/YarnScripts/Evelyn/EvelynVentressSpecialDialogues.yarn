@@ -117,66 +117,118 @@ Evelyn Ventress: As Evelyn creeps into the bedroom, the atmosphere of the space 
 ===
 title: EvelynVentressDetermined
 ---
-(in slow motion) LETS DO THIS COME AT ME YA DIDDYBLUD
--> determined Option 1
-    DO determined stuff
--> determined Option 2
-    DO determined stuff
--> determined Option 3
-    <<reduce_fear "Iain Schweblin">>
-    DO determined stuff
--> determined option 4
-    <<add_fear "Iain Schweblin">>
-    <<discover_fear "Iain Schweblin" 0>>
-    //Overthinking
-    DO determined stuff  
+Evelyn Ventress: Evelyn confidently walks down the hall. She knows she can escape this place. 
+->”There is someone else in here with you.”
+    <<neutral "Evelyn Ventress">>
+	“Where are they?” He keeps moving, hoping to find anyone. 
+->”It’s so dark here.”
+    <<neutral "Evelyn Ventress">>
+	“Yeah, it is.” She moves faster, hoping to find a more visible area. 
+->Turn out the lights.
+    <<neutral "Evelyn Ventress">>
+	“What the hell?” She keeps moving to escape the darkness. 
+->”There is nothing you can do to escape this place.”
+    <<add_fear "Evelyn Ventress">>
+    <<discover_fear "Evelyn Ventress" 7>>
+    <<terrified "Evelyn Ventress">>
+    //Fear of Helplessness
+	Her confidence slowly fades away. She tries to maintain pace, but has a hard time finding the motivation.
+===
+title: EvelynVentressScared
+---
+Evelyn Ventress: Evelyn’s eyes dart around. She knows that this place is playing tricks on her. She has to stay alert. 
+->Turn the temperature up.
+    <<reduce_fear Evelyn Ventress">>"
+    <<determined "Evelyn Ventress">>
+	“God, that helps. I was so cold” She keeps moving. 
+->”What’s the point?”
+    <<add_fear "Evelyn Ventress">>
+    <<discover_fear "Evelyn Ventress" 5>>
+    <<terrified "Evelyn Ventress">>
+    //Fear of Meaninglessness
+	“I have to keep moving… I have to escape to… to…” She can’t find the words.
+->”You can’t do it.”
+    <<neutral "Evelyn Ventress">>
+	“Of course I can.” This self doubt isn’t like her. 
+->Turn up the lights.
+    <<reduce_fear Evelyn Ventress">>"
+    <<determined "Evelyn Ventress">>
+	“God, that helps.” She keeps moving. 
+===
+title: EvelynVentressTerrified
+---
+Evelyn Ventress: Evelyn can’t seem to hold herself together. The terror overwhelms her as she frantically searches for anything substantial. 
+->”You are stuck here alone.”
+    <<add_fear "Evelyn Ventress">>
+    <<discover_fear "Evelyn Ventress" 1>>
+    <<terrified "Evelyn Ventress">>
+    //Fear of Isolation
+	The isolation cripples her. She feels as though she can’t go on. She lays down and weeps. She eventually gets up, but can barely hold herself up. 
+->Turn the temperature down.
+    <<neutral "Evelyn Ventress">>
+	“It’s getting cold in here.” She shivers, but speeds up to get her blood flowing. 
+->”You’re wasting time.”
+    <<neutral "Evelyn Ventress">>
+	“I gotta keep moving.” She starts jogging down the hall. 
+->”Go to sleep.”
+    <<neutral "Evelyn Ventress">>
+	“No time. Must keep moving.” She trudges on. 
 ===
 title: EvelynVentressEncounterMackenzieJoyce
 ---
-Hi Mackenzie
--> Mackenzie Option 1
-    DO Mackenzie stuff
--> Mackenzie Option 2
-    DO Mackenzie stuff
--> Mackenzie Option 3
-    <<reduce_fear "Iain Schweblin">>
-    DO Mackenzie stuff
--> Mackenzie option 4
-    <<add_fear "Iain Schweblin">>
-    <<discover_fear "Iain Schweblin" 0>>
-    //Overthinking
-    DO Mackenzie stuff  
+Evelyn Ventress: Evelyn sees a young woman appear from the shadows beyond her. She feels relieved at the sight of another person. 
+->”Introduce yourself”
+    <<neutral "Evelyn Ventress">>
+	“Hey, I’m Evelyn.” The young woman eagerly walks up to her. Before they can talk, you use your powers to move them past each other.
+->”Yell ‘Girl Power!’”
+    <<neutral "Evelyn Ventress">>
+	“Girl Power!” Mackenzie giggles and waves to Evelyn. The young woman eagerly walks up to her. Before they can talk, you use your powers to move them past each other.
+->”It’s your stalker. She has been following you.”
+    <<add_fear "Evelyn Ventress">>
+    <<discover_fear "Evelyn Ventress" 3>>
+    <<terrified "Evelyn Ventress">>
+    //Fear of Being Watched
+	“Where did you come from!?” She yells at Mackenzie. Mackenzie freezes in shock. Before she can respond, you use your powers to move them past each other. 
+->”It’s not a woman. It’s some creature.”
+    <<neutral "Evelyn Ventress">>
+	“She looks like a young woman to me.” Evelyn waves at the young woman. The young woman eagerly walks up to her. Before they can talk, you use your powers to move them past each other.
 ===
 title: EvelynVentressEncounterHaroldAuden
 ---
-Hi Harold
--> Harold Option 1
-    DO Harold stuff
--> Harold Option 2
-    DO Harold stuff
--> Harold Option 3
-    <<reduce_fear "Iain Schweblin">>
-    DO Harold stuff
--> Harold option 4
-    <<add_fear "Iain Schweblin">>
-    <<discover_fear "Iain Schweblin" 0>>
-    //Overthinking
-    DO Harold stuff  
+Evelyn Ventress: Evelyn sees a slim man across from her. She stops walking to inspect the figure.
+->”It’s Gene.”
+    <<add_fear "Evelyn Ventress">>
+    <<discover_fear "Evelyn Ventress" 6>>
+    <<terrified "Evelyn Ventress">>
+    //Fear of Gene
+	“No… STAY AWAY FROM ME.” Evelyn runs past the man. Harold looks at her puzzled.
+->”It’s a old man.”
+    <<neutral "Evelyn Ventress">>
+	“He does dress like the elderly.” She walks up to him and attempts to introduce herself. Before they can talk, you use your powers to erase the memory and move them past each other.
+->”It’s a doctor.”
+    <<neutral "Evelyn Ventress">>
+	“That doesn’t look like any doctor I’ve ever met.” She walks up to him and attempts to introduce herself. Before they can talk, you use your powers to erase the memory and move them past each other.
+->”It’s a beast from the beyond.”
+    <<neutral "Evelyn Ventress">>
+	“No, that’s just some geek.” She walks up to him and attempts to introduce herself. Before they can talk, you use your powers to erase the memory and move them past each other.
 ===
 
 title: EvelynVentressEncounterIainSchweblin
 ---
-Hi Iain
--> Iain Option 1
-    DO Iain stuff
--> Iain Option 2
-    DO Iain stuff
--> Iain Option 3
-    <<reduce_fear "Iain Schweblin">>
-    DO Iain stuff
--> Iain option 4
-    <<add_fear "Iain Schweblin">>
-    <<discover_fear "Iain Schweblin" 0>>
-    //Overthinking
-    DO Iain stuff  
+Evelyn Ventress: She stares across from her to see a bald man. She catches her reflection in his glasses.
+->”It’s a dentist.”
+    <<neutral "Evelyn Ventress">>
+	“I mean, maybe.” She walks up and tries to introduce herself. Before they can talk, you use your powers to erase the memory and move them past each other.
+->”It’s your father.”
+    <<add_fear "Evelyn Ventress">>
+    <<discover_fear "Evelyn Ventress" 2>>
+    <<terrified "Evelyn Ventress">>
+    //Fear of Father
+	“”Dad!?” She freezes. She hasn’t seen her father in years. Before Iain can say anything, you use your powers to move them past each other.
+->”It’s a demon.”
+    <<neutral "Evelyn Ventress">>
+	“I can’t be for sure. I must meet him.” She walks up and tries to introduce herself. Before they can talk, you use your powers to erase the memory and move them past each other.
+->”HE’S BALD!!”
+    <<neutral "Evelyn Ventress">>
+	“I mean, yeah.” She walks up and tries to introduce herself. Before they can talk, you use your powers to erase the memory and move them past each other.
 ===
