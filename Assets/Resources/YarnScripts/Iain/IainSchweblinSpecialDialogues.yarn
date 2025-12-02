@@ -100,8 +100,10 @@ title: IainSchweblinBedroom
 ---
 Iain Schweblin: Iain surveys the bedroom, trying to make sense of who could be living here and  running this place. 
 ->”Look at the wheelchair.”
+    <<neutral "Iain Schweblin">>
 	He sits in it and rolls back and forth. He chuckles to himself. 
 ->”Look at the bed.”
+    <<neutral "Iain Schweblin">>
 	“There’s nothing here.” He continues exploring.
 ->”Look in the drawer.”
     <<add_fear "Iain Schweblin">>
@@ -110,56 +112,65 @@ Iain Schweblin: Iain surveys the bedroom, trying to make sense of who could be l
     //Fear of Beetles
     Iain jumps back in horror. The beetles’ translucent bodies and sharp pincers scurried erratically up the sides of the drawer, feasting on wood as they leave behind rows of tiny holes in a meticulous pattern. He can’t stop shaking.
 ->Make the wheelchair roll on its own. 
+    <<neutral "Iain Schweblin">>
 	“Strange… Must be the wind.”
 ===
 title: IainSchweblinDetermined
 ---
-(in slow motion) LETS DO THIS COME AT ME YA DIDDYBLUD
--> determined Option 1
-    DO determined stuff
--> determined Option 2
-    DO determined stuff
--> determined Option 3
-    <<reduce_fear "Iain Schweblin">>
-    DO determined stuff
--> determined option 4
+Iain Schweblin: Iain walks with his head held high. He is beginning to think he may find a way out of here after all.
+->”What if there is a demon here? What is it is all in your head? What is the exit collapsed and there is no escape?”
     <<add_fear "Iain Schweblin">>
     <<discover_fear "Iain Schweblin" 0>>
+    <<scared "Iain Schweblin">>
     //Overthinking
-    DO determined stuff  
+	All of these thoughts bounce around Iain’s head and stop him from making any progress.
+->Lower the temperature.
+    <<neutral "Iain Schweblin">>
+	“Ahh that’s nice.” He was starting to burn up in here.
+->”Your mother is in here.”
+    <<neutral "Iain Schweblin">>
+	“What? No way.” He wants this thought to not be just a hope.
+->”Your father is in here.”
+    <<neutral "Iain Schweblin">>
+	“What? No way.” He wants this thought to not be just a hope. 
 ===
 title: IainSchweblinScared
 ---
-Im quaking in my boots bro
--> Scared Option 1
-    DO Scared stuff
--> Scared Option 2
-    DO Scared stuff
--> Scared Option 3
-    <<reduce_fear "Iain Schweblin">>
-    DO Scared stuff
--> Scared option 4
+Iain Schweblin: Iain shivers and clutches the sides of his arms. His head darting back and forth as he walks.
+->Create a gust of wind that goes right through him.
+    <<neutral "Iain Schweblin">>
+	“Woah!” He regains his balance and keeps moving.
+->Make him dizzy.
+    <<neutral "Iain Schweblin">>
+	“Woah!” He regains his balance and keeps moving.
+->Create voices that echo around the halls.
     <<add_fear "Iain Schweblin">>
-    <<discover_fear "Iain Schweblin" 0>>
-    //Overthinking
-    DO Scared stuff  
+    <<discover_fear "Iain Schweblin" 1>>
+    <<terrified "Iain Schweblin">>
+    //Fear of Crowds
+	He shakes as he feels the presence of the voices around me. He falls to the ground and waits for the noise to dissipate. 
+->Make the hall completely still.
+    <<neutral "Iain Schweblin">>
+	He notices nothing and keeps moving. 
 ===
-
 title: IainSchweblinTerrified
 ---
-Kinda spooky not gonna lie
--> Terrified Option 1
-    DO Terrified stuff
--> Terrified Option 2
-    DO Terrified stuff
--> Terrified Option 3
-    <<reduce_fear "Iain Schweblin">>
-    DO Terrified stuff
--> Terrified option 4
+Iain Schweblin: Iain can barely find the strength to keep walking. He trudges along the hallway, sighing every couple steps.
+->”You’re pathetic.”
+    <<neutral "Iain Schweblin">>
+    “No use thinking like that.” He keeps moving forward.
+->”You’ll never escape.”
+    <<neutral "Iain Schweblin">>
+    “No use thinking like that.” He keeps moving forward.	
+->”You’re losing your mind.”
     <<add_fear "Iain Schweblin">>
-    <<discover_fear "Iain Schweblin" 0>>
-    //Overthinking
-    DO Terrified stuff  
+    <<discover_fear "Iain Schweblin" 5>>
+    <<terrified "Iain Schweblin">>
+    //Fear of Madness
+	He suddenly realizes what is happening to him. He can’t move past it. It paralyzes him with fear. 
+->Raise the lights.
+    <<neutral "Iain Schweblin">>
+	“Huh.” He keeps moving.
 ===
 title: IainSchweblinTweaking
 ---
@@ -179,50 +190,59 @@ What was in those?
 ===
 title: IainSchweblinEncounterMackenzieJoyce
 ---
-Hi Mackenzie
--> Mackenzie Option 1
-    DO Mackenzie stuff
--> Mackenzie Option 2
-    DO Mackenzie stuff
--> Mackenzie Option 3
-    <<reduce_fear "Iain Schweblin">>
-    DO Mackenzie stuff
--> Mackenzie option 4
+Iain Schweblin: Iain looks ahead of him to see a young woman coming towards him from beyond the shadow.
+->”Introduce yourself.”
+    <<neutral "Iain Schweblin">>
+	“My name is Iain.” He stretches out his hand to shake hers. Before she can grab it, you use your powers to erase their memories and move them past each other.
+->”It’s the ghost of your wife.”
     <<add_fear "Iain Schweblin">>
-    <<discover_fear "Iain Schweblin" 0>>
-    //Overthinking
-    DO Mackenzie stuff  
+    <<discover_fear "Iain Schweblin" 2>>
+    <<terrified "Iain Schweblin">>
+    //Trauma from wife's death
+	“It’s her when we first met.” He knows this is the labyrinth playing tricks on him, but he can’t move past it. He is frozen in place. She walks up to him. Before they can talk, you use your powers to move them past each other.
+->”It’s a monster.”
+    <<neutral "Iain Schweblin">>
+	“Doesn’t look like a monster.” He stretches out his hand to shake hers. Before she can grab it, you use your powers to erase their memories and move them past each other.
+->”It’s your stalker.”
+    <<neutral "Iain Schweblin">>
+	The thought doesn’t bother Iain. He thinks its good that someone knows he’s here. He stretches out his hand to shake hers. Before she can grab it, you use your powers to erase their memories and move them past each other.
 ===
 title: IainSchweblinEncounterHaroldAuden
 ---
-Hi Harold
--> Harold Option 1
-    DO Harold stuff
--> Harold Option 2
-    DO Harold stuff
--> Harold Option 3
-    <<reduce_fear "Iain Schweblin">>
-    DO Harold stuff
--> Harold option 4
+Iain Schweblin: Iain looks ahead to see a strange lanky man in front of him. He stops to investigate.  
+->”Introduce yourself.”
+    <<neutral "Iain Schweblin">>
+	“My name is Iain.” He stretches out his hand to shake his. Before Harold can say anything, you use your powers to erase their memories and move them past each other.
+->”He’s a creep. He took your kids.”
     <<add_fear "Iain Schweblin">>
-    <<discover_fear "Iain Schweblin" 0>>
-    //Overthinking
-    DO Harold stuff   
+    <<discover_fear "Iain Schweblin" 3>>
+    <<terrified "Iain Schweblin">>
+    //Fear of Harm Coming to his Kids
+	“WHAT DID YOU DO TO THEM?!” He lunges at the man. Before Iain can get his hands on the man, you use your powers to move them past each other.
+->”He’s an old man.”
+    <<neutral "Iain Schweblin">>
+	“Looks fairly young to me.” Iain introduces himself. Before Harold can say anything, you use your powers to erase their memories and move them past each other.
+->”Look at that strange creature.”
+    <<neutral "Iain Schweblin">>
+	“Looks fairly normal to me.” Iain introduces himself. Before Harold can say anything, you use your powers to erase their memories and move them past each other.
 ===
 
 title: IainSchweblinEncounterEvelynVentress
 ---
-Hi Evelyn
--> Evelyn Option 1
-    DO Evelyn stuff
--> Evelyn Option 2
-    DO Evelyn stuff
--> Evelyn Option 3
-    <<reduce_fear "Iain Schweblin">>
-    DO Evelyn stuff
--> Evelyn option 4
+Iain Schweblin: Iain looks ahead to see a woman walking confidently in his direction. Her footsteps echo throughout the hall. He stops.
+->Dull the footsteps.
+    <<neutral "Iain Schweblin">>
+	Iain doesn’t notice. “My name is Iain.” He stretches out his hand to shake hers. Before she can grab it, you use your powers to erase their memories and move them past each other.
+->Increase the sound of footsteps. 
     <<add_fear "Iain Schweblin">>
-    <<discover_fear "Iain Schweblin" 0>>
-    //Overthinking
-    DO Evelyn stuff   
+    <<discover_fear "Iain Schweblin" 1>>
+    <<terrified "Iain Schweblin">>
+    //Fear of Crowds
+	The idea of a crowd stampeding towards him sends him into fight or flight. He runs away. 
+->Make the hall glow blue. 
+    <<neutral "Iain Schweblin">>
+	Iain notices it, but ignore it. “My name is Iain.” He stretches out his hand to shake the woman’s. Before she can grab it, you use your powers to erase their memories and move them past each other.
+->Raise the temperature. 
+    <<neutral "Iain Schweblin">>
+	Iain notices it, but ignore it. “My name is Iain.” He stretches out his hand to shake the woman’s. Before she can grab it, you use your powers to erase their memories and move them past each other.
 ===
