@@ -31,15 +31,18 @@ public class AgentNavigation : MonoBehaviour
     [SerializeField] private RoomName FearRoom;
     [SerializeField]public List<RoomName> BonusFearRooms;
 
+    /// <summary>
+    /// Event that is invoked when agent enters a new cell,
+    /// used for bust movement juice.
+    /// </summary>
+    public event Action<Vision> facingDirectionChanged;
+
     public void SetBonusFearRoom()
     {
         foreach(var RM in BonusFearRooms)
         {
             roomFearEffects[GetRoomName(RM)] = RoomIncreaseFear;
-            
         }
-
-
     }
 
     [SerializeField] private RoomName GoalRoom;
@@ -152,6 +155,7 @@ public class AgentNavigation : MonoBehaviour
 
         if (Vector3.Distance(currentPosition, targetPosition) < 0.1f)
         {
+
             // Free the cell we're leaving
             Vector2Int previousGrid = WorldToGridPosition(currentPosition);
             FreeCell(previousGrid);
@@ -213,6 +217,7 @@ public class AgentNavigation : MonoBehaviour
                 
                 if (playerVision != null)
                 {
+                    Vision prevFacing = playerVision.facing;
                     if (Mathf.Abs(moveDir.x) > Mathf.Abs(moveDir.z))
                     {
                         playerVision.facing = moveDir.x > 0 ? Vision.Right : Vision.Left;
@@ -220,6 +225,11 @@ public class AgentNavigation : MonoBehaviour
                     else
                     {
                         playerVision.facing = moveDir.z > 0 ? Vision.Up : Vision.Down;
+                    }
+
+                    if(prevFacing != playerVision.facing)
+                    {
+                        facingDirectionChanged.Invoke(playerVision.facing);
                     }
                 }
 
@@ -720,11 +730,9 @@ public class AgentNavigation : MonoBehaviour
     }
 
     public void RoomIncreaseFear()
-    {
-        Debug.LogError(agentFear.currentFear);
-        
+    {        
         agentFear.AddFear(5);
-        Debug.LogError(agentFear.currentFear);
+//        Debug.LogError(agentFear.currentFear);
     }
     
     public void AddBonusFear(float bonusFear)
@@ -883,6 +891,30 @@ public class AgentNavigation : MonoBehaviour
     
     public void StartMovementWithPath()
     {
+
+        // Change facing direction if needed!
+        Vector3 nextPos = GetWorldPosition(path[0].position);
+        Vector3 moveDir = (nextPos - transform.position).normalized;
+                
+        if (playerVision != null)
+        {
+            Vision prevFacing = playerVision.facing;
+            if (Mathf.Abs(moveDir.x) > Mathf.Abs(moveDir.z))
+            {
+                playerVision.facing = moveDir.x > 0 ? Vision.Right : Vision.Left;
+            }
+            else
+            {
+                playerVision.facing = moveDir.z > 0 ? Vision.Up : Vision.Down;
+            }
+
+            if(prevFacing != playerVision.facing)
+            {
+                facingDirectionChanged.Invoke(playerVision.facing);
+            }
+        }
+        // end of facing direction
+
         if (path.Count > 0)
         {
             isMoving = true;
