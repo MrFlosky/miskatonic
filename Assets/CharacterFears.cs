@@ -21,7 +21,7 @@ public class CharacterFears : MonoBehaviour
     public GameObject[] iFearTexts;
     public GameObject[] mFearTexts;
 
-    [SerializeField] ButtonGlow buttonGlow;
+    public ButtonGlow buttonGlow;
 
     void Awake()
     {

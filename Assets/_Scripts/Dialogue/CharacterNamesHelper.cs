@@ -12,7 +12,8 @@ namespace CharacterData
         HaroldAuden,
         IainSchweblin,
         MackenzieJoyce,
-        EvelynVentress
+        EvelynVentress,
+        HeadCultist
     }
 
     public static class CharacterNames
@@ -25,6 +26,7 @@ namespace CharacterData
                 case Character.IainSchweblin: return "Iain";
                 case Character.MackenzieJoyce: return "Mackenzie";
                 case Character.EvelynVentress: return "Evelyn";
+                case Character.HeadCultist: return "Head";
                 default: return "";
             }
         }
@@ -37,6 +39,7 @@ namespace CharacterData
                 case Character.IainSchweblin: return "Schweblin";
                 case Character.MackenzieJoyce: return "Joyce";
                 case Character.EvelynVentress: return "Ventress";
+                case Character.HeadCultist: return "Cultist";
                 default: return "";
             }
         }
@@ -88,7 +91,7 @@ namespace CharacterData
         {
             Dictionary<Character, Dictionary<FearState, Sprite>> portraits = new Dictionary<Character, Dictionary<FearState, Sprite>>();
             int fearStateCount = System.Enum.GetValues(typeof(FearState)).Length;
-            for (int i = 0; i < GetNumCharacters(); i++)
+            for (int i = 0; i < 4; i++)
             {
                 Character character = (Character)i;
                 portraits[character] = new Dictionary<FearState, Sprite>(); 
@@ -123,5 +126,6 @@ namespace CharacterData
         {
             return System.Enum.GetValues(typeof(Character)).Length;
         }
+        
     }
 }

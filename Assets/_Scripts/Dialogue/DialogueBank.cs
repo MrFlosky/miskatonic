@@ -341,6 +341,8 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
     }
     void ITurnObserver.EnemyTurnInitiated() { }
 
+    #region tutorial/other game events
+
     /// <summary>
     /// Plays characters respective key dialogue, called once they've found their key
     /// </summary>
@@ -350,6 +352,61 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
         dialgoueRunner.StartDialogue(characterFullName + "Key");
     }
 
+    // I know this is kinda scuffed but seems necessary to inject events between dialogues for tutorial
+    public void StartIntro1()
+    {
+        CharacterGameDialogue.SetActivePortrait(Character.HeadCultist);
+        dialgoueRunner.onDialogueComplete.AddListener(EndIntro1);
+        dialgoueRunner.StartDialogue("CultistIntro1");
+    }
+
+    public void EndIntro1()
+    {
+        dialgoueRunner.onDialogueComplete.RemoveListener(EndIntro1);
+        StartIntro2();
+    }
+
+    public void StartIntro2()
+    {
+        dialgoueRunner.onDialogueComplete.AddListener(EndIntro2);
+        dialgoueRunner.StartDialogue("CultistIntro2");
+        ClickAI.S.PanToRitualRoom();
+    }
+
+    public void EndIntro2()
+    {
+        dialgoueRunner.onDialogueComplete.RemoveListener(EndIntro2);
+        ClickAI.S.PanOffRitualRoom();
+        StartIntro3();
+    }
+    
+    public void StartIntro3()
+    {
+        dialgoueRunner.onDialogueComplete.AddListener(EndIntro3);
+        CharacterFears.Instance.buttonGlow.active = true;
+        dialgoueRunner.StartDialogue("CultistIntro3");
+    }
+
+    public void EndIntro3()
+    {
+        dialgoueRunner.onDialogueComplete.RemoveListener(EndIntro3);
+        StartIntro4();
+    }
+
+    public void StartIntro4()
+    {
+        dialgoueRunner.onDialogueComplete.AddListener(EndIntro4);
+        ClickAI.S.storyboardButtonGlow.active = true;
+        dialgoueRunner.StartDialogue("CultistIntro4");
+    }
+
+    public void EndIntro4()
+    {
+        dialgoueRunner.onDialogueComplete.RemoveListener(EndIntro4);
+    }
+
+
+    #endregion
 
     /// <summary>
     /// Helper function to count number of dialogues in a yarn file,

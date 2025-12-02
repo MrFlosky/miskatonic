@@ -8,11 +8,13 @@ public class TeachingManager : MonoBehaviour, ITurnObserver
 
     public static TeachingManager S;
 
+    public GameObject[] uiToDisable;
+
     void Start()
     {
         if (S == null) S = this;
         TurnBasedSystem.SubscribeAsObserver(this);
-        TURN_ZERO_TUTORIAL_EVENT();
+        StartTutorial();
     }
 
 
@@ -28,14 +30,50 @@ public class TeachingManager : MonoBehaviour, ITurnObserver
     }
 
 
-    private void TURN_ZERO_TUTORIAL_EVENT()
+    private void StartTutorial()
     {
+        // HIDE MOST UI ELEMENTS
+        foreach (GameObject go in uiToDisable)
+        {
+            go.SetActive(false);
+        }
+
+        ClickAI.S.StartConversation();
+
+        // POP DIALOGUE THAT SAYS: 
+        // Welcome to your maze my liege. I wish I could say that your maze is inescapable, but alas it is not.
         
+        // Gets any random DB to play the cultist dialogues
+        DialogueBank DB = AgentManager.Instance.agents[0].GetComponent<DialogueBank>();
+        DB.StartIntro1();
+
+
+        // If the humans are able to reach their goal rooms and retrieve a key they can then unlock the door in the ritual room, leading to their escape.
+        //  - pan to ritual room
+        
+        // You can find each human's objective in the journal I have provided to you, along with some other information.
+        //  - activate glow behind character profiles
+
+        // If you wish to get to know the humans better I implore you to read the backstories I have provided as well.
+        //  - glow behind storyboard
+    }
+
+    public void EndTutorial()
+    {
+        ClickAI.S.EndConversation();
+
+        // SHOW UI ELEMENTS
+        foreach (GameObject go in uiToDisable)
+        {
+            go.SetActive(true);
+        }
     }
 
 
-    private void TURN_ONE_TUTORIAL_EVENT()
+    public void StartDispatchTutorial()
     {
-        
+        // POP DIALOGUE THAT READS:
+        // Greetings again my liege. I come to offer you options on how to operate your cult. 
+        // We can gather more information on the humans, grow our cult, or exert or influence on your maze, among other things. The choice is yours my liege.
     }
 }
