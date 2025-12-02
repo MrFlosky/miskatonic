@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using PixeLadder.EasyLiquidFill;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,6 +15,16 @@ public class FearMeter : MonoBehaviour
     public float sliderSpeed = 0.2f;
     public ParticleSystem ps;
 
+    /// <summary>
+    /// Liquid fill visual manager.
+    /// </summary>
+    private LiquidAnimationController liquidFill;
+
+    /// <summary>
+    /// Used for liquid fill which requires normalization between 0-1
+    /// </summary>
+    private int maxOverallFear;
+
     //NOTE: This numnber should be how many percent you want to increase by i.e. if you want 1% just put 1.
     //The number will be divided by 100 to make it a percentage later
     //currently not functional, fear must be float
@@ -25,12 +36,14 @@ public class FearMeter : MonoBehaviour
     [SerializeField] int RnDDivisor=10;
     void Awake()
     {
-        slid = GetComponent<Slider>();
-        S = this;
-        
-        if (LoadManager.S.loadData) totalFear = LoadManager.S.playerDataToLoad.fear;
 
-        slid.maxValue = GameManager.Instance.GetWinFear();
+        S = this;
+        slid = GetComponent<Slider>();
+        if (LoadManager.S.loadData) totalFear = LoadManager.S.playerDataToLoad.fear;
+        maxOverallFear = GameManager.Instance.GetWinFear();
+        slid.maxValue = maxOverallFear;
+        liquidFill = transform.GetChild(0).GetComponent<LiquidAnimationController>();
+        transform.GetChild(3).GetComponent<Button>().onClick.AddListener(SwirlLiquid); // sub swirl function to button click
         enabled = false;
     }
 
@@ -51,8 +64,11 @@ public class FearMeter : MonoBehaviour
         AudioManager.PlaySFX(SFXType.FearIncrease);
         S.timeElapsed = 0; // setting to 0 here makes so slider animates smoothly with multiple increase calls
 
-        if (!S.RnD) S.totalFear += increase;
-
+        if (!S.RnD)
+        {
+            S.totalFear += increase;
+            S.liquidFill.fillAmount += (increase / (float)S.maxOverallFear); // normalize 0-1 for liquid fill
+        }
         else
         {
             print("Yup");
@@ -81,6 +97,14 @@ public class FearMeter : MonoBehaviour
     static public int GET_METER_TOTAL()
     {
         return S.totalFear;
+    }
+
+    /// <summary>
+    /// Trigger liquid fill to swirl.
+    /// </summary>
+    public void SwirlLiquid()
+    {
+        liquidFill.TriggerSwirl(0.1f);
     }
 
 

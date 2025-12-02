@@ -69,7 +69,7 @@ public class PlayerVision : MonoBehaviour, ITurnObserver
 
     private void Update()
     {
-        Debug.Log("Visible cells: " + string.Join(", ", currentVisibleRadius),this);
+//        Debug.Log("Visible cells: " + string.Join(", ", currentVisibleRadius),this);
 
         // string nearby = string.Join(", ", nearbyCharacters.Select(c => c.gameObject.GetComponent<DialogueBank>().character));
         // string visible = string.Join(", ", currentVisible.Select(v => v.ToString()));   
