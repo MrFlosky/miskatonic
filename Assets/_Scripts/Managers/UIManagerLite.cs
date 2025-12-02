@@ -240,11 +240,20 @@ public class UIManagerLite : MonoBehaviour
                 else if (fromState == GameState.Dispatch)
                 {
                     Debug.Log("Dealer interaction complete, back to board");
-                    S.dealerButton.gameObject.SetActive(false);
-                    EnableEndTurnButton();
+                    if(DispatchSystem.dealerDealtWith)
+                    {
+                        S.dealerButton.gameObject.SetActive(false);
+                        S.endTurnButton.gameObject.SetActive(true);
+                        EnableEndTurnButton(); 
+                    } else
+                    {
+                        S.dealerButton.gameObject.SetActive(true);
+                        S.endTurnButton.gameObject.SetActive(false);
+                    }
+                       
                     S.dealerReturnToBoardButton.gameObject.SetActive(false);
                     S.storyboardButton.gameObject.SetActive(true);
-                    S.endTurnButton.gameObject.SetActive(true);
+                    
                     S.skillUICollection.ENABLE_BUTTONS();
                     foreach(var P in S.portraitFades)
                     {
