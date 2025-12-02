@@ -4,13 +4,30 @@ using UnityEngine;
 
 public class TeachingManager : MonoBehaviour, ITurnObserver
 {
+
+    void Start()
+    {
+        TurnBasedSystem.SubscribeAsObserver(this);
+        TURN_ZERO_TUTORIAL_EVENT();
+    }
+
     public void EnemyTurnInitiated()
     {
-        throw new System.NotImplementedException();
+
     }
 
     public void PlayerTurnInitiated()
     {
-        throw new System.NotImplementedException();
+        Debug.LogWarning(TurnBasedSystem.GET_TURN_COUNT(TurnType.Player));
+    }
+
+    private void TURN_ZERO_TUTORIAL_EVENT()
+    {
+        
+    }
+
+    private void TURN_ONE_TUTORIAL_EVENT()
+    {
+        
     }
 }
