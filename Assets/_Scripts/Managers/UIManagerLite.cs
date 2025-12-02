@@ -1,8 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+
+// TODO: REMOVE REDUNDANT DISPATCH OR DEALER GAME STATE. IDK WHY THIS WAS ADDED BUT THEY ARE THE SAME THING
 
 /// <summary>
 /// This class is responsible for bandaid UI management.
@@ -17,7 +18,6 @@ public class UIManagerLite : MonoBehaviour
     public enum GameState
     {
         BoardBase,      // Central hub state - all states can transition here
-        Dealer,
         Dialogue,
         SkillInUse,
         Storyboard,
@@ -42,6 +42,7 @@ public class UIManagerLite : MonoBehaviour
     // Buttons
     [SerializeField] private Button endTurnButton;
     [SerializeField] private Button dealerButton; // button for starting mission dealer interaction
+    [SerializeField] private Button dealerReturnToBoardButton; // button for returning to board base from dealer
     [SerializeField] private Button rerollButton; // button for rerolling cards
     [SerializeField] private Button storyboardButton;
     [SerializeField] private Button[] potraitButtons;
@@ -77,20 +78,12 @@ public class UIManagerLite : MonoBehaviour
                 GameState.BoardBase, 
                 new List<GameState>
                 {
-                    GameState.Dealer,
                     GameState.Dialogue,
                     GameState.SkillInUse,
                     GameState.Storyboard,
                     GameState.Dispatch,
                     GameState.EnemyTurn,
                     GameState.BoardBase,
-                } 
-            },
-            { 
-                GameState.Dealer, 
-                new List<GameState>
-                {
-                    GameState.BoardBase
                 } 
             },
             { 
@@ -178,27 +171,8 @@ public class UIManagerLite : MonoBehaviour
             // ==================================================================================
             case GameState.BoardBase:
                 // Different behavior based on where we came from
-                
-                // TRANSITION: Dealer → BoardBase
-                if (fromState == GameState.Dealer)
-                {
-                    Debug.Log("Dealer interaction complete, back to board");
-                    S.dealerButton.gameObject.SetActive(false);
-                    S.dealerCanvas.gameObject.SetActive(false);
-                    EnableEndTurnButton();
-
-                    S.storyboardButton.gameObject.SetActive(true);
-                    S.endTurnButton.gameObject.SetActive(true);
-                    S.skillUICollection.ENABLE_BUTTONS();
-                    foreach(var p in S.portraitFades)
-                    {
-                        p.StartCoroutine(p.FadeIn());
-                       
-                    }
-                    S.outlineManager.ResumeOutlining();
-                }
                 // TRANSITION: Dialogue → BoardBase
-                else if (fromState == GameState.Dialogue)
+                if (fromState == GameState.Dialogue)
                 {
                     Debug.Log("Dialogue ended, back to board");
                     if (!DispatchSystem.dealerDealtWith) // only set dealer button active if not yet dealt with
@@ -231,6 +205,7 @@ public class UIManagerLite : MonoBehaviour
                     if (!DispatchSystem.dealerDealtWith) // only set dealer button active if not yet dealt with
                     {
                         DisableEndTurnButton();
+                        S.dealerButton.gameObject.SetActive(true);
                         S.dealerButton.interactable = true;
                     }
                     else
@@ -249,6 +224,7 @@ public class UIManagerLite : MonoBehaviour
                     if (!DispatchSystem.dealerDealtWith)
                     {
                         S.dealerButton.gameObject.SetActive(true);
+                        S.dealerButton.interactable = true;
                     }
                     S.endTurnButton.gameObject.SetActive(true);
                     S.skillPointUICollection.DISPLAY_PTS();
@@ -266,7 +242,7 @@ public class UIManagerLite : MonoBehaviour
                     Debug.Log("Dealer interaction complete, back to board");
                     S.dealerButton.gameObject.SetActive(false);
                     EnableEndTurnButton();
-
+                    S.dealerReturnToBoardButton.gameObject.SetActive(false);
                     S.storyboardButton.gameObject.SetActive(true);
                     S.endTurnButton.gameObject.SetActive(true);
                     S.skillUICollection.ENABLE_BUTTONS();
@@ -292,27 +268,6 @@ public class UIManagerLite : MonoBehaviour
                 break;
 
               
-            // ==================================================================================
-            // ENTERING: Dealer
-            // ==================================================================================
-            case GameState.Dealer:
-                
-                // TRANSITION: BoardBase → Dealer
-                if (fromState == GameState.BoardBase)
-                {
-                    DisableEndTurnButton();
-                    Debug.Log("Entering dealer interaction");
-                    S.dealerCanvas.gameObject.SetActive(true);
-
-                    S.storyboardButton.gameObject.SetActive(false);
-                    S.endTurnButton.gameObject.SetActive(false);
-                    S.dealerButton.gameObject.SetActive(false);
-                    S.skillUICollection.DISABLE_BUTTONS();
-                    
-                    S.outlineManager.PauseOutlining();
-                }
-                break;
-
             // ==================================================================================
             // ENTERING: Dialogue
             // ==================================================================================
@@ -349,6 +304,7 @@ public class UIManagerLite : MonoBehaviour
 
                     if (!DispatchSystem.dealerDealtWith)
                     {
+                        S.dealerButton.gameObject.SetActive(false);
                         S.dealerButton.interactable = false;
                     }
                     DisableEndTurnButton();
@@ -396,6 +352,7 @@ public class UIManagerLite : MonoBehaviour
                     DisableEndTurnButton();
                     Debug.Log("Entering dealer interaction");
 
+                    S.dealerReturnToBoardButton.gameObject.SetActive(true);
                     S.storyboardButton.gameObject.SetActive(false);
                     S.endTurnButton.gameObject.SetActive(false);
                     S.dealerButton.gameObject.SetActive(false);
@@ -431,92 +388,6 @@ public class UIManagerLite : MonoBehaviour
     
     #endregion
 
-    
-    /// NOT IN USE:
-    /// I don't think we'll need this functionality of state machine - jay
-    /// <summary>
-    /// Exit a state with context of where we're going to
-    /// </summary>
-    // private static void ExitState(GameState state, GameState toState)
-    // {
-    //     switch (state)
-    //     {
-    //         case GameState.BoardBase:
-    //             // Different cleanup based on where we're going
-    //             if (toState == GameState.Dealer)
-    //             {
-    //                 Debug.Log("Opening dealer interface...");
-    //                 // Dim board UI
-    //             }
-    //             else if (toState == GameState.Dialogue)
-    //             {
-    //                 Debug.Log("Pausing board for dialogue");
-    //                 // Keep board visible but disabled
-    //             }
-    //             else if (toState == GameState.SkillInUse)
-    //             {
-    //                 Debug.Log("Executing skill...");
-    //                 // Lock in player's action
-    //             }
-    //             else if (toState == GameState.Storyboard)
-    //             {
-    //                 Debug.Log("Transitioning to cutscene");
-    //                 // Fade out all combat UI
-    //             }
-    //             else if (toState == GameState.EnemyTurn)
-    //             {
-    //                 Debug.Log("Ending player turn, enemy's turn starting");
-    //                 // Lock player input
-    //                 // Commit any pending actions
-    //             }
-    //             break;
-                
-    //         case GameState.Dealer:
-    //             if (toState == GameState.BoardBase)
-    //             {
-    //                 Debug.Log("Closing dealer interface");
-    //                 // Hide dealer UI
-    //                 // Apply any purchases/changes
-    //             }
-    //             break;
-                
-    //         case GameState.Dialogue:
-    //             DisableDialogueSettings();
-                
-    //             if (toState == GameState.BoardBase)
-    //             {
-    //                 Debug.Log("Dialogue ending, resume board");
-    //                 // Quick fade out
-    //             }
-    //             break;
-                
-    //         case GameState.SkillInUse:
-    //             if (toState == GameState.BoardBase)
-    //             {
-    //                 Debug.Log("Skill effect complete");
-    //                 // Unlock player input
-    //                 // Show skill results
-    //             }
-    //             break;
-                
-    //         case GameState.Storyboard:
-    //             if (toState == GameState.BoardBase)
-    //             {
-    //                 Debug.Log("Cutscene complete, resume gameplay");
-    //                 // Fade in combat UI
-    //             }
-    //             break;
-                
-    //         case GameState.EnemyTurn:
-    //             if (toState == GameState.BoardBase)
-    //             {
-    //                 Debug.Log("Enemy turn complete");
-    //                 // Stop enemy AI
-    //                 // Hide "Enemy Turn" indicator
-    //             }
-    //             break;
-    //     }
-    // }
 
     public static GameState GetCurrentState()
     {

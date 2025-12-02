@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime;
+using UnityEditor.Rendering.BuiltIn.ShaderGraph;
 using UnityEngine;
 using UnityEngine.InputSystem;
 public class SkillRenovation : Skill
@@ -51,11 +52,12 @@ public class SkillRenovation : Skill
 
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, raycastLayerMask))
         {
-            if (hit.collider.gameObject.GetComponentInParent<MazeCellObject>() != null
-            && hit.collider.gameObject.GetComponentInParent<MazeCellObject>().roomType != "Hallway")
+            MazeCellObject cellHit = hit.collider.gameObject.GetComponentInParent<MazeCellObject>();
+            if (cellHit != null
+            && cellHit.roomType != "Hallway")
             {
-
-                string RoomsName = hit.collider.gameObject.GetComponentInParent<MazeCellObject>().roomType;
+                
+                string RoomsName = cellHit.roomType;
                 RoomsName = RoomsName.Replace(" ", "");
                 
 
@@ -64,16 +66,13 @@ public class SkillRenovation : Skill
                 
                 foreach (AgentNavigation AN in agentManager.agents)
                 {
-                    AN.SetBonusFearRoom(Rn);
+                   AN.BonusFearRooms.Add(Rn);
                     
                     
 
                 }
-                Vector3 newPosition = hit.transform.position;
-                newPosition.x += 1f;
-                newPosition.y = 0.5f;
-                newPosition.z += 1f;
-                CreateRenovator(newPosition);
+                RoomCenter rc = cellHit.transform.parent.GetComponentInChildren<RoomCenter>();
+                CreateRenovator(rc.transform.position);
                 EndSkill();
                 
             }
@@ -83,7 +82,7 @@ public class SkillRenovation : Skill
 
     public void OnRightClick(InputAction.CallbackContext context)
     {
-        Debug.LogError("test");
+//        Debug.LogError("test");
         ExitInProgress();
         
     }
@@ -103,27 +102,35 @@ public class SkillRenovation : Skill
         Renovators.Clear();
 
         GameObject newRen = Instantiate(renObj);
+        RenovationEffect renEff = newRen.GetComponent<RenovationEffect>();
         newRen.transform.position=newPos;
         newRen.transform.SetParent(transform);
         Renovators.Add(newRen);
-        newRen.GetComponent<Renovator>().turnsRemaining = roundsLast;
+        renEff.maxTurns = roundsLast;
+        renEff.skillRenovation = this;
+        
+        foreach (AgentNavigation AN in agentManager.agents)
+            {
+                AN.SetBonusFearRoom();  
+            }
         
 
     }
 
 
-    public void EndRenovation()
+    public void EndRenovation(int index)
     {
+        Debug.LogError(index);
         foreach (AgentNavigation AN in agentManager.agents)
-                {
-                    AN.SetBonusFearRoom(AgentNavigation.RoomName.None);
-                    
-                    
-
-                }
+            {
+                AN.BonusFearRooms[index]= AgentNavigation.RoomName.None;
+                AN.CheckForClear();
+            }
+        
+        
 
     }
 
-    
+   
 
 }

@@ -5,7 +5,9 @@ using UnityEngine.UI;
 // script makes buttons show a menu and hide a menu at the same time - This was helped created with Claude.AI
 public class Buttons : MonoBehaviour
 {
+
     public GameObject MenuObject;
+    [SerializeField] ButtonGlow buttonGlow;
 
     void Start()
     {
@@ -15,6 +17,8 @@ public class Buttons : MonoBehaviour
     void ToggleMenu()
     {
         MenuObject.SetActive(!MenuObject.activeSelf);
+        if(buttonGlow!=null) buttonGlow.EndGlow();
+
     }
     public void ToggleMenuActive()
     {

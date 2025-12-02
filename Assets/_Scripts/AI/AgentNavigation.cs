@@ -29,12 +29,17 @@ public class AgentNavigation : MonoBehaviour
     public Vector3 destination;
 
     [SerializeField] private RoomName FearRoom;
-    [SerializeField]private RoomName bonusFearRoom;
+    [SerializeField]public List<RoomName> BonusFearRooms;
 
-    public void SetBonusFearRoom(RoomName name)
+    public void SetBonusFearRoom()
     {
-        bonusFearRoom = name;
-        roomFearEffects[GetRoomName(bonusFearRoom)] = IncreaseFear;
+        foreach(var RM in BonusFearRooms)
+        {
+            roomFearEffects[GetRoomName(RM)] = RoomIncreaseFear;
+            
+        }
+
+
     }
 
     [SerializeField] private RoomName GoalRoom;
@@ -65,9 +70,9 @@ public class AgentNavigation : MonoBehaviour
     private void Start()
     {
         roomFearEffects = new Dictionary<string, System.Action>();
-        roomFearEffects[GetRoomName(FearRoom)] = IncreaseFear;
+        roomFearEffects[GetRoomName(FearRoom)] = RoomIncreaseFear;
         roomFearEffects[GetRoomName(GoalRoom)] = DecreaseFear;
-        SetBonusFearRoom(RoomName.None);
+        BonusFearRooms.Clear();
         
     }
 
@@ -188,8 +193,11 @@ public class AgentNavigation : MonoBehaviour
             }
             else if (currentCell.roomType == "Hallway")
             {
-                gameObject.GetComponent<DialogueBank>().DequeueSpecialDialog(DialogueBank.DialogueType.Room);
-                currentRoom = null;
+                if(gameObject.GetComponent<DialogueBank>().GetDialogueType() == DialogueBank.DialogueType.Room) 
+                {
+                    gameObject.GetComponent<DialogueBank>().DequeueSpecialDialog(DialogueBank.DialogueType.Room);
+                }
+                currentRoom = null;     
             }
             
             if (HasMovedMaxTiles())
@@ -290,9 +298,13 @@ public class AgentNavigation : MonoBehaviour
         path.Clear();
         isMoving = false;
 
-        //playerVision.totemCell.Clear();
-        playerVision.UpdateVision(false);
-        playerVision.ApplyPsychosis(false);
+        // null check or else this will cause stackoverflow
+        if (playerVision != null)
+        {
+            //playerVision.totemCell.Clear();
+            playerVision.UpdateVision(false);
+            playerVision.ApplyPsychosis(false);
+        }
        
         gameObject.GetComponent<DialogueBank>().alreadyTalked = false;
     }
@@ -707,9 +719,12 @@ public class AgentNavigation : MonoBehaviour
         }
     }
 
-    public void IncreaseFear()
+    public void RoomIncreaseFear()
     {
+        Debug.LogError(agentFear.currentFear);
+        
         agentFear.AddFear(5);
+        Debug.LogError(agentFear.currentFear);
     }
     
     public void AddBonusFear(float bonusFear)
@@ -911,5 +926,23 @@ public class AgentNavigation : MonoBehaviour
     public void SetTilesPerTurn(int tiles)
     {
         tilesPerTurn = tiles;
+    }
+
+    public void CheckForClear()
+    {
+        bool allNone= true;
+        foreach(var RoomN in BonusFearRooms)
+        {
+            if(RoomN!= RoomName.None)
+            {
+                allNone = false;
+                break;
+            }
+        }
+
+        if (allNone)
+        {
+           BonusFearRooms.Clear(); 
+        }
     }
 }

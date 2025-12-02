@@ -23,7 +23,7 @@ public class PortraitFade : MonoBehaviour, ITurnObserver
     [SerializeField] GameObject buttonText;
     public bool clicked;
     [SerializeField]float maxClickedAlpha = .1f;
-
+    
     
     Image portraitImage;
 
@@ -50,7 +50,13 @@ public class PortraitFade : MonoBehaviour, ITurnObserver
 
     }
 
-   
+    private void EnableRaycasts(bool state) // bug fix for hovering on buttons while in dialogue - Raycasting
+    {
+        if (PortraitButton != null) //button raycast
+            PortraitButton.GetComponent<Image>().raycastTarget = state;
+        if (Portrait != null) // graphic of the button
+            Portrait.raycastTarget = state;
+    }
 
     //used when returning from storyboard to Boardbase
     public IEnumerator BoardBaseReset()
@@ -86,6 +92,7 @@ public class PortraitFade : MonoBehaviour, ITurnObserver
     //fully fades out a portrait
     public IEnumerator FadeOut()
     {
+        EnableRaycasts(false);
         float startingAlpha = Portrait.color.a;
         buttonText.GetComponent<TextMeshProUGUI>().enabled = false;
         PortraitButton.enabled = false;
@@ -138,6 +145,7 @@ public class PortraitFade : MonoBehaviour, ITurnObserver
         }
         buttonText.GetComponent<TextMeshProUGUI>().enabled = true;
         PortraitButton.enabled = true;
+        EnableRaycasts(true);
 
     }
 
@@ -183,6 +191,7 @@ public class PortraitFade : MonoBehaviour, ITurnObserver
         }
 
         buttonText.GetComponent<TextMeshProUGUI>().enabled = true;
+        EnableRaycasts(true);
 
     }
     

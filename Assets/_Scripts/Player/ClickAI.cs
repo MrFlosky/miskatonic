@@ -231,7 +231,10 @@ public class ClickAI : MonoBehaviour
                 activeCamera = playerCam;
                 activeCamera.enabled = true;
             }
-            characterPortaits.SetActive(true);
+            foreach(PortraitFade PF in characterPortaits.GetComponentsInChildren<PortraitFade>())
+            {
+                PF.StartCoroutine(PF.FadeIn());
+            }
         }
     }
 
@@ -243,10 +246,15 @@ public class ClickAI : MonoBehaviour
         }
         if (Room.collider.gameObject.GetComponentInParent<MazeCellObject>().roomType != null)
         {
+            foreach(PortraitFade PF in characterPortaits.GetComponentsInChildren<PortraitFade>())
+            {
+                PF.StartCoroutine(PF.FadeOut());
+            }
             isSnooping = true;
             //Set the room camera to the room type being clicked
             switch (Room.collider.gameObject.GetComponentInParent<MazeCellObject>().roomType)
             {
+                
                 //camera blend on room click
                 case "Bedroom":
                     roomCamera = Maze.gameObject.GetComponent<MazeRenderer>().bedroomCam;
@@ -266,6 +274,7 @@ public class ClickAI : MonoBehaviour
                 case "Cemetery":
                     roomCamera = Maze.gameObject.GetComponent<MazeRenderer>().cemeteryCam;
                     break;
+                    
             }
 
             //Check if a skill is in use
@@ -281,7 +290,7 @@ public class ClickAI : MonoBehaviour
             //Blend Camera if skill not in use
             if (roomCamera && !isUsingSkill)
             {
-                characterPortaits.SetActive(false);
+                
                 if (roomCamera.enabled == false)
                 {
                     roomCamera.gameObject.SetActive(true);
@@ -356,7 +365,7 @@ public class ClickAI : MonoBehaviour
 
         PlayerController.Instance.clickedAI = false;
         _inConversation = false;
-        characterPortaits.SetActive(true);
+      
 
         if (playerCam)
             playerCam.enabled = true;

@@ -14,6 +14,7 @@ public class PlayerVision : MonoBehaviour, ITurnObserver
     [SerializeField] Material outlineMaterial;  // Material applied when highlighting tiles
 
     private List<Vector2Int> currentVisible = new List<Vector2Int>();
+    private List<Vector2Int> currentVisibleRadius = new List<Vector2Int>();
     private MazeCellObject currentCell;
     private Dictionary<MeshRenderer, Material[]> originalMaterials
     = new Dictionary<MeshRenderer, Material[]>();
@@ -41,10 +42,8 @@ public class PlayerVision : MonoBehaviour, ITurnObserver
     private List<PlayerVision> nearbyCharsForDialog = new List<PlayerVision>();
     private int lonelyRadius = 20;
 
-    // Tile distance required for a player to be nearby
-    private int nearbyRadius = 5;
-
-
+    // Tile distance required for a character to see another character around them
+    private int nearbyRadius = 4;
 
     /// <summary>
     /// Set up varibles for current position of AI
@@ -70,10 +69,12 @@ public class PlayerVision : MonoBehaviour, ITurnObserver
 
     private void Update()
     {
-        string nearby = string.Join(", ", nearbyCharacters.Select(c => c.gameObject.GetComponent<DialogueBank>().character));
-        string visible = string.Join(", ", currentVisible.Select(v => v.ToString()));   
-        Debug.Log($"{gameObject.GetComponent<DialogueBank>().character} is next to {nearby}");
-        Debug.Log($"{gameObject.GetComponent<DialogueBank>().character} can see {visible}");
+        Debug.Log("Visible cells: " + string.Join(", ", currentVisibleRadius),this);
+
+        // string nearby = string.Join(", ", nearbyCharacters.Select(c => c.gameObject.GetComponent<DialogueBank>().character));
+        // string visible = string.Join(", ", currentVisible.Select(v => v.ToString()));   
+        // Debug.Log($"{gameObject.GetComponent<DialogueBank>().character} is next to {nearby}");
+        // Debug.Log($"{gameObject.GetComponent<DialogueBank>().character} can see {visible}");
     }
 
     void Awake()
@@ -161,7 +162,7 @@ public class PlayerVision : MonoBehaviour, ITurnObserver
                 break; // Out of maze bounds, stop vision
             }
 
-            MazeCell nextCell = new MazeCell(newX, newY);
+            MazeCell nextCell = gameManager.GetCentralMaze()[newX, newY];
             visible.Add(new Vector2Int(newX, newY));
 
             if (IsBlocked(nextCell))
@@ -239,6 +240,7 @@ public class PlayerVision : MonoBehaviour, ITurnObserver
 
         // 2. Compute new vision
         currentVisible = GetVisibleCells();
+        currentVisibleRadius = GetVisionRadiusBlocked(nearbyRadius);
 
         // 3. Apply new highlights
         foreach (var pos in currentVisible)
@@ -266,48 +268,53 @@ public class PlayerVision : MonoBehaviour, ITurnObserver
             }
 
 
-            if (MazeRenderer.Instance.cellGameObjects.TryGetValue(pos, out GameObject cellObject))
-            {
+            // if (MazeRenderer.Instance.cellGameObjects.TryGetValue(pos, out GameObject cellObject))
+            // {
 
-                foreach (Transform child in cellObject.transform)
-                {
-                    var renderer = child.GetComponent<MeshRenderer>();
-                    //if (renderer != null)
-                    //{
-                    //	var mats = new List<Material>(renderer.materials);
-                    //	if (!mats.Contains(outlineMaterial)) // avoid duplicates
-                    //		mats.Add(outlineMaterial);
-                    //	renderer.materials = mats.ToArray();
-                    //}
-                    if (renderer != null)
-                    {
-                        if (!originalMaterials.ContainsKey(renderer))
-                            originalMaterials[renderer] = renderer.materials;
+            //     foreach (Transform child in cellObject.transform)
+            //     {
+            //         var renderer = child.GetComponent<MeshRenderer>();
+            //         //if (renderer != null)
+            //         //{
+            //         //	var mats = new List<Material>(renderer.materials);
+            //         //	if (!mats.Contains(outlineMaterial)) // avoid duplicates
+            //         //		mats.Add(outlineMaterial);
+            //         //	renderer.materials = mats.ToArray();
+            //         //}
+            //         if (renderer != null)
+            //         {
+            //             if (!originalMaterials.ContainsKey(renderer))
+            //                 originalMaterials[renderer] = renderer.materials;
 
-                        var mats = new List<Material>(renderer.materials);
-                        if (!mats.Contains(outlineMaterial))
-                            mats.Add(outlineMaterial);
+            //             var mats = new List<Material>(renderer.materials);
+            //             if (!mats.Contains(outlineMaterial))
+            //                 mats.Add(outlineMaterial);
 
-                        renderer.materials = mats.ToArray();
-                    }
-                }
-            }
+            //             renderer.materials = mats.ToArray();
+            //         }
+            //     }
+            // }
         }
 
-        foreach (var player in FindObjectsOfType<PlayerVision>())
+
+        foreach (var player in PlayerVisionCollection.S.GetPlayerVisions())
         {
-            if (player == this) continue;
-
-            Vector2Int otherPos = player.GetComponent<PlayerVision>().gridPos;
-            Vector2Int nearestCell = FindNearestCellGrid(player.transform.position);
-            int distance = Mathf.Abs(nearestCell.x - gridPos.x) + Mathf.Abs(nearestCell.y - gridPos.y);
-
-            if (distance <= nearbyRadius && !nearbyCharsForDialog.Contains(player) && currentVisible.Contains(player.GetComponent<PlayerVision>().gridPos))
+            if (player == this || player.gridPos == new Vector2(0,0)) continue;
+            if (!nearbyCharsForDialog.Contains(player) && player.GetComponent<DialogueBank>().GetDialogueType() == DialogueBank.DialogueType.None && (currentVisible.Contains(player.GetComponent<PlayerVision>().gridPos) || currentVisibleRadius.Contains(player.GetComponent<PlayerVision>().gridPos)))
             {
-                nearbyCharsForDialog.Add(player);
-                gameObject.GetComponent<DialogueBank>().QueueSpecialDialog($"Ecounter{player.GetComponent<DialogueBank>().character}", DialogueBank.DialogueType.Encounter);
+                CharacterDialogTriggered(player);
+                player.CharacterDialogTriggered(this);
+                return;
             }
         }
+
+
+    }
+
+    public void CharacterDialogTriggered(PlayerVision player)
+    {
+        nearbyCharsForDialog.Add(player);
+        gameObject.GetComponent<DialogueBank>().QueueSpecialDialog($"Encounter{player.GetComponent<DialogueBank>().character}", DialogueBank.DialogueType.Encounter);
     }
 
     public void EnablePsychosisVision(bool enable, int endAtTurn, int radius, int fear)
@@ -339,13 +346,18 @@ public class PlayerVision : MonoBehaviour, ITurnObserver
     /// </summary>
     public List<Vector2Int> GetFullVisionCells()
     {
+         return GetFullVisionCells(psyRadius);
+    }
+    
+    public List<Vector2Int> GetFullVisionCells(int radius)
+    {
         List<Vector2Int> visible = new List<Vector2Int>();
         var agentNavigation = GetComponent<AgentNavigation>();
         var gameManager = agentNavigation.gameManager;
 
-        for (int dx = -psyRadius; dx <= psyRadius; dx++)
+        for (int dx = -radius; dx <= radius; dx++)
         {
-            for (int dy = -psyRadius; dy <= psyRadius; dy++)
+            for (int dy = -radius; dy <= radius; dy++)
             {
                 int newX = gridPos.x + dx;
                 int newY = gridPos.y + dy;
@@ -365,7 +377,141 @@ public class PlayerVision : MonoBehaviour, ITurnObserver
 
         return visible;
     }
+    public List<Vector2Int> GetVisionRadiusBlocked(int radius)
+    {
+        List<Vector2Int> visible = new List<Vector2Int>();
+        var agentNavigation = GetComponent<AgentNavigation>();
+        var gameManager = agentNavigation.gameManager;
 
+        int minX = Mathf.Max(0, gridPos.x - radius);
+        int maxX = Mathf.Min(gameManager.centralMaze.GetLength(0) - 1, gridPos.x + radius);
+        int minY = Mathf.Max(0, gridPos.y - radius);
+        int maxY = Mathf.Min(gameManager.centralMaze.GetLength(1) - 1, gridPos.y + radius);
+
+        int radiusSq = radius * radius;
+
+        for (int x = minX; x <= maxX; x++)
+        {
+            for (int y = minY; y <= maxY; y++)
+            {
+                int dx = x - gridPos.x;
+                int dy = y - gridPos.y;
+                if (dx * dx + dy * dy > radiusSq) continue;
+
+                Vector2Int target = new Vector2Int(x, y);
+
+                if (HasLineOfSight(gridPos, target))
+                {
+                    visible.Add(target);
+                }
+            }
+        }
+
+        return visible;
+    }
+
+
+    /// <summary>
+    /// Grid-based line-of-sight.
+    /// Returns true if there is an unobstructed line from center of 'from' cell to center of 'to' cell.
+    /// </summary>
+    private bool HasLineOfSight(Vector2Int from, Vector2Int to)
+    {
+        if (from == to) return true;
+
+        var agentNavigation = GetComponent<AgentNavigation>();
+        var gameManager = agentNavigation.gameManager;
+
+        float startX = from.x + 0.5f;
+        float startY = from.y + 0.5f;
+        float endX = to.x + 0.5f;
+        float endY = to.y + 0.5f;
+
+        float dx = endX - startX;
+        float dy = endY - startY;
+
+        int stepX = (dx > 0) ? 1 : (dx < 0) ? -1 : 0;
+        int stepY = (dy > 0) ? 1 : (dy < 0) ? -1 : 0;
+
+        float tMaxX, tMaxY;
+        float tDeltaX, tDeltaY;
+
+        int currentX = from.x;
+        int currentY = from.y;
+
+        if (stepX != 0)
+        {
+            float nextGridX = (stepX > 0) ? (currentX + 1.0f) : (currentX * 1.0f);
+            tMaxX = (nextGridX - startX) / dx; 
+            tDeltaX = 1.0f / Mathf.Abs(dx);
+        }
+        else
+        {
+            tMaxX = float.PositiveInfinity;
+            tDeltaX = float.PositiveInfinity;
+        }
+
+        if (stepY != 0)
+        {
+            float nextGridY = (stepY > 0) ? (currentY + 1.0f) : (currentY * 1.0f);
+            tMaxY = (nextGridY - startY) / dy;
+            tDeltaY = 1.0f / Mathf.Abs(dy);
+        }
+        else
+        {
+            tMaxY = float.PositiveInfinity;
+            tDeltaY = float.PositiveInfinity;
+        }
+
+        int targetX = to.x;
+        int targetY = to.y;
+
+        while (true)
+        {
+            if (currentX == targetX && currentY == targetY)
+                return true;
+
+            if (tMaxX < tMaxY)
+            {
+                MazeCell currentCell = gameManager.centralMaze[currentX, currentY];
+
+
+                if (stepX > 0)
+                {
+                    if (currentCell.rightWall) return false;
+                }
+                else
+                {
+                    if (currentCell.leftWall) return false;
+                }
+
+                currentX += stepX;
+                tMaxX += tDeltaX;
+            }
+            else
+            {
+                MazeCell currentCell = gameManager.centralMaze[currentX, currentY];
+
+
+                if (stepY > 0)
+                {
+                    if (currentCell.topWall) return false;
+                }
+                else
+                {
+                    if (currentCell.bottomWall) return false;
+                }
+
+                currentY += stepY;
+                tMaxY += tDeltaY;
+            }
+
+            if (currentX < 0 || currentY < 0 ||
+                currentX >= gameManager.centralMaze.GetLength(0) ||
+                currentY >= gameManager.centralMaze.GetLength(1))
+                return false;
+        }
+    }
 
     public void ApplyPsychosis(bool turn)
     {
@@ -380,7 +526,7 @@ public class PlayerVision : MonoBehaviour, ITurnObserver
             // int nearbyCharacters = 0;
             
 
-            foreach (var player in FindObjectsOfType<PlayerVision>())
+            foreach (var player in PlayerVisionCollection.S.GetPlayerVisions())
             {
                 if (player == this) continue;
 
@@ -410,7 +556,7 @@ public class PlayerVision : MonoBehaviour, ITurnObserver
             // int nearbyCharacters = 0;
             
 
-            foreach (var player in FindObjectsOfType<PlayerVision>())
+            foreach (var player in PlayerVisionCollection.S.GetPlayerVisions())
             {
                 if (player == this) continue;
 

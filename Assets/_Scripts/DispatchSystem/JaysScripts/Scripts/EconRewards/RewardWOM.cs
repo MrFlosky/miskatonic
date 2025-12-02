@@ -6,6 +6,7 @@ public class RewardWOM : RewardCultist, ITurnObserver
 {
 
     int maxGain = 3;
+    int mult = 3;
     private void Start()
     {
         TurnBasedSystem.SubscribeAsObserver(this);
@@ -18,7 +19,7 @@ public class RewardWOM : RewardCultist, ITurnObserver
 
     public override void GrantReward()
     {
-        cultistsToReward = Mathf.FloorToInt(cultistPointSystem.cultistPoints / 10);
+        cultistsToReward = mult * Mathf.FloorToInt(cultistPointSystem.cultistPoints / 10);
         if (cultistsToReward > maxGain) cultistsToReward = maxGain;
         base.GrantReward();
     }

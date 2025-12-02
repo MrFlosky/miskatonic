@@ -91,13 +91,15 @@ public class AIFearMeter : MonoBehaviour
         S.fear = newFear;
         S.enabled = true;
 
+
+        // Only execute slider VFX if visible slider is active,
+        // otherwise will throw a nullref.
+        if(S.visibleSlider.gameObject.activeSelf != true){ return;} 
         if (S.aiSlider.value > newFear)
         {
 
-
             // float x = (Mathf.PerlinNoise(Time.time * shakeFrequency, 0f) - 0.5f) * shakeMagnitude;
             // float y = (Mathf.PerlinNoise(0f, Time.time * shakeFrequency) - 0.5f) * shakeMagnitude;
-
             // rectTransform.anchoredPosition = originalPos + new Vector2(x, y);
 
             S.uiShake.Shake(1f, 6f);

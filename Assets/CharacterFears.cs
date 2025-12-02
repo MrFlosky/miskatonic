@@ -21,6 +21,8 @@ public class CharacterFears : MonoBehaviour
     public GameObject[] iFearTexts;
     public GameObject[] mFearTexts;
 
+    [SerializeField] ButtonGlow buttonGlow;
+
     void Awake()
     {
         if (Instance == null)
@@ -93,6 +95,7 @@ public class CharacterFears : MonoBehaviour
     /// <param name="fearNum"></param>
     public void DiscoverFear(Character c, int fearNum)
     {
+        buttonGlow.active=true;
         totalFearsDiscovered++;
         switch (c)
         {

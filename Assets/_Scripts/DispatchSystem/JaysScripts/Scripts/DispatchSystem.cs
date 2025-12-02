@@ -45,6 +45,13 @@ public class DispatchSystem : MonoBehaviour , ITurnObserver
     /// </summary>
     private int cultistRerollCost = 1;
 
+    /// <summary>
+    /// True if player went to dealer at least once this turn.
+    /// Stops code that should execute only on first dealer
+    /// interaction per turn.
+    /// </summary>
+    private bool dealerFirstTurnInteraction;
+
 
     /// <summary>
     /// Number of rerolls available to player.
@@ -57,6 +64,7 @@ public class DispatchSystem : MonoBehaviour , ITurnObserver
         defaultRerollText = "Reroll";
         outOfRerollsText = "OUT OF REROLLS";
         rerollTxt.text = defaultRerollText;
+        dealerFirstTurnInteraction = false;
     }
 
     void Start()
@@ -70,7 +78,11 @@ public class DispatchSystem : MonoBehaviour , ITurnObserver
     public void DealCards()
     {
         //UIManagerLite.TransitionToState(UIManagerLite.GameState.Dispatch); in clickAI now
-        MissionCollection.S.DISPLAY_AVAILABLE_MISSIONS();
+        if(dealerFirstTurnInteraction == false)
+        {
+            dealerFirstTurnInteraction = true;
+            MissionCollection.S.DISPLAY_AVAILABLE_MISSIONS();
+        }
     }
 
     // <summary>
@@ -142,6 +154,7 @@ public class DispatchSystem : MonoBehaviour , ITurnObserver
     void ITurnObserver.PlayerTurnInitiated()
     {
         dealerDealtWith = false;
+        dealerFirstTurnInteraction = false;
         // add reroll and update text
         rerolls = 1;
         rerollTxt.text = defaultRerollText;
