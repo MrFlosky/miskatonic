@@ -7,7 +7,7 @@ Evelyn Ventress: Evelyn scans the hallway as she slowly walks side to side. Sheâ
 ->Create a gust of wind that goes through her.
         <<neutral "Evelyn Ventress">>
         "I must be above ground... somewhere." She keeps moving.
-->Do nothing. Complete stillness.
+->Make the room completely still.
         <<add_fear "Evelyn Ventress">>
         <<discover_fear "Evelyn Ventress" 0>>
         <<scared "Evelyn Ventress">>
@@ -77,13 +77,13 @@ Evelyn Ventress: "There has to be some way out of here." Evelyn pounds the wall 
 title: EvelynVentress4
 ---
 Evelyn Ventress: "What's the point?" Evelyn leans against the wall to catch her breath.
-->"There is no point."
+->"What even is a point?"
         <<neutral "Evelyn Ventress">>
         She gets up from the floor and pulls herself together. No reason to waste her time here. 
 ->"You have to keep fighting."
         <<determined "Evelyn Ventress">>
         Evelyn gets up off the floor and pulls herself together. No reason to waste her time here.  
-->"There is no way to know."
+->"There is no point."
         <<add_fear "Evelyn Ventress">>
         <<discover_fear "Evelyn Ventress" 5>>
         <<scared "Evelyn Ventress">>
