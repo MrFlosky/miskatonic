@@ -8,7 +8,7 @@ public class PathCoordinator : MonoBehaviour
     private Dictionary<AgentNavigation, List<(Vector2Int position, int timeStep)>> plannedPaths;
     private Dictionary<Vector2Int, List<(AgentNavigation agent, int timeStep)>> reservedCells;
     private List<AgentNavigation> pathPlanningOrder;
-    
+    private bool pathsArePlanned = false;
     private Dictionary<Vector2Int, AgentNavigation> destinationReservations;
     
     private void Awake()
@@ -28,18 +28,64 @@ public class PathCoordinator : MonoBehaviour
         destinationReservations = new Dictionary<Vector2Int, AgentNavigation>();
     }
     
-    public void CoordinateAgentPaths(AgentNavigation[] agents)
+    public void InvalidatePlannedPaths()
     {
+        pathsArePlanned = false;
+    }
+    
+    public bool HasValidPlannedPaths()
+    {
+        return pathsArePlanned && plannedPaths.Count > 0;
+    }
+    
+    
+    public void CoordinateAgentPaths(AgentNavigation[] agents, bool forceRecalculate = false)
+    {
+        if (pathsArePlanned && !forceRecalculate)
+        {
+            Debug.Log("PathCoordinator: Using existing planned paths");
+            return;
+        }
+    
         ClearAllReservations();
-        
+    
         DeterminePlanningOrder(agents);
-        
+    
         foreach (var agent in pathPlanningOrder)
         {
             GenerateAndReservePath(agent);
         }
-        
+    
+        pathsArePlanned = true; // Mark paths as planned
         Debug.Log($"PathCoordinator: Coordinated paths for {pathPlanningOrder.Count} agents");
+    }
+    
+    public void ApplyPlannedPathsToAgents(AgentNavigation[] agents)
+    {
+        if (!pathsArePlanned)
+        {
+            Debug.LogWarning("PathCoordinator: No paths planned yet!");
+            return;
+        }
+    
+        foreach (var agent in agents)
+        {
+            if (plannedPaths.ContainsKey(agent) && plannedPaths[agent].Count > 0)
+            {
+                List<MazeCell> cellPath = new List<MazeCell>();
+                foreach (var (position, timeStep) in plannedPaths[agent])
+                {
+                    MazeCell cell = GameManager.Instance.centralMaze[position.x, position.y];
+                    cellPath.Add(cell);
+                }
+            
+                agent.ApplyPlannedPath(cellPath);
+            }
+            else
+            {
+                Debug.LogWarning($"{agent.name}: No planned path available");
+            }
+        }
     }
     
     private void DeterminePlanningOrder(AgentNavigation[] agents)
@@ -263,6 +309,7 @@ public class PathCoordinator : MonoBehaviour
         reservedCells.Clear();
         pathPlanningOrder.Clear();
         destinationReservations.Clear();
+        pathsArePlanned = false;
     }
     
     private Vector2Int FindNearestUnvisitedRoomForAgent(AgentNavigation agent)
@@ -367,7 +414,7 @@ public class PathCoordinator : MonoBehaviour
             Debug.LogWarning($"{agent.name}: Could not find room '{roomType}'");
             return Vector2Int.zero;
         }
-    
+
         if (targetRoom.standingSpots == null || targetRoom.standingSpots.Count == 0)
         {
             Debug.LogWarning($"{agent.name}: Room '{roomType}' has no standing spots defined!");
@@ -375,31 +422,59 @@ public class PathCoordinator : MonoBehaviour
         }
 
         Vector2Int agentPos = agent.WorldToGridPosition(agent.transform.position);
+        
+        HashSet<Vector2Int> occupiedPositions = GetAllAgentPositions();
+        
         List<(Vector2Int position, float distance)> sortedSpots = new();
 
         foreach (Vector2Int spot in targetRoom.standingSpots)
         {
+            if (occupiedPositions.Contains(spot) && spot != agentPos)
+            {
+                Debug.Log($"{agent.name}: Standing spot {spot} in '{roomType}' is physically occupied by another agent");
+                continue;
+            }
+            
             if (IsDestinationReserved(spot, agent))
             {
                 Debug.Log($"{agent.name}: Standing spot {spot} in '{roomType}' is already reserved");
                 continue;
             }
-    
+
             float distance = Vector2Int.Distance(agentPos, spot);
             sortedSpots.Add((spot, distance));
         }
 
         if (sortedSpots.Count == 0)
         {
-            Debug.LogWarning($"{agent.name}: All standing spots in '{roomType}' are reserved");
+            Debug.LogWarning($"{agent.name}: All standing spots in '{roomType}' are occupied or reserved");
             return Vector2Int.zero;
         }
-    
+
         sortedSpots.Sort((a, b) => a.distance.CompareTo(b.distance));
 
         Debug.Log($"{agent.name}: Targeting standing spot {sortedSpots[0].position} in '{roomType}' (distance: {sortedSpots[0].distance:F2})");
 
         return sortedSpots[0].position;
+    }
+
+    private HashSet<Vector2Int> GetAllAgentPositions()
+    {
+        HashSet<Vector2Int> positions = new HashSet<Vector2Int>();
+        
+        if (AgentManager.Instance != null && AgentManager.Instance.agents != null)
+        {
+            foreach (var agent in AgentManager.Instance.agents)
+            {
+                if (agent != null)
+                {
+                    Vector2Int pos = agent.WorldToGridPosition(agent.transform.position);
+                    positions.Add(pos);
+                }
+            }
+        }
+        
+        return positions;
     }
     
     private Vector2Int FindTargetForAgent(AgentNavigation agent)
@@ -409,11 +484,141 @@ public class PathCoordinator : MonoBehaviour
             Vector2Int? lurePos = LureManager.Instance.GetLurePosition();
             if (lurePos.HasValue)
             {
-                Debug.Log($"{agent.name}: Targeting active lure at {lurePos.Value}");
-                return lurePos.Value;
+                Debug.Log($"{agent.name}: Lure is active at {lurePos.Value}");
+            
+                Vector2Int reachableTarget = FindClosestReachablePosition(agent, lurePos.Value);
+            
+                if (reachableTarget != Vector2Int.zero)
+                {
+                    Debug.Log($"{agent.name}: Targeting reachable position {reachableTarget} near lure");
+                    return reachableTarget;
+                }
+                else
+                {
+                    Debug.LogWarning($"{agent.name}: Cannot find any path toward lure");
+                }
+            }
+        }
+    
+        return FindNearestUnvisitedRoomForAgent(agent);
+    }
+    
+    /// <summary>
+    /// Find the closest reachable position to a target, accounting for other agents
+    /// </summary>
+    private Vector2Int FindClosestReachablePosition(AgentNavigation agent, Vector2Int target)
+    {
+        Vector2Int agentPos = agent.WorldToGridPosition(agent.transform.position);
+        
+        if (agentPos == target)
+        {
+            return target;
+        }
+        
+        List<MazeCell> directPath = agent.FindPathWithAwareness(agentPos, target);
+        if (directPath.Count > 0)
+        {
+            Debug.Log($"{agent.name}: Direct path to target {target} exists");
+            return target;
+        }
+        
+        Queue<Vector2Int> frontier = new Queue<Vector2Int>();
+        HashSet<Vector2Int> visited = new HashSet<Vector2Int>();
+        Dictionary<Vector2Int, Vector2Int> cameFrom = new Dictionary<Vector2Int, Vector2Int>();
+        
+        frontier.Enqueue(target);
+        visited.Add(target);
+        
+        MazeCell[,] maze = GameManager.Instance.centralMaze;
+        int width = agent.mazeGenerator.mazeWidth;
+        int height = agent.mazeGenerator.mazeHeight;
+        
+        Vector2Int bestPosition = target;
+        float bestDistance = float.MaxValue;
+        
+        while (frontier.Count > 0)
+        {
+            Vector2Int current = frontier.Dequeue();
+            
+            bool isOccupied = false;
+            if (current != agentPos)
+            {
+                foreach (var otherAgent in AgentManager.Instance.agents)
+                {
+                    if (otherAgent != agent)
+                    {
+                        Vector2Int otherPos = otherAgent.WorldToGridPosition(otherAgent.transform.position);
+                        if (otherPos == current)
+                        {
+                            isOccupied = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            
+            if (!isOccupied && current != agentPos && IsDestinationReserved(current, agent))
+            {
+                isOccupied = true;
+            }
+            
+            if (!isOccupied)
+            {
+                List<MazeCell> testPath = agent.FindPathWithAwareness(agentPos, current);
+                
+                if (testPath.Count > 0)
+                {
+                    float distance = Vector2Int.Distance(target, current);
+                    
+                    if (distance < bestDistance)
+                    {
+                        bestDistance = distance;
+                        bestPosition = current;
+                        Debug.Log($"{agent.name}: Found reachable position {current} (distance from target: {distance})");
+                    }
+                    
+                    if (distance <= 1f)
+                    {
+                        break;
+                    }
+                }
+            }
+            
+            Vector2Int[] directions =
+            {
+                new (0, 1),
+                new (0, -1),
+                new (-1, 0),
+                new (1, 0)
+            };
+            
+            foreach (Vector2Int dir in directions)
+            {
+                Vector2Int neighbor = current + dir;
+                
+                if (neighbor.x >= 0 && neighbor.x < width &&
+                    neighbor.y >= 0 && neighbor.y < height &&
+                    !visited.Contains(neighbor))
+                {
+                    MazeCell currentCell = maze[current.x, current.y];
+                    MazeCell neighborCell = maze[neighbor.x, neighbor.y];
+                    
+                    if (agent.IsWalkable(currentCell, neighborCell))
+                    {
+                        visited.Add(neighbor);
+                        frontier.Enqueue(neighbor);
+                        cameFrom[neighbor] = current;
+                    }
+                }
             }
         }
         
-        return FindNearestUnvisitedRoomForAgent(agent);
+        if (bestPosition == target && Mathf.Approximately(bestDistance, float.MaxValue))
+        {
+            Debug.LogWarning($"{agent.name}: Could not find any reachable position near target {target}");
+            return Vector2Int.zero;
+        }
+        
+        return bestPosition;
     }
 }

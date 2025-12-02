@@ -977,4 +977,48 @@ public class AgentNavigation : MonoBehaviour
            BonusFearRooms.Clear(); 
         }
     }
+    
+    /// <summary>
+    /// Apply a pre-calculated path from the PathCoordinator
+    /// </summary>
+    public void ApplyPlannedPath(List<MazeCell> plannedPath)
+    {
+        if (plannedPath == null || plannedPath.Count == 0)
+        {
+            Debug.LogWarning($"{gameObject.name}: Cannot apply empty planned path");
+            return;
+        }
+    
+        StopMovement();
+    
+        path = new List<MazeCell>(plannedPath);
+    
+        if (path.Count > 0)
+        {
+            ReserveNextCell();
+            isMoving = true;
+            destination = GetWorldPosition(path[0].position);
+            Debug.Log($"{gameObject.name}: Applied pre-planned path with {path.Count} tiles");
+        }
+    }
+    
+    /// <summary>
+    /// Reserve the agent's current position in the occupied cells tracker
+    /// </summary>
+    public void ReserveCurrentPosition()
+    {
+        Vector2Int currentPos = WorldToGridPosition(transform.position);
+        occupiedCells.Add(currentPos);
+        Debug.Log($"{gameObject.name}: Reserved current position {currentPos}");
+    }
+
+    /// <summary>
+    /// Free the agent's current position from the occupied cells tracker
+    /// </summary>
+    public void FreeCurrentPosition()
+    {
+        Vector2Int currentPos = WorldToGridPosition(transform.position);
+        occupiedCells.Remove(currentPos);
+        Debug.Log($"{gameObject.name}: Freed current position {currentPos}");
+    }
 }
