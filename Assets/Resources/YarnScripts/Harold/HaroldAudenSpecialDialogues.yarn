@@ -122,51 +122,60 @@ Harold Auden: Harold looks at the bed. It reminds him of the days he spent locke
 
 title: HaroldAudenDetermined
 ---
-(in slow motion) LETS DO THIS COME AT ME YA DIDDYBLUD
--> determined Option 1
-    DO determined stuff
--> determined Option 2
-    DO determined stuff
--> determined Option 3
-    <<reduce_fear "Iain Schweblin">>
-    DO determined stuff
--> determined option 4
-    <<add_fear "Iain Schweblin">>
-    <<discover_fear "Iain Schweblin" 0>>
-    //Overthinking
-    DO determined stuff  
+Harold Auden: A wave of confidence carries Harold as he walks from room to room. He thinks, if he puts his mind to it, he can escape this.
+->”There is no escape.”
+    <<neutral "Harold Auden">>
+	“I don’t know that for certain. I have to keep searching.”
+->”You can’t do this. You aren’t strong enough.”
+    <<add_fear "Harold Auden">>
+    <<discover_fear "Harold Auden" 2>>
+    <<terrified "Harold Auden">>
+    //Fear of Inadequecy
+	His shoulders sag and confident gait turns to a slow walk. He stares at the floor. “I’m stuck here forever.”
+->”You missed it. Retrace your steps.”
+    <<neutral "Harold Auden">>
+	“I don’t know. I have no proof of that. I have to keep searching ahead.”
+->”The escape is right behind you!”
+    <<neutral "Harold Auden">>
+	He quickly turns around to find nothing. “Damn.”
 ===
 title: HaroldAudenScared
 ---
-Im quaking in my boots bro
--> Scared Option 1
-    DO Scared stuff
--> Scared Option 2
-    DO Scared stuff
--> Scared Option 3
-    <<reduce_fear "Iain Schweblin">>
-    DO Scared stuff
--> Scared option 4
-    <<add_fear "Iain Schweblin">>
-    <<discover_fear "Iain Schweblin" 0>>
-    //Overthinking
-    DO Scared stuff  
+Harold Auden: Goosebumps run up Harold’s back. He keeps checking over his shoulder to see if anything is following him. 
+->”Another prisoner is right behind you.”
+    <<neutral "Harold Auden">>
+	“I knew someone was following me.” He stops and turns around, attempting to face his stalker. He can’t see anyone.
+->”Someone is following you.”
+    <<neutral "Harold Auden">>
+	“I knew it!.” He stops and turns around, attempting to face his stalker. He finds nothing. 
+->”What are you so afraid of? You are so pathetic. Everyone can see it.”
+    <<add_fear "Harold Auden">>
+    <<discover_fear "Harold Auden" 4>>
+    <<terrified "Harold Auden">>
+    //Fear of Being Ridiculed
+	A tear drops from his eyes. If this is a trial, is he strong enough to overcome it? Doubt overwhelms him. 
+->”He’s right behind you!”
+    <<neutral "Harold Auden">>
+	“I knew it!.” He stops and turns around, attempting to face his stalker. He finds nothing.
 ===
 title: HaroldAudenTerrified
 ---
-Kinda spooky not gonna lie
--> Terrified Option 1
-    DO Terrified stuff
--> Terrified Option 2
-    DO Terrified stuff
--> Terrified Option 3
-    <<reduce_fear "Iain Schweblin">>
-    DO Terrified stuff
--> Terrified option 4
-    <<add_fear "Iain Schweblin">>
-    <<discover_fear "Iain Schweblin" 0>>
-    //Overthinking
-    DO Terrified stuff  
+Harold Auden: The fear is beginning to overtake him. He stumbles as he walks, failing to gain any sort of focus.
+->”You’re sick. This is a sickness.”
+    <<add_fear "Harold Auden">>
+    <<discover_fear "Harold Auden" 0>>
+    <<terrified "Harold Auden">>
+    //Hypocondriac
+	He can feel a plague bubbling up from his lungs. He coughs and collapses to the floor. He is alive, but can barely find to motivation to move. 
+->”You’re just scared.”
+    <<neutral "Harold Auden">>
+	“Right, I have to keep moving.”
+->”Keep moving.”
+    <<neutral "Harold Auden">>
+	“Right, I have to keep moving.”
+->”The effect of altitude.”
+    <<neutral "Harold Auden">>
+	“I am high up somewhere.” He tries to think of any evidence to this.
 ===
 title: HaroldAudenTweaking
 ---
@@ -186,50 +195,59 @@ What was in those?
 ===
 title: HaroldAudenEncounterMackenzieJoyce
 ---
-Hi Mackenzie
--> Mackenzie Option 1
-    DO Mackenzie stuff
--> Mackenzie Option 2
-    DO Mackenzie stuff
--> Mackenzie Option 3
-    <<reduce_fear "Iain Schweblin">>
-    DO Mackenzie stuff
--> Mackenzie option 4
-    <<add_fear "Iain Schweblin">>
-    <<discover_fear "Iain Schweblin" 0>>
-    //Overthinking
-    DO Mackenzie stuff  
+Harold Auden: As Harold tries to unravel this mystery, moving from room to room, he sees someone across from him. A young woman. He speaks to her.
+->”Introduce yourself.”
+    <<neutral "Harold Auden">>
+	“Hey, I’m Harold.” He yells from afar. She smiles at him. She walks up to him, but before they can talk, you use your powers to erase their memories and move them past each other. 
+->”She’s your mother!!”
+    <<neutral "Harold Auden">>
+	“No, she’s not. She is far too young.” Harold introduces himself to her from afar. She walks up to him, but before they can talk, you use your powers to erase their memories and move them past each other. 
+->”Yell ‘Help!’”
+    <<add_fear "Harold Auden">>
+    <<discover_fear "Harold Auden" 9>>
+    <<terrified "Harold Auden">>
+    //Social Anxiety
+	“HELP!” Harold’s tone scares her and she steps backwards. The last thing harold sees of her is her awkward expression. You use your powers to move them past each other. 
+->”She’s a spider.”
+    <<neutral "Harold Auden">>
+	“No, she’s not.” Harold introduces himself to her from afar. She walks up to him, but before they can talk, you use your powers to erase their memories and move them past each other. 
 ===
 title: HaroldAudenEncounterEvelynVentress
 ---
-Hi Evelyn
--> Evelyn Option 1
-    DO Evelyn stuff
--> Evelyn Option 2
-    DO Evelyn stuff
--> Evelyn Option 3
-    <<reduce_fear "Iain Schweblin">>
-    DO Evelyn stuff
--> Evelyn option 4
-    <<add_fear "Iain Schweblin">>
-    <<discover_fear "Iain Schweblin" 0>>
-    //Overthinking
-    DO Evelyn stuff  
+Harold Auden: Harold stops in his tracks to see a mature woman standing in front of him. 
+->”She’s just a figment of your imagination.”
+    <<neutral "Harold Auden">>
+	Harold walks straight past her, trying his best to ignore the trick. 
+->”Introduce yourself.”
+    <<neutral "Harold Auden">>
+	“Hey, I’m Harold.” He yells from afar. She walks up to him and tries to respond, but before they can talk, you use your powers to erase their memories and move them past each other. 
+->”Stand there. Wait to see what she does.”
+    <<neutral "Harold Auden">>
+	She walks up to him and tries to introduce herself, but before they can talk, you use your powers to erase their memories and move them past each other. 
+->”She’s so pretty. You can’t talk to her.”
+    <<add_fear "Harold Auden">>
+    <<discover_fear "Harold Auden" 9>>
+    <<terrified "Harold Auden">>
+    //Social Anxiety
+	He starts to sweat profusely. Harold tries to introduce himself, but fumbles through the words. She gives him a pitying smile. You use your powers to move them past each other. 
 ===
 
 title: HaroldAudenEncounterIainSchweblin
 ---
-Hi Iain
--> Iain Option 1
-    DO Iain stuff
--> Iain Option 2
-    DO Iain stuff
--> Iain Option 3
-    <<reduce_fear "Iain Schweblin">>
-    DO Iain stuff
--> Iain option 4
-    <<add_fear "Iain Schweblin">>
-    <<discover_fear "Iain Schweblin" 0>>
-    //Overthinking
-    DO Iain stuff  
+Harold Auden: As Harold explores the maze, he encounters a bald man. He admires his glasses as he walks up to him. 
+->”Introduce yourself.”
+    <<neutral "Harold Auden">>
+	“Hey, I’m Harold.” He yells from afar. He walks up to him and tries to respond, but before they can talk, you use your powers to erase their memories and move them past each other. 
+->”He kinda looks like your father.”
+    <<add_fear "Harold Auden">>
+    <<discover_fear "Harold Auden" 5>>
+    <<terrified "Harold Auden">>
+    //Fear of Parents
+	“It is him. My father!?” He stands there in shock. Before Harold can begin to process, you use your powers to move them past each other. 
+->”He’s a parasite.”
+    <<neutral "Harold Auden">>
+	“No. That’s a man.” Harold introduces himself. Before they can speak,  you use your powers to erase their memories and move them past each other. 
+->”He’s a ghost.”
+    <<neutral "Harold Auden">>
+	Harold walks straight past her, trying his best to ignore another trick of this place. 
 ===
