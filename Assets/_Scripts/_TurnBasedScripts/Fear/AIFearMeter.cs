@@ -77,6 +77,7 @@ public class AIFearMeter : MonoBehaviour
         S.fear = currentFear;
         S.aiSlider.maxValue = maxFear;
         S.aiSlider.value = currentFear;
+        S.uiGlow.Pulse();
     }
 
     /// <summary>
@@ -116,6 +117,23 @@ public class AIFearMeter : MonoBehaviour
         }
 
 
+    }
+
+    static public bool IsVisible()
+    {
+        return S.visibleSlider != null && S.visibleSlider.activeSelf;
+    }
+
+    // Ensure VFX only activates for THIS slider instance
+    static public bool IsCurrentMeter(UIGlowPulse pulse)
+    {
+        return S.uiGlow == pulse;
+    }
+
+    // Ensure VFX only activates for THIS slider instance
+    static public bool IsCurrentMeter(UIShake pulse)
+    {
+        return S.uiShake == pulse;
     }
 
 

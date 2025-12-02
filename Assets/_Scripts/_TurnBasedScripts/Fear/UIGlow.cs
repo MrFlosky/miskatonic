@@ -22,6 +22,20 @@ public class UIGlowPulse : MonoBehaviour
 
     public void Pulse(float intensity = 1f)
     {
+        // Prevent pulsing when the fear meter is hidden
+        if (!AIFearMeter.IsVisible())
+        {
+            image.color = originalColor;
+            return;
+        }
+
+        // Prevent pulsing when this is not the active meter
+        if (!AIFearMeter.IsCurrentMeter(this))
+        {
+            image.color = originalColor;
+            return;
+        }
+
         if (pulseRoutine != null)
             StopCoroutine(pulseRoutine);
 

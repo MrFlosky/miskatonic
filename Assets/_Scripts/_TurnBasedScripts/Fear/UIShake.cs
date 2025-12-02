@@ -35,6 +35,12 @@ public class UIShake : MonoBehaviour
 
     public void Shake(float duration, float magnitude = 5f)
     {
+        if (!AIFearMeter.IsVisible() || !AIFearMeter.IsCurrentMeter(this))
+        {
+              shakeDuration = 0f;
+              shakeMagnitude = 5f;
+              return;
+        }
         shakeDuration = duration;
         shakeMagnitude = magnitude;
     }
