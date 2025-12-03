@@ -7,8 +7,10 @@ public class UIShake : MonoBehaviour
     private RectTransform rectTransform;
     private Vector2 originalPos;
     private float shakeDuration = 0f;
-    private float shakeMagnitude = 5f;
-    private float shakeFrequency = 25f;
+    private float shakeMagnitude = 12f;
+    private float shakeFrequency = 40f;
+
+    private float totalShakeTime = 0f;
 
     void Awake()
     {
@@ -20,10 +22,24 @@ public class UIShake : MonoBehaviour
     {
         if (shakeDuration > 0)
         {
-            float x = (Mathf.PerlinNoise(Time.time * shakeFrequency, 0f) - 0.5f) * shakeMagnitude;
-            float y = (Mathf.PerlinNoise(0f, Time.time * shakeFrequency) - 0.5f) * shakeMagnitude;
+            float elapsed = totalShakeTime - shakeDuration;
 
-            rectTransform.anchoredPosition = originalPos + new Vector2(x, y);
+            // Impact on first frame
+            if (elapsed < 0.05f)
+            {
+                rectTransform.anchoredPosition = originalPos + new Vector2(0, shakeMagnitude * 1.2f);
+            }
+            else
+            {
+                float damping = shakeDuration / totalShakeTime;
+
+                float y = (Mathf.PerlinNoise(0f, Time.time * shakeFrequency) - 0.5f)
+                          * shakeMagnitude * damping;
+
+                rectTransform.anchoredPosition = originalPos + new Vector2(0, y);
+            }
+
+
 
             shakeDuration -= Time.deltaTime;
             if (shakeDuration <= 0)
@@ -42,6 +58,7 @@ public class UIShake : MonoBehaviour
               return;
         }
         shakeDuration = duration;
+        totalShakeTime = duration;
         shakeMagnitude = magnitude;
     }
 }

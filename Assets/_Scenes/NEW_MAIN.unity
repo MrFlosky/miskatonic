@@ -753,7 +753,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.990566, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.21960786, g: 0.21960786, b: 0.21960786, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -8569,12 +8569,72 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5057228881015804239, guid: 6bf2dd010f718cc4bbedf056282aec37, type: 3}
+      propertyPath: fearStateData.Array.data[0].stateColor.b
+      value: 0.080107115
+      objectReference: {fileID: 0}
+    - target: {fileID: 5057228881015804239, guid: 6bf2dd010f718cc4bbedf056282aec37, type: 3}
+      propertyPath: fearStateData.Array.data[0].stateColor.g
+      value: 0.4716981
+      objectReference: {fileID: 0}
+    - target: {fileID: 5057228881015804239, guid: 6bf2dd010f718cc4bbedf056282aec37, type: 3}
+      propertyPath: fearStateData.Array.data[0].stateColor.r
+      value: 0.04672481
+      objectReference: {fileID: 0}
+    - target: {fileID: 5057228881015804239, guid: 6bf2dd010f718cc4bbedf056282aec37, type: 3}
+      propertyPath: fearStateData.Array.data[1].stateColor.b
+      value: 0.101326115
+      objectReference: {fileID: 0}
+    - target: {fileID: 5057228881015804239, guid: 6bf2dd010f718cc4bbedf056282aec37, type: 3}
+      propertyPath: fearStateData.Array.data[1].stateColor.g
+      value: 0.7228028
+      objectReference: {fileID: 0}
+    - target: {fileID: 5057228881015804239, guid: 6bf2dd010f718cc4bbedf056282aec37, type: 3}
+      propertyPath: fearStateData.Array.data[1].stateColor.r
+      value: 0.9339623
+      objectReference: {fileID: 0}
+    - target: {fileID: 5057228881015804239, guid: 6bf2dd010f718cc4bbedf056282aec37, type: 3}
+      propertyPath: fearStateData.Array.data[2].stateColor.b
+      value: 0.05958529
+      objectReference: {fileID: 0}
+    - target: {fileID: 5057228881015804239, guid: 6bf2dd010f718cc4bbedf056282aec37, type: 3}
+      propertyPath: fearStateData.Array.data[2].stateColor.g
+      value: 0.3944744
+      objectReference: {fileID: 0}
+    - target: {fileID: 5057228881015804239, guid: 6bf2dd010f718cc4bbedf056282aec37, type: 3}
+      propertyPath: fearStateData.Array.data[2].stateColor.r
+      value: 0.9716981
+      objectReference: {fileID: 0}
+    - target: {fileID: 5057228881015804239, guid: 6bf2dd010f718cc4bbedf056282aec37, type: 3}
       propertyPath: fearStateData.Array.data[2].tilesPerTurn
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5057228881015804239, guid: 6bf2dd010f718cc4bbedf056282aec37, type: 3}
+      propertyPath: fearStateData.Array.data[3].stateColor.b
+      value: 0.05900679
+      objectReference: {fileID: 0}
+    - target: {fileID: 5057228881015804239, guid: 6bf2dd010f718cc4bbedf056282aec37, type: 3}
+      propertyPath: fearStateData.Array.data[3].stateColor.g
+      value: 0.08553793
+      objectReference: {fileID: 0}
+    - target: {fileID: 5057228881015804239, guid: 6bf2dd010f718cc4bbedf056282aec37, type: 3}
+      propertyPath: fearStateData.Array.data[3].stateColor.r
+      value: 0.9622642
+      objectReference: {fileID: 0}
+    - target: {fileID: 5057228881015804239, guid: 6bf2dd010f718cc4bbedf056282aec37, type: 3}
       propertyPath: fearStateData.Array.data[3].tilesPerTurn
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5057228881015804239, guid: 6bf2dd010f718cc4bbedf056282aec37, type: 3}
+      propertyPath: fearStateData.Array.data[4].stateColor.b
+      value: 0.6698113
+      objectReference: {fileID: 0}
+    - target: {fileID: 5057228881015804239, guid: 6bf2dd010f718cc4bbedf056282aec37, type: 3}
+      propertyPath: fearStateData.Array.data[4].stateColor.g
+      value: 0.028435374
+      objectReference: {fileID: 0}
+    - target: {fileID: 5057228881015804239, guid: 6bf2dd010f718cc4bbedf056282aec37, type: 3}
+      propertyPath: fearStateData.Array.data[4].stateColor.r
+      value: 0.30087072
       objectReference: {fileID: 0}
     - target: {fileID: 5057228881015804239, guid: 6bf2dd010f718cc4bbedf056282aec37, type: 3}
       propertyPath: fearStateData.Array.data[4].tilesPerTurn
@@ -44447,6 +44507,10 @@ PrefabInstance:
       propertyPath: brain
       value: 
       objectReference: {fileID: 294327817}
+    - target: {fileID: 7401614428224391054, guid: e3eee655d87ceda4783f353d13a4af64, type: 3}
+      propertyPath: sliderFill
+      value: 
+      objectReference: {fileID: 4709966}
     - target: {fileID: 8437208452174429366, guid: e3eee655d87ceda4783f353d13a4af64, type: 3}
       propertyPath: m_Height
       value: 3.1312897
@@ -116097,6 +116161,10 @@ PrefabInstance:
       propertyPath: brain
       value: 
       objectReference: {fileID: 294327817}
+    - target: {fileID: 6464697631804867063, guid: 6e15b47b7edc45e4e8fbbc5668b9cd9e, type: 3}
+      propertyPath: sliderFill
+      value: 
+      objectReference: {fileID: 4709966}
     - target: {fileID: 6640352690724555198, guid: 6e15b47b7edc45e4e8fbbc5668b9cd9e, type: 3}
       propertyPath: brain
       value: 
@@ -172491,6 +172559,10 @@ PrefabInstance:
       value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 5898207480265729450, guid: cfdc6b546d4860d49ae0820305f7a38d, type: 3}
+      propertyPath: sliderFill
+      value: 
+      objectReference: {fileID: 4709966}
+    - target: {fileID: 5898207480265729450, guid: cfdc6b546d4860d49ae0820305f7a38d, type: 3}
       propertyPath: currentFear
       value: 10
       objectReference: {fileID: 0}
@@ -195142,6 +195214,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2589710398991819832, guid: 1f63311383113ad4e87b8005583f8ccc, type: 3}
+      propertyPath: sliderFill
+      value: 
+      objectReference: {fileID: 4709966}
     - target: {fileID: 3597747457921494117, guid: 1f63311383113ad4e87b8005583f8ccc, type: 3}
       propertyPath: m_Enabled
       value: 0

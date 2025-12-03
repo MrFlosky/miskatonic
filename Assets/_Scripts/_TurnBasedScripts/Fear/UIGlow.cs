@@ -12,7 +12,7 @@ public class UIGlowPulse : MonoBehaviour
     public Color glowColor = new Color(1f, 0f, 1f, 0.8f); // purple glow
     public float pulseDuration = 0.5f;
 
-    private Color originalColor;
+    public Color originalColor;
 
     void Awake()
     {
@@ -22,26 +22,39 @@ public class UIGlowPulse : MonoBehaviour
 
     public void Pulse(float intensity = 1f)
     {
-        // Prevent pulsing when the fear meter is hidden
-        if (!AIFearMeter.IsVisible())
+
+        if (image != null) 
         {
+            // Prevent pulsing when the fear meter is hidden
+            if (!AIFearMeter.IsVisible())
+            {
+                image.color = originalColor;
+                return;
+            }
+
+            // Prevent pulsing when this is not the active meter
+            if (!AIFearMeter.IsCurrentMeter(this))
+            {
+                image.color = originalColor;
+                return;
+            }
+
+            if (pulseRoutine != null)
+                StopCoroutine(pulseRoutine);
+
             image.color = originalColor;
-            return;
+
+            pulseRoutine = StartCoroutine(PulseRoutine(intensity));
+
+            Debug.Log("Glow");
         }
+       
+    }
 
-        // Prevent pulsing when this is not the active meter
-        if (!AIFearMeter.IsCurrentMeter(this))
-        {
-            image.color = originalColor;
-            return;
-        }
-
-        if (pulseRoutine != null)
-            StopCoroutine(pulseRoutine);
-
-        image.color = originalColor;
-
-        pulseRoutine = StartCoroutine(PulseRoutine(intensity));
+    public void Init(FearState state)
+    {
+        if (image != null) 
+            image.color = FearCollection.S.GetStateColor(state);
     }
 
     private System.Collections.IEnumerator PulseRoutine(float intensity)
@@ -59,7 +72,7 @@ public class UIGlowPulse : MonoBehaviour
         while (t < pulseDuration)
         {
             float lerp = t / pulseDuration;
-            image.color = Color.Lerp(originalColor, targetColor, lerp);
+            image.color = Color.Lerp(FearCollection.S.CurrentFearUIColor, targetColor, lerp);
             t += Time.deltaTime;
             yield return null;
         }
@@ -69,11 +82,12 @@ public class UIGlowPulse : MonoBehaviour
         while (t < pulseDuration)
         {
             float lerp = t / pulseDuration;
-            image.color = Color.Lerp(targetColor, originalColor, lerp);
+            image.color = Color.Lerp(targetColor, FearCollection.S.CurrentFearUIColor, lerp);
             t += Time.deltaTime;
             yield return null;
         }
 
-        image.color = originalColor;
+        image.color = FearCollection.S.CurrentFearUIColor;
     }
+
 }
