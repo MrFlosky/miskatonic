@@ -74,12 +74,13 @@ public class AgentManager : MonoBehaviour
             return;
         }
 
-        Debug.Log("Map changed - recalculating agent paths");
-        
+        Debug.Log("Map changed - invalidating agent paths");
+    
         if (PathCoordinator.Instance != null)
         {
-            PathCoordinator.Instance.CoordinateAgentPaths(agents);
-            
+            PathCoordinator.Instance.InvalidatePlannedPaths();
+        
+            // If preview is visible, refresh it (which will recalculate automatically)
             if (PathVisualizer.Instance != null && PathVisualizer.Instance.ArePathsVisible())
             {
                 PathVisualizer.Instance.RefreshPaths();
@@ -133,23 +134,35 @@ public class AgentManager : MonoBehaviour
         Debug.Log("Starting agent turns");
         agentTurnInProgress = true;
         turnStartTime = Time.time;
-    
+
         if (PathVisualizer.Instance != null && PathVisualizer.Instance.ArePathsVisible())
         {
             Debug.Log("Hiding path visualization as agent turn starts");
             PathVisualizer.Instance.HidePaths();
         }
-    
+
         foreach (var agent in agents)
         {
             agent.turnFinished = false;
             agent.ResetTurnMovement();
+            agent.ReserveCurrentPosition();
+        
             Debug.Log($"{agent.name}: turnFinished reset to false");
         }
-    
+
         if (PathCoordinator.Instance != null)
         {
-            PathCoordinator.Instance.CoordinateAgentPaths(agents);
+            if (!PathCoordinator.Instance.HasValidPlannedPaths())
+            {
+                Debug.Log("No valid paths exist - calculating now");
+                PathCoordinator.Instance.CoordinateAgentPaths(agents, forceRecalculate: true);
+            }
+            else
+            {
+                Debug.Log("Using pre-calculated paths from player turn");
+            }
+        
+            PathCoordinator.Instance.ApplyPlannedPathsToAgents(agents);
         }
         else
         {

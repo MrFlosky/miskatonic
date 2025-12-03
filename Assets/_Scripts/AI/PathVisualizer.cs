@@ -109,7 +109,7 @@ public class PathVisualizer : MonoBehaviour, ITurnObserver
 
         if (TurnBasedSystem.IsPlayerTurn())
         {
-            PathCoordinator.Instance.CoordinateAgentPaths(AgentManager.Instance.agents);
+            PathCoordinator.Instance.CoordinateAgentPaths(AgentManager.Instance.agents, forceRecalculate: true);
         }
 
         var allPaths = PathCoordinator.Instance.GetAllPlannedPaths();
