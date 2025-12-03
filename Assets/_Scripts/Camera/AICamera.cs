@@ -54,9 +54,9 @@ public class AICamera : MonoBehaviour
         // After blending and rotating is done, start the dialogue
         if (isWaitingForBlend && !brain.IsBlending && !isRotating) 
         {
-            AIFearMeter.StartUpSlider(thisAIsFear.GetFear(), thisAIsFear.GetFearThreshold());
+            AIFearMeter.StartUpSlider(thisAIsFear.GetFear(), thisAIsFear.GetFearThreshold(), thisAIsFear.GetFearState());
             AIFearMeter.DisplayAIMeter();
-            FearCollection.S.SetFearStateText(thisAIsFear.GetFearState().ToString());
+            FearCollection.S.SetFearStateText(thisAIsFear.GetFearState());
 
             dialogueBank.PlayDialog();
             dialogueBank.alreadyTalked = true;

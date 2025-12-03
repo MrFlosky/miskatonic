@@ -28,6 +28,8 @@ public class FearStateOb
     public FearState state;
     public int tilesPerTurn;
     public int turnsLast;
+
+    public Color stateColor;
 }
 
 /// <summary>
@@ -81,11 +83,13 @@ public class FearCollection : MonoBehaviour
     {
         public int tilesPerTurn;
         public int turnsLast;
+        public Color color;
 
-        public StateBehavior(int tiles, int turns)
+        public StateBehavior(int tiles, int turns, Color color)
         {
             tilesPerTurn = tiles;
             turnsLast = turns;
+            this.color = color;
         }
     }
 
@@ -96,7 +100,7 @@ public class FearCollection : MonoBehaviour
     {
         foreach (FearStateOb fs in fearStateData)
         {
-            StateBehavior stateBehavior = new StateBehavior(fs.tilesPerTurn, fs.turnsLast);
+            StateBehavior stateBehavior = new StateBehavior(fs.tilesPerTurn, fs.turnsLast, fs.stateColor);
             fearStateDict.Add(fs.state, stateBehavior);
         }
     }
@@ -104,8 +108,20 @@ public class FearCollection : MonoBehaviour
     /// <summary>
     /// Set the fear state text
     /// </summary>
-    public void SetFearStateText(string state)
+    public void SetFearStateText(FearState state)
     {
-        fearStateText.text = "State: " + state;
+        CurrentFearUIColor = fearStateDict[state].color;
+        fearStateText.text = "State: " + state.ToString();
+    }
+
+    public Color CurrentFearUIColor { get; private set; }
+
+    /// <summary>
+    /// Get state color
+    /// </summary>
+    public Color GetStateColor(FearState state)
+    {
+        CurrentFearUIColor = fearStateDict[state].color;
+        return fearStateDict[state].color;
     }
 }
