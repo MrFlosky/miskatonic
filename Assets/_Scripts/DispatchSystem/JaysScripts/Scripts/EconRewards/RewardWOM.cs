@@ -14,7 +14,13 @@ public class RewardWOM : RewardCultist, ITurnObserver
 
     private void Update()
     {
-        
+        timeElapsed += Time.deltaTime;
+
+        if (timeElapsed >= timeToDissapear)
+        {
+            rewardPopupUI.SetActive(false);
+            this.enabled = false;
+        }
     }
 
     public override void GrantReward()
