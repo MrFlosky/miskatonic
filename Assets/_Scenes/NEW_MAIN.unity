@@ -753,7 +753,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.21960786, g: 0.21960786, b: 0.21960786, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -792,6 +792,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   glowColor: {r: 1, g: 0, b: 1, a: 0.8}
   pulseDuration: 1
+  originalColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &4709969
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8569,6 +8570,10 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5057228881015804239, guid: 6bf2dd010f718cc4bbedf056282aec37, type: 3}
+      propertyPath: fearStateData.Array.data[0].stateColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5057228881015804239, guid: 6bf2dd010f718cc4bbedf056282aec37, type: 3}
       propertyPath: fearStateData.Array.data[0].stateColor.b
       value: 0.080107115
       objectReference: {fileID: 0}
@@ -8581,6 +8586,10 @@ PrefabInstance:
       value: 0.04672481
       objectReference: {fileID: 0}
     - target: {fileID: 5057228881015804239, guid: 6bf2dd010f718cc4bbedf056282aec37, type: 3}
+      propertyPath: fearStateData.Array.data[1].stateColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5057228881015804239, guid: 6bf2dd010f718cc4bbedf056282aec37, type: 3}
       propertyPath: fearStateData.Array.data[1].stateColor.b
       value: 0.101326115
       objectReference: {fileID: 0}
@@ -8591,6 +8600,10 @@ PrefabInstance:
     - target: {fileID: 5057228881015804239, guid: 6bf2dd010f718cc4bbedf056282aec37, type: 3}
       propertyPath: fearStateData.Array.data[1].stateColor.r
       value: 0.9339623
+      objectReference: {fileID: 0}
+    - target: {fileID: 5057228881015804239, guid: 6bf2dd010f718cc4bbedf056282aec37, type: 3}
+      propertyPath: fearStateData.Array.data[2].stateColor.a
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5057228881015804239, guid: 6bf2dd010f718cc4bbedf056282aec37, type: 3}
       propertyPath: fearStateData.Array.data[2].stateColor.b
@@ -8609,6 +8622,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5057228881015804239, guid: 6bf2dd010f718cc4bbedf056282aec37, type: 3}
+      propertyPath: fearStateData.Array.data[3].stateColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5057228881015804239, guid: 6bf2dd010f718cc4bbedf056282aec37, type: 3}
       propertyPath: fearStateData.Array.data[3].stateColor.b
       value: 0.05900679
       objectReference: {fileID: 0}
@@ -8622,6 +8639,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5057228881015804239, guid: 6bf2dd010f718cc4bbedf056282aec37, type: 3}
       propertyPath: fearStateData.Array.data[3].tilesPerTurn
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5057228881015804239, guid: 6bf2dd010f718cc4bbedf056282aec37, type: 3}
+      propertyPath: fearStateData.Array.data[4].stateColor.a
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5057228881015804239, guid: 6bf2dd010f718cc4bbedf056282aec37, type: 3}
