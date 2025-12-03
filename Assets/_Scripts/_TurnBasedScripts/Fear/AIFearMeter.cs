@@ -70,13 +70,14 @@ public class AIFearMeter : MonoBehaviour
     /// </summary>
     /// <param name="currentFear"></param>
     /// <param name="maxFear"></param>
-    static public void StartUpSlider(int currentFear, int maxFear)
+    static public void StartUpSlider(int currentFear, int maxFear, FearState state)
     {
         //S.enabled = false; // not sure if needed here. maybe just on awake have enabled false.
         S.heartbeats.StartHeartbeat(currentFear, maxFear);
         S.fear = currentFear;
         S.aiSlider.maxValue = maxFear;
         S.aiSlider.value = currentFear;
+        S.uiGlow.Init(state);
     }
 
     /// <summary>
@@ -102,7 +103,7 @@ public class AIFearMeter : MonoBehaviour
             // float y = (Mathf.PerlinNoise(0f, Time.time * shakeFrequency) - 0.5f) * shakeMagnitude;
             // rectTransform.anchoredPosition = originalPos + new Vector2(x, y);
 
-            S.uiShake.Shake(1f, 6f);
+            S.uiShake.Shake(3f, 12f);
 
         }
         else
@@ -118,6 +119,15 @@ public class AIFearMeter : MonoBehaviour
 
     }
 
+    static public bool IsVisible()
+    {
+        return S.visibleSlider != null && S.visibleSlider.activeSelf;
+    }
+
+    public static bool IsCurrentMeter(MonoBehaviour effect)
+    {
+        return effect == S.uiGlow || effect == S.uiShake;
+    }
 
     static public void DisplayAIMeter()
     {

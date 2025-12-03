@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.ProBuilder.MeshOperations;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using TMPro;
+using Unity.VisualScripting;
 
 
 public class Fear : MonoBehaviour, ITurnObserver
@@ -61,6 +63,10 @@ public class Fear : MonoBehaviour, ITurnObserver
         // awake since apart of same game obj
         individualSlider = GetComponent<IndividualFearMeter>();
         characterEnum = GetComponent<DialogueBank>().GetCharacter();
+        Color c = FearCollection.S.GetStateColor(FearState.Neutral);
+        fearState = FearState.Neutral;
+        if (sliderFill != null)
+            sliderFill.color = c;
     }
 
     // Start is called before the first frame update
@@ -71,7 +77,8 @@ public class Fear : MonoBehaviour, ITurnObserver
         FearMeter.INCREASE_METER(currentFear);
         individualSlider.InitSlider(fearThreshold);
         individualSlider.UpdateCharacterFearSlider(currentFear);
-        FearCollection.S.SetFearStateText(fearState.ToString()); // set initial fear state text
+        FearCollection.S.SetFearStateText(fearState); // set initial fear state text
+        sliderFill.color =  FearCollection.S.GetStateColor(fearState);
 
         #if UNITY_EDITOR
         myDebugSlot = debugSlotCounter++;
@@ -215,6 +222,11 @@ public class Fear : MonoBehaviour, ITurnObserver
         return fearState;
     }
 
+    [Header("UI Elements To Color")]
+    public Image sliderFill;
+    public Image sliderBackground;
+    public TextMeshProUGUI stateText;
+
     /// <summary>
     /// Called by yarn commands to set character's fear state in dialogues.
     /// </summary>
@@ -223,8 +235,22 @@ public class Fear : MonoBehaviour, ITurnObserver
         FearState prevState = fearState; // previous fear state before setting new, used to compare against to determine lifetime
         fearState = state;
         SetStateLifetime(FearCollection.S.GetStateTurnLife(fearState), prevState);
-        FearCollection.S.SetFearStateText(fearState.ToString());
-        if(!prevStates.Contains(state))
+        FearCollection.S.SetFearStateText(fearState);
+
+        Debug.Log(fearState.ToString());
+
+        Color c = FearCollection.S.GetStateColor(state);
+
+        if (sliderFill != null)
+            sliderFill.color = c;
+
+        if (sliderBackground != null)
+            sliderBackground.color = c * 0.5f; // darker background
+
+        if (stateText != null)
+            stateText.color = c;
+
+        if (!prevStates.Contains(state))
         {
             prevStates.Add(state);
             // TEMPORARILY REMOVE STATE BASED DIALOGUES FOR 11/24 PLAYEST
@@ -271,6 +297,11 @@ public class Fear : MonoBehaviour, ITurnObserver
         else // if completed lifetime on a state, return to netural
         {
             fearState = FearState.Neutral;
+            Color c = FearCollection.S.GetStateColor(FearState.Neutral);
+
+            if (sliderFill != null)
+                sliderFill.color = c;
+
             CharacterGameDialogue.SetActivePortrait(characterEnum, fearState); // update portrait to neutral immediately
         }
     }
