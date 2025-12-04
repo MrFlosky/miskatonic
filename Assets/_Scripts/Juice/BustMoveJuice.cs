@@ -33,7 +33,7 @@ public class BustMoveJuice : MonoBehaviour
     private Quaternion currentBaseRotation;
     
     /// <summary>
-    /// Used to detect movement change and sub to facing direction change event.
+    /// Used to sub to facing direction change event.
     /// </summary>
     private AgentNavigation agentNav;
     private bool wasMovingLastFrame = false;
@@ -88,12 +88,22 @@ public class BustMoveJuice : MonoBehaviour
         rotationTimer = 0f;
     }
 
+    /// <summary>
+    /// Vars to determine if the bust has moved position between this and last frame.
+    /// More expensive to do in update, but cannot rely on agent nav for accurate 
+    /// IsMoving.
+    /// </summary>
+    private Vector3 prevFrameTrans;
+    private bool isMoving = false;
+    private float movementThreshold = 0.01f;
+
     void Update()
-    {
-        // Detect movement changes
-        bool isMovingNow = agentNav.IsMoving();
-        
-        if (isMovingNow && !wasMovingLastFrame)
+    {   
+        Vector3 currTrans = transform.parent.position;
+        isMoving =  Vector3.Distance(currTrans, prevFrameTrans) > movementThreshold;
+        prevFrameTrans = currTrans;
+
+        if (isMoving && !wasMovingLastFrame)
         {
             // Started moving, start hopping
             isHopping = true;
@@ -101,7 +111,7 @@ public class BustMoveJuice : MonoBehaviour
             hopTimer = 0f;
             startPosition = transform.localPosition;
         }
-        else if (!isMovingNow && wasMovingLastFrame)
+        else if (!isMoving && wasMovingLastFrame)
         {
             // Stopped moving, finish the current hop cycle
             isHopping = false;
@@ -109,10 +119,12 @@ public class BustMoveJuice : MonoBehaviour
             // Don't reset position yet - let animation finish
         }
         
-        wasMovingLastFrame = isMovingNow;
+        wasMovingLastFrame = isMoving;
         
         UpdateHopAnimation();
         UpdateRotationAnimation();
+
+
     }
     
     /// <summary>
