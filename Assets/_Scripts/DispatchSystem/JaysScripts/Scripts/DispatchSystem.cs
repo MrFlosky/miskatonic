@@ -51,6 +51,7 @@ public class DispatchSystem : MonoBehaviour , ITurnObserver
     /// interaction per turn.
     /// </summary>
     private bool dealerFirstTurnInteraction;
+    private bool neverInteractedWithDealer = true;
 
 
     /// <summary>
@@ -77,6 +78,14 @@ public class DispatchSystem : MonoBehaviour , ITurnObserver
     /// </summary>
     public void DealCards()
     {
+
+        if (neverInteractedWithDealer)
+        {
+            neverInteractedWithDealer = false;
+            
+        }
+
+
         //UIManagerLite.TransitionToState(UIManagerLite.GameState.Dispatch); in clickAI now
         if(dealerFirstTurnInteraction == false)
         {

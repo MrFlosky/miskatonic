@@ -49,7 +49,7 @@ public class ClickAI : MonoBehaviour
     public Button[] buttons;    // Buttons need to show/hide during dialogue
 
     [Header("Room")]
-    public GameObject Maze; //grabbing the Maze itself
+    public GameObject Maze; // grabbing the Maze itself
 
     [Header("Room Click Conditions")]
     private bool isSnooping = false; //check if the player is currently looking in a room
@@ -68,6 +68,8 @@ public class ClickAI : MonoBehaviour
     private bool doubleClicked = false;
     private float doubleClickWindow = 0.5f; // window user has to perform double click before being treated as single click
     private float timeElapsed = 0.0f;
+    private bool sawDispatchTutorial = false;
+
 
     // AI Camera currently active.
     // Used for bust rotation function calls.
@@ -77,6 +79,7 @@ public class ClickAI : MonoBehaviour
     /// Raycast hits all layers besides this one.
     /// </summary>
     private int raycastLayerMask;
+    public ButtonGlow storyboardButtonGlow;
 
     void Awake()
     {
@@ -304,6 +307,53 @@ public class ClickAI : MonoBehaviour
 }
 
     /// <summary>
+    /// Called to pan to the ritual room during the tutorial
+    /// </summary>
+    public void PanToRitualRoom()
+    {
+        if (roomCamera)
+        {
+            roomCamera.enabled = false;
+        }
+        roomCamera = Maze.gameObject.GetComponent<MazeRenderer>().ritualCam;
+        isSnooping = true;
+        //Check if a skill is in use
+            if (this.gameObject.GetComponent<PlayerController>().activeSkill != null)
+            {
+                isUsingSkill = true;
+            }
+            if (this.gameObject.GetComponent<PlayerController>().activeSkill == null)
+            {
+                isUsingSkill = false;
+            }
+
+            //Blend Camera if skill not in use
+            if (roomCamera && !isUsingSkill)
+            {
+                
+                if (roomCamera.enabled == false)
+                {
+                    roomCamera.gameObject.SetActive(true);
+                    roomCamera.enabled = true;
+                }
+            }
+            activeCamera = roomCamera;
+            playerCam.enabled = false;
+    }
+
+    public void PanOffRitualRoom()
+    {
+        activeCamera.enabled = false;
+        isSnooping = false;
+        playerCam.enabled = true;
+        if (activeCamera.enabled)
+        {
+            activeCamera = playerCam;
+            activeCamera.enabled = true;
+        }
+    }
+
+    /// <summary>
     /// 
     /// Handle mouse scroll input to move the dolly camera along its path
     /// Disable if AI was clicked
@@ -453,6 +503,12 @@ public class ClickAI : MonoBehaviour
     /// </summary>
     public void SwitchToDispatchCamera()
     {
+        if (!sawDispatchTutorial)
+        {
+            TeachingManager.S.StartDispatchTutorial();
+            sawDispatchTutorial = true;
+        }
+
         // Disable whatever camera is currently active
         if (activeCamera != null)
         {

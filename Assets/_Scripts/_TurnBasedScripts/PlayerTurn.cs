@@ -26,7 +26,7 @@ public class PlayerTurn : Turns, ITurnObserver
     /// </summary>
     void ITurnObserver.PlayerTurnInitiated()
     {
-        turnText.text = "- YOUR TURN -";
+        //turnText.text = "- YOUR TURN -";
 
         UIManagerLite.TransitionToState(UIManagerLite.GameState.BoardBase);
         //endTurnButton.SetActive(true); //OLD UI

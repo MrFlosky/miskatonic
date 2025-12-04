@@ -341,6 +341,8 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
     }
     void ITurnObserver.EnemyTurnInitiated() { }
 
+    #region tutorial/other game events
+
     /// <summary>
     /// Plays characters respective key dialogue, called once they've found their key
     /// </summary>
@@ -350,6 +352,92 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
         dialgoueRunner.StartDialogue(characterFullName + "Key");
     }
 
+    // I know this is kinda scuffed but seems necessary to inject events between dialogues for tutorial
+    public void StartIntro1()
+    {
+        CharacterGameDialogue.SetActivePortrait(Character.HeadCultist);
+        dialgoueRunner.onDialogueComplete.AddListener(EndIntro1);
+        dialgoueRunner.StartDialogue("CultistIntro1");
+    }
+
+    public void EndIntro1()
+    {
+        dialgoueRunner.onDialogueComplete.RemoveListener(EndIntro1);
+        StartCoroutine(StartIntro2());
+    }
+
+    public IEnumerator StartIntro2()
+    {
+        yield return new WaitForSeconds(1f);
+        dialgoueRunner.onDialogueComplete.AddListener(EndIntro2);
+        dialgoueRunner.StartDialogue("CultistIntro2");
+        ClickAI.S.PanToRitualRoom();
+    }
+
+    public void EndIntro2()
+    {
+        dialgoueRunner.onDialogueComplete.RemoveListener(EndIntro2);
+        ClickAI.S.PanOffRitualRoom();
+        StartCoroutine(StartIntro3());
+    }
+    
+    public IEnumerator StartIntro3()
+    {
+        yield return new WaitForSeconds(1f);
+        dialgoueRunner.onDialogueComplete.AddListener(EndIntro3);
+        CharacterFears.Instance.buttonGlow.active = true;
+        dialgoueRunner.StartDialogue("CultistIntro3");
+    }
+
+    public void EndIntro3()
+    {
+        dialgoueRunner.onDialogueComplete.RemoveListener(EndIntro3);
+        StartCoroutine(StartIntro4());
+    }
+
+    public IEnumerator StartIntro4()
+    {
+        yield return new WaitForSeconds(1);
+        dialgoueRunner.onDialogueComplete.AddListener(EndIntro4);
+        TeachingManager.S.EnableStoryboard();
+        //ClickAI.S.storyboardButtonGlow.active = true;
+        dialgoueRunner.StartDialogue("CultistIntro4");
+    }
+
+    public void EndIntro4()
+    {
+        dialgoueRunner.onDialogueComplete.RemoveListener(EndIntro4);
+        TeachingManager.S.EndTutorial();
+    }
+
+    public void StartDSTut1()
+    {
+        CharacterGameDialogue.SetActivePortrait(Character.HeadCultist);
+        dialgoueRunner.onDialogueComplete.AddListener(EndDSTut1);
+        dialgoueRunner.StartDialogue("DispatchTutorial1");
+    }
+
+    public void EndDSTut1()
+    {
+        dialgoueRunner.onDialogueComplete.RemoveListener(EndDSTut1);
+        StartCoroutine(StartDSTut2());
+    }
+
+    public IEnumerator StartDSTut2()
+    {
+        yield return new WaitForSeconds(1f);
+        dialgoueRunner.StartDialogue("DispatchTutorial2");
+        dialgoueRunner.onDialogueComplete.AddListener(EndDSTut2);
+    }
+
+    public void EndDSTut2()
+    {
+        dialgoueRunner.onDialogueComplete.RemoveListener(EndDSTut2);
+        TeachingManager.S.OpenBookmark();
+    }
+
+
+    #endregion
 
     /// <summary>
     /// Helper function to count number of dialogues in a yarn file,

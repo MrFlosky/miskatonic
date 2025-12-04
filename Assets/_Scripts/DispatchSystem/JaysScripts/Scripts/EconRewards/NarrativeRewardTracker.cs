@@ -69,7 +69,7 @@ public class NarrativeRewardTracker : MonoBehaviour
     /// </summary>
     void LoadYarnDialogues()
     {
-        for (int i = 0; i < CharacterNames.GetNumCharacters(); i++)
+        for (int i = 0; i < 4; i++)
         {
             Character character = (Character)i;
             string characterFirstName = CharacterNames.GetFirstName(character);

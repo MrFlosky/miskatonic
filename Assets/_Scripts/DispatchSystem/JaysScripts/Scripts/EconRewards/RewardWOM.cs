@@ -32,9 +32,9 @@ public class RewardWOM : RewardCultist, ITurnObserver
 
     void ITurnObserver.PlayerTurnInitiated()
     {
-        Debug.LogError("You have " + cultistPointSystem.cultistPoints);
+        //Debug.LogError("You have " + cultistPointSystem.cultistPoints);
         GrantReward();
-        Debug.LogError("You now have " + cultistPointSystem.cultistPoints);
+        //Debug.LogError("You now have " + cultistPointSystem.cultistPoints);
     }
 
     void ITurnObserver.EnemyTurnInitiated()
