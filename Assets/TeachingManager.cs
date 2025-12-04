@@ -8,7 +8,7 @@ public class TeachingManager : MonoBehaviour, ITurnObserver
 
     public static TeachingManager S;
 
-    public GameObject[] uiToDisable;
+    public List<GameObject> uiToDisable = new List<GameObject>();
 
     void Start()
     {

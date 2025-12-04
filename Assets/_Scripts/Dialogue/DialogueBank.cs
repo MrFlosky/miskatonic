@@ -363,11 +363,12 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
     public void EndIntro1()
     {
         dialgoueRunner.onDialogueComplete.RemoveListener(EndIntro1);
-        StartIntro2();
+        StartCoroutine(StartIntro2());
     }
 
-    public void StartIntro2()
+    public IEnumerator StartIntro2()
     {
+        yield return new WaitForSeconds(1f);
         dialgoueRunner.onDialogueComplete.AddListener(EndIntro2);
         dialgoueRunner.StartDialogue("CultistIntro2");
         ClickAI.S.PanToRitualRoom();
@@ -377,11 +378,12 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
     {
         dialgoueRunner.onDialogueComplete.RemoveListener(EndIntro2);
         ClickAI.S.PanOffRitualRoom();
-        StartIntro3();
+        StartCoroutine(StartIntro3());
     }
     
-    public void StartIntro3()
+    public IEnumerator StartIntro3()
     {
+        yield return new WaitForSeconds(1f);
         dialgoueRunner.onDialogueComplete.AddListener(EndIntro3);
         CharacterFears.Instance.buttonGlow.active = true;
         dialgoueRunner.StartDialogue("CultistIntro3");
@@ -390,11 +392,12 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
     public void EndIntro3()
     {
         dialgoueRunner.onDialogueComplete.RemoveListener(EndIntro3);
-        StartIntro4();
+        StartCoroutine(StartIntro4());
     }
 
-    public void StartIntro4()
+    public IEnumerator StartIntro4()
     {
+        yield return new WaitForSeconds(1);
         dialgoueRunner.onDialogueComplete.AddListener(EndIntro4);
         ClickAI.S.storyboardButtonGlow.active = true;
         dialgoueRunner.StartDialogue("CultistIntro4");
