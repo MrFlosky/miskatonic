@@ -49,7 +49,7 @@ public class ClickAI : MonoBehaviour
     public Button[] buttons;    // Buttons need to show/hide during dialogue
 
     [Header("Room")]
-    public GameObject Maze; //grabbing the Maze itself
+    public GameObject Maze; // grabbing the Maze itself
 
     [Header("Room Click Conditions")]
     private bool isSnooping = false; //check if the player is currently looking in a room
@@ -68,6 +68,8 @@ public class ClickAI : MonoBehaviour
     private bool doubleClicked = false;
     private float doubleClickWindow = 0.5f; // window user has to perform double click before being treated as single click
     private float timeElapsed = 0.0f;
+    private bool sawDispatchTutorial = false;
+
 
     // AI Camera currently active.
     // Used for bust rotation function calls.
@@ -501,6 +503,12 @@ public class ClickAI : MonoBehaviour
     /// </summary>
     public void SwitchToDispatchCamera()
     {
+        if (!sawDispatchTutorial)
+        {
+            TeachingManager.S.StartDispatchTutorial();
+            sawDispatchTutorial = true;
+        }
+
         // Disable whatever camera is currently active
         if (activeCamera != null)
         {

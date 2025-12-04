@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class TeachingManager : MonoBehaviour, ITurnObserver
-{
+{   
 
 
     public static TeachingManager S;
 
     public List<GameObject> uiToDisable = new List<GameObject>();
+    public GameObject storyboardRef;
+    public GameObject abilityPanelRef;
 
     void Start()
     {
@@ -26,7 +28,7 @@ public class TeachingManager : MonoBehaviour, ITurnObserver
 
     public void PlayerTurnInitiated()
     {
-        Debug.LogWarning(TurnBasedSystem.GET_TURN_COUNT(TurnType.Player));
+        Debug.LogWarning("TM TURN: " + TurnBasedSystem.GET_TURN_COUNT(TurnType.Player));
     }
 
 
@@ -38,6 +40,9 @@ public class TeachingManager : MonoBehaviour, ITurnObserver
             go.SetActive(false);
         }
 
+
+        storyboardRef.SetActive(false);
+
         ClickAI.S.StartConversation();
 
         // POP DIALOGUE THAT SAYS: 
@@ -47,7 +52,6 @@ public class TeachingManager : MonoBehaviour, ITurnObserver
         DialogueBank DB = AgentManager.Instance.agents[0].GetComponent<DialogueBank>();
         DB.StartIntro1();
 
-
         // If the humans are able to reach their goal rooms and retrieve a key they can then unlock the door in the ritual room, leading to their escape.
         //  - pan to ritual room
         
@@ -56,6 +60,17 @@ public class TeachingManager : MonoBehaviour, ITurnObserver
 
         // If you wish to get to know the humans better I implore you to read the backstories I have provided as well.
         //  - glow behind storyboard
+    }
+
+    public void EnableStoryboard()
+    {
+        storyboardRef.SetActive(true);
+    }
+
+    public void OpenBookmark()
+    {
+        abilityPanelRef.SetActive(true);
+        ClickAI.S.EndConversation();
     }
 
     public void EndTutorial()
@@ -72,8 +87,9 @@ public class TeachingManager : MonoBehaviour, ITurnObserver
 
     public void StartDispatchTutorial()
     {
-        // POP DIALOGUE THAT READS:
-        // Greetings again my liege. I come to offer you options on how to operate your cult. 
-        // We can gather more information on the humans, grow our cult, or exert or influence on your maze, among other things. The choice is yours my liege.
+        ClickAI.S.StartConversation();
+
+        DialogueBank DB = AgentManager.Instance.agents[0].GetComponent<DialogueBank>();
+        DB.StartDSTut1();
     }
 }

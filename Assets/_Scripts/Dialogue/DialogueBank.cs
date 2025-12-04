@@ -399,13 +399,41 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
     {
         yield return new WaitForSeconds(1);
         dialgoueRunner.onDialogueComplete.AddListener(EndIntro4);
-        ClickAI.S.storyboardButtonGlow.active = true;
+        TeachingManager.S.EnableStoryboard();
+        //ClickAI.S.storyboardButtonGlow.active = true;
         dialgoueRunner.StartDialogue("CultistIntro4");
     }
 
     public void EndIntro4()
     {
         dialgoueRunner.onDialogueComplete.RemoveListener(EndIntro4);
+        TeachingManager.S.EndTutorial();
+    }
+
+    public void StartDSTut1()
+    {
+        CharacterGameDialogue.SetActivePortrait(Character.HeadCultist);
+        dialgoueRunner.onDialogueComplete.AddListener(EndDSTut1);
+        dialgoueRunner.StartDialogue("DispatchTutorial1");
+    }
+
+    public void EndDSTut1()
+    {
+        dialgoueRunner.onDialogueComplete.RemoveListener(EndDSTut1);
+        StartCoroutine(StartDSTut2());
+    }
+
+    public IEnumerator StartDSTut2()
+    {
+        yield return new WaitForSeconds(1f);
+        dialgoueRunner.StartDialogue("DispatchTutorial2");
+        dialgoueRunner.onDialogueComplete.AddListener(EndDSTut2);
+    }
+
+    public void EndDSTut2()
+    {
+        dialgoueRunner.onDialogueComplete.RemoveListener(EndDSTut2);
+        TeachingManager.S.OpenBookmark();
     }
 
 
