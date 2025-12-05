@@ -20,7 +20,7 @@ public class UnlockNarrative : NarrativeReward
 
     public override void GrantReward()
     {
-           
+        UIManagerLite.TransitionToState(UIManagerLite.GameState.Storyboard);    
         foreach(var bk in BookObjects)
         {
             if(targetsStoryboard != bk.charactersBook) continue;
@@ -50,12 +50,9 @@ public class UnlockNarrative : NarrativeReward
                 }  
 
             }
-
-
         }
-
+        UIManagerLite.TransitionToState(UIManagerLite.GameState.Storyboard); 
     }
-
     public override void InitRewardUI()
     {
        // throw new System.NotImplementedException();

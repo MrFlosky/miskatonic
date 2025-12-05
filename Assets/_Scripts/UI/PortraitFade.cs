@@ -126,7 +126,8 @@ public class PortraitFade : MonoBehaviour, ITurnObserver
     public IEnumerator TurnResetFadeIn()
     {
         float t = 0;
-        
+        StopCoroutine(FadeOut());
+        float startingAlpha = Portrait.color.a;
         while (Portrait.color.a < MaxAlpha)
         {
 
@@ -154,14 +155,17 @@ public class PortraitFade : MonoBehaviour, ITurnObserver
     {
 
         float t = 0;
-
+        buttonText.GetComponent<TextMeshProUGUI>().enabled = true;
+        EnableRaycasts(true);
+        float startingAlpha = Portrait.color.a;
         if (!clicked || UIManagerLite.GetCurrentState() != UIManagerLite.GameState.BoardBase)
         {
+            PortraitButton.enabled = true;
             while (Portrait.color.a < MaxAlpha)
             {
 
                 float alpha = portraitColor.a;
-                alpha = Mathf.Lerp(Portrait.color.a, MaxAlpha, t);
+                alpha = Mathf.Lerp(startingAlpha, MaxAlpha, t);
                 t += interpolationSpeed * Time.deltaTime;
 
 
@@ -190,8 +194,7 @@ public class PortraitFade : MonoBehaviour, ITurnObserver
             }
         }
 
-        buttonText.GetComponent<TextMeshProUGUI>().enabled = true;
-        EnableRaycasts(true);
+        
 
     }
     

@@ -38,12 +38,13 @@ public class Bookshelf : MonoBehaviour
     {
         
     }
-
+    // This function detects if an object Book or if a PageTurner object
+    //It will call functions to change book or turn page accordingly 
     public void OnClick(InputAction.CallbackContext context)
     {
               
 
-        Vector2 mousePos = Vector2.zero;
+        Vector2 mousePos;
         mousePos = GameInput.Instance.GetActiveGameDevice() == GameInput.GameDevice.KeyboardMouse
             ? Mouse.current.position.ReadValue()
             : VirtualMouseUI.Instance.GetVirtualMousePosition();
@@ -51,14 +52,7 @@ public class Bookshelf : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit))
         {
-            
-            if (hit.collider.CompareTag("Book"))
-            {
-
-                hit.collider.GetComponent<Books>().ChangeBook(false,false);
-            }
-
-            else if (hit.collider.GetComponent<BookTurner>())
+           if (hit.collider.GetComponent<BookTurner>())
             {
             hit.collider.GetComponent<BookTurner>().TurnThePage();
             }   
