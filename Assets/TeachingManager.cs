@@ -11,6 +11,7 @@ public class TeachingManager : MonoBehaviour, ITurnObserver
     public List<GameObject> uiToDisable = new List<GameObject>();
     public GameObject storyboardRef;
     public GameObject abilityPanelRef;
+    public bool inTutorial = true;
 
     void Start()
     {
@@ -75,13 +76,15 @@ public class TeachingManager : MonoBehaviour, ITurnObserver
 
     public void EndTutorial()
     {
-        ClickAI.S.EndConversation();
+        ClickAI.S.EndTutorial();
 
         // SHOW UI ELEMENTS
         foreach (GameObject go in uiToDisable)
         {
             go.SetActive(true);
         }
+
+        inTutorial = false;
     }
 
 
