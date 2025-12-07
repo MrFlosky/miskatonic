@@ -118,6 +118,7 @@ public class ClickAI : MonoBehaviour
         //if (_clickedAI || TurnBasedSystem.IsAITurn() || _inConversation) return; //this was the long working version.
         UIManagerLite.GameState gameState = UIManagerLite.GetCurrentState();
         if (gameState != UIManagerLite.GameState.BoardBase) return; // not allowed to perform any click actions on board/ai if not in boardbase
+        if (TeachingManager.S.inTutorial == true) return;
         CheckForDoubleClick();
 
 
@@ -412,7 +413,6 @@ public class ClickAI : MonoBehaviour
     public void EndConversation()
     {
         if (UIManagerLite.GetCurrentState() != UIManagerLite.GameState.Dialogue) return; // for win con, only execute this code if in dialogue
-
         PlayerController.Instance.clickedAI = false;
         _inConversation = false;
       
@@ -445,6 +445,13 @@ public class ClickAI : MonoBehaviour
         activeAICam.ResetBustRotation();
 
 
+    }
+
+    public void EndTutorial()
+    {
+        PlayerController.Instance.clickedAI = false;
+        _inConversation = false;
+        UIManagerLite.TransitionToState(UIManagerLite.GameState.BoardBase);
     }
 
     private void Update()
