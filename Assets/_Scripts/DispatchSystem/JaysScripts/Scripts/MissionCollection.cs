@@ -29,6 +29,10 @@ public class MissionCollection : MonoBehaviour
     private List<Mission> discardedMissions = new List<Mission>();
     private List<Mission> completedMissions = new List<Mission>();
 
+    private List<Mission> availableEcon = new List<Mission>();
+    private List<Mission> availableSkill = new List<Mission>();
+    private List<Mission> availableNarrative = new List<Mission>();
+
     [SerializeField] private Canvas dealerCanvas;
     [SerializeField] private GameObject blankMissionCard;
 
@@ -173,6 +177,8 @@ public class MissionCollection : MonoBehaviour
         discardedMissions.Clear();
     }
 
+
+    [SerializeField] private bool categoryDraw = false;
     /// <summary>
     /// Turn MissionData scriptable objects into Mission instances.
     /// Insert respective number of cards into pool.
@@ -188,14 +194,46 @@ public class MissionCollection : MonoBehaviour
                 Mission newMission = newMissionObj.AddComponent<Mission>();
 
                 newMission.InitMission(missionCards[i].missionData, cultistPointSystem);
-                availableMissions.Add(newMission);
+
+                // If doing guaranteed category draw, seperate cards into their respective lists.
+                if(categoryDraw)
+                {
+                    
+                } else
+                {
+                    availableMissions.Add(newMission);
+                }
+                
                 
             }
         }
-        Debug.LogWarning(availableMissions.Count);
+        //Debug.LogWarning(availableMissions.Count);
     }
 
+    /// <summary>
+    /// Given a mission, determine its category based on its reward and add it
+    /// to the respective list.
+    /// </summary>
+    private void CategorizeCard(Mission mission)
+    {
+        Reward reward = mission.GetMissionData().reward;
+        switch(reward)
+        {
+            case SkillReward skillReward:
+                availableSkill.Add(mission);
+                break;
+            case RewardCultist rewardCultist:
+                availableEcon.Add(mission);
+                break;
+            case NarrativeReward narrativeReward:
+                availableNarrative.Add(mission);
+                break;
+            default:
+                Debug.LogError("This card is neither skill, cultist, or narrative derived");
+                break;
+        }
 
+    }
 
 
 }
