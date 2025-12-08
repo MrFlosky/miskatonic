@@ -89,7 +89,7 @@ public class TeachingManager : MonoBehaviour, ITurnObserver
 
     public void EndDispatchTutorial()
     {
-        ClickAI.S.EndTutorial();
+        ClickAI.S.EndDispatchTutorial();
     }
 
 

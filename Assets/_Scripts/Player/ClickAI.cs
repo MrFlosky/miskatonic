@@ -454,6 +454,12 @@ public class ClickAI : MonoBehaviour
         UIManagerLite.TransitionToState(UIManagerLite.GameState.BoardBase);
     }
 
+    public void EndDispatchTutorial()
+    {
+        PlayerController.Instance.clickedAI = false;
+        _inConversation = false;
+    }
+
     private void Update()
     {
        if (doubleClickCheck)
