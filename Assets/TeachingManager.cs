@@ -29,7 +29,7 @@ public class TeachingManager : MonoBehaviour, ITurnObserver
 
     public void PlayerTurnInitiated()
     {
-        Debug.LogWarning("TM TURN: " + TurnBasedSystem.GET_TURN_COUNT(TurnType.Player));
+
     }
 
 
