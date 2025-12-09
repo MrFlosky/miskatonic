@@ -3,14 +3,10 @@ using DialogueEditor;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
-using UnityEngine.Windows.WebCam;
-using Yarn.Unity;
+using UnityEngine.EventSystems;
 
 
 /// <summary>
@@ -105,6 +101,18 @@ public class ClickAI : MonoBehaviour
         storyboardSwitchCamBtn.onClick.AddListener(SwitchToStoryboardCamera);
     }
 
+    // Returns if pointer is over UI element, used to block click raycasts from going through UI.
+    private bool IsPointerOverUI()
+    {
+        PointerEventData eventData = new PointerEventData(EventSystem.current); 
+        eventData.position = Mouse.current.position.ReadValue();
+        
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventData, results); // should only return ui elements
+        
+        return results.Count > 0;
+    }
+
 
     /// <summary>
     /// 
@@ -114,6 +122,12 @@ public class ClickAI : MonoBehaviour
     /// </summary>
     public void OnClick(InputAction.CallbackContext context)
     {
+        // Dont raycast if we over a UI element. 
+        if (IsPointerOverUI())
+        {
+            return; 
+        }
+
         // do NOT allow any click events here if clicked on an ai, in convo, or its the enemy turn
         //if (_clickedAI || TurnBasedSystem.IsAITurn() || _inConversation) return; //this was the long working version.
         UIManagerLite.GameState gameState = UIManagerLite.GetCurrentState();
