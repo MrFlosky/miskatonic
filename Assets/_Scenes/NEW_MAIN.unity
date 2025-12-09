@@ -154661,7 +154661,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lightToDim: {fileID: 545437369}
   lightFadeDuration: 2
-  winSceneName: MainMenu
+  winSceneName: NEW_MAIN_MENU
   mainText: {fileID: 2082831526}
   reasonText: {fileID: 1116157340}
   textFadeDuration: 1
@@ -154685,7 +154685,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lightToDim: {fileID: 545437369}
   lightFadeDuration: 2
-  winSceneName: MainMenu
+  winSceneName: NEW_MAIN_MENU
   mainText: {fileID: 2082831526}
   reasonText: {fileID: 1116157340}
   textFadeDuration: 1
@@ -210831,6 +210831,7 @@ MonoBehaviour:
   - {fileID: 5037291714927177950}
   storyboardRef: {fileID: 52319007}
   abilityPanelRef: {fileID: 233445336}
+  inTutorial: 1
 --- !u!4 &1757557019
 Transform:
   m_ObjectHideFlags: 0
@@ -219818,11 +219819,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4731499573302624237, guid: 8af1ed2321e046145937d323470b8fc0, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 22.189991
+      value: 3.4047892
       objectReference: {fileID: 0}
     - target: {fileID: 4731499573302624237, guid: 8af1ed2321e046145937d323470b8fc0, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -145.86346
+      value: -167.93222
       objectReference: {fileID: 0}
     - target: {fileID: 5189735326197054452, guid: 8af1ed2321e046145937d323470b8fc0, type: 3}
       propertyPath: m_SizeDelta.x
