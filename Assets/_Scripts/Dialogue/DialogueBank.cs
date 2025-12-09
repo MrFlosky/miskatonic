@@ -433,6 +433,7 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
     public void EndDSTut2()
     {
         dialgoueRunner.onDialogueComplete.RemoveListener(EndDSTut2);
+        TeachingManager.S.EndDispatchTutorial();
         TeachingManager.S.OpenBookmark();
     }
 
