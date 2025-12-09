@@ -23,6 +23,9 @@ public class EndAgentTurn : ActionNode
 
     protected override void OnStop() {
         // Clean up if needed
+        
+        // this is here so even if agent doesnt move bc of state, their facing direction is changed.
+        context.agentNavigation.InvokeFacingDirectionChanged();
     }
 
     protected override State OnUpdate() {

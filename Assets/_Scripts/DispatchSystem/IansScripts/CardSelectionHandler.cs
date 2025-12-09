@@ -9,6 +9,8 @@ public class CardSelectionHandler : MonoBehaviour
     [SerializeField]
     private GameObject selectedCard = null;
 
+
+    // not in use
     [SerializeField]
     private UnityEvent OnCardActivation;
 
@@ -18,7 +20,6 @@ public class CardSelectionHandler : MonoBehaviour
         {
             selectedCard.GetComponent<TempCardAnim>().ResetDestTransform();
             UnselectCard();
-            OnCardActivation?.Invoke();
         }
         else if(selectedCard == null)
         {

@@ -82,7 +82,7 @@ public class Books: MonoBehaviour
         //opens book on new unlocked page and changes camera
         else
         {
-            clAI.SwitchToStoryboardCamera();
+            //clAI.SwitchToStoryboardCamera(); if this was for handling from narrative clue unlock, doing it elsewhere, in Mission! - jay
             OB.activePage.SetActive(true);
             if (UnlockingClue)
             {

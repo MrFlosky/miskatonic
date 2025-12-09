@@ -76,7 +76,8 @@ public class FindNearestRoom : ActionNode
         }
     }
 
-    protected override void OnStop() {
+    protected override void OnStop()
+    {
     }
 
     protected override State OnUpdate() {

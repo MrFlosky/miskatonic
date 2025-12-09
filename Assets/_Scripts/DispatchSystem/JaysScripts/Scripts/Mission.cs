@@ -97,6 +97,15 @@ public class Mission : MonoBehaviour
                 MissionCollection.S.RemoveCardFromPool(this);
                 //Destroy(this.gameObject);
             }
+
+            // if selected narrative card, move camera to storyboard otherwise to board base.
+            if(MissionCollection.S.GetCardCategory(this) == CardType.Narrative)
+            {
+                ClickAI.S.SwitchToStoryboardCamera();
+            } else
+            {
+                ClickAI.S.SwitchDispatchToPlayerCamera();
+            }
             return true;
         }
         return false;

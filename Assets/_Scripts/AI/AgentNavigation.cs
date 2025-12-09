@@ -36,6 +36,15 @@ public class AgentNavigation : MonoBehaviour
     /// used for bust movement juice.
     /// </summary>
     public event Action<Vision> facingDirectionChanged;
+    
+    /// <summary>
+    /// Here so that nav node may call event.
+    /// With event, cannot invoke or clear/replace all subscribes from outside declaring class.
+    /// </summary>
+    public void InvokeFacingDirectionChanged()
+    {
+        facingDirectionChanged.Invoke(playerVision.facing);
+    }
 
     public void SetBonusFearRoom()
     {

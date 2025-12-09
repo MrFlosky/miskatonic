@@ -397,7 +397,7 @@ public class MissionCollection : MonoBehaviour
     /// Given a mission, determine its category based on its reward and add it
     /// to the respective list.
     /// </summary>
-    private CardType GetCardCategory(Mission mission)
+    public CardType GetCardCategory(Mission mission)
     {
         Reward reward = mission.GetMissionData().reward;
         switch(reward)

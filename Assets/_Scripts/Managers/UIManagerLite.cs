@@ -112,7 +112,8 @@ public class UIManagerLite : MonoBehaviour
                 GameState.Dispatch, 
                 new List<GameState> 
                 { 
-                    GameState.BoardBase
+                    GameState.BoardBase,
+                    GameState.Storyboard
                 } 
             },
             { 
@@ -346,6 +347,22 @@ public class UIManagerLite : MonoBehaviour
                     }
 
                     S.outlineManager.PauseOutlining();
+                } 
+                // TRANSITION: Dispatch → Storyboard
+                else if (fromState == GameState.Dispatch)
+                {
+                    Debug.Log("Coming from dispatch, to storyboard");
+                    
+                    S.dealerButton.gameObject.SetActive(false);
+                    S.dealerReturnToBoardButton.gameObject.SetActive(false);
+                    S.skillPointUICollection.HIDE_PTS();
+                    S.skillUICollection.HIDE_SKILLS();
+                    S.storyboardButton.gameObject.SetActive(true);
+                    EnableEndTurnButton();
+                    foreach(var p in S.portraitFades)
+                    {
+                        p.StartCoroutine(p.FadeIn());
+                    }
                 }
                 break;
             // ==================================================================================
