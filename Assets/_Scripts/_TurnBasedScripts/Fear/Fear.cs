@@ -253,8 +253,7 @@ public class Fear : MonoBehaviour, ITurnObserver
         if (!prevStates.Contains(state))
         {
             prevStates.Add(state);
-            // TEMPORARILY REMOVE STATE BASED DIALOGUES FOR 11/24 PLAYEST
-            //gameObject.GetComponent<DialogueBank>().QueueSpecialDialog(state.ToString(), DialogueBank.DialogueType.State);
+            gameObject.GetComponent<DialogueBank>().QueueSpecialDialog(state.ToString(), DialogueBank.DialogueType.State);
         }
     }
 
