@@ -66,6 +66,7 @@ public class CharacterGameDialogue : MonoBehaviour
             }
         }
     }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -87,13 +88,27 @@ public class CharacterGameDialogue : MonoBehaviour
         DialogueAnimator.SetBool("active", false); // idk if this doing anything, ask Alex - jay
     }
 
+    /// <summary>
+    /// Clear data on scene switch to allow for refresh on scene load,
+    /// instead of keeping stale destroyed data.
+    /// </summary>
+    void OnDestroy()
+    {
+        buttonPortraitDict = null;
+        characterSpriteImageStatic = null;
+        allPortraits = null;
+        allEmotionPortraits = null;
+    }
+
 
     // Called by DialogueBank and NarrativeReward to 
     // set given character's portrait. Not in use!
     static public void SetActivePortrait(Character chara)
     {
         activeCharacterSprite = allPortraits[chara];
-         characterSpriteImageStatic.sprite = activeCharacterSprite;
+
+        characterSpriteImageStatic.sprite = activeCharacterSprite;
+        
     }
 
     /// <summary>
@@ -102,8 +117,16 @@ public class CharacterGameDialogue : MonoBehaviour
     static public void SetActivePortrait(Character chara, FearState state)
     {
         activeCharacterSprite = allEmotionPortraits[chara][state];
-        characterSpriteImageStatic.sprite = activeCharacterSprite; // set for dialogue portraits
-        buttonPortraitDict[chara].sprite = activeCharacterSprite; // set for portrait buttons
+        
+        if (characterSpriteImageStatic != null)
+        {
+            characterSpriteImageStatic.sprite = activeCharacterSprite; // set for dialogue portraits
+        } 
+
+        if (buttonPortraitDict != null && buttonPortraitDict.ContainsKey(chara) && buttonPortraitDict[chara] != null)
+        {
+            buttonPortraitDict[chara].sprite = activeCharacterSprite; // set for portrait buttons
+        } 
         //Debug.LogWarning(activeCharacterSprite.name + " SET !!");
     }
     

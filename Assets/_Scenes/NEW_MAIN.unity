@@ -263315,21 +263315,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4408883966526446840}
   m_CullTransparentMesh: 1
---- !u!114 &3445310190948071003
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7996116201254192423}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b75c9a2b64b21c448af01ed8c369a13, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CharacterSpriteImage: {fileID: 7958132037758011827}
-  portraitButtonImages: []
-  DialogueAnimator: {fileID: 8440486443333516734}
 --- !u!114 &3476069476073815482
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -265013,7 +264998,7 @@ MonoBehaviour:
   onDialogueStart:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3445310190948071003}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: CharacterGameDialogue, Assembly-CSharp
         m_MethodName: OnDialogueStart
         m_Mode: 1
@@ -265028,7 +265013,7 @@ MonoBehaviour:
   onDialogueComplete:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3445310190948071003}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: CharacterGameDialogue, Assembly-CSharp
         m_MethodName: OnDialogueEnd
         m_Mode: 1
@@ -265204,7 +265189,6 @@ GameObject:
   - component: {fileID: 7542484878285664665}
   - component: {fileID: 7321222015969715884}
   - component: {fileID: 314160084887771618}
-  - component: {fileID: 3445310190948071003}
   - component: {fileID: 8440486443333516734}
   m_Layer: 0
   m_Name: Hint System
