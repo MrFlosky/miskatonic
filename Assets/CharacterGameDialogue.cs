@@ -4,8 +4,7 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.UI;
 using CharacterData;
-using UnityEditor.PackageManager;
-using System;
+
 
 /// <summary>
 /// PLEASE ADD COMMENTS TO WHAT THIS SCRIPT DOES!!!- jay

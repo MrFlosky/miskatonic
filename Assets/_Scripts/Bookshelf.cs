@@ -17,6 +17,8 @@ public class Bookshelf : MonoBehaviour
 
     Camera mainCamera;
 
+    private PlayerInputActions inputActions; 
+
 
 
     private void Awake()
@@ -32,6 +34,20 @@ public class Bookshelf : MonoBehaviour
         {
             S = this;
         }
+
+        inputActions = new PlayerInputActions();
+        inputActions.Player.Click.performed += OnClick;
+    }
+
+    private void OnEnable()
+    {
+        inputActions.Player.Enable();
+    }
+
+    private void OnDisable()
+    {
+        inputActions.Player.Click.performed -= OnClick;
+        inputActions.Player.Disable();
     }
 
     void Update()

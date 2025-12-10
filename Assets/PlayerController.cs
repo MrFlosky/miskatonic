@@ -106,11 +106,11 @@ public class PlayerController : MonoBehaviour
         }
 
         //Lyn's note to self: COME UP WITH SOME VARIABLE TO CHECK SO THIS ISNT RUNNING EVERY TIME!!!
-        if (true)
-        {
+        // if (true)
+        // {
             
-            bookshelf.OnClick(context);
-        }
+        //     bookshelf.OnClick(context);
+        // }
     }
 
     private void OnScroll(InputAction.CallbackContext context)
