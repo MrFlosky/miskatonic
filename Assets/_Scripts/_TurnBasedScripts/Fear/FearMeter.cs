@@ -67,7 +67,7 @@ public class FearMeter : MonoBehaviour
         if (!S.RnD)
         {
             S.totalFear += increase;
-            S.liquidFill.fillAmount += (increase / (float)S.maxOverallFear); // normalize 0-1 for liquid fill
+            S.liquidFill.fillAmount = (S.totalFear / (float)S.maxOverallFear); // normalize 0-1 for liquid fill
         }
         else
         {
