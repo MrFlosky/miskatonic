@@ -8,7 +8,7 @@ public class Bookshelf : MonoBehaviour
     /// <summary>
     /// This script keeps track of all the collected books and handles the logic for clicking on books or page turners
     /// 
-    /// currently no way to add new books
+    /// 
     /// </summary>
     public static Bookshelf S { get; private set; }
 
@@ -17,8 +17,7 @@ public class Bookshelf : MonoBehaviour
 
     Camera mainCamera;
 
-    private PlayerInputActions inputActions; 
-
+ private PlayerInputActions inputActions; 
 
 
     private void Awake()
@@ -33,13 +32,13 @@ public class Bookshelf : MonoBehaviour
         else
         {
             S = this;
-        }
-
-        inputActions = new PlayerInputActions();
+            S.Booklist.Clear();
+             inputActions = new PlayerInputActions();
         inputActions.Player.Click.performed += OnClick;
+        }
     }
-
-    private void OnEnable()
+    
+ private void OnEnable()
     {
         inputActions.Player.Enable();
     }
@@ -49,13 +48,11 @@ public class Bookshelf : MonoBehaviour
         inputActions.Player.Click.performed -= OnClick;
         inputActions.Player.Disable();
     }
-
     void Update()
     {
         
     }
-    // This function detects if an object Book or if a PageTurner object
-    //It will call functions to change book or turn page accordingly 
+    // This function detects if a page turner and turn page accordingly 
     public void OnClick(InputAction.CallbackContext context)
     {
               
