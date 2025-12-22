@@ -49,7 +49,7 @@ public class TurnBasedSystem : MonoBehaviour
 
     void Awake()
     {
-        // ensure only one instance exists
+        // ensure only one instance exists. if duplicate, destroy.
         if(S != null && S != this)
         {
             Destroy(gameObject);

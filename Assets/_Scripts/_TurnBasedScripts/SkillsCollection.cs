@@ -13,7 +13,26 @@ public class SkillsCollection : MonoBehaviour
 {
     static public SkillsCollection S;
     /// Collection of Skill objects.
-    List<Skill> skillList;    
+    private List<Skill> skillList;
+
+    void Awake()
+    {
+        if(S != null && S != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        S = this;
+    }
+
+    // clear static ref on scene unload
+    void OnDestroy()
+    {
+        if(S == this)
+        {
+            S = null;
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -26,10 +45,8 @@ public class SkillsCollection : MonoBehaviour
             if (pd.TotemUnlocked) GetComponent<SkillFearTotem>().UnlockSkill();
             if (pd.LureUnlocked) GetComponent<SkillLure>().UnlockSkill();
             if (pd.RoomSwapUnlocked) GetComponent<SkillSwapRooms>().UnlockSkill();
-            
         }
 
-        S = this;
         S.skillList = new List<Skill>(); // HAVE TO DO THIS!!!!!!!!!!!!!!!!! IDK WHY BUT IT TOOK ME LIKE 30+ MINS TO DEBUG WHY THIS WASNT WORKING. NOW WORKING 
         //The new keyword is necessary to instantiate the list, allocating memory for it and initializing it so you can start adding elements
 

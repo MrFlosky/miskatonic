@@ -21,13 +21,28 @@ public class AIFearMeter : MonoBehaviour
     private int fear;
     void Awake()
     {
+        if(S != null && S != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
         S = this;
+
         aiSlider = GetComponent<Slider>();
         heartbeats = transform.GetChild(0).GetComponent<Heartbeats>();
         visibleSlider = transform.GetChild(0).gameObject;
 
         rectTransform = GetComponent<RectTransform>();
         originalPos = rectTransform.anchoredPosition;
+    }
+
+    // clear static ref on scene unload
+    void OnDestroy()
+    {
+        if(S == this)
+        {
+            S = null;
+        }
     }
 
     // After allowing ai fear meter and hearbeats to initialize in awake,
