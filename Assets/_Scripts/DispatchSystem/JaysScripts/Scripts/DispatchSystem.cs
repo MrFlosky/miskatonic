@@ -10,7 +10,7 @@ using UnityEngine.UI;
 public class DispatchSystem : MonoBehaviour , ITurnObserver
 {
     // true if player chose mission this turn, false if they didnt
-    static public bool dealerDealtWith { get; private set; } = false;
+    static public bool dealerDealtWith { get; private set; }
 
     /// <summary>
     /// Text for reroll, including number left.
@@ -38,7 +38,7 @@ public class DispatchSystem : MonoBehaviour , ITurnObserver
     /// <summary>
     /// Whether or not player has ability to reroll at the cost of cultists.
     /// </summary>
-    static private bool cultistRerollUnlocked = false;
+    static private bool cultistRerollUnlocked;
 
     /// <summary>
     /// Cultist cost to purchase a reroll
@@ -66,6 +66,10 @@ public class DispatchSystem : MonoBehaviour , ITurnObserver
         outOfRerollsText = "OUT OF REROLLS";
         rerollTxt.text = defaultRerollText;
         dealerFirstTurnInteraction = false;
+        
+        // static variables reset
+        dealerDealtWith = false;
+        cultistRerollUnlocked = false;
     }
 
     void Start()

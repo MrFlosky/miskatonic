@@ -72,9 +72,27 @@ public class MissionCollection : MonoBehaviour
     // Needed for initializing all missions
     private CultistPoints cultistPointSystem;
 
+    void Awake()
+    {
+        if(S != null && S != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        S = this;
+    }
+
+    // clear static ref on scene unload
+    void OnDestroy()
+    {
+        if(S == this)
+        {
+            S = null;
+        }
+    }
+
     void Start()
     {
-        S = this;
         skillObjectStatic = skillObject;
         trackerStatic = GetComponent<NarrativeRewardTracker>();
         cultistPointSystem = GetComponent<CultistPoints>();

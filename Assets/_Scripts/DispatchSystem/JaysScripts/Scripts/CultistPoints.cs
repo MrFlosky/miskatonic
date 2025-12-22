@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using TMPro;
-using Unity.VisualScripting;
 
 /// <summary>
 /// This class is responsible for managing cultist points used to purchase
@@ -29,6 +28,25 @@ public class CultistPoints : MonoBehaviour
     // Number of available points player has
     [SerializeField] public int cultistPoints;
 
+    void Awake()
+    {
+        if(S != null && S != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        S = this;
+    }
+
+    // clear static ref on scene unload
+    void OnDestroy()
+    {
+        if(S == this)
+        {
+            S = null;
+        }
+    }
+
 
     void Start()
     {
@@ -36,7 +54,6 @@ public class CultistPoints : MonoBehaviour
         {
             cultistPoints = LoadManager.S.playerDataToLoad.cultists;
         }
-        S = this;
         UpdateText();
     }
 
