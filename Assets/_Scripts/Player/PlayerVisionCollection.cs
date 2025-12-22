@@ -16,9 +16,24 @@ public class PlayerVisionCollection : MonoBehaviour
 
     void Awake()
     {
+        if(S != null && S != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
         S = this;
+
         pvArr = GetComponentsInChildren<PlayerVision>();
         Debug.LogWarning(pvArr.Length);
+    }
+
+    // clear static ref on scene unload
+    void OnDestroy()
+    {
+        if(S == this)
+        {
+            S = null;
+        }
     }
 
     /// <summary>
