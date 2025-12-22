@@ -36,8 +36,13 @@ public class FearMeter : MonoBehaviour
     [SerializeField] int RnDDivisor=10;
     void Awake()
     {
-
+        if(S != null && S != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
         S = this;
+
         slid = GetComponent<Slider>();
         if (LoadManager.S.loadData) totalFear = LoadManager.S.playerDataToLoad.fear;
         maxOverallFear = GameManager.Instance.GetWinFear();
@@ -45,6 +50,15 @@ public class FearMeter : MonoBehaviour
         liquidFill = transform.GetChild(0).GetComponent<LiquidAnimationController>();
         transform.GetChild(3).GetComponent<Button>().onClick.AddListener(SwirlLiquid); // sub swirl function to button click
         enabled = false;
+    }
+
+    // clear static ref on scene unload
+    void OnDestroy()
+    {
+        if(S == this)
+        {
+            S = null;
+        }
     }
 
     void Update()

@@ -14,9 +14,25 @@ public class AudioManager : MonoBehaviour
 
     void Awake()
     {
+        if(S != null && S != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
         S = this;
+
         enabled = false;
     }
+
+    // clear static ref on scene unload
+    void OnDestroy()
+    {
+        if(S == this)
+        {
+            S = null;
+        }
+    }
+
     public AudioSource characterSelect;
     public AudioSource buttonSelect;
     public AudioSource aoe;
