@@ -104,16 +104,8 @@ public class PortraitFade : MonoBehaviour, ITurnObserver
             float alpha = portraitColor.a;
             alpha = Mathf.Lerp(startingAlpha, 0, t);
             t += interpolationSpeed * Time.deltaTime;
-
-
             portraitColor.a = alpha;
             Portrait.color = portraitColor;
-
-          
-
-
-
-
 
             yield return new WaitForEndOfFrame();
         }
@@ -125,28 +117,25 @@ public class PortraitFade : MonoBehaviour, ITurnObserver
     //used at the start of the player turn to reset all portraits 
     public IEnumerator TurnResetFadeIn()
     {
+        EnableRaycasts(true);
         float t = 0;
         StopCoroutine(FadeOut());
+         buttonText.GetComponent<TextMeshProUGUI>().enabled = true;
+        PortraitButton.enabled = true;
         float startingAlpha = Portrait.color.a;
         while (Portrait.color.a < MaxAlpha)
         {
 
             float alpha = portraitColor.a;
-            alpha = Mathf.Lerp(0, MaxAlpha, t);
+            alpha = Mathf.Lerp(startingAlpha, MaxAlpha, t);
             t += interpolationSpeed * Time.deltaTime;
-
-
             portraitColor.a = alpha;
             Portrait.color = portraitColor;
 
-
-
-
             yield return new WaitForEndOfFrame();
         }
-        buttonText.GetComponent<TextMeshProUGUI>().enabled = true;
-        PortraitButton.enabled = true;
-        EnableRaycasts(true);
+       
+        
 
     }
 
@@ -158,6 +147,9 @@ public class PortraitFade : MonoBehaviour, ITurnObserver
         buttonText.GetComponent<TextMeshProUGUI>().enabled = true;
         EnableRaycasts(true);
         float startingAlpha = Portrait.color.a;
+        PortraitButton.enabled = true;
+        PortraitButton.interactable=true;
+        clicked = false;
         if (!clicked || UIManagerLite.GetCurrentState() != UIManagerLite.GameState.BoardBase)
         {
             PortraitButton.enabled = true;
@@ -201,9 +193,7 @@ public class PortraitFade : MonoBehaviour, ITurnObserver
     void ITurnObserver.PlayerTurnInitiated()
     {
         StartCoroutine(TurnResetFadeIn());
-        PortraitButton.enabled = true;
-        PortraitButton.interactable=true;
-        clicked = false;
+        
     }
 
     
