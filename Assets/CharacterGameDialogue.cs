@@ -14,12 +14,13 @@ using CharacterData;
 /// </summary>
 public class CharacterGameDialogue : MonoBehaviour
 {
+    static public CharacterGameDialogue S;
+
     /// <summary>
     /// Currently set dialogue sprite.
     /// </summary>
-    private static Sprite activeCharacterSprite;
-    [SerializeField] private Image CharacterSpriteImage; // inpsector ref
-    static public Image characterSpriteImageStatic; // the above, for use in static methods
+    private Sprite activeCharacterSprite;
+    [SerializeField] private Image actualCharacterImage; // inpsector ref
 
     /// <summary>
     /// Portrait buttons used to initiate dialogues.
@@ -29,7 +30,7 @@ public class CharacterGameDialogue : MonoBehaviour
     /// <summary>
     /// Dict storing refs to all portrait button images with character as key.
     /// </summary>
-    private static Dictionary<Character, Image> buttonPortraitDict;
+    private Dictionary<Character, Image> buttonPortraitDict;
 
 
     /// <summary>
@@ -40,32 +41,41 @@ public class CharacterGameDialogue : MonoBehaviour
     // Dictionary that contains all character sprites, one per character.
     // Key is character, value is potrait sprite.
     // Emotion is ambigous for now.
-    static private Dictionary<Character, Sprite> allPortraits;
+    private Dictionary<Character, Sprite> allPortraits;
 
     /// <summary>
     /// Dictionary that contains all character emotion sprites
     /// </summary>
-    static private Dictionary<Character, Dictionary<FearState, Sprite>> allEmotionPortraits;
+    private Dictionary<Character, Dictionary<FearState, Sprite>> allEmotionPortraits;
 
     void Awake()
     {
-        // set static image if not already set. have to do this bc this script attached to two runners
-        if(characterSpriteImageStatic == null)
+        if(S != null && S != this)
         {
-            characterSpriteImageStatic = CharacterSpriteImage;
+            Destroy(gameObject);
+            return;
         }
 
-        if(buttonPortraitDict == null && portraitButtonImages.Length != 0)
+        S = this;
+
+        // this will only work if character enum is aligned with array element order assigned in inspector
+        // for characters
+        buttonPortraitDict = new Dictionary<Character, Image>();
+        for(int i = 0; i < portraitButtonImages.Length; i ++)
         {
-            // this will only work if character enum is aligned with array element order assigned in inspector
-            // for characters
-            buttonPortraitDict = new Dictionary<Character, Image>();
-            for(int i = 0; i < portraitButtonImages.Length; i ++)
-            {
-                buttonPortraitDict[(Character)i] = portraitButtonImages[i];
-            }
+            buttonPortraitDict[(Character)i] = portraitButtonImages[i];
         }
     }
+
+    // clear static ref on scene unload
+    void OnDestroy()
+    {
+        if(S == this)
+        {
+            S = null;
+        }
+    }
+
 
     // Start is called before the first frame update
     void Start()
@@ -73,31 +83,21 @@ public class CharacterGameDialogue : MonoBehaviour
         allPortraits = CharacterNames.GetAllPortraits();
         allEmotionPortraits = CharacterNames.GetAllEmotionPortraits();
 
-        foreach(var pair in allEmotionPortraits)
-        {
-            Character character = pair.Key;
-            foreach(var innerPair in pair.Value) 
-            {
-                FearState fearState = innerPair.Key;
-                Sprite portrait = innerPair.Value;
+
+        // Debug that we got all emotion portraits
+        // foreach(var pair in allEmotionPortraits)
+        // {
+        //     Character character = pair.Key;
+        //     foreach(var innerPair in pair.Value) 
+        //     {
+        //         FearState fearState = innerPair.Key;
+        //         Sprite portrait = innerPair.Value;
                 
-//                Debug.Log($"{character} - {fearState}: {portrait.name}");
-            }
-        }
+        //         Debug.Log($"{character} - {fearState}: {portrait.name}");
+        //     }
+        // }
 
         DialogueAnimator.SetBool("active", false); // idk if this doing anything, ask Alex - jay
-    }
-
-    /// <summary>
-    /// Clear data on scene switch to allow for refresh on scene load,
-    /// instead of keeping stale destroyed data.
-    /// </summary>
-    void OnDestroy()
-    {
-        buttonPortraitDict = null;
-        characterSpriteImageStatic = null;
-        allPortraits = null;
-        allEmotionPortraits = null;
     }
 
 
@@ -105,9 +105,9 @@ public class CharacterGameDialogue : MonoBehaviour
     // set given character's portrait. Not in use!
     static public void SetActivePortrait(Character chara)
     {
-        activeCharacterSprite = allPortraits[chara];
+        S.activeCharacterSprite = S.allPortraits[chara];
 
-        characterSpriteImageStatic.sprite = activeCharacterSprite;
+        S.actualCharacterImage.sprite = S.activeCharacterSprite;
         
     }
 
@@ -116,17 +116,10 @@ public class CharacterGameDialogue : MonoBehaviour
     /// </summary>
     static public void SetActivePortrait(Character chara, FearState state)
     {
-        activeCharacterSprite = allEmotionPortraits[chara][state];
+        S.activeCharacterSprite = S.allEmotionPortraits[chara][state];
+        S.actualCharacterImage.sprite = S.activeCharacterSprite; // set for dialogue portraits
+        S.buttonPortraitDict[chara].sprite = S.activeCharacterSprite; // set for portrait buttons
         
-        if (characterSpriteImageStatic != null)
-        {
-            characterSpriteImageStatic.sprite = activeCharacterSprite; // set for dialogue portraits
-        } 
-
-        if (buttonPortraitDict != null && buttonPortraitDict.ContainsKey(chara) && buttonPortraitDict[chara] != null)
-        {
-            buttonPortraitDict[chara].sprite = activeCharacterSprite; // set for portrait buttons
-        } 
         //Debug.LogWarning(activeCharacterSprite.name + " SET !!");
     }
     

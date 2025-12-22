@@ -47,10 +47,29 @@ public class TurnBasedSystem : MonoBehaviour
     List<DestroyAfterRounds> destroyablesListTotem = new List<DestroyAfterRounds>();
     List<DestroyAfterRounds> readyToDestroyTotem = new List<DestroyAfterRounds>();
 
+    void Awake()
+    {
+        // ensure only one instance exists
+        if(S != null && S != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        S = this;
+    }
+
+    // clear static ref on scene unload
+    void OnDestroy()
+    {
+        if(S == this)
+        {
+            S = null;
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        S = this;
         // If there is data to load, load it
         if (LoadManager.S.loadData)
         {
