@@ -11,6 +11,7 @@ using UnityEngine;
 public class CharacterFears : MonoBehaviour
 {
     public static CharacterFears Instance;
+
     public int totalFearsDiscovered = 0;
     private bool[] hFearsActivated;
     private bool[] eFearsActivated;
@@ -25,11 +26,14 @@ public class CharacterFears : MonoBehaviour
 
     void Awake()
     {
-        if (Instance == null)
+        if (Instance != null && Instance != this)
         {
-            Instance = this;
+            Debug.LogError("Two Character Fears in scene!");
+            Destroy(gameObject);
+            return;
         }
-        else Debug.LogError("Two Character Fears in scene!");
+        Instance = this;
+        
         
         if (LoadManager.S.loadData)
         {
@@ -47,6 +51,15 @@ public class CharacterFears : MonoBehaviour
         iFearsActivated = new bool[iFearTexts.Length];
         mFearsActivated = new bool[mFearTexts.Length];
 
+    }
+
+    // clear static ref on scene unload
+    void OnDestroy()
+    {
+        if(Instance == this)
+        {
+            Instance = null;
+        }
     }
 
     /// <summary>
@@ -95,31 +108,47 @@ public class CharacterFears : MonoBehaviour
     /// <param name="fearNum"></param>
     public void DiscoverFear(Character c, int fearNum)
     {
-        buttonGlow.active=true;
-        totalFearsDiscovered++;
+        // Obtain given character's fear discovered bool array and revealed text array.
+        bool[] fearsArray = null;
+        GameObject[] fearTextsArray = null;   
         switch (c)
         {
             case Character.HaroldAuden:
-                hFearsActivated[fearNum] = true;
-                hFearTexts[fearNum].SetActive(true);
+                fearsArray = hFearsActivated;
+                fearTextsArray = hFearTexts;
                 break;
             case Character.EvelynVentress:
-                eFearsActivated[fearNum] = true;
-                eFearTexts[fearNum].SetActive(true);
+                fearsArray = eFearsActivated;
+                fearTextsArray = eFearTexts;
                 break;
             case Character.IainSchweblin:
-                iFearsActivated[fearNum] = true;
-                iFearTexts[fearNum].SetActive(true);
+                fearsArray = iFearsActivated;
+                fearTextsArray = iFearTexts;
                 break;
             case Character.MackenzieJoyce:
-                mFearsActivated[fearNum] = true;
-                mFearTexts[fearNum].SetActive(true);
+                fearsArray = mFearsActivated;
+                fearTextsArray = mFearTexts;
                 break;
             default:
-                Debug.LogError("Invalid Character set in DialogueBank!!");
-                break;
+                Debug.LogError("Invalid Character");
+                return;
         }
-
+        
+        // Check if fearNum exists for character
+        if (fearNum < 0 || fearNum >= fearsArray.Length)
+        {
+            Debug.LogError($"Fear index {fearNum} out of range for character {c}. Valid range: 0-{fearsArray.Length - 1}");
+            return;
+        }
+        
+        // Only unlock if the fear hasn't been discovered yet
+        if (!fearsArray[fearNum])
+        {
+            buttonGlow.active = true;
+            totalFearsDiscovered++;
+            fearsArray[fearNum] = true;
+            fearTextsArray[fearNum].SetActive(true);
+        }
     }
 
     public bool[] GetFearsDiscovered(Character c)
