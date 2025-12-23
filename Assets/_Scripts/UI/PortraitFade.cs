@@ -70,7 +70,6 @@ public class PortraitFade : MonoBehaviour, ITurnObserver
                 alpha = Mathf.Lerp(MaxAlpha, maxClickedAlpha, t);
                 t += interpolationSpeed * Time.deltaTime;
 
-
                 portraitColor.a = alpha;
                 Portrait.color = portraitColor;
                 yield return new WaitForEndOfFrame();
@@ -155,23 +154,17 @@ public class PortraitFade : MonoBehaviour, ITurnObserver
             PortraitButton.enabled = true;
             while (Portrait.color.a < MaxAlpha)
             {
-
                 float alpha = portraitColor.a;
                 alpha = Mathf.Lerp(startingAlpha, MaxAlpha, t);
                 t += interpolationSpeed * Time.deltaTime;
-
-
                 portraitColor.a = alpha;
                 Portrait.color = portraitColor;
                 yield return new WaitForEndOfFrame();
             }
             PortraitButton.enabled = true;
         }
-
         else
         {
-
-
             while (Portrait.color.a < maxClickedAlpha)
             {
 
