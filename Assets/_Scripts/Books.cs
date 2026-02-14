@@ -10,7 +10,7 @@ using UnityEngine.UIElements;
 public class Books: MonoBehaviour
 {
     /// <summary>
-    /// This script handles logic for changing books
+    /// This script handles logic for changing books 
     /// 
     /// </summary>
 
@@ -32,78 +32,62 @@ public class Books: MonoBehaviour
         }
 
         bookshelf.Booklist.Add(this);
-
-      
-    
     }
 
 
     // changes which book is open for the player and sets the first page as the current active page
-    //bools are indicating if the function is from unlocking a new page or not, and if it is unlocking a page is it a narrative clue or not
-
-    //messy function, needs cleaning
+    //bools are indicating if the function is from unlocking a new page or not,
+    //  and if it is unlocking a page is it a narrative clue or not
     public void ChangeBook(bool FromUnlock, bool UnlockingClue)
     {
         OpenBook OB =openBook.GetComponent<OpenBook>();
         if (OB.gameObject.activeSelf&&!FromUnlock) return;
-        
         foreach(var BK in bookshelf.Booklist)
-        {
-            
-            BK.openBook.SetActive(false);
-           
+        {   
+            BK.openBook.SetActive(false);   
         }
         openBook.SetActive(true);
-       
-
         foreach(GameObject page in OB.storyPanels)
         {
             page.SetActive(false);
-            
         }
 
         foreach(GameObject page in OB.narrativeClues)
         {
             page.SetActive(false);
         }
-        
-
-        //opens new book on starting page
+        //opens new book on starting page 
         if(!FromUnlock)
         {
-            
             OB.storyPanels[0].SetActive(true);
             OB.activePage = OB.storyPanels[0];
             OB.firstPage= OB.storyPanels[0];
             OB.lastPage = OB.storyPanels[OB.unlockedPages-1];
             OB.storyboardOpen= true;
+            OB.leftTurner.SetActive(false);
+            if(OB.lastPage == OB.activePage&& OB.unlockedClues==0) OB.rightTurner.SetActive(false);
+            else OB.rightTurner.SetActive(true);
         }
 
         //opens book on new unlocked page and changes camera
         else
         {
-            //clAI.SwitchToStoryboardCamera(); if this was for handling from narrative clue unlock, doing it elsewhere, in Mission! - jay
+            clAI.SwitchToStoryboardCamera();
             OB.activePage.SetActive(true);
+            OB.leftTurner.SetActive(true);
             if (UnlockingClue)
             {
-                
-                
                 OB.storyboardOpen=false;
+                OB.rightTurner.SetActive(false);
             }
 
             else
-            {
-                
+            {   
+                if(OB.unlockedClues==0) OB.rightTurner.SetActive(false);
+                else OB.rightTurner.SetActive(true);
                 OB.storyboardOpen=true;
-               
             }
         }
-       
-        
-
-   
-        
-
     }
 
 

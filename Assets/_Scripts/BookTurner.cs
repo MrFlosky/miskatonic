@@ -5,11 +5,19 @@ using UnityEngine;
 public class BookTurner : MonoBehaviour
 {
     OpenBook OB;
-    [SerializeField]
-    bool nextPage;
+
+    public bool nextPage;
+    public SpriteRenderer pageTurner;
+
+    void Awake()
+    {
+         pageTurner= GetComponentInChildren<SpriteRenderer>();
+    }
+
     void Start()
     {
         OB = GetComponentInParent<OpenBook>();
+       
     }
 
 
