@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Runtime.CompilerServices;
 
 public class PortraitFade : MonoBehaviour, ITurnObserver
 {
@@ -91,6 +92,7 @@ public class PortraitFade : MonoBehaviour, ITurnObserver
     //fully fades out a portrait
     public IEnumerator FadeOut()
     {
+        StopCoroutine(FadeIn());
         EnableRaycasts(false);
         float startingAlpha = Portrait.color.a;
         buttonText.GetComponent<TextMeshProUGUI>().enabled = false;
@@ -120,7 +122,7 @@ public class PortraitFade : MonoBehaviour, ITurnObserver
         float t = 0;
         StopCoroutine(FadeOut());
          buttonText.GetComponent<TextMeshProUGUI>().enabled = true;
-        PortraitButton.enabled = true;
+        PortraitButton.enabled = false;
         float startingAlpha = Portrait.color.a;
         while (Portrait.color.a < MaxAlpha)
         {
@@ -146,9 +148,7 @@ public class PortraitFade : MonoBehaviour, ITurnObserver
         buttonText.GetComponent<TextMeshProUGUI>().enabled = true;
         EnableRaycasts(true);
         float startingAlpha = Portrait.color.a;
-        PortraitButton.enabled = true;
-        PortraitButton.interactable=true;
-        clicked = false;
+        
         if (!clicked || UIManagerLite.GetCurrentState() != UIManagerLite.GameState.BoardBase)
         {
             PortraitButton.enabled = true;
@@ -161,7 +161,7 @@ public class PortraitFade : MonoBehaviour, ITurnObserver
                 Portrait.color = portraitColor;
                 yield return new WaitForEndOfFrame();
             }
-            PortraitButton.enabled = true;
+            //PortraitButton.enabled = true;
         }
         else
         {
@@ -179,6 +179,7 @@ public class PortraitFade : MonoBehaviour, ITurnObserver
             }
         }
 
+        
         
 
     }
