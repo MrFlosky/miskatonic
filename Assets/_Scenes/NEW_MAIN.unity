@@ -91279,10 +91279,15 @@ MonoBehaviour:
     Grants an item that attracts all characters when they
     are within range.
 
+    Lasts three turns.
 
-    - Left Click: Select Character
 
-    - Right Click: Cancel'
+    Left Click: Place
+
+    Enter:
+    Confirm
+
+    Right Click: Cancel'
   infoRight: 'Cost: 4'
 --- !u!1001 &825959287
 PrefabInstance:
@@ -98011,12 +98016,14 @@ MonoBehaviour:
   infoLeft: 'Barriers
 
 
-    Cultists construct barriers, inhibiting the movement
-    of characters on the map. Grants two barriers to be placed. Barriers last for
-    one turn.
+    Instruct your cultists to construct a barrier, inhibiting
+    the movement of characters on the map.
+
+    Barriers last for three turns.
 
 
-    Left Click: Select Cell/Rotate
+    Left
+    Click: Select Cell/Rotate
 
     Enter: Confirm'
   infoRight: 'Cost: 2'
@@ -115546,13 +115553,14 @@ MonoBehaviour:
   infoLeft: 'Renovation
 
 
-    Choose a room. For the next 3 turns all characters
-    in that room gain fear.
+    Choose a room to make more terrifying. For the next
+    three turns all characters in that room gain fear.
 
 
     Left Click: Select Room
 
-    Right Click: Cancel'
+    Right
+    Click: Cancel'
   infoRight: 'Cost: 3'
 --- !u!1001 &1057117595
 PrefabInstance:
@@ -166836,15 +166844,15 @@ MonoBehaviour:
   infoLeft: 'Psychosis
 
 
-    Choose a character. For the next 3 turns they see other
-    characters as horrifying monsters, gaining fear based on the amount of other
-    characters nearby (in the same room or within 3 tiles).
+    Choose a character. For the next three turns they see
+    other characters as horrifying monsters, gaining fear based on the amount of
+    other characters nearby (in the same room or within 3 tiles).
 
 
-    - Left Click: Select
-    Character
+    Left Click:
+    Select Character
 
-    - Right Click: Cancel'
+    Right Click: Cancel'
   infoRight: 'Cost: 8'
 --- !u!1001 &1455227014
 PrefabInstance:
@@ -205796,10 +205804,10 @@ MonoBehaviour:
     Destroy any maze wall.
 
 
-    - Left Click: Select
-    Wall
+    Left Click: Select Cell/Rotate
 
-    - Right Click: Cancel'
+    Right
+    Click: Cancel'
   infoRight: 'Cost: 2'
 --- !u!1001 &1719847903
 PrefabInstance:
@@ -215261,18 +215269,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   simpleTooltipStyle: {fileID: 11400000, guid: b60656fad1664684d8fb0085c2c6ccbb, type: 2}
-  infoLeft: 'Fear Totem
-
-
-    Grants an object that can be placed on the map, out
-    of line of sight of the given character. When any character sees the object,
-    fear increases and they path away.
-
-
-    - Left Click: Confirm
-
-    - Right Click:
-    Cancel'
+  infoLeft: "Fear Totem\n\nGrants an object that can be placed on the map, inspiring
+    fear into any characters that see it, causing them to gain fear and path away.
+    \nThe fear totem cannot be placed in the current line of sight of any characters,
+    and lasts two turns. \n\nLeft Click: Place\nRight Click: Cancel"
   infoRight: 'Cost: 6'
 --- !u!1001 &1801349931
 PrefabInstance:
@@ -262865,12 +262865,12 @@ MonoBehaviour:
     Select two rooms and swap their locations.
 
 
-    -
+    Left
+    Click: Select Rooms
+
     Enter: Confirm
 
-    - Left click: Select rooms
-
-    - Right click: Cancel'
+    Right Click: Cancel'
   infoRight: 'Cost: 5'
 --- !u!222 &4391699212059953656
 CanvasRenderer:
@@ -263148,16 +263148,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   simpleTooltipStyle: {fileID: 11400000, guid: b60656fad1664684d8fb0085c2c6ccbb, type: 2}
-  infoLeft: 'AOE Fear
-
-
-    Raise a fog in a 2x2 radius that increases fear of all
-    characters inside.
-
-
-    - LMB: Choose maze cell
-
-    - Enter: Confirm'
+  infoLeft: "AOE Fear\n\nRaise a fog in a 2x2 radius that increases fear for all
+    characters inside.\nLasts for three turns. \n\nLeft Click: Choose Maze Cell\nEnter:
+    Confirm"
   infoRight: 'Cost: 4'
 --- !u!224 &6118490766366146386
 RectTransform:
