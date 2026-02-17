@@ -9,8 +9,6 @@ public class PostProcRenderFeature : ScriptableRendererFeature
     {
         public Material paintMaterial;
         public Material ditherMaterial;
-        public Material noPostProcMaterial;
-        public RenderTexture excludedObjectsRT;
     }
 
     public Settings settings = new Settings();

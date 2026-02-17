@@ -30,8 +30,6 @@ Shader "Custom/PaintPPE_Shader"
             // 8 good for in between noise/texture reduction and edge preservation
             #define SECTOR_COUNT 8
             float _Radius;
-            // Hardcoded texture pixel size for 1920x1080
-            static const float2 TEXEL_SIZE = float2(1.0/1920.0, 1.0/1080.0);
 
             // for color levels
             //int _ColorLevels;
@@ -65,15 +63,15 @@ Shader "Custom/PaintPPE_Shader"
             }
 
             // Sample texture at given texture coordinate with offset
-            float3 sampleTextureColor(float2 offset, float2 baseCoord)
+            float3 sampleTextureColor(float2 offset, float2 baseCoord, float2 texelSize)
             {
-                float2 offsetTexCoord = baseCoord + offset * TEXEL_SIZE;
+                float2 offsetTexCoord = baseCoord + offset * texelSize;
                 return SAMPLE_TEXTURE2D_X(_BlitTexture, sampler_LinearClamp, offsetTexCoord).rgb;
             }
 
             // Get the VARIANCE (standard deviation is sqrt(variance) which we arent doing bc compute cost) and average color from a specific sector
             // within the greater region around each pixel.
-            void getSectorVarianceAndAverageColor(float2 texCoord, float angle, float radius, out float3 avgColor, out float variance)
+            void getSectorVarianceAndAverageColor(float2 texelSize, float2 texCoord, float angle, float radius, out float3 avgColor, out float variance)
             {
                 float3 weightedColorSum = float3(0.0, 0.0, 0.0);
                 float3 weightedSquaredColorSum = float3(0.0, 0.0, 0.0);
@@ -89,7 +87,7 @@ Shader "Custom/PaintPPE_Shader"
                     {
                         // polar (Distance, angle) to cartesian conversion (x,y)
                         float2 sampleOffset = r * float2(cos(angle + a), sin(angle + a));
-                        float3 color = sampleTextureColor(sampleOffset, texCoord);
+                        float3 color = sampleTextureColor(sampleOffset, texCoord, texelSize);
 
                         float weight = polynomialWeight(sampleOffset.x, sampleOffset.y, eta, lambda);
                         weightedColorSum += color * weight;
@@ -125,6 +123,7 @@ Shader "Custom/PaintPPE_Shader"
 
             half4 frag(Varyings input) : SV_Target
             {
+                float2 TEXEL_SIZE = float2(1.0 / _ScreenParams.x, 1.0 / _ScreenParams.y);
                 float3 sectorAvgColors[SECTOR_COUNT];
                 float sectorVariances[SECTOR_COUNT];
 
@@ -132,7 +131,7 @@ Shader "Custom/PaintPPE_Shader"
                 for (int j = 0; j < SECTOR_COUNT; j++)
                 {
                     float angle = float(j) * 6.28318 / float(SECTOR_COUNT);
-                    getSectorVarianceAndAverageColor(input.texcoord, angle, _Radius, sectorAvgColors[j], sectorVariances[j]);
+                    getSectorVarianceAndAverageColor(TEXEL_SIZE, input.texcoord, angle, _Radius, sectorAvgColors[j], sectorVariances[j]);
                 }
 
                 float minVariance = sectorVariances[0];
