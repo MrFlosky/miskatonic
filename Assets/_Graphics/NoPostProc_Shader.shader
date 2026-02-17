@@ -6,25 +6,28 @@ Shader "Hidden/AlphaComposite"
     }
     SubShader
     {
-        Tags { "Queue"="Transparent" }
+        Tags { "Queue"="Transparent" "RenderPipeline"="UniversalPipeline" }
         Blend SrcAlpha OneMinusSrcAlpha // Alpha blending
         // ZWrite Off fullscreen blit, depth buffer operations bypassed so this is useless for transparent objs to not block other transparent objects
-        
+        ZWrite Off ZTest Always Cull Off
+
         Pass
         {
-            CGPROGRAM
-            #pragma vertex vert_img
+            HLSLPROGRAM
+            #pragma vertex Vert
             #pragma fragment frag
-            #include "UnityCG.cginc"
 
-            sampler2D _MainTex;
-            
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+            #include "Packages/com.unity.render-pipelines.core/Runtime/Utilities/Blit.hlsl"
 
-            fixed4 frag (v2f_img i) : SV_Target
+            // Blit.hlsl provides Vert and _BlitTexture automatically.
+            // _MainTex is no longer needed — URP binds the source RT to _BlitTexture instead.
+
+            half4 frag(Varyings input) : SV_Target
             {
-                return tex2D(_MainTex, i.uv);
+                return SAMPLE_TEXTURE2D_X(_BlitTexture, sampler_LinearClamp, input.texcoord);
             }
-            ENDCG
+            ENDHLSL
         }
     }
 }
