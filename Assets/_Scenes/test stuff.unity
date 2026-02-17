@@ -145135,6 +145135,10 @@ PrefabInstance:
       propertyPath: mazeGenerator
       value: 
       objectReference: {fileID: 1183987254}
+    - target: {fileID: 3466730763490498517, guid: cfdc6b546d4860d49ae0820305f7a38d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
     - target: {fileID: 5357938843413115689, guid: cfdc6b546d4860d49ae0820305f7a38d, type: 3}
       propertyPath: m_IsKinematic
       value: 1
@@ -201670,7 +201674,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10308, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: e823cd5b5d27c0f4b8256e7c12ee3e6d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

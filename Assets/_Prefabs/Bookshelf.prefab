@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -120,6 +120,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   openBook: {fileID: 0}
   bookshelf: {fileID: 0}
+  charactersBook: 0
 --- !u!1 &2503060248737823053
 GameObject:
   m_ObjectHideFlags: 0
@@ -183,7 +184,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -240,6 +241,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   openBook: {fileID: 0}
   bookshelf: {fileID: 0}
+  charactersBook: 0
 --- !u!1 &2745984844729903000
 GameObject:
   m_ObjectHideFlags: 0
@@ -352,7 +354,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -409,6 +411,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   openBook: {fileID: 0}
   bookshelf: {fileID: 0}
+  charactersBook: 0
 --- !u!1 &7758099720788011288
 GameObject:
   m_ObjectHideFlags: 0
@@ -472,7 +475,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -529,3 +532,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   openBook: {fileID: 0}
   bookshelf: {fileID: 0}
+  charactersBook: 0
