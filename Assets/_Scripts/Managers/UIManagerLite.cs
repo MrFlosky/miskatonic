@@ -215,7 +215,7 @@ public class UIManagerLite : MonoBehaviour
                     }
 
                     S.skillUICollection.ENABLE_BUTTONS();
-                    S.EnablePortraitButtons();
+                   // S.EnablePortraitButtons();
 
                 }
                 // TRANSITION: Storyboard → BoardBase

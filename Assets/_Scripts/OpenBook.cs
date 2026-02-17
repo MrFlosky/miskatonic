@@ -26,6 +26,7 @@ public class OpenBook : MonoBehaviour
     public GameObject activePage;
     public int unlockedPages;
     public int unlockedClues;
+    public GameObject rightTurner, leftTurner;
     
     public bool storyboardOpen=true; 
     
@@ -40,7 +41,12 @@ public class OpenBook : MonoBehaviour
         {
             if (t.GetComponent<BookTurner>())
             {
+                BookTurner BT = t.GetComponent<BookTurner>();
                 pageTurners.Add(t.gameObject);
+                GameObject PT = BT.pageTurner.gameObject;
+                if(BT.nextPage) rightTurner= PT;
+                else leftTurner = PT;
+                
             }
             
             else if (t.CompareTag("Clues"))
@@ -73,6 +79,7 @@ public class OpenBook : MonoBehaviour
     public void NextPage()
     {
         int pageNumber;
+        leftTurner.SetActive(true);
         //the last unlocked storyboard pannel is open. Advances to narrative clues if they are unlocked, returns if not
         if (lastPage.activeSelf&&storyboardOpen)
         {  
@@ -84,6 +91,7 @@ public class OpenBook : MonoBehaviour
             firstPage = narrativeClues[0];
             lastPage = narrativeClues[unlockedClues-1];
             activePage = narrativeClues[0];
+            if(activePage==lastPage) rightTurner.SetActive(false);
             return;
         }
         
@@ -102,7 +110,8 @@ public class OpenBook : MonoBehaviour
             pageNumber = narrativeClues.IndexOf(activePage);
             activePage.SetActive(false);
             narrativeClues[pageNumber+1].SetActive(true);
-            activePage= narrativeClues[pageNumber+1];    
+            activePage= narrativeClues[pageNumber+1];  
+            if(activePage==lastPage) rightTurner.SetActive(false);  
 
         }
     }
@@ -110,6 +119,7 @@ public class OpenBook : MonoBehaviour
     public void PreviousPage()
     {
         int pageNumber;
+        rightTurner.SetActive(true);
         
         //storyboard pannel is open, opens the previous page
         if (storyboardOpen && !firstPage.activeSelf)
@@ -119,6 +129,7 @@ public class OpenBook : MonoBehaviour
             activePage.SetActive(false);
             storyPanels[pageNumber-1].SetActive(true);
             activePage = storyPanels[pageNumber-1];
+            if(activePage==firstPage)leftTurner.SetActive(false);
         }
 
         //th first narrative clue is open, opens the final unlocked story pannel
@@ -140,6 +151,10 @@ public class OpenBook : MonoBehaviour
             activePage.SetActive(false);
             narrativeClues[pageNumber-1].SetActive(true);
             activePage = narrativeClues[pageNumber-1];
+            if (activePage == lastPage)
+            {
+                
+            }
         }
 
         
