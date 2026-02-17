@@ -2,6 +2,10 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
+/// <summary>
+/// Actual post post proc pass for paint and dither. Records and submits GPU
+/// command for blitting shaders over camera's render texture.
+/// </summary>
 public class PostProcRenderPass : ScriptableRenderPass
 {
     private PostProcRenderFeature.Settings _settings;
@@ -10,26 +14,43 @@ public class PostProcRenderPass : ScriptableRenderPass
     // Temporary RT for paint pass output
     private RTHandle _firstPassRT;
 
+    /// <summary>
+    /// Init render pass with settings (materials we want to blit over our color texture attachment)
+    /// </summary>
+    /// <param name="settings"></param>
     public PostProcRenderPass(PostProcRenderFeature.Settings settings)
     {
         _settings = settings;
-        profilingSampler = new ProfilingSampler("PPE Passes");
+        profilingSampler = new ProfilingSampler("PPE Passes"); // debug for profiling
     }
 
+    /// <summary>
+    /// Called by feature every frame to store updated color texture attachment.
+    /// </summary>
+    /// <param name="source"></param>
     public void Setup(RTHandle source)
     {
         _source = source;
     }
 
+    /// <summary>
+    /// Init/reuse temp render texture with camera's params, res, and only color attachment.
+    /// Runs before execute each frame.
+    /// </summary>
+    /// <param name="cmd"></param>
+    /// <param name="renderingData"></param>
     public override void OnCameraSetup(CommandBuffer cmd, ref RenderingData renderingData)
     {
         var desc = renderingData.cameraData.cameraTargetDescriptor;
         desc.depthBufferBits = 0; // color only
-
-        // Only need one temp RT now
         RenderingUtils.ReAllocateIfNeeded(ref _firstPassRT, desc, name: "_FirstPassRT");
     }
 
+    /// <summary>
+    /// Record GPU commands for blitting then submit them!
+    /// </summary>
+    /// <param name="context"></param>
+    /// <param name="renderingData"></param>
     public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
     {
         if (_source == null) { Debug.LogError("PPE: _source is null"); return; }
@@ -39,7 +60,6 @@ public class PostProcRenderPass : ScriptableRenderPass
 
 
         CommandBuffer cmd = CommandBufferPool.Get("PPE Passes");
-
         using (new ProfilingScope(cmd, profilingSampler))
         {
             // Pass 1: source → firstPassRT with paint material
