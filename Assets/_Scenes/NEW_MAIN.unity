@@ -1639,6 +1639,14 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6465520810416128537, guid: 476f9329474a21d4aa4bf27476dbe79e, type: 3}
+      propertyPath: m_Intensity
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6643526430662397878, guid: 476f9329474a21d4aa4bf27476dbe79e, type: 3}
+      propertyPath: m_Intensity
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6770681998623607796, guid: 476f9329474a21d4aa4bf27476dbe79e, type: 3}
       propertyPath: m_Name
       value: Study Room Props
@@ -19077,7 +19085,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &177965840
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19113,8 +19121,8 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 0.6627451, g: 1, b: 0.88246316, a: 1}
-  m_Intensity: 2.5
-  m_Range: 18.4
+  m_Intensity: 50
+  m_Range: 80
   m_SpotAngle: 125.1
   m_InnerSpotAngle: 39.2
   m_CookieSize: 10
@@ -19172,7 +19180,7 @@ Transform:
   m_GameObject: {fileID: 177965839}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.36362526, z: -0.9315453, w: 0}
-  m_LocalPosition: {x: 20, y: 6.6, z: -12.5}
+  m_LocalPosition: {x: 13.2, y: 18.6, z: -17.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -28709,6 +28717,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextPage: 1
+  pageTurner: {fileID: 0}
 --- !u!65 &276203666
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -31509,6 +31518,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextPage: 1
+  pageTurner: {fileID: 0}
 --- !u!65 &298844320
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -40855,6 +40865,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextPage: 0
+  pageTurner: {fileID: 0}
 --- !u!65 &375994015
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -56333,7 +56344,7 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 0.6627451, g: 1, b: 0.88235295, a: 1}
-  m_Intensity: 4.5
+  m_Intensity: 500
   m_Range: 43.77
   m_SpotAngle: 125.1
   m_InnerSpotAngle: 39.2
@@ -61365,8 +61376,8 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 0.5431265, g: 0.99999994, b: 0.9007096, a: 1}
-  m_Intensity: 500
-  m_Range: 43.77
+  m_Intensity: 800
+  m_Range: 400
   m_SpotAngle: 125.1
   m_InnerSpotAngle: 39.2
   m_CookieSize: 10
@@ -61447,7 +61458,7 @@ Transform:
   m_GameObject: {fileID: 545437368}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 18, y: 18.35, z: 20}
+  m_LocalPosition: {x: 18, y: 24, z: 20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -72157,6 +72168,8 @@ MonoBehaviour:
   activePage: {fileID: 0}
   unlockedPages: 0
   unlockedClues: 0
+  rightTurner: {fileID: 0}
+  leftTurner: {fileID: 0}
   storyboardOpen: 1
   charactersBook: 3
 --- !u!4 &641952649
@@ -83364,7 +83377,7 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 0.6627451, g: 1, b: 0.88235295, a: 1}
-  m_Intensity: 4.5
+  m_Intensity: 500
   m_Range: 43.77
   m_SpotAngle: 125.1
   m_InnerSpotAngle: 39.2
@@ -84832,7 +84845,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &754535696
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -84868,8 +84881,8 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 0.6627451, g: 1, b: 0.88246316, a: 1}
-  m_Intensity: 2.5
-  m_Range: 18.4
+  m_Intensity: 50
+  m_Range: 80
   m_SpotAngle: 125.1
   m_InnerSpotAngle: 39.2
   m_CookieSize: 10
@@ -98726,6 +98739,8 @@ MonoBehaviour:
   activePage: {fileID: 0}
   unlockedPages: 0
   unlockedClues: 0
+  rightTurner: {fileID: 0}
+  leftTurner: {fileID: 0}
   storyboardOpen: 1
   charactersBook: 2
 --- !u!4 &890412980
@@ -103583,6 +103598,8 @@ MonoBehaviour:
   activePage: {fileID: 0}
   unlockedPages: 0
   unlockedClues: 0
+  rightTurner: {fileID: 0}
+  leftTurner: {fileID: 0}
   storyboardOpen: 1
   charactersBook: 0
 --- !u!4 &937283882
@@ -112161,6 +112178,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1307342719}
     m_Modifications:
+    - target: {fileID: 2621840877627318546, guid: 138c24dd9c1ae5c43ac1bfc961a85db5, type: 3}
+      propertyPath: m_Intensity
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 3494529443918049726, guid: 138c24dd9c1ae5c43ac1bfc961a85db5, type: 3}
       propertyPath: m_Name
       value: Ritual Room Props
@@ -114947,6 +114968,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6904221870658008297, guid: 61948e313a2e96a44ae0194762977b0f, type: 3}
+      propertyPath: m_Intensity
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8227680348822608025, guid: 61948e313a2e96a44ae0194762977b0f, type: 3}
       propertyPath: m_ConstrainProportionsScale
       value: 0
@@ -115183,6 +115208,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextPage: 1
+  pageTurner: {fileID: 0}
 --- !u!65 &1051815889
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -128319,6 +128345,10 @@ PrefabInstance:
     - target: {fileID: 578364665148155532, guid: d0726bef5ab956042a2a255e9769f7d9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 985196220156262433, guid: d0726bef5ab956042a2a255e9769f7d9, type: 3}
+      propertyPath: m_Intensity
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 1157073708678129296, guid: d0726bef5ab956042a2a255e9769f7d9, type: 3}
       propertyPath: m_Enabled
@@ -141551,6 +141581,10 @@ PrefabInstance:
     - target: {fileID: 2242943741013215061, guid: 361b5b54e358bdc4d945af23540f9680, type: 3}
       propertyPath: m_Name
       value: Dungeon Room Props
+      objectReference: {fileID: 0}
+    - target: {fileID: 2333082272587607773, guid: 361b5b54e358bdc4d945af23540f9680, type: 3}
+      propertyPath: m_Intensity
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 2620472592197114134, guid: 361b5b54e358bdc4d945af23540f9680, type: 3}
       propertyPath: m_LocalScale.x
@@ -210780,6 +210814,8 @@ MonoBehaviour:
   activePage: {fileID: 0}
   unlockedPages: 0
   unlockedClues: 0
+  rightTurner: {fileID: 0}
+  leftTurner: {fileID: 0}
   storyboardOpen: 1
   charactersBook: 1
 --- !u!4 &1751006056
@@ -219221,6 +219257,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextPage: 1
+  pageTurner: {fileID: 0}
 --- !u!65 &1828660770
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -220673,7 +220710,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5189735326197054452, guid: 8af1ed2321e046145937d323470b8fc0, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.000049591064
+      value: 0.000011444092
       objectReference: {fileID: 0}
     - target: {fileID: 5189735326197054452, guid: 8af1ed2321e046145937d323470b8fc0, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -229772,6 +229809,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextPage: 0
+  pageTurner: {fileID: 0}
 --- !u!65 &1907174102
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -237528,6 +237566,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextPage: 0
+  pageTurner: {fileID: 0}
 --- !u!65 &1939578947
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -241314,6 +241353,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextPage: 0
+  pageTurner: {fileID: 0}
 --- !u!65 &1979541633
 BoxCollider:
   m_ObjectHideFlags: 0
