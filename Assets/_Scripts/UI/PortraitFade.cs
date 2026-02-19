@@ -121,21 +121,14 @@ public class PortraitFade : MonoBehaviour, ITurnObserver
         EnableRaycasts(true);
         float t = 0;
         StopCoroutine(FadeOut());
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
          buttonText.GetComponent<TextMeshProUGUI>().enabled = true;
         PortraitButton.enabled = false;
-=======
-=======
->>>>>>> Stashed changes
+
         StopCoroutine(FadeIn());
         buttonText.GetComponent<TextMeshProUGUI>().enabled = true;
         PortraitButton.enabled = true;
         EnableRaycasts(true);
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
+
         float startingAlpha = Portrait.color.a;
         while (Portrait.color.a < MaxAlpha)
         {
@@ -148,16 +141,6 @@ public class PortraitFade : MonoBehaviour, ITurnObserver
 
             yield return new WaitForEndOfFrame();
         }
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-       
-        
-=======
-    
->>>>>>> Stashed changes
-=======
-    
->>>>>>> Stashed changes
 
     }
 
