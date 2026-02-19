@@ -32,6 +32,11 @@ public class ModifyValsInterface : MonoBehaviour
     [SerializeField] private Fear[] fearArray = new Fear[4];
 
     /// <summary>
+    /// Whether or not in demo mode to change win/lose text.
+    /// </summary>
+    [SerializeField] private bool demoMode = false;
+
+    /// <summary>
     /// Resets all values to their original (last build before mi497)
     /// </summary>
     public void ResetToDefaults()
@@ -62,6 +67,7 @@ public class ModifyValsInterface : MonoBehaviour
         aoe.perTurnFear = aoeFearAddedPerTurn;
         gm.roundsUntilDefeat = numberOfTOTALRoundsUntilDefeat;
         gm.winFear = totalFearToWin;
+        gm.demo = demoMode;
         DialogueBank.fearAdd = dialogueFearAdd;
         DialogueBank.fearReduce = dialogueFearReduce;
         // have to do this here bc maxval set once in awake for fmet

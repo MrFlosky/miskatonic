@@ -27,6 +27,11 @@ public class TurnBasedSystem : MonoBehaviour
     public TextMeshProUGUI txt;
 
     /// <summary>
+    /// Text for demo thanks
+    /// </summary>
+    public TMP_Text demoThankYouTxt;  
+
+    /// <summary>
     /// Tracking # of turns of each type taken, as well as total turns.
     /// </summary>
     private int totalTurnCount = 0;

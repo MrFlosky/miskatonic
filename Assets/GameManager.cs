@@ -202,6 +202,38 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
+    /// Whether or not we are in demo mode,
+    /// which gives a specific lose message.
+    /// </summary>
+    public bool demo;
+
+    /// <summary>
+    /// Text for demo thanks
+    /// </summary>
+    public TMP_Text demoThankYouTxt;  
+
+    private IEnumerator FadeDemoText(float waitSecs)
+    {
+        yield return new WaitForSeconds(waitSecs); 
+        float duration = 1f;
+        Color c = demoThankYouTxt.color;
+        c.a = 0f;
+        demoThankYouTxt.color = c;
+
+        float elapsed = 0f;
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            c.a = Mathf.Lerp(0f, 1f, elapsed / duration);
+            demoThankYouTxt.color = c;
+            yield return null;
+        }
+
+        c.a = 1f;
+        demoThankYouTxt.color = c;
+    }
+
+    /// <summary>
     /// Initiate a game WIN
     /// </summary>
     public void Win(string reason)
@@ -217,8 +249,17 @@ public class GameManager : MonoBehaviour
         Destroy(endTurnButton);
         clickAI.EndConversation();
         Destroy(clickAI.gameObject);
+
+        if(demo)
+        {
+            demoThankYouTxt.text = "Thank you for playing! Look forward to full release in Summer 2026.";
+            StartCoroutine(FadeDemoText(9f));
+        } 
         winScript.Win(reason);
+
     }
+
+    
 
     /// <summary>
     /// Initiate a game LOSE
@@ -234,7 +275,14 @@ public class GameManager : MonoBehaviour
         Destroy(endTurnButton);
         clickAI.EndConversation();
         Destroy(clickAI.gameObject);
+
+        if(demo)
+        {
+            demoThankYouTxt.text = "Thank you for playing! Look forward to full release in Summer 2026.";
+            StartCoroutine(FadeDemoText(6.5f));
+        } 
         loseScript.Lose(reason);
+        
     }
     #endregion
 
