@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 /// <summary>
 /// This class is responsible for turning objects the character collides with to transparent.
@@ -138,7 +140,7 @@ public class Ghostify : MonoBehaviour
         Color[] originalColors = new Color[materials.Length];
         for (int i = 0; i < materials.Length; i++)
         {
-            originalColors[i] = materials[i].GetColor("_Color");
+            originalColors[i] = materials[i].GetColor("_BaseColor");
         }
         
         // Fade to transparent
@@ -151,7 +153,7 @@ public class Ghostify : MonoBehaviour
             {
                 Color color = originalColors[i];
                 color.a = Mathf.Lerp(originalColors[i].a, transparentAlpha, elapsed);
-                materials[i].SetColor("_Color", color);
+                materials[i].SetColor("_BaseColor", color);
             }
             
             yield return null;
@@ -172,7 +174,7 @@ public class Ghostify : MonoBehaviour
         Color[] currentColors = new Color[materials.Length];
         for (int i = 0; i < materials.Length; i++)
         {
-            currentColors[i] = materials[i].GetColor("_Color");
+            currentColors[i] = materials[i].GetColor("_BaseColor");
         }
         
         // Fade to opaque
@@ -185,7 +187,7 @@ public class Ghostify : MonoBehaviour
             {
                 Color color = currentColors[i];
                 color.a = Mathf.Lerp(currentColors[i].a, 1f, elapsed);
-                materials[i].SetColor("_Color", color);
+                materials[i].SetColor("_BaseColor", color);
             }
             
             yield return null;
@@ -212,29 +214,48 @@ public class Ghostify : MonoBehaviour
 /// Class for extension methods for materials, needed to set standard shader's rendering mode.
 /// Found here: https://discussions.unity.com/t/change-rendering-mode-via-script/667727/6
 /// </summary>
+/// 
 public static class MaterialExtensions
 {
-    public static void ToOpaqueMode(this Material material)
-    {
-        material.SetOverrideTag("RenderType", "");
-        material.SetInt("_SrcBlend", (int) UnityEngine.Rendering.BlendMode.One);
-        material.SetInt("_DstBlend", (int) UnityEngine.Rendering.BlendMode.Zero);
-        material.SetInt("_ZWrite", 1);
-        material.DisableKeyword("_ALPHATEST_ON");
-        material.DisableKeyword("_ALPHABLEND_ON");
-        material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
-        material.renderQueue = -1;
-    }
-  
     public static void ToFadeMode(this Material material)
     {
-        material.SetOverrideTag("RenderType", "Transparent");
-        material.SetInt("_SrcBlend", (int) UnityEngine.Rendering.BlendMode.SrcAlpha);
-        material.SetInt("_DstBlend", (int) UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
-        material.SetInt("_ZWrite", 0);
+        material.SetFloat("_Surface", 1f);          // Transparent
+        material.SetFloat("_Blend", 0f);            // Alpha
+        material.SetFloat("_ZWrite", 0f);
+        material.SetFloat("_AlphaClip", 0f);
+        material.SetFloat("_SrcBlend", (float)BlendMode.SrcAlpha);
+        material.SetFloat("_DstBlend", (float)BlendMode.OneMinusSrcAlpha);
+        material.SetFloat("_SrcBlendAlpha", (float)BlendMode.One);
+        material.SetFloat("_DstBlendAlpha", (float)BlendMode.OneMinusSrcAlpha);
+        material.SetFloat("_BlendModePreserveSpecular", 0f);
+
+        material.EnableKeyword("_SURFACE_TYPE_TRANSPARENT");
         material.DisableKeyword("_ALPHATEST_ON");
-        material.EnableKeyword("_ALPHABLEND_ON");
         material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
-        material.renderQueue = (int) UnityEngine.Rendering.RenderQueue.Transparent;
+        material.DisableKeyword("_ALPHAMODULATE_ON");
+
+        material.renderQueue = (int)RenderQueue.Transparent;
+        material.SetShaderPassEnabled("ShadowCaster", false);
+    }
+
+    public static void ToOpaqueMode(this Material material)
+    {
+        material.SetFloat("_Surface", 0f);          // Opaque
+        material.SetFloat("_Blend", 0f);
+        material.SetFloat("_ZWrite", 1f);
+        material.SetFloat("_AlphaClip", 0f);
+        material.SetFloat("_SrcBlend", (float)BlendMode.One);
+        material.SetFloat("_DstBlend", (float)BlendMode.Zero);
+        material.SetFloat("_SrcBlendAlpha", (float)BlendMode.One);
+        material.SetFloat("_DstBlendAlpha", (float)BlendMode.Zero);
+        material.SetFloat("_BlendModePreserveSpecular", 1f);
+
+        material.DisableKeyword("_SURFACE_TYPE_TRANSPARENT");
+        material.DisableKeyword("_ALPHATEST_ON");
+        material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+        material.DisableKeyword("_ALPHAMODULATE_ON");
+
+        material.renderQueue = (int)RenderQueue.Geometry;
+        material.SetShaderPassEnabled("ShadowCaster", true);
     }
 }
