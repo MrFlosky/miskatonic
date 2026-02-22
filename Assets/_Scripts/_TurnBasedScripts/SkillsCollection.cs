@@ -89,7 +89,7 @@ public class SkillsCollection : MonoBehaviour
     {
         foreach(Skill skill in S.skillList)
         {
-            if (skill.IsUnlocked() && skill.CanAffordUsage())
+            if (skill.IsUnlocked() && skill.CanAffordUsage() && !skill.HasExpirationLock())
             {
                 skill.skillButton.interactable = true;
             } else

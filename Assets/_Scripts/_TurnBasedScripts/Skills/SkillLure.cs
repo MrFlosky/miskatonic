@@ -11,10 +11,12 @@ public class SkillLure : Skill
     
     private MazeCellObject selectedCellObj;
     private Material originalFloorMat;
+
     
     private void Start()
     {
         enabled = false;
+        LureManager.Instance.SetSkillLure(this);
     }
 
     public void OnClick(InputAction.CallbackContext context)
@@ -39,7 +41,16 @@ public class SkillLure : Skill
                 }
                 
                 selectedCellObj = cellHit;
-                originalFloorMat = cellHit.roomFloorMaterial;
+                // this fixes bug of assigning room floor material to hallways
+                if(cellHit.roomType == "Hallway")
+                {
+                    originalFloorMat = cellHit.GetFloor().GetComponent<MeshRenderer>().material;
+                }
+                else
+                {
+                    originalFloorMat = cellHit.roomFloorMaterial;
+                }
+                
                 
                 cellHit.roomFloorMaterial = highlightMat;
                 cellHit.RefreshMaterial();
@@ -65,6 +76,7 @@ public class SkillLure : Skill
             if (LureManager.Instance != null)
             {
                 LureManager.Instance.PlaceLure(lurePos, roundsLast);
+                ExpirationLock(); // dont allow another lure until this one expired
             }
             else
             {

@@ -63,12 +63,18 @@ public abstract class Skill : MonoBehaviour
     // debugging in various way but this my best fix. Simply calling get component again to get skillSystem.
     protected SkillSystem skillSystem;
 
+    /// <summary>
+    /// If we need to wait for skill's previous use to expire, like with the lure, before
+    /// using again.
+    /// </summary>
+    private bool expirationLocked;
 
     /// <summary>
     /// All derived classes should call this base awake, override to expand upon it if needed.
     /// </summary>
     protected virtual void Awake()
     {
+        expirationLocked = false;
         skillSystem = GetComponent<SkillSystem>();
         raycastLayerMask = ~LayerMask.GetMask("NoCastyCastyCollider");
     }
@@ -147,6 +153,24 @@ public abstract class Skill : MonoBehaviour
     }
 
     /// <summary>
+    /// Lock skill so its button is not enabled again
+    /// until its previous use has expired.
+    /// </summary>
+    protected void ExpirationLock()
+    {
+        expirationLocked = true;
+    }
+
+    /// <summary>
+    /// Unlock skill when its previous use is expired,
+    /// so its button is enabled again.
+    /// </summary>
+    public void ExpirationUnlock()
+    {
+        expirationLocked = false;
+    }
+
+    /// <summary>
     /// Returns whether this skill can be afforded, used by SkillsCollection
     /// to determine if a bunch should be interactable or not upon being turned on.
     /// </summary>
@@ -155,6 +179,15 @@ public abstract class Skill : MonoBehaviour
         //Debug.LogError(CultistPoints.GetPoints() >= cultistCost || usagesRemaining > 0);
 
         return CultistPoints.GetPoints() >= cultistCost || usagesRemaining > 0;
+    }
+
+    /// <summary>
+    /// Returns whether this skill has an expiration lock, meaning we must wait until its previous
+    /// use has expired.
+    /// </summary>
+    public bool HasExpirationLock()
+    {
+        return expirationLocked;
     }
 
 

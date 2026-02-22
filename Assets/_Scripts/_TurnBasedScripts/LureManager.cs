@@ -1,5 +1,11 @@
 using UnityEngine;
 
+
+/// <summary>
+/// This class is responsible for tracking lure lifetime.
+/// This should be handled in TurnBasedSystem along with other skill lifetimes,
+/// but alas it is not.
+/// </summary>
 public class LureManager : MonoBehaviour
 {
     public static LureManager Instance;
@@ -11,6 +17,17 @@ public class LureManager : MonoBehaviour
     [Header("Lure Visual")]
     [SerializeField] private GameObject lurePrefab;
     [SerializeField] private float lureHeight = 0.5f;
+
+    /// <summary>
+    /// Ideally this script does not exist and skill lure manages the lure entirely.
+    /// Reference here for telling skill lure when to lock up and disallow more than
+    /// one lure placement.
+    /// </summary>
+    private SkillLure skillLure;
+    public void SetSkillLure(SkillLure s)
+    {
+        skillLure = s;
+    }
     
     private void Awake()
     {
@@ -69,6 +86,7 @@ public class LureManager : MonoBehaviour
             
             if (lureRoundsRemaining <= 0)
             {
+                skillLure.ExpirationUnlock(); // allow another lure placement since this one gone
                 RemoveLure();
             }
         }

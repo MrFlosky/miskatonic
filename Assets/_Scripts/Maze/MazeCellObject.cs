@@ -16,6 +16,7 @@ public class MazeCellObject : MonoBehaviour
     [SerializeField] GameObject rightWall;
     [SerializeField] GameObject leftWall;
     [SerializeField] GameObject floor;
+    public GameObject GetFloor() { return floor; }
     
     [SerializeField] public Material roomFloorMaterial; // I set these to public to be accessed by room swap
     [SerializeField] public Material roomWallMaterial;
