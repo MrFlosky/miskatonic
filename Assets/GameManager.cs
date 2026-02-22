@@ -278,10 +278,13 @@ public class GameManager : MonoBehaviour
 
         if(demo)
         {
-            demoThankYouTxt.text = "Thank you for playing! Look forward to full release in Summer 2026.";
-            StartCoroutine(FadeDemoText(6.5f));
+            loseScript.Lose("Thank you for playing! Look forward to full release in Summer 2026.");
         } 
-        loseScript.Lose(reason);
+        else
+        {
+            loseScript.Lose(reason);
+        }
+        
         
     }
     #endregion

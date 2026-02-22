@@ -41,7 +41,10 @@ public class LoseScript : MonoBehaviour
     private IEnumerator DimLightAndLoadScene(string reason)
     {
         textParent.SetActive(true);
-        mainText.text = "You Lose";
+        if(!GameManager.Instance.demo)
+        {
+            mainText.text = "You Lose";
+        }
         reasonText.text = reason;
         
         float elapsedTime = 0f;
