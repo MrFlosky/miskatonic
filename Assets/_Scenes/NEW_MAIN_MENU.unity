@@ -2710,11 +2710,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e11812f3ae90c914c9c7f3ea93d19b51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  paintMaterial: {fileID: 2100000, guid: 43479a98908cc8647a99484ca88938a0, type: 2}
-  ditherMaterial: {fileID: 2100000, guid: b82d1161b9fc84a40b5130b2a217db6a, type: 2}
-  noPostProcMaterial: {fileID: 2100000, guid: 214624c04edcbc8498335dac7d2d36b5, type: 2}
-  firstPassRT: {fileID: 8400000, guid: 33f7407523d2d3046a57a0dec8c0ab73, type: 2}
-  excludedObjectsRT: {fileID: 8400000, guid: 861eb9cbf98913f4794045c1eb64318d, type: 2}
   excludedCam: {fileID: 1459546307}
 --- !u!1001 &990529220
 PrefabInstance:
@@ -2942,6 +2937,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1079360679}
   - component: {fileID: 1079360680}
+  - component: {fileID: 1079360681}
   m_Layer: 0
   m_Name: Spot Light
   m_TagString: Untagged
@@ -3026,6 +3022,29 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &1079360681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079360678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_RenderingLayers: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_ShadowRenderingLayers: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
 --- !u!1 &1081988059
 GameObject:
   m_ObjectHideFlags: 0
@@ -3875,6 +3894,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1275888282}
   - component: {fileID: 1275888281}
+  - component: {fileID: 1275888283}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -3959,6 +3979,29 @@ Transform:
   m_Children: []
   m_Father: {fileID: 679895739}
   m_LocalEulerAnglesHint: {x: 36.716, y: -95.221, z: -15.457}
+--- !u!114 &1275888283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1275888280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_RenderingLayers: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_ShadowRenderingLayers: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
 --- !u!1001 &1294476744
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4051,6 +4094,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1408445857}
   - component: {fileID: 1408445856}
+  - component: {fileID: 1408445858}
   m_Layer: 0
   m_Name: Spot Light
   m_TagString: Untagged
@@ -4135,6 +4179,29 @@ Transform:
   m_Children: []
   m_Father: {fileID: 679895739}
   m_LocalEulerAnglesHint: {x: 58.701, y: 0, z: 0}
+--- !u!114 &1408445858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1408445855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_RenderingLayers: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_ShadowRenderingLayers: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
 --- !u!1 &1459546306
 GameObject:
   m_ObjectHideFlags: 0
@@ -4532,6 +4599,7 @@ GameObject:
   - component: {fileID: 1506423573}
   - component: {fileID: 1506423572}
   - component: {fileID: 1506423574}
+  - component: {fileID: 1506423575}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -4600,6 +4668,28 @@ MonoBehaviour:
   m_PointerBehavior: 0
   m_CursorLockBehavior: 0
   m_ScrollDeltaPerTick: 6
+--- !u!114 &1506423575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1506423570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a5f88ae06ea47a408eeb05a9cc5dc3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  creditsRoot: {fileID: 9029656003430125027}
+  scroller: {fileID: 3159517351159406394}
+  homeScreen: {fileID: 7339876705531826444}
+  creditsButton: {fileID: 80291557600065563}
+  closeButton: {fileID: 8887318823728514155}
+  scrollStartY: -1429.882
+  scrollEndY: 3400
+  scrollDuration: 32
+  fadeInDuration: 1
+  fadeOutDuration: 1
 --- !u!1001 &1547651350
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5998,18 +6088,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1048979154962062893}
-        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-        m_MethodName: SetTrigger
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Fadeout
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 1081988060}
         m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
         m_MethodName: Play
@@ -6020,30 +6098,6 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 8953371520874255003}
-        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-        m_MethodName: SetTrigger
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Startcredits
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 8165128739745472513}
-        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-        m_MethodName: SetTrigger
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Startcredits
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!222 &212615692148041556
@@ -6195,22 +6249,6 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 1
           m_CallState: 2
---- !u!114 &562147322748900395
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 861776523884718732}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa11b182d3eceb44f8f83aa119500bc3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetAnimator: {fileID: 8953371520874255003}
-  triggerName: Exitcredits
-  secondaryAnimator: {fileID: 0}
-  secondaryTriggerName: 
 --- !u!224 &730658506036494740
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6322,7 +6360,6 @@ GameObject:
   - component: {fileID: 3159517351159406394}
   - component: {fileID: 8663703697274719632}
   - component: {fileID: 8165128739745472513}
-  - component: {fileID: 562147322748900395}
   m_Layer: 5
   m_Name: Scroller
   m_TagString: Untagged
@@ -8957,22 +8994,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &5368420677220774420
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9029656003430125027}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa11b182d3eceb44f8f83aa119500bc3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetAnimator: {fileID: 8953371520874255003}
-  triggerName: 
-  secondaryAnimator: {fileID: 1048979154962062893}
-  secondaryTriggerName: Fadein
 --- !u!224 &5607322587011306231
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10152,8 +10173,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8165128739745472513}
         m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-        m_MethodName: Play
-        m_Mode: 5
+        m_MethodName: 
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -10164,8 +10185,8 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 8165128739745472513}
         m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-        m_MethodName: SetTrigger
-        m_Mode: 5
+        m_MethodName: 
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -10174,7 +10195,7 @@ MonoBehaviour:
           m_StringArgument: Endcredits
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 8953371520874255003}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
         m_MethodName: SetTrigger
         m_Mode: 5
@@ -10188,14 +10209,26 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1048979154962062893}
         m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-        m_MethodName: SetTrigger
-        m_Mode: 5
+        m_MethodName: 
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: Fadein
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1081988060}
+        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &8918736307679867301
@@ -10236,27 +10269,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!95 &8953371520874255003
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9029656003430125027}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 02d5a23966b9cb7409a9443377c63d23, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &8958210963446574577
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10867,8 +10879,6 @@ GameObject:
   - component: {fileID: 3515779197937197630}
   - component: {fileID: 4973102848561664618}
   - component: {fileID: 797597199239216750}
-  - component: {fileID: 8953371520874255003}
-  - component: {fileID: 5368420677220774420}
   m_Layer: 5
   m_Name: Credits
   m_TagString: Untagged
