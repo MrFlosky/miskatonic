@@ -64,7 +64,7 @@ public class PortraitFade : MonoBehaviour, ITurnObserver
     {
         float t = 0;
         if (clicked)
-        {
+        {   PortraitButton.enabled= false;
             while (Portrait.color.a > maxClickedAlpha)
             {
                 float alpha = portraitColor.a;
@@ -77,7 +77,7 @@ public class PortraitFade : MonoBehaviour, ITurnObserver
 
 
             }
-            PortraitButton.enabled= false;
+            
         }
 
         else
@@ -123,6 +123,12 @@ public class PortraitFade : MonoBehaviour, ITurnObserver
         StopCoroutine(FadeOut());
          buttonText.GetComponent<TextMeshProUGUI>().enabled = true;
         PortraitButton.enabled = false;
+
+        StopCoroutine(FadeIn());
+        buttonText.GetComponent<TextMeshProUGUI>().enabled = true;
+        PortraitButton.enabled = true;
+        EnableRaycasts(true);
+
         float startingAlpha = Portrait.color.a;
         while (Portrait.color.a < MaxAlpha)
         {
@@ -135,8 +141,6 @@ public class PortraitFade : MonoBehaviour, ITurnObserver
 
             yield return new WaitForEndOfFrame();
         }
-       
-        
 
     }
 
