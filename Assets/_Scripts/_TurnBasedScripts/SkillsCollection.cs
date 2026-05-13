@@ -45,6 +45,9 @@ public class SkillsCollection : MonoBehaviour
             if (pd.TotemUnlocked) GetComponent<SkillFearTotem>().UnlockSkill();
             if (pd.LureUnlocked) GetComponent<SkillLure>().UnlockSkill();
             if (pd.RoomSwapUnlocked) GetComponent<SkillSwapRooms>().UnlockSkill();
+            if (pd.PsychosisUnlocked) GetComponent<SkillPsychosis>().UnlockSkill();
+            if (pd.RenovationUnlocked) GetComponent<SkillRenovation>().UnlockSkill();
+            if (pd.BarrierDestroyUnlocked) GetComponent<SkillBarrierDestroy>().UnlockSkill();
         }
 
         S.skillList = new List<Skill>(); // HAVE TO DO THIS!!!!!!!!!!!!!!!!! IDK WHY BUT IT TOOK ME LIKE 30+ MINS TO DEBUG WHY THIS WASNT WORKING. NOW WORKING 
@@ -156,5 +159,22 @@ public class SkillsCollection : MonoBehaviour
     {
         return GetComponent<SkillSwapRooms>().IsUnlocked();
     }
+
+    public bool IsPsychosisUnlocked()
+    {
+        return GetComponent<SkillPsychosis>().IsUnlocked();
+    }
+
+    public bool IsRenovationUnlocked()
+    {
+        return GetComponent<SkillRenovation>().IsUnlocked();
+    }
+
+    public bool IsBarrierDestroyUnlocked()
+    {
+        return GetComponent<SkillBarrierDestroy>().IsUnlocked();
+    }
+
+
 
 }

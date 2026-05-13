@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using CharacterData;
 using Cinemachine;
 using TMPro;
 using Unity.VisualScripting;

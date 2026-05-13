@@ -49,6 +49,10 @@ public class PlayerData
     public bool TotemUnlocked;
     public bool LureUnlocked;
     public bool RoomSwapUnlocked;
+    public bool PsychosisUnlocked;
+    public bool RenovationUnlocked;
+    public bool BarrierDestroyUnlocked;
+
 
     // Agent Fears Discovered
     public bool[] haroldFears;
@@ -66,23 +70,39 @@ public class PlayerData
     public List<int> mackenzieRemainingDialogues;
     public List<int> evelynRemainingDialogues;
 
+    // Characters Spoken To
+    public bool HaroldSpokenToThisTurn;
+    public bool IainSpokenToThisTurn;
+    public bool MackenzieSpokenToThisTurn;
+    public bool EvelynSpokenToThisTurn;
+
 
 
 
 
     // Constructor handles conversion of non-serializable data types
     public PlayerData(
+        // turn counts
         int totalTurnCount, int playerTurnCount, int aiTurnCount, int eventTurnCount, int roundsUntilDefeat,
+        // maze generation seed
         int seed,
         int cultistPoints,
         int totalFear,
+        // character specific fear amts
         int hFear, int iFear, int mFear, int eFear,
+        // AI locations
         Vector3 hPos, Vector3 iPos, Vector3 mPos, Vector3 ePos,
+        // AI rooms visited
         List<string> hRooms, List<string> iRooms, List<string> mRooms, List<string> eRooms,
-        bool aoeUnlocked, bool bUnlocked, bool tUnlocked, bool lUnlocked, bool rUnlocked,
+        // Skills unlocked
+        bool aoeUnlocked, bool barrierUnlocked, bool totemUnlocked, bool lureUnlocked, bool roomSwapUnlocked, bool psychosisUnlocked, bool renovationUnlocked, bool barrierDestroyUnlocked,
+        // Fears discovered
         bool[] hFears, bool[] iFears, bool[] mFears, bool[] eFears,
+        // Dialogues
         int hDialogueCount, int iDialogueCount, int mDialogueCount, int eDialogueCount,
-        List<int> hRemainingDialogues, List<int> iRemainingDialogues, List<int> mRemainingDialogues, List<int> eRemainingDialogues
+        List<int> hRemainingDialogues, List<int> iRemainingDialogues, List<int> mRemainingDialogues, List<int> eRemainingDialogues,
+        // spoken to this turn?
+        bool hSpoken, bool iSpoken, bool mSpoken, bool eSpoken
         )
     {
 
@@ -128,10 +148,13 @@ public class PlayerData
         evelynRooms = eRooms.ToArray();
 
         AOEFearUnlocked = aoeUnlocked;
-        BarrierUnlocked = bUnlocked;
-        TotemUnlocked = tUnlocked;
-        LureUnlocked = lUnlocked;
-        RoomSwapUnlocked = rUnlocked;
+        BarrierUnlocked = barrierUnlocked;
+        TotemUnlocked = totemUnlocked;
+        LureUnlocked = lureUnlocked;
+        RoomSwapUnlocked = roomSwapUnlocked;
+        PsychosisUnlocked = psychosisUnlocked;
+        RenovationUnlocked = renovationUnlocked;
+        BarrierDestroyUnlocked = barrierDestroyUnlocked;
 
         haroldFears = hFears;
         iainFears = iFears;
@@ -147,6 +170,11 @@ public class PlayerData
         iainRemainingDialogues = iRemainingDialogues;
         mackenzieRemainingDialogues = mRemainingDialogues;
         evelynRemainingDialogues = eRemainingDialogues;
+
+        HaroldSpokenToThisTurn = hSpoken;
+        IainSpokenToThisTurn = iSpoken;
+        MackenzieSpokenToThisTurn = mSpoken;
+        EvelynSpokenToThisTurn = eSpoken;
 
     }
 }

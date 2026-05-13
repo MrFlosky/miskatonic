@@ -35,6 +35,32 @@ public class SaveManager : MonoBehaviour
         - Sort saves by Date
         - Reformat to JSON or proprietary binary serialization
         - Reformat to event-based
+
+    COMPLETION TRACKER:
+        AI Locations (wait on AI rework)
+        AI State (wait on AI rework)
+        x Skill Unlocks
+        x Fear Amounts
+        x Cultist Amount
+        Dispatch Card State
+        x Unlocked Fears
+        Unlocked Storyboards
+        Characters Spoken to this Turn
+        Dispatch interacted with this turn?
+        x Current Turn
+        x Maze Seed
+        Placed Barriers
+        Room Swaps
+        Placed AOEs
+        Placed Lures
+        Placed Fear Totems
+        Active Psychoses
+        Ancient Advertising Turns Remaining (0 is inactive)
+        Prescience Turns Remaining (0 is inactive)
+        Incept Loneliness Active?
+        FtHOF Unlocked?
+        Room Renovation Turns Remaining (per room, 0 is inactive)
+
     */
 
 
@@ -85,6 +111,9 @@ public class SaveManager : MonoBehaviour
             SkillsCollection.S.IsTotemUnlocked(),
             SkillsCollection.S.IsLureUnlocked(),
             SkillsCollection.S.IsRoomSwapUnlocked(),
+            SkillsCollection.S.IsPsychosisUnlocked(),
+            SkillsCollection.S.IsRenovationUnlocked(),
+            SkillsCollection.S.IsBarrierDestroyUnlocked(),
             CharacterFears.Instance.GetFearsDiscovered(CharacterData.Character.HaroldAuden),
             CharacterFears.Instance.GetFearsDiscovered(CharacterData.Character.IainSchweblin),
             CharacterFears.Instance.GetFearsDiscovered(CharacterData.Character.MackenzieJoyce),
@@ -96,7 +125,11 @@ public class SaveManager : MonoBehaviour
             AgentManager.Instance.agents[0].GetComponent<DialogueBank>().GetRemainingDialogues(),
             AgentManager.Instance.agents[1].GetComponent<DialogueBank>().GetRemainingDialogues(),
             AgentManager.Instance.agents[2].GetComponent<DialogueBank>().GetRemainingDialogues(),
-            AgentManager.Instance.agents[3].GetComponent<DialogueBank>().GetRemainingDialogues()
+            AgentManager.Instance.agents[3].GetComponent<DialogueBank>().GetRemainingDialogues(),
+            AgentManager.Instance.agents[0].GetComponent<DialogueBank>().alreadyTalked,
+            AgentManager.Instance.agents[1].GetComponent<DialogueBank>().alreadyTalked,
+            AgentManager.Instance.agents[2].GetComponent<DialogueBank>().alreadyTalked,
+            AgentManager.Instance.agents[3].GetComponent<DialogueBank>().alreadyTalked
         );
 
         // Send to binary file
@@ -139,9 +172,8 @@ public class SaveManager : MonoBehaviour
         Time.timeScale = 1.0f;
         SceneController.Instance.LoadScene("NEW_MAIN");
 
-
-
     }
+
 
     // Adds a save to the list in memory as well as to our saved binary file 
     private void AddSave(SaveDisplayData dat, int slot)
@@ -194,8 +226,12 @@ public class SaveManager : MonoBehaviour
     void Awake()
     {
         if (S == null) S = this;
-        else Debug.LogError("There cannot be more than one SaveManager in scene!!!");
-
+        else
+        {
+            Destroy(this);
+            Debug.LogError("There cannot be more than one SaveManager in scene!!!");
+        }
+        
         // Load information abt saves into memory
         string path = Application.persistentDataPath + "/saves.mis";
         if (File.Exists(path))
@@ -209,6 +245,7 @@ public class SaveManager : MonoBehaviour
         else
         {
             Debug.Log("No save information found!");
+            // load saves with empties
             saves = new List<SaveDisplayData>();
             for (int i = 0; i < 3; i++)
             {

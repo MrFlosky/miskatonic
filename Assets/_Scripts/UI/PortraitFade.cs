@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Runtime.CompilerServices;
+using CharacterData;
 
 public class PortraitFade : MonoBehaviour, ITurnObserver
 {
@@ -48,7 +49,27 @@ public class PortraitFade : MonoBehaviour, ITurnObserver
             Debug.LogError(gameObject.name + " does not have a portrait assigned! Assign the characters portrait image.");
         }
 
-
+        if (LoadManager.S.loadData)
+        {
+            Character c = GetComponent<Books>().charactersBook;
+            PlayerData pd = LoadManager.S.playerDataToLoad;
+            switch (c)
+            {
+                case Character.MackenzieJoyce:
+                    clicked = pd.MackenzieSpokenToThisTurn;
+                    break;
+                case Character.EvelynVentress:
+                    clicked = pd.EvelynSpokenToThisTurn;
+                    break;
+                case Character.HaroldAuden:
+                    clicked = pd.HaroldSpokenToThisTurn;
+                    break;
+                case Character.IainSchweblin:
+                    clicked = pd.IainSpokenToThisTurn;
+                    break;
+            }
+            
+        }
     }
 
     private void EnableRaycasts(bool state) // bug fix for hovering on buttons while in dialogue - Raycasting

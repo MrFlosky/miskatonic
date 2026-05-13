@@ -70,7 +70,7 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
         characterLastName = CharacterNames.GetLastName(character);
         characterFullName = characterFirstName + characterLastName;
 
-        // If we are loading from a save, get the corresponding dialoguesRemaining and unplayed dialogues
+        // If we are loading from a save, get the corresponding dialoguesRemaining and unplayed dialogues, as well as if we have talked to a given character on a turn
         if (LoadManager.S.loadData)
         {
             PlayerData pd = LoadManager.S.playerDataToLoad;
@@ -79,18 +79,22 @@ public class DialogueBank : MonoBehaviour, ITurnObserver
                 case Character.HaroldAuden:
                     dialoguesRemaining = pd.haroldDialogueRemainingCount;
                     unPlayedDialogues = pd.haroldRemainingDialogues;
+                    alreadyTalked = pd.HaroldSpokenToThisTurn;
                     break;
                 case Character.IainSchweblin:
                     dialoguesRemaining = pd.iainDialogueRemainingCount;
                     unPlayedDialogues = pd.iainRemainingDialogues;
+                    alreadyTalked = pd.IainSpokenToThisTurn;
                     break;
                 case Character.MackenzieJoyce:
                     dialoguesRemaining = pd.mackenzieDialogueRemainingCount;
                     unPlayedDialogues = pd.mackenzieRemainingDialogues;
+                    alreadyTalked = pd.MackenzieSpokenToThisTurn;
                     break;
                 case Character.EvelynVentress:
                     dialoguesRemaining = pd.evelynDialogueRemainingCount;
                     unPlayedDialogues = pd.evelynRemainingDialogues;
+                    alreadyTalked = pd.EvelynSpokenToThisTurn;
                     break;
                 default:
                     break;
